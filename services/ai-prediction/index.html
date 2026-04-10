@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <title>AI売上予測モデル | 料金・活用事例 | HARTON 沼津</title>
+  <meta name="description" content="HARTONのAI予測モデル。売上予測・需要予測・来客数予測・在庫最適化・離職リスク・価格最適化など、既存データからあらゆる予測が可能。沼津市を拠点に全国対応。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="theme-color" content="#8b5cf6">
+  <meta name="color-scheme" content="light">
+  <link rel="canonical" href="https://harton.netlify.app/services/ai-prediction/">
+  <link rel="sitemap" type="application/xml" href="../../sitemap.xml">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32.png">
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+  <!-- OGP -->
+  <meta property="og:title" content="AI売上予測モデル | 料金・活用事例 | HARTON 沼津">
+  <meta property="og:description" content="HARTONのAI予測モデル。売上予測・需要予測・来客数予測・在庫最適化・離職リスク・価格最適化など、既存データからあらゆる予測が可能。沼津市を拠点に全国対応。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://harton.netlify.app/services/ai-prediction/">
+  <meta property="og:site_name" content="HARTON">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:image" content="https://harton.netlify.app/og-ai-prediction.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="HARTON AI売上予測モデル">
+  <meta property="og:image:type" content="image/png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI売上予測モデル | 料金・活用事例 | HARTON 沼津">
+  <meta name="twitter:description" content="HARTONのAI予測モデル。売上予測・需要予測・来客数予測・在庫最適化・離職リスク・価格最適化など、既存データからあらゆる予測が可能。沼津市を拠点に全国対応。">
+  <meta name="twitter:image" content="https://harton.netlify.app/og-ai-prediction.png">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMGZG751KF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DMGZG751KF');
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap">
+
+  <!-- Build CSS -->
+  <link rel="stylesheet" href="../../dist/output.css">
+
+  <!-- JSON-LD: Service -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "AI売上予測モデル",
+    "description": "HARTONのAI予測モデル。売上予測・需要予測・来客数予測・在庫最適化・離職リスク・価格最適化など、既存データからあらゆる予測が可能。",
+    "provider": {
+      "@type": "Organization",
+      "name": "HARTON",
+      "url": "https://harton.netlify.app/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "沼津市",
+        "addressRegion": "静岡県",
+        "addressCountry": "JP"
+      },
+      "telephone": "080-1058-0538"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "JP"
+    },
+    "offers": {
+      "@type": "AggregateOffer",
+      "lowPrice": "198000",
+      "highPrice": "980000",
+      "priceCurrency": "JPY"
+    },
+    "serviceType": "AI予測モデル構築"
+  }
+  </script>
+
+  <!-- JSON-LD: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "どんなデータが必要ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "最低限、過去1年分の月次売上データがあれば予測モデルを構築できます。商品別・顧客別・日次データがあれば、より高精度な予測が可能です。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Excelのデータでも大丈夫ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "はい。Excel・CSV・Googleスプレッドシートなど、どの形式でも対応可能です。データの整理・加工はこちらで行います。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "予測精度はどのくらいですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "データの質と量に依存しますが、月次売上予測で90%以上の精度を目標にしています。精度が目標に満たない場合は正直にお伝えし、改善策をご提案します。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "導入後、自分で操作する必要がありますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "基本的に自動運用です。毎月のレポートは自動配信され、ダッシュボードはブラウザで閲覧するだけ。特別な操作は不要です。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "データのセキュリティは？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "お預かりするデータはSSL暗号化通信で受け渡し、分析後は厳重に管理します。NDA（秘密保持契約）の締結にも対応いたします。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "どの業種でも使えますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "データがあればどの業種でも対応可能です。飲食・小売・製造・サービス業で実績があります。業種特有のデータ構造にも柔軟に対応いたします。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "予測が外れた場合はどうなりますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "精度モニタリングを行い、乖離が大きい場合はモデルを再調整します。継続学習で精度は向上し続けます。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "補助金は使えますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "IT導入補助金・ものづくり補助金の対象となる場合があります。申請サポートも行っておりますので、お気軽にご相談ください。"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ホーム",
+        "item": "https://harton.netlify.app/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "サービス",
+        "item": "https://harton.netlify.app/#services"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "AI売上予測モデル",
+        "item": "https://harton.netlify.app/services/ai-prediction/"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s, transform 0.7s; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .gradient-text { background: linear-gradient(135deg, #8b5cf6, #0ea5e9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+      .fade-in { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+
+  <noscript>
+    <style>
+      .fade-in { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
+</head>
+<body class="font-sans text-dark-800 bg-white">
+
+  <!-- Skip Link -->
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-violet-500 focus:text-white focus:px-6 focus:py-3 focus:rounded-lg focus:text-sm focus:font-bold">メインコンテンツへスキップ</a>
+
+  <!-- ========== ヘッダー ========== -->
+  <header class="fixed top-0 inset-x-0 bg-white/90 nav-blur shadow-sm z-50" role="banner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="../../index.html" class="flex items-center gap-2 py-3">
+        <div class="w-8 h-8 bg-gradient-to-br from-sky-400 to-sky-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-black text-sm font-display">H</span>
+        </div>
+        <span class="font-black font-display text-lg">HARTON</span>
+      </a>
+      <nav aria-label="メインナビゲーション" class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="../../index.html#services" class="hover:text-violet-600 transition py-3">サービス</a>
+        <a href="../../index.html#works" class="hover:text-violet-600 transition py-3">業種別サンプル</a>
+        <a href="../../index.html#simulator" class="bg-violet-500 text-white px-5 py-3 rounded-lg hover:bg-violet-600 transition font-bold">無料相談する</a>
+      </nav>
+      <button type="button" id="mobileMenuBtn" class="md:hidden flex items-center justify-center w-11 h-11 rounded-lg hover:bg-dark-50 transition" aria-expanded="false" aria-controls="mobileMenu" aria-label="メニューを開く">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path id="menuIconOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          <path id="menuIconClose" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" class="hidden"/>
+        </svg>
+      </button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-dark-100 shadow-lg">
+      <nav aria-label="モバイルナビゲーション" class="max-w-7xl mx-auto px-4 py-4 space-y-2">
+        <a href="../../index.html#services" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium">サービス</a>
+        <a href="../../index.html#works" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium">業種別サンプル</a>
+        <a href="../../index.html#simulator" class="block px-4 py-3 bg-violet-500 text-white rounded-lg text-center font-bold">無料相談する</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Breadcrumb -->
+    <div class="bg-white pt-[4.5rem]">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 text-[0.8125rem] text-dark-500" aria-label="パンくずリスト">
+        <a href="../../index.html" class="text-dark-500 hover:text-violet-600 transition">ホーム</a>
+        <span class="mx-1.5">&gt;</span>
+        <a href="../../index.html#services" class="text-dark-500 hover:text-violet-600 transition">サービス</a>
+        <span class="mx-1.5">&gt;</span>
+        <span aria-current="page">AI売上予測モデル</span>
+      </nav>
+    </div>
+
+    <!-- Hero -->
+    <section class="relative min-h-[90vh] flex items-center bg-dark-900 overflow-hidden pt-16" aria-label="AI売上予測モデル ヒーロー">
+      <!-- Grid background -->
+      <div class="absolute inset-0" style="background-image:radial-gradient(circle at 1px 1px,rgba(139,92,246,0.12) 1px,transparent 0);background-size:40px 40px" aria-hidden="true"></div>
+      <!-- Blobs -->
+      <div class="absolute top-20 left-10 w-72 h-72 bg-violet-500/10 rounded-full blur-[48px]" aria-hidden="true"></div>
+      <div class="absolute bottom-10 right-20 w-80 h-80 bg-sky-500/5 rounded-full blur-[48px]" aria-hidden="true"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10 lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+        <div class="fade-in">
+          <div class="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 text-violet-400 px-4 py-1.5 rounded-full text-sm font-medium mb-8">
+            <span class="w-2 h-2 bg-violet-400 rounded-full" aria-hidden="true"></span>
+            03 AI PREDICTION
+          </div>
+          <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight mb-6 font-display">データが、<br><span class="gradient-text">経営の武器になる。</span></h1>
+          <p class="text-dark-300 text-lg leading-relaxed mb-4 max-w-lg">勘と経験だけの経営は、終わりにしませんか。</p>
+          <p class="text-dark-400 text-[0.9375rem] leading-relaxed mb-8 max-w-lg">「売上が読めない」「在庫が余る」「仕入れが足りない」<br>過去データからAIが需要を予測。<strong class="text-white">数字に基づく経営判断</strong>で、ロスを最小化し、利益を最大化する。<br>既存データさえあれば、<strong class="text-white">あらゆる予測が可能</strong>です。</p>
+          <div class="flex flex-wrap gap-4">
+            <a href="../../index.html#simulator" class="inline-flex items-center justify-center bg-violet-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-violet-600 transition shadow-lg shadow-violet-500/25 min-h-[44px]">無料データ診断してみる</a>
+            <a href="#predictions" class="inline-flex items-center justify-center border border-dark-700 text-dark-300 font-medium px-8 py-4 rounded-xl hover:text-white hover:border-dark-500 transition min-h-[44px]">予測できること一覧 &rarr;</a>
+          </div>
+        </div>
+        <!-- Dashboard UI -->
+        <div class="hidden lg:block fade-in" aria-hidden="true">
+          <div class="bg-dark-800 rounded-2xl border border-dark-700 p-6">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              <span class="text-dark-500 text-xs ml-2">AI Prediction Model</span>
+              <span class="ml-auto bg-violet-500/20 text-violet-400 text-xs px-2 py-0.5 rounded">LIVE</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="bg-dark-700/50 rounded-xl p-4 text-center">
+                <div class="text-2xl font-black font-display text-violet-400">92.3%</div>
+                <div class="text-[0.6875rem] text-dark-400 mt-1">予測精度</div>
+              </div>
+              <div class="bg-dark-700/50 rounded-xl p-4 text-center">
+                <div class="text-2xl font-black font-display text-emerald-400">-23%</div>
+                <div class="text-[0.6875rem] text-dark-400 mt-1">在庫ロス削減</div>
+              </div>
+            </div>
+            <div class="bg-dark-700/30 rounded-xl p-4 mb-3">
+              <div class="text-xs text-dark-400 mb-2">来月の売上予測</div>
+              <div class="text-2xl font-black text-white font-display">&yen;12,450,000</div>
+              <div class="text-xs text-emerald-400 mt-1">&#9650; +8.2% vs 前月</div>
+            </div>
+            <div class="bg-dark-700/30 rounded-xl p-4">
+              <div class="flex items-end gap-1 h-14">
+                <div class="flex-1 rounded-t" style="height:30%;background:rgba(139,92,246,0.2)"></div>
+                <div class="flex-1 rounded-t" style="height:45%;background:rgba(139,92,246,0.25)"></div>
+                <div class="flex-1 rounded-t" style="height:55%;background:rgba(139,92,246,0.3)"></div>
+                <div class="flex-1 rounded-t" style="height:50%;background:rgba(139,92,246,0.35)"></div>
+                <div class="flex-1 rounded-t" style="height:70%;background:rgba(139,92,246,0.4)"></div>
+                <div class="flex-1 rounded-t" style="height:80%;background:rgba(139,92,246,0.5)"></div>
+                <div class="flex-1 rounded-t" style="height:75%;background:rgba(139,92,246,0.6)"></div>
+                <div class="flex-1 rounded-t" style="height:90%;background:#8b5cf6"></div>
+                <div class="flex-1 rounded-t" style="height:95%;background:rgba(167,139,250,0.3);border:1px dashed rgba(139,92,246,0.5)"></div>
+                <div class="flex-1 rounded-t" style="height:85%;background:rgba(167,139,250,0.2);border:1px dashed rgba(139,92,246,0.4)"></div>
+              </div>
+              <div class="flex justify-between mt-1">
+                <span class="text-[0.625rem] text-dark-500">実績</span>
+                <span class="text-[0.625rem] text-violet-400">&larr; 予測</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats bar -->
+    <section class="bg-violet-600 text-white py-10" aria-label="実績数値">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div class="fade-in">
+          <div class="text-4xl font-black font-display">92<span class="text-base">%</span></div>
+          <div class="text-sm text-white/70 mt-1">予測精度</div>
+        </div>
+        <div class="fade-in">
+          <div class="text-4xl font-black font-display">-23<span class="text-base">%</span></div>
+          <div class="text-sm text-white/70 mt-1">在庫ロス削減</div>
+        </div>
+        <div class="fade-in">
+          <div class="text-4xl font-black font-display">3<span class="text-base">ヶ月先</span></div>
+          <div class="text-sm text-white/70 mt-1">予測可能</div>
+        </div>
+        <div class="fade-in">
+          <div class="text-4xl font-black font-display">月次</div>
+          <div class="text-sm text-white/70 mt-1">自動レポート</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prediction types -->
+    <section id="predictions" class="py-24 bg-white" aria-label="予測可能な分析一覧">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <p class="text-violet-500 font-bold text-[0.8125rem] tracking-widest uppercase mb-3">Prediction Types</p>
+          <h2 class="text-3xl font-black text-dark-900">既存データがあれば、あらゆる予測が可能</h2>
+          <p class="text-dark-500 mt-3 max-w-2xl mx-auto leading-relaxed">売上データ、顧客リスト、在庫記録... お手持ちのデータから、AIが未来を予測します。<br>以下は予測可能な分析の一例です。</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
+          <!-- 1. 売上予測 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#128200;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">売上予測</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">月次・週次・日次の売上を高精度予測。季節変動・トレンドを自動検出し、先読みした経営判断を可能にします。</p>
+          </div>
+          <!-- 2. 需要予測 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#128230;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">需要予測</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">商品ごとの需要量を予測。仕入れ量の最適化で廃棄ロス・欠品を防止し、利益率を改善します。</p>
+          </div>
+          <!-- 3. 来客数予測 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#128101;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">来客数予測</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">曜日・天候・イベントを考慮した来客数予測。シフト・仕入れに直結し、人件費と食品ロスを削減します。</p>
+          </div>
+          <!-- 4. 在庫最適化 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#128451;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">在庫最適化</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">適正在庫量をAIが算出。過剰在庫のコスト削減と欠品防止を両立し、キャッシュフローを改善します。</p>
+          </div>
+          <!-- 5. 離職リスク予測 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#128100;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">離職リスク予測</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">従業員の行動パターンから離職兆候を早期検知。採用コスト削減と定着率向上に貢献します。</p>
+          </div>
+          <!-- 6. 広告効果予測 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#128226;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">広告効果予測</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">広告投資に対するROIを事前予測。無駄な広告費を削減し、費用対効果の高い媒体・時期を特定します。</p>
+          </div>
+          <!-- 7. 季節変動分析 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#127774;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">季節変動分析</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">年間の売上サイクルを可視化。繁忙期・閑散期の戦略立案を支援し、年間利益を最大化します。</p>
+          </div>
+          <!-- 8. 異常値検知 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#9888;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">異常値検知</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">売上・在庫・コストの異常をリアルタイム検知。不正・入力ミス・システム障害を早期に発見します。</p>
+          </div>
+          <!-- 9. 顧客LTV予測 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#128142;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">顧客LTV予測</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">顧客ごとの生涯価値を予測。優良顧客の特定と育成戦略に活用し、マーケティングROIを向上させます。</p>
+          </div>
+          <!-- 10. 価格最適化 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#128176;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">価格最適化</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">需要弾力性を分析し最適価格を提案。値上げ・値下げのタイミングを科学的に判断し、利益最大化を実現します。</p>
+          </div>
+          <!-- 11. 解約予測 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#128683;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">解約予測（チャーン）</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">サブスクリプション顧客の解約リスクをスコアリング。離脱兆候のある顧客に先手を打った施策が可能です。</p>
+          </div>
+          <!-- 12. キャッシュフロー予測 -->
+          <div class="bg-white border border-dark-200 rounded-2xl p-6 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-0.5 transition">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-[1.375rem] mb-4" aria-hidden="true">&#128181;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">キャッシュフロー予測</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">入出金パターンから資金繰りを予測。黒字倒産を防止し、投資・借入の最適タイミングを判断できます。</p>
+          </div>
+        </div>
+        <div class="text-center mt-12 p-6 bg-gradient-to-br from-violet-500/5 to-sky-500/5 rounded-2xl border border-dashed border-violet-500/30 fade-in">
+          <p class="text-base font-bold text-violet-600">上記は一例です。データがあれば、あらゆる予測が可能です。</p>
+          <span class="text-sm text-dark-500 block mt-1.5">「こんなことも予測できる？」お気軽にご相談ください。無料データ診断で可否をお伝えします。</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data sources -->
+    <section class="py-24 bg-dark-50" aria-label="対応データ形式">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <p class="text-violet-500 font-bold text-[0.8125rem] tracking-widest uppercase mb-3">Data Sources</p>
+          <h2 class="text-3xl font-black text-dark-900">データは何でもOK</h2>
+          <p class="text-dark-500 mt-3 max-w-2xl mx-auto leading-relaxed">お持ちのデータがどんな形式でも、AIが分析可能な形に整えます。<br>特別なシステム導入は不要です。</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto fade-in">
+          <div class="flex items-start gap-3 bg-white p-5 rounded-xl border border-dark-200">
+            <div class="w-10 h-10 bg-violet-50 rounded-lg flex items-center justify-center text-lg shrink-0" aria-hidden="true">&#128196;</div>
+            <div>
+              <div class="text-[0.9375rem] font-medium text-dark-700">Excel / CSV / Googleスプレッドシート</div>
+              <div class="text-[0.8125rem] text-dark-400 mt-0.5">最も一般的な形式。そのままお送りください。</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-white p-5 rounded-xl border border-dark-200">
+            <div class="w-10 h-10 bg-violet-50 rounded-lg flex items-center justify-center text-lg shrink-0" aria-hidden="true">&#128179;</div>
+            <div>
+              <div class="text-[0.9375rem] font-medium text-dark-700">POSデータ / 会計ソフトのエクスポート</div>
+              <div class="text-[0.8125rem] text-dark-400 mt-0.5">freee, マネーフォワード, 弥生等に対応。</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-white p-5 rounded-xl border border-dark-200">
+            <div class="w-10 h-10 bg-violet-50 rounded-lg flex items-center justify-center text-lg shrink-0" aria-hidden="true">&#128722;</div>
+            <div>
+              <div class="text-[0.9375rem] font-medium text-dark-700">ECサイトの注文履歴</div>
+              <div class="text-[0.8125rem] text-dark-400 mt-0.5">Shopify, BASE, 楽天, Amazon等のデータ。</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-white p-5 rounded-xl border border-dark-200">
+            <div class="w-10 h-10 bg-violet-50 rounded-lg flex items-center justify-center text-lg shrink-0" aria-hidden="true">&#128101;</div>
+            <div>
+              <div class="text-[0.9375rem] font-medium text-dark-700">CRMの顧客データ</div>
+              <div class="text-[0.8125rem] text-dark-400 mt-0.5">Salesforce, HubSpot, kintone等からのエクスポート。</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-white p-5 rounded-xl border border-dark-200">
+            <div class="w-10 h-10 bg-violet-50 rounded-lg flex items-center justify-center text-lg shrink-0" aria-hidden="true">&#128214;</div>
+            <div>
+              <div class="text-[0.9375rem] font-medium text-dark-700">紙の台帳（デジタル化からサポート）</div>
+              <div class="text-[0.8125rem] text-dark-400 mt-0.5">手書きの売上帳もデジタル化してAI分析可能に。</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 bg-white p-5 rounded-xl border border-dark-200">
+            <div class="w-10 h-10 bg-violet-50 rounded-lg flex items-center justify-center text-lg shrink-0" aria-hidden="true">&#128202;</div>
+            <div>
+              <div class="text-[0.9375rem] font-medium text-dark-700">その他あらゆる業務データ</div>
+              <div class="text-[0.8125rem] text-dark-400 mt-0.5">シフト表、予約台帳、生産記録なども活用可能。</div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-8 fade-in">
+          <p class="text-sm text-dark-500 leading-relaxed"><strong class="text-violet-600">最低1年分の月次データ</strong>があれば予測開始可能。<br>データが少なくても、統計的手法で補完し分析精度を確保します。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Technology -->
+    <section id="how" class="py-24 bg-white" aria-label="AIの仕組み">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <p class="text-violet-500 font-bold text-[0.8125rem] tracking-widest uppercase mb-3">Technology</p>
+          <h2 class="text-3xl font-black text-dark-900">AIの仕組み（技術的信頼性）</h2>
+          <p class="text-dark-500 mt-3 max-w-2xl mx-auto leading-relaxed">「AIって本当に信頼できるの？」その疑問にお答えします。<br>複数のアプローチから最適なモデルを選定し、精度を担保します。</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in">
+          <div class="bg-dark-50 border border-dark-200 rounded-2xl p-8">
+            <div class="inline-flex items-center justify-center w-8 h-8 bg-violet-500 text-white rounded-lg font-black text-sm font-display mb-4">1</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-3">複数アルゴリズムを並列検証</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">時系列分析（ARIMA, Prophet）、機械学習（XGBoost, LightGBM）、ディープラーニング（LSTM）など、複数の手法を同時に検証。データの特性に最も合うモデルを自動選定します。</p>
+          </div>
+          <div class="bg-dark-50 border border-dark-200 rounded-2xl p-8">
+            <div class="inline-flex items-center justify-center w-8 h-8 bg-violet-500 text-white rounded-lg font-black text-sm font-display mb-4">2</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-3">過学習（オーバーフィッティング）防止</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">交差検証・ホールドアウト検証を実施し、「過去データには強いが未来には弱い」モデルを排除。汎化性能の高いモデルのみを採用します。</p>
+          </div>
+          <div class="bg-dark-50 border border-dark-200 rounded-2xl p-8">
+            <div class="inline-flex items-center justify-center w-8 h-8 bg-violet-500 text-white rounded-lg font-black text-sm font-display mb-4">3</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-3">精度の定量的レポート</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">MAPE（平均絶対誤差率）、RMSE（二乗平均平方根誤差）など、業界標準の指標で精度を報告。「なんとなく当たっている」ではなく、数値で精度を証明します。</p>
+          </div>
+          <div class="bg-dark-50 border border-dark-200 rounded-2xl p-8">
+            <div class="inline-flex items-center justify-center w-8 h-8 bg-violet-500 text-white rounded-lg font-black text-sm font-display mb-4">4</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-3">定期的な再学習で精度を維持・向上</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">ビジネス環境は変化します。四半期ごとにモデルを再学習し、最新データを反映。予測精度は時間とともに向上し続けます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use cases by industry -->
+    <section class="py-24 bg-dark-50" aria-label="業種別活用シーン">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <p class="text-violet-500 font-bold text-[0.8125rem] tracking-widest uppercase mb-3">Use Cases</p>
+          <h2 class="text-3xl font-black text-dark-900">活用シーン（業種別）</h2>
+          <p class="text-dark-500 mt-3 max-w-2xl mx-auto leading-relaxed">業種を問わず、データがある限り予測は可能です。<br>以下は代表的な活用例です。</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
+          <!-- 飲食業 -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-dark-200">
+            <div class="text-[2rem] mb-4" aria-hidden="true">&#127860;</div>
+            <h3 class="text-lg font-black text-dark-900 mb-4">飲食業</h3>
+            <div class="bg-red-50 rounded-lg p-3 mb-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-red-500">課題：</strong>食材の仕入れが読めず、廃棄ロスが月30万円以上発生</p>
+            </div>
+            <div class="bg-violet-50 rounded-lg p-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-violet-600">解決：</strong>来客数予測 &rarr; 仕入れ最適化 &rarr; <strong>食品ロス60%削減</strong></p>
+            </div>
+          </div>
+          <!-- 小売業 -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-dark-200">
+            <div class="text-[2rem] mb-4" aria-hidden="true">&#128722;</div>
+            <h3 class="text-lg font-black text-dark-900 mb-4">小売業</h3>
+            <div class="bg-red-50 rounded-lg p-3 mb-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-red-500">課題：</strong>人気商品の欠品と不人気商品の在庫余りが同時発生</p>
+            </div>
+            <div class="bg-violet-50 rounded-lg p-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-violet-600">解決：</strong>需要予測 &rarr; 在庫最適化 &rarr; <strong>欠品率90%改善</strong></p>
+            </div>
+          </div>
+          <!-- 製造業 -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-dark-200">
+            <div class="text-[2rem] mb-4" aria-hidden="true">&#127981;</div>
+            <h3 class="text-lg font-black text-dark-900 mb-4">製造業</h3>
+            <div class="bg-red-50 rounded-lg p-3 mb-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-red-500">課題：</strong>受注変動への対応が遅れ、原材料の無駄と納期遅延が発生</p>
+            </div>
+            <div class="bg-violet-50 rounded-lg p-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-violet-600">解決：</strong>生産量予測 &rarr; 原材料発注最適化 &rarr; <strong>リードタイム30%短縮</strong></p>
+            </div>
+          </div>
+          <!-- サービス業 -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-dark-200">
+            <div class="text-[2rem] mb-4" aria-hidden="true">&#128188;</div>
+            <h3 class="text-lg font-black text-dark-900 mb-4">サービス業</h3>
+            <div class="bg-red-50 rounded-lg p-3 mb-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-red-500">課題：</strong>繁忙期・閑散期のスタッフ配置が噛み合わず、待ち時間増大</p>
+            </div>
+            <div class="bg-violet-50 rounded-lg p-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-violet-600">解決：</strong>予約数予測 &rarr; 人員シフト最適化 &rarr; <strong>顧客満足度向上</strong></p>
+            </div>
+          </div>
+          <!-- 不動産業 -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-dark-200">
+            <div class="text-[2rem] mb-4" aria-hidden="true">&#127968;</div>
+            <h3 class="text-lg font-black text-dark-900 mb-4">不動産業</h3>
+            <div class="bg-red-50 rounded-lg p-3 mb-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-red-500">課題：</strong>物件価格の設定が市場感覚に依存し、成約まで時間がかかる</p>
+            </div>
+            <div class="bg-violet-50 rounded-lg p-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-violet-600">解決：</strong>物件価格予測 &rarr; 成約確度スコアリング &rarr; <strong>成約期間短縮</strong></p>
+            </div>
+          </div>
+          <!-- 医療 -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-dark-200">
+            <div class="text-[2rem] mb-4" aria-hidden="true">&#127973;</div>
+            <h3 class="text-lg font-black text-dark-900 mb-4">医療・クリニック</h3>
+            <div class="bg-red-50 rounded-lg p-3 mb-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-red-500">課題：</strong>患者数の波が読めず、スタッフの過不足が常態化</p>
+            </div>
+            <div class="bg-violet-50 rounded-lg p-3">
+              <p class="text-[0.8125rem] text-dark-600"><strong class="text-violet-600">解決：</strong>患者数予測 &rarr; スタッフ配置最適化 &rarr; <strong>待ち時間50%短縮</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flow -->
+    <section class="py-24 bg-white" aria-label="導入の流れ">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <p class="text-violet-500 font-bold text-[0.8125rem] tracking-widest uppercase mb-3">Flow</p>
+          <h2 class="text-3xl font-black text-dark-900">導入の流れ</h2>
+          <p class="text-dark-500 mt-3 max-w-2xl mx-auto leading-relaxed">最短4週間で予測モデルが稼働。<br>データの整備から運用まで、すべてお任せください。</p>
+        </div>
+        <div class="max-w-xl mx-auto fade-in">
+          <!-- Step 1 -->
+          <div class="flex gap-6 items-start">
+            <div class="flex flex-col items-center">
+              <div class="w-14 h-14 bg-violet-500 text-white rounded-full flex items-center justify-center font-black text-lg font-display shrink-0">1</div>
+              <div class="w-0.5 h-20 bg-violet-200" aria-hidden="true"></div>
+            </div>
+            <div class="pt-2 pb-8">
+              <h3 class="text-lg font-black text-dark-900 mb-2">データ診断（無料）</h3>
+              <p class="text-sm text-dark-500 leading-relaxed mb-2">お持ちのデータ（売上履歴・顧客リスト等）を確認し、AI予測の可否と期待精度をお伝えします。どんな形式のデータでもまずはお見せください。</p>
+              <span class="text-xs font-bold text-violet-600">費用：無料 / 期間：1週間</span>
+            </div>
+          </div>
+          <!-- Step 2 -->
+          <div class="flex gap-6 items-start">
+            <div class="flex flex-col items-center">
+              <div class="w-14 h-14 bg-violet-500 text-white rounded-full flex items-center justify-center font-black text-lg font-display shrink-0">2</div>
+              <div class="w-0.5 h-20 bg-violet-200" aria-hidden="true"></div>
+            </div>
+            <div class="pt-2 pb-8">
+              <h3 class="text-lg font-black text-dark-900 mb-2">データ整備・モデル構築</h3>
+              <p class="text-sm text-dark-500 leading-relaxed mb-2">データのクリーニング・加工を行い、複数のAIモデルを構築。時系列分析・機械学習・ディープラーニングから最適なアルゴリズムを自動選定します。</p>
+              <span class="text-xs font-bold text-violet-600">期間：2〜4週間</span>
+            </div>
+          </div>
+          <!-- Step 3 -->
+          <div class="flex gap-6 items-start">
+            <div class="flex flex-col items-center">
+              <div class="w-14 h-14 bg-violet-500 text-white rounded-full flex items-center justify-center font-black text-lg font-display shrink-0">3</div>
+              <div class="w-0.5 h-20 bg-violet-200" aria-hidden="true"></div>
+            </div>
+            <div class="pt-2 pb-8">
+              <h3 class="text-lg font-black text-dark-900 mb-2">検証・精度チューニング</h3>
+              <p class="text-sm text-dark-500 leading-relaxed mb-2">直近3ヶ月のデータで予測精度を検証。目標精度90%以上を達成するまで調整を繰り返します。精度レポート（MAPE, RMSE等）をご提出します。</p>
+              <span class="text-xs font-bold text-violet-600">期間：1〜2週間</span>
+            </div>
+          </div>
+          <!-- Step 4 -->
+          <div class="flex gap-6 items-start">
+            <div class="flex flex-col items-center">
+              <div class="w-14 h-14 bg-violet-500 text-white rounded-full flex items-center justify-center font-black text-lg font-display shrink-0">4</div>
+            </div>
+            <div class="pt-2">
+              <h3 class="text-lg font-black text-dark-900 mb-2">ダッシュボード納品・運用開始</h3>
+              <p class="text-sm text-dark-500 leading-relaxed mb-2">予測結果を可視化するダッシュボードを構築・納品。月次で自動レポートを配信。モデルは継続学習で精度を維持・向上させます。操作不要の完全自動運用です。</p>
+              <span class="text-xs font-bold text-violet-600">月次レポート + モデル更新込み</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="py-24 bg-dark-50" aria-label="料金プラン">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <p class="text-violet-500 font-bold text-[0.8125rem] tracking-widest uppercase mb-3">Pricing</p>
+          <h2 class="text-3xl font-black text-dark-900">料金プラン</h2>
+          <p class="text-dark-500 mt-3 max-w-2xl mx-auto leading-relaxed">目的と規模に合わせて3つのプランをご用意。<br>すべてのプランに無料データ診断が含まれます。</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 fade-in">
+          <!-- Light -->
+          <div class="bg-white rounded-2xl p-8 border border-dark-200 text-center relative">
+            <div class="text-sm font-bold text-violet-500 mb-2">ライト分析</div>
+            <div class="text-4xl font-black text-dark-900 font-display mb-1">&yen;198,000<span class="text-base font-normal text-dark-400">〜</span></div>
+            <div class="text-xs text-dark-400 mb-6">データ可視化・傾向分析</div>
+            <ul class="text-left space-y-0">
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>データ可視化ダッシュボード</li>
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>傾向分析レポート</li>
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>基本的な売上トレンド分析</li>
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>1ヶ月サポート</li>
+            </ul>
+          </div>
+          <!-- Standard -->
+          <div class="bg-white rounded-2xl p-8 border-2 border-violet-500 shadow-lg shadow-violet-500/15 text-center relative">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-violet-500 text-white text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap">人気</div>
+            <div class="text-sm font-bold text-violet-500 mb-2">予測モデル構築</div>
+            <div class="text-4xl font-black text-dark-900 font-display mb-1">&yen;498,000<span class="text-base font-normal text-dark-400">〜</span></div>
+            <div class="text-xs text-dark-400 mb-6">AI予測モデル構築・検証</div>
+            <ul class="text-left space-y-0">
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>AI予測モデル構築</li>
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>精度検証レポート</li>
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>予測ダッシュボード</li>
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>複数アルゴリズム検証</li>
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>3ヶ月サポート</li>
+            </ul>
+          </div>
+          <!-- Full -->
+          <div class="bg-white rounded-2xl p-8 border border-dark-200 text-center relative">
+            <div class="text-sm font-bold text-violet-500 mb-2">フルAIパッケージ</div>
+            <div class="text-4xl font-black text-dark-900 font-display mb-1">&yen;980,000<span class="text-base font-normal text-dark-400">〜</span></div>
+            <div class="text-xs text-dark-400 mb-6">予測 + 自動アクション</div>
+            <ul class="text-left space-y-0">
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>予測モデル構築 + 自動アクション</li>
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>月次レポート自動送信</li>
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>モデル再学習（四半期）</li>
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>異常値アラート機能</li>
+              <li class="text-sm text-dark-600 py-2 flex items-center gap-2"><span class="text-violet-500 font-bold">&#10003;</span>6ヶ月サポート</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Optional -->
+        <div class="mt-8 p-6 bg-white border-2 border-dashed border-violet-200 rounded-2xl text-center max-w-md mx-auto fade-in">
+          <div class="text-sm font-bold text-violet-500 mb-1">月額運用プラン（オプション）</div>
+          <div class="text-2xl font-black text-dark-900 font-display">&yen;30,000<span class="text-sm font-normal text-dark-400">/月〜</span></div>
+          <div class="text-[0.8125rem] text-dark-500 mt-1">モデル更新・月次レポート配信・精度モニタリング</div>
+        </div>
+        <div class="text-center mt-8 fade-in">
+          <p class="text-xs text-dark-400 leading-relaxed">※税込 ※データ量・複雑さにより変動 ※無料データ診断後に正確なお見積りをご提示します</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Area -->
+    <section class="text-center py-12 bg-white border-t border-dark-100" aria-label="対応エリア">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 fade-in">
+        <p class="text-violet-500 font-bold text-[0.8125rem] tracking-widest uppercase mb-3">Service Area</p>
+        <p class="text-base text-dark-600"><strong class="text-violet-500">沼津市</strong>を拠点に、<strong class="text-violet-500">全国オンライン対応</strong>。<br>データのやり取りはすべてオンラインで完結します。対面でのご説明も静岡県東部エリアで対応可能です。</p>
+      </div>
+    </section>
+
+    <!-- Cross-sell -->
+    <section class="py-24 bg-white" aria-label="関連サービス">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <p class="text-violet-500 font-bold text-[0.8125rem] tracking-widest uppercase mb-3">Related Services</p>
+          <h2 class="text-3xl font-black text-dark-900">他のサービスとの組み合わせ</h2>
+          <p class="text-dark-500 mt-3 max-w-2xl mx-auto leading-relaxed">AI予測と組み合わせることで、さらに大きな成果を実現できます。</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto fade-in">
+          <a href="../web/" class="block bg-white border border-dark-200 rounded-2xl p-8 text-center hover:shadow-lg transition" aria-label="WEBサイト構築サービスの詳細を見る">
+            <div class="text-[2rem] mb-3" aria-hidden="true">&#127760;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">WEBサイト構築</h3>
+            <p class="text-sm text-dark-500 leading-relaxed mb-4">AI予測のダッシュボードを組み込んだ社内ポータルサイトの構築。データドリブンな組織文化をWebから実現します。</p>
+            <span class="text-sm text-violet-500 font-semibold">詳しく見る &rarr;</span>
+          </a>
+          <a href="../automation/" class="block bg-white border border-dark-200 rounded-2xl p-8 text-center hover:shadow-lg transition" aria-label="業務自動化サービスの詳細を見る">
+            <div class="text-[2rem] mb-3" aria-hidden="true">&#9881;</div>
+            <h3 class="text-[1.0625rem] font-bold text-dark-900 mb-2">業務自動化</h3>
+            <p class="text-sm text-dark-500 leading-relaxed mb-4">AI予測の結果を自動で発注書作成・シフト表更新に反映。予測から実行までを一気通貫で自動化します。</p>
+            <span class="text-sm text-violet-500 font-semibold">詳しく見る &rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-24 bg-dark-50" aria-label="よくあるご質問">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <p class="text-violet-500 font-bold text-[0.8125rem] tracking-widest uppercase mb-3">FAQ</p>
+          <h2 class="text-3xl font-black text-dark-900">よくあるご質問</h2>
+        </div>
+        <div class="max-w-3xl mx-auto fade-in">
+          <details class="bg-white rounded-xl p-6 mb-4 border border-dark-200" open>
+            <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-[0.9375rem] text-dark-900 min-h-[44px] [&::-webkit-details-marker]:hidden">どんなデータが必要ですか？<span class="text-violet-500 text-xl shrink-0 ml-4 transition-transform [[open]>&]:rotate-45" aria-hidden="true">+</span></summary>
+            <div class="text-sm text-dark-500 leading-relaxed mt-4 pt-4 border-t border-dark-100">最低限、過去1年分の月次売上データがあれば予測モデルを構築できます。商品別・顧客別・日次データがあれば、より高精度な予測が可能です。</div>
+          </details>
+          <details class="bg-white rounded-xl p-6 mb-4 border border-dark-200">
+            <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-[0.9375rem] text-dark-900 min-h-[44px] [&::-webkit-details-marker]:hidden">Excelのデータでも大丈夫ですか？<span class="text-violet-500 text-xl shrink-0 ml-4 transition-transform [[open]>&]:rotate-45" aria-hidden="true">+</span></summary>
+            <div class="text-sm text-dark-500 leading-relaxed mt-4 pt-4 border-t border-dark-100">はい。Excel・CSV・Googleスプレッドシートなど、どの形式でも対応可能です。データの整理・加工はこちらで行います。</div>
+          </details>
+          <details class="bg-white rounded-xl p-6 mb-4 border border-dark-200">
+            <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-[0.9375rem] text-dark-900 min-h-[44px] [&::-webkit-details-marker]:hidden">予測精度はどのくらいですか？<span class="text-violet-500 text-xl shrink-0 ml-4 transition-transform [[open]>&]:rotate-45" aria-hidden="true">+</span></summary>
+            <div class="text-sm text-dark-500 leading-relaxed mt-4 pt-4 border-t border-dark-100">データの質と量に依存しますが、月次売上予測で90%以上の精度を目標にしています。精度が目標に満たない場合は正直にお伝えし、改善策をご提案します。</div>
+          </details>
+          <details class="bg-white rounded-xl p-6 mb-4 border border-dark-200">
+            <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-[0.9375rem] text-dark-900 min-h-[44px] [&::-webkit-details-marker]:hidden">導入後、自分で操作する必要がありますか？<span class="text-violet-500 text-xl shrink-0 ml-4 transition-transform [[open]>&]:rotate-45" aria-hidden="true">+</span></summary>
+            <div class="text-sm text-dark-500 leading-relaxed mt-4 pt-4 border-t border-dark-100">基本的に自動運用です。毎月のレポートは自動配信され、ダッシュボードはブラウザで閲覧するだけ。特別な操作は不要です。</div>
+          </details>
+          <details class="bg-white rounded-xl p-6 mb-4 border border-dark-200">
+            <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-[0.9375rem] text-dark-900 min-h-[44px] [&::-webkit-details-marker]:hidden">データのセキュリティは？<span class="text-violet-500 text-xl shrink-0 ml-4 transition-transform [[open]>&]:rotate-45" aria-hidden="true">+</span></summary>
+            <div class="text-sm text-dark-500 leading-relaxed mt-4 pt-4 border-t border-dark-100">お預かりするデータはSSL暗号化通信で受け渡し、分析後は厳重に管理します。NDA（秘密保持契約）の締結にも対応いたします。</div>
+          </details>
+          <details class="bg-white rounded-xl p-6 mb-4 border border-dark-200">
+            <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-[0.9375rem] text-dark-900 min-h-[44px] [&::-webkit-details-marker]:hidden">どの業種でも使えますか？<span class="text-violet-500 text-xl shrink-0 ml-4 transition-transform [[open]>&]:rotate-45" aria-hidden="true">+</span></summary>
+            <div class="text-sm text-dark-500 leading-relaxed mt-4 pt-4 border-t border-dark-100">データがあればどの業種でも対応可能です。飲食・小売・製造・サービス業で実績があります。業種特有のデータ構造にも柔軟に対応いたします。</div>
+          </details>
+          <details class="bg-white rounded-xl p-6 mb-4 border border-dark-200">
+            <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-[0.9375rem] text-dark-900 min-h-[44px] [&::-webkit-details-marker]:hidden">予測が外れた場合はどうなりますか？<span class="text-violet-500 text-xl shrink-0 ml-4 transition-transform [[open]>&]:rotate-45" aria-hidden="true">+</span></summary>
+            <div class="text-sm text-dark-500 leading-relaxed mt-4 pt-4 border-t border-dark-100">精度モニタリングを行い、乖離が大きい場合はモデルを再調整します。継続学習で精度は向上し続けます。予測精度が目標を大きく下回る場合は、原因分析と改善提案をお伝えします。</div>
+          </details>
+          <details class="bg-white rounded-xl p-6 mb-4 border border-dark-200">
+            <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-[0.9375rem] text-dark-900 min-h-[44px] [&::-webkit-details-marker]:hidden">補助金は使えますか？<span class="text-violet-500 text-xl shrink-0 ml-4 transition-transform [[open]>&]:rotate-45" aria-hidden="true">+</span></summary>
+            <div class="text-sm text-dark-500 leading-relaxed mt-4 pt-4 border-t border-dark-100">IT導入補助金・ものづくり補助金の対象となる場合があります。申請サポートも行っておりますので、お気軽にご相談ください。補助金活用で実質負担を大幅に軽減できます。</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section aria-label="お問い合わせ" class="py-24 bg-dark-900 text-center">
+      <div class="max-w-2xl mx-auto px-4 fade-in">
+        <h2 class="text-3xl font-black text-white mb-4">まずは無料シミュレーターから</h2>
+        <p class="text-dark-400 mb-10">5つの質問に答えるだけで、AI予測の可能性と概算費用がわかります。</p>
+        <a href="../../index.html#simulator" class="inline-flex items-center justify-center bg-violet-500 text-white font-bold px-10 py-5 rounded-xl text-lg hover:bg-violet-600 transition shadow-lg shadow-violet-500/25">無料シミュレーター →</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark-900 border-t border-dark-800 py-12" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <a href="../../index.html" class="flex items-center gap-2">
+          <div class="w-7 h-7 bg-gradient-to-br from-sky-400 to-sky-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-black text-xs font-display">H</span>
+          </div>
+          <span class="text-white font-black font-display">HARTON</span>
+        </a>
+        <nav class="flex items-center gap-6 text-sm text-dark-400" aria-label="フッターナビゲーション">
+          <a href="../../index.html#services" class="hover:text-white transition py-3">サービス</a>
+          <a href="../../index.html#works" class="hover:text-white transition py-3">業種別サンプル</a>
+          <a href="../../index.html#about" class="hover:text-white transition py-3">会社概要</a>
+          <a href="../../index.html#simulator" class="hover:text-white transition py-3">無料相談</a>
+        </nav>
+      </div>
+      <div class="mt-8 pt-8 border-t border-dark-800 text-center">
+        <p class="text-dark-500 text-xs">&copy; 2026 HARTON Inc. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+const o = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => o.observe(el));
+
+const btn = document.getElementById('mobileMenuBtn');
+const menu = document.getElementById('mobileMenu');
+const iconOpen = document.getElementById('menuIconOpen');
+const iconClose = document.getElementById('menuIconClose');
+if (btn && menu) {
+  btn.addEventListener('click', () => {
+    const isOpen = !menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', !isOpen);
+    iconOpen.classList.toggle('hidden');
+    iconClose.classList.toggle('hidden');
+  });
+}
+  </script>
+
+</body>
+</html>

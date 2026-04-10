@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>和食処 さくら亭 | 旬を味わう、至福のひととき。</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+<script>tailwind.config={theme:{extend:{colors:{brand:'#9A3412','brand-light':'#FFF7ED','brand-dark':'#7C2D12'},fontFamily:{sans:['"Noto Sans JP"','sans-serif'],serif:['"Shippori Mincho"','serif']}}}}</script>
+<style>
+html{scroll-behavior:smooth}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.washi{background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+</style>
+</head>
+<body class="font-sans text-gray-800 bg-white">
+
+<header class="fixed top-0 inset-x-0 bg-white/90 backdrop-blur shadow-sm z-50">
+<div class="max-w-7xl mx-auto flex items-center justify-between h-16 px-4">
+<a href="#" class="flex items-center gap-2"><span class="font-serif text-2xl font-bold text-brand">さくら亭</span></a>
+<nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+<a href="#about" class="hover:text-brand transition">お店について</a>
+<a href="#menu" class="hover:text-brand transition">お品書き</a>
+<a href="#room" class="hover:text-brand transition">個室</a>
+<a href="#company" class="hover:text-brand transition">店舗情報</a>
+<a href="tel:000-000-0000" class="bg-brand text-white px-5 py-2 rounded-lg hover:bg-brand-dark transition">ご予約</a>
+</nav>
+</div>
+</header>
+
+<!-- ヒーロー: 和風全画面 -->
+<section class="relative min-h-screen flex items-end">
+<img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&q=80" alt="" class="absolute inset-0 w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10"></div>
+<div class="relative z-10 max-w-7xl mx-auto px-4 pb-24 pt-40 w-full">
+<span class="inline-block bg-brand text-white text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-wider">個室完備 ・ 接待・法事に</span>
+<h1 class="font-serif text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight mb-4">旬を味わう、<br>至福のひととき。</h1>
+<p class="text-white/70 text-lg max-w-lg mb-8">地元駿河湾の新鮮な海の幸と、旬の食材を活かした本格和食。<br>大切な方とのお時間を、心を込めたお料理でおもてなしいたします。</p>
+<div class="flex flex-wrap gap-4">
+<a href="tel:000-000-0000" class="bg-brand text-white font-bold px-8 py-4 rounded-xl hover:bg-brand-dark transition shadow-lg">ご予約 000-000-0000</a>
+<a href="#menu" class="text-white border border-white/40 px-8 py-4 rounded-xl hover:bg-white/10 transition">お品書き</a>
+</div>
+</div>
+</section>
+
+<!-- 数字バー -->
+<section class="bg-brand text-white py-10">
+<div class="max-w-7xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+<div class="fade-in"><div class="text-4xl font-black">25<span class="text-lg">年</span></div><div class="text-sm text-white/70 mt-1">創業の歴史</div></div>
+<div class="fade-in"><div class="text-4xl font-black">8<span class="text-lg">室</span></div><div class="text-sm text-white/70 mt-1">完全個室</div></div>
+<div class="fade-in"><div class="text-4xl font-black">80<span class="text-lg">席</span></div><div class="text-sm text-white/70 mt-1">お席数</div></div>
+<div class="fade-in"><div class="text-4xl font-black">80<span class="text-lg">%</span></div><div class="text-sm text-white/70 mt-1">地元食材使用率</div></div>
+</div>
+</section>
+
+<!-- お店について -->
+<section id="about" class="py-24 washi bg-brand-light">
+<div class="max-w-6xl mx-auto px-4">
+<div class="lg:grid lg:grid-cols-2 gap-16 items-center fade-in">
+<div>
+<p class="font-serif text-brand text-lg mb-2">About</p>
+<h2 class="font-serif text-3xl font-bold mb-6">四季折々の味を<br><span class="text-brand">真心込めて</span></h2>
+<p class="text-gray-600 leading-relaxed mb-6">和食処さくら亭は、駿河湾の新鮮な魚介と地元農家から届く旬の野菜を使い、日本料理の伝統を大切にしながらも現代の感性を取り入れたお料理をご提供しております。</p>
+<p class="text-gray-600 leading-relaxed mb-6">料理長・桜井は京都の老舗料亭で15年の修業を重ね、素材本来の味を引き出す繊細な技術を磨いてまいりました。接待、顔合わせ、法事など、大切な場面にふさわしいおもてなしをお約束いたします。</p>
+<div class="flex gap-6">
+<div class="text-center"><div class="text-3xl mb-1">&#127843;</div><p class="text-xs text-gray-500 font-medium">駿河湾直送</p></div>
+<div class="text-center"><div class="text-3xl mb-1">&#127807;</div><p class="text-xs text-gray-500 font-medium">地元農家直送</p></div>
+<div class="text-center"><div class="text-3xl mb-1">&#127862;</div><p class="text-xs text-gray-500 font-medium">地酒20種以上</p></div>
+</div>
+</div>
+<div class="mt-10 lg:mt-0">
+<img src="https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=800&q=80" class="rounded-2xl shadow-xl w-full h-80 object-cover">
+</div>
+</div>
+</div>
+</section>
+
+<!-- お品書き -->
+<section id="menu" class="py-24 bg-white">
+<div class="max-w-4xl mx-auto px-4">
+<div class="text-center mb-16 fade-in">
+<p class="font-serif text-brand text-lg">Menu</p>
+<h2 class="font-serif text-3xl font-bold mt-2">お品書き</h2>
+</div>
+<div class="space-y-0 fade-in">
+<div class="flex items-center justify-between py-6 border-b border-orange-100">
+<div><h3 class="font-bold text-lg">ランチ御膳</h3><p class="text-xs text-gray-400 mt-1">刺身・焼物・天ぷら・小鉢・ご飯・味噌汁・デザート</p></div>
+<div class="text-right"><span class="text-brand font-black text-xl">&yen;1,500</span><span class="text-xs text-gray-400 ml-1">〜</span></div>
+</div>
+<div class="flex items-center justify-between py-6 border-b border-orange-100">
+<div><h3 class="font-bold text-lg">季節の懐石</h3><p class="text-xs text-gray-400 mt-1">先付・椀物・向付・焼物・炊合せ・ご飯・水菓子（全8品）</p></div>
+<div class="text-right"><span class="text-brand font-black text-xl">&yen;5,000</span><span class="text-xs text-gray-400 ml-1">〜</span></div>
+</div>
+<div class="flex items-center justify-between py-6 border-b border-orange-100">
+<div><h3 class="font-bold text-lg">特選懐石</h3><p class="text-xs text-gray-400 mt-1">接待・記念日に。本日の厳選素材を使った至高のコース（全10品）</p></div>
+<div class="text-right"><span class="text-brand font-black text-xl">&yen;8,000</span><span class="text-xs text-gray-400 ml-1">〜</span></div>
+</div>
+<div class="flex items-center justify-between py-6 border-b border-orange-100">
+<div><h3 class="font-bold text-lg">宴会コース</h3><p class="text-xs text-gray-400 mt-1">飲み放題2時間付き / 8名様〜 / 個室確約</p></div>
+<div class="text-right"><span class="text-brand font-black text-xl">&yen;4,000</span><span class="text-xs text-gray-400 ml-1">〜/人</span></div>
+</div>
+<div class="flex items-center justify-between py-6 border-b border-orange-100">
+<div><h3 class="font-bold text-lg">法事・慶弔</h3><p class="text-xs text-gray-400 mt-1">ご法要後のお食事に。献立はご相談承ります</p></div>
+<div class="text-right"><span class="text-brand font-black text-xl">&yen;3,500</span><span class="text-xs text-gray-400 ml-1">〜/人</span></div>
+</div>
+<div class="flex items-center justify-between py-6">
+<div><h3 class="font-bold text-lg">お持ち帰り弁当</h3><p class="text-xs text-gray-400 mt-1">要予約 / 前日までにご連絡ください</p></div>
+<div class="text-right"><span class="text-brand font-black text-xl">&yen;1,800</span><span class="text-xs text-gray-400 ml-1">〜</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 個室 -->
+<section id="room" class="py-24 bg-gray-50">
+<div class="max-w-6xl mx-auto px-4">
+<div class="text-center mb-16 fade-in">
+<p class="font-serif text-brand text-lg">Private Room</p>
+<h2 class="font-serif text-3xl font-bold mt-2">完全個室</h2>
+<p class="text-gray-500 mt-3">接待・顔合わせ・法事に。2名様〜最大40名様対応</p>
+</div>
+<div class="grid sm:grid-cols-3 gap-6 fade-in">
+<div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition">
+<img src="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=600&q=80" class="w-full h-48 object-cover">
+<div class="p-5"><h3 class="font-bold mb-1">小個室「桜」「藤」</h3><p class="text-gray-500 text-sm">2〜4名様 / 掘りごたつ</p><p class="text-brand font-bold text-sm mt-2">接待・デートに</p></div>
+</div>
+<div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition">
+<img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" class="w-full h-48 object-cover">
+<div class="p-5"><h3 class="font-bold mb-1">中個室「菊」「梅」</h3><p class="text-gray-500 text-sm">6〜12名様 / 座敷</p><p class="text-brand font-bold text-sm mt-2">宴会・忘新年会に</p></div>
+</div>
+<div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition">
+<img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80" class="w-full h-48 object-cover">
+<div class="p-5"><h3 class="font-bold mb-1">大広間「松」</h3><p class="text-gray-500 text-sm">20〜40名様 / 座敷・テーブル</p><p class="text-brand font-bold text-sm mt-2">法事・歓送迎会に</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- お客様の声 -->
+<section class="py-24 bg-brand-light washi">
+<div class="max-w-6xl mx-auto px-4">
+<div class="text-center mb-16 fade-in">
+<p class="font-serif text-brand text-lg">Voice</p>
+<h2 class="font-serif text-3xl font-bold mt-2">お客様の声</h2>
+</div>
+<div class="grid md:grid-cols-3 gap-8 fade-in">
+<div class="bg-white p-8 rounded-2xl shadow-sm">
+<div class="flex gap-1 text-brand mb-4">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p class="text-gray-600 text-sm leading-relaxed mb-4">「接待で利用しました。個室の雰囲気、お料理の味、スタッフの対応すべてが完璧。お相手の方にも大変喜ばれました。」</p>
+<p class="font-bold text-sm">50代男性 / 法人接待</p>
+</div>
+<div class="bg-white p-8 rounded-2xl shadow-sm">
+<div class="flex gap-1 text-brand mb-4">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p class="text-gray-600 text-sm leading-relaxed mb-4">「母の喜寿祝いで家族10人で利用。季節の懐石が本当に美味しく、母も大感激。記念写真も撮っていただき良い思い出になりました。」</p>
+<p class="font-bold text-sm">40代女性 / 家族のお祝い</p>
+</div>
+<div class="bg-white p-8 rounded-2xl shadow-sm">
+<div class="flex gap-1 text-brand mb-4">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<p class="text-gray-600 text-sm leading-relaxed mb-4">「ランチ御膳がこの内容でこの価格は驚き。特に刺身の鮮度が抜群。週に一度は通っています。」</p>
+<p class="font-bold text-sm">60代男性 / 常連のお客様</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 店舗情報 -->
+<section id="company" class="py-24 bg-white">
+<div class="max-w-3xl mx-auto px-4 fade-in">
+<div class="text-center mb-12">
+<p class="font-serif text-brand text-lg">Information</p>
+<h2 class="font-serif text-3xl font-bold mt-2">店舗情報</h2>
+</div>
+<div class="bg-gray-50 rounded-2xl overflow-hidden shadow-sm">
+<table class="w-full text-sm">
+<tr class="border-b"><td class="px-6 py-4 font-bold w-32 bg-white">店名</td><td class="px-6 py-4">和食処 さくら亭</td></tr>
+<tr class="border-b"><td class="px-6 py-4 font-bold bg-white">代表</td><td class="px-6 py-4">桜井 義信（料理長兼任）</td></tr>
+<tr class="border-b"><td class="px-6 py-4 font-bold bg-white">設立</td><td class="px-6 py-4">2000年（平成12年）</td></tr>
+<tr class="border-b"><td class="px-6 py-4 font-bold bg-white">従業員数</td><td class="px-6 py-4">12名（調理師5名・ホール7名）</td></tr>
+<tr class="border-b"><td class="px-6 py-4 font-bold bg-white">営業時間</td><td class="px-6 py-4">昼 11:30〜14:00（L.O.13:30）<br>夜 17:00〜22:00（L.O.21:00）</td></tr>
+<tr class="border-b"><td class="px-6 py-4 font-bold bg-white">定休日</td><td class="px-6 py-4">毎週月曜日（祝日の場合は翌日）</td></tr>
+<tr class="border-b"><td class="px-6 py-4 font-bold bg-white">電話番号</td><td class="px-6 py-4"><a href="tel:000-000-0000" class="text-brand font-medium">000-000-0000</a></td></tr>
+<tr><td class="px-6 py-4 font-bold bg-white">所在地</td><td class="px-6 py-4">静岡県沼津市（詳細はお問い合わせください）</td></tr>
+</table>
+</div>
+</div>
+</section>
+
+<footer class="py-12 text-center text-white" style="background:#9A3412">
+<p class="font-serif text-2xl font-bold mb-2">和食処 さくら亭</p>
+<p class="text-white/70 text-sm mb-1">旬を味わう、至福のひととき。</p>
+<p class="text-white/50 text-xs">&copy; 2026 和食処 さくら亭 All Rights Reserved.</p>
+<p class="text-white/30 text-xs mt-2">※これはHARTONが制作したサンプルサイトです</p>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

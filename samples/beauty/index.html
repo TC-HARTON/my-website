@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+  <title>Beauty Salon Luce | あなたらしい美しさを</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <script>tailwind.config={theme:{extend:{colors:{brand:'#E11D73','brand-light':'#FDF2F8'},fontFamily:{sans:['"Noto Sans JP"','sans-serif'],serif:['"Playfair Display"','serif']}}}}</script>
+  <style>
+    html{scroll-behavior:smooth}
+    .fade-in{opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+  </style>
+</head>
+<body class="font-sans text-gray-700 bg-white">
+  <header class="fixed top-0 inset-x-0 bg-white/90 backdrop-blur z-50 border-b border-pink-100">
+    <div class="max-w-6xl mx-auto flex items-center justify-between h-16 px-4">
+      <a href="#" class="font-serif text-2xl italic text-brand">Luce</a>
+      <nav class="hidden md:flex items-center gap-8 text-sm">
+        <a href="#menu" class="hover:text-brand">Menu</a>
+        <a href="#stylist" class="hover:text-brand">Stylist</a>
+        <a href="#access" class="hover:text-brand">Access</a>
+        <a href="tel:000-000-0000" class="bg-brand text-white px-5 py-2 rounded-full text-xs font-bold">RESERVE</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ヒーロー: エレガント -->
+  <section class="min-h-screen flex items-center bg-brand-light pt-16">
+    <div class="max-w-6xl mx-auto px-4 py-20 lg:grid lg:grid-cols-2 gap-12 items-center">
+      <div class="fade-in">
+        <p class="font-serif text-brand italic text-lg mb-4">Beauty Salon Luce</p>
+        <h1 class="text-4xl lg:text-6xl font-black leading-tight mb-6">あなたらしい<br><span class="text-brand">美しさ</span>を。</h1>
+        <p class="text-gray-500 leading-relaxed mb-8 max-w-sm">一人ひとりの個性を大切に、あなただけのスタイルをご提案。<br>駅徒歩3分の隠れ家サロン。</p>
+        <div class="flex gap-4">
+          <a href="tel:000-000-0000" class="bg-brand text-white px-8 py-3 rounded-full font-bold hover:bg-pink-700 transition">予約する</a>
+          <a href="#menu" class="border-2 border-brand text-brand px-8 py-3 rounded-full font-bold hover:bg-brand hover:text-white transition">メニュー</a>
+        </div>
+      </div>
+      <div class="mt-12 lg:mt-0 fade-in">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&q=80" class="rounded-[2rem] shadow-xl w-full h-96 object-cover">
+          <div class="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-lg p-4 flex items-center gap-3">
+            <div class="w-10 h-10 bg-brand/10 rounded-full flex items-center justify-center text-brand font-bold">&#9733;</div>
+            <div><p class="text-xs text-gray-400">口コミ評価</p><p class="font-black text-lg">4.8 <span class="text-xs text-gray-400">/ 5.0</span></p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- メニュー -->
+  <section id="menu" class="py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-16 fade-in">
+        <p class="font-serif text-brand italic text-lg">Menu</p>
+        <h2 class="text-3xl font-black mt-2">メニュー</h2>
+      </div>
+      <div class="space-y-0 fade-in">
+        <div class="flex items-center justify-between py-6 border-b border-pink-100">
+          <div><h3 class="font-bold text-lg">カット</h3><p class="text-xs text-gray-400 mt-1">シャンプー・ブロー込み</p></div>
+          <div class="text-right"><span class="text-brand font-black text-xl">&yen;5,500</span><span class="text-xs text-gray-400 ml-1">~</span></div>
+        </div>
+        <div class="flex items-center justify-between py-6 border-b border-pink-100">
+          <div><h3 class="font-bold text-lg">カラー</h3><p class="text-xs text-gray-400 mt-1">リタッチ / フルカラー</p></div>
+          <div class="text-right"><span class="text-brand font-black text-xl">&yen;7,700</span><span class="text-xs text-gray-400 ml-1">~</span></div>
+        </div>
+        <div class="flex items-center justify-between py-6 border-b border-pink-100">
+          <div><h3 class="font-bold text-lg">パーマ</h3><p class="text-xs text-gray-400 mt-1">デジタルパーマ / コールドパーマ</p></div>
+          <div class="text-right"><span class="text-brand font-black text-xl">&yen;9,900</span><span class="text-xs text-gray-400 ml-1">~</span></div>
+        </div>
+        <div class="flex items-center justify-between py-6 border-b border-pink-100">
+          <div><h3 class="font-bold text-lg">トリートメント</h3><p class="text-xs text-gray-400 mt-1">髪質改善 / ヘッドスパ</p></div>
+          <div class="text-right"><span class="text-brand font-black text-xl">&yen;4,400</span><span class="text-xs text-gray-400 ml-1">~</span></div>
+        </div>
+        <div class="flex items-center justify-between py-6">
+          <div><h3 class="font-bold text-lg">カット + カラー セット</h3><p class="text-xs text-gray-400 mt-1">人気No.1メニュー</p></div>
+          <div class="text-right"><span class="text-brand font-black text-xl">&yen;11,000</span><span class="text-xs text-gray-400 ml-1">~</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- スタイリスト -->
+  <section id="stylist" class="py-24 bg-brand-light">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-16 fade-in">
+        <p class="font-serif text-brand italic text-lg">Stylist</p>
+        <h2 class="text-3xl font-black mt-2">スタイリスト</h2>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-8 fade-in">
+        <div class="text-center">
+          <div class="w-40 h-40 mx-auto rounded-full overflow-hidden mb-4 ring-4 ring-white shadow-lg"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&q=80" class="w-full h-full object-cover"></div>
+          <h3 class="font-bold text-lg">佐藤 美咲</h3>
+          <p class="text-brand text-sm font-medium">Owner / Director</p>
+          <p class="text-gray-400 text-xs mt-2">経験15年。ナチュラルスタイルが得意</p>
+        </div>
+        <div class="text-center">
+          <div class="w-40 h-40 mx-auto rounded-full overflow-hidden mb-4 ring-4 ring-white shadow-lg"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80" class="w-full h-full object-cover"></div>
+          <h3 class="font-bold text-lg">田中 りな</h3>
+          <p class="text-brand text-sm font-medium">Top Stylist</p>
+          <p class="text-gray-400 text-xs mt-2">トレンドヘアからモードまで</p>
+        </div>
+        <div class="text-center">
+          <div class="w-40 h-40 mx-auto rounded-full overflow-hidden mb-4 ring-4 ring-white shadow-lg"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&q=80" class="w-full h-full object-cover"></div>
+          <h3 class="font-bold text-lg">鈴木 健太</h3>
+          <p class="text-brand text-sm font-medium">Stylist</p>
+          <p class="text-gray-400 text-xs mt-2">メンズスタイルもお任せ</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- アクセス -->
+  <section id="access" class="py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4 fade-in">
+      <div class="text-center mb-12">
+        <p class="font-serif text-brand italic text-lg">Access</p>
+        <h2 class="text-3xl font-black mt-2">サロン情報</h2>
+      </div>
+      <div class="bg-brand-light rounded-3xl p-8 lg:p-12">
+        <div class="grid sm:grid-cols-2 gap-6 text-sm">
+          <div><p class="text-gray-400 text-xs mb-1">サロン名</p><p class="font-bold">Beauty Salon Luce</p></div>
+          <div><p class="text-gray-400 text-xs mb-1">電話番号</p><p class="font-bold"><a href="tel:000-000-0000" class="text-brand">000-000-0000</a></p></div>
+          <div><p class="text-gray-400 text-xs mb-1">営業時間</p><p class="font-bold">10:00 - 20:00（最終受付19:00）</p></div>
+          <div><p class="text-gray-400 text-xs mb-1">定休日</p><p class="font-bold">毎週火曜日・第3月曜日</p></div>
+          <div class="sm:col-span-2"><p class="text-gray-400 text-xs mb-1">住所</p><p class="font-bold">お問い合わせください</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-brand text-white py-10 text-center text-sm">
+    <p class="font-serif italic text-2xl mb-2">Luce</p>
+    <p class="text-white/60">&copy; 2026 Beauty Salon Luce.</p>
+    <p class="text-white/40 text-xs mt-2">※これはサンプルサイトです</p>
+  </footer>
+  <script>const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1});document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));</script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>リノベスタジオ | 暮らしを、リデザイン。</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+<script>tailwind.config={theme:{extend:{colors:{brand:'#2563EB','brand-light':'#EFF6FF','brand-dark':'#1D4ED8'},fontFamily:{sans:['"Noto Sans JP"','sans-serif']}}}}</script>
+<style>
+html{scroll-behavior:smooth}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body class="font-sans text-gray-800 bg-white">
+
+<header class="fixed top-0 inset-x-0 bg-white/90 backdrop-blur shadow-sm z-50">
+<div class="max-w-7xl mx-auto flex items-center justify-between h-16 px-4">
+<a href="#" class="flex items-center gap-2"><div class="w-9 h-9 bg-brand rounded-lg flex items-center justify-center"><span class="text-white font-black text-sm">R</span></div><span class="font-black text-lg">リノベスタジオ</span></a>
+<nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+<a href="#price" class="hover:text-brand transition">費用目安</a>
+<a href="#cases" class="hover:text-brand transition">施工事例</a>
+<a href="#flow" class="hover:text-brand transition">施工の流れ</a>
+<a href="#company" class="hover:text-brand transition">会社情報</a>
+<a href="tel:000-000-0000" class="bg-brand text-white px-5 py-2 rounded-lg hover:bg-brand-dark transition">無料見積り</a>
+</nav>
+</div>
+</header>
+
+<!-- ヒーロー -->
+<section class="relative min-h-screen flex items-center bg-brand-light pt-16">
+<div class="max-w-7xl mx-auto px-4 py-20 lg:grid lg:grid-cols-2 gap-12 items-center">
+<div class="fade-in">
+<span class="inline-block bg-brand text-white text-xs font-bold px-4 py-1.5 rounded-full mb-6">見積り無料 ・ 補助金活用サポート</span>
+<h1 class="text-4xl lg:text-6xl font-black leading-tight mb-6">暮らしを、<br><span class="text-brand">リデザイン。</span></h1>
+<p class="text-gray-600 leading-relaxed mb-8 max-w-md">キッチン・浴室から全面改装まで。<br>施工実績3,200件の経験で、理想の住まいを実現します。<br>補助金活用のアドバイスも無料。</p>
+<div class="flex flex-wrap gap-4">
+<a href="tel:000-000-0000" class="bg-brand text-white font-bold px-8 py-4 rounded-xl hover:bg-brand-dark transition shadow-lg">無料見積り</a>
+<a href="#price" class="border-2 border-brand text-brand font-bold px-8 py-4 rounded-xl hover:bg-brand hover:text-white transition">費用を見る</a>
+</div>
+</div>
+<div class="mt-12 lg:mt-0 fade-in">
+<img src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80" class="rounded-3xl shadow-2xl w-full h-96 object-cover">
+</div>
+</div>
+</section>
+
+<!-- 数字バー -->
+<section class="bg-brand text-white py-10">
+<div class="max-w-7xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+<div class="fade-in"><div class="text-4xl font-black">3,200<span class="text-lg">件</span></div><div class="text-sm text-white/70 mt-1">施工実績</div></div>
+<div class="fade-in"><div class="text-4xl font-black">96<span class="text-lg">%</span></div><div class="text-sm text-white/70 mt-1">お客様満足度</div></div>
+<div class="fade-in"><div class="text-4xl font-black">0<span class="text-lg">円</span></div><div class="text-sm text-white/70 mt-1">見積り費用</div></div>
+<div class="fade-in"><div class="text-4xl font-black">3<span class="text-lg">日〜</span></div><div class="text-sm text-white/70 mt-1">最短施工期間</div></div>
+</div>
+</section>
+
+<!-- 費用目安 -->
+<section id="price" class="py-24 bg-white">
+<div class="max-w-5xl mx-auto px-4">
+<div class="text-center mb-16 fade-in">
+<span class="text-brand text-sm font-bold tracking-widest">PRICE</span>
+<h2 class="text-3xl font-black mt-2">リフォーム費用の目安</h2>
+<p class="text-gray-500 mt-3">すべて工事費込み。追加費用なしの明朗会計</p>
+</div>
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
+<div class="border-2 border-gray-100 rounded-2xl p-6 hover:border-brand transition text-center">
+<div class="text-4xl mb-3">&#128704;</div>
+<h3 class="font-black text-lg mb-1">キッチン</h3>
+<p class="text-brand font-black text-2xl mb-2">80<span class="text-sm text-gray-500">万円〜</span></p>
+<p class="text-gray-500 text-xs">システムキッチン交換・壁面タイル・床張替え含む。LIXIL/TOTO/タカラ対応。</p>
+</div>
+<div class="border-2 border-gray-100 rounded-2xl p-6 hover:border-brand transition text-center">
+<div class="text-4xl mb-3">&#128705;</div>
+<h3 class="font-black text-lg mb-1">浴室</h3>
+<p class="text-brand font-black text-2xl mb-2">70<span class="text-sm text-gray-500">万円〜</span></p>
+<p class="text-gray-500 text-xs">ユニットバス交換。浴室乾燥機・追焚き機能付き。工期約4日。</p>
+</div>
+<div class="border-2 border-gray-100 rounded-2xl p-6 hover:border-brand transition text-center">
+<div class="text-4xl mb-3">&#128701;</div>
+<h3 class="font-black text-lg mb-1">トイレ</h3>
+<p class="text-brand font-black text-2xl mb-2">20<span class="text-sm text-gray-500">万円〜</span></p>
+<p class="text-gray-500 text-xs">便器交換+壁紙+床。節水型・タンクレスも対応。工期1〜2日。</p>
+</div>
+<div class="border-2 border-gray-100 rounded-2xl p-6 hover:border-brand transition text-center">
+<div class="text-4xl mb-3">&#127968;</div>
+<h3 class="font-black text-lg mb-1">外壁塗装</h3>
+<p class="text-brand font-black text-2xl mb-2">80<span class="text-sm text-gray-500">万円〜</span></p>
+<p class="text-gray-500 text-xs">足場・洗浄・下地処理込み。シリコン/フッ素/無機塗料選択可。30坪目安。</p>
+</div>
+<div class="border-2 border-gray-100 rounded-2xl p-6 hover:border-brand transition text-center">
+<div class="text-4xl mb-3">&#128187;</div>
+<h3 class="font-black text-lg mb-1">内装リフォーム</h3>
+<p class="text-brand font-black text-2xl mb-2">50<span class="text-sm text-gray-500">万円〜</span></p>
+<p class="text-gray-500 text-xs">壁紙・床の張替え、間取り変更、収納造作。部分的な改修もOK。</p>
+</div>
+<div class="border-2 border-gray-100 rounded-2xl p-6 hover:border-brand transition text-center">
+<div class="text-4xl mb-3">&#9854;</div>
+<h3 class="font-black text-lg mb-1">バリアフリー</h3>
+<p class="text-brand font-black text-2xl mb-2">30<span class="text-sm text-gray-500">万円〜</span></p>
+<p class="text-gray-500 text-xs">手すり設置・段差解消・引戸化。介護保険・補助金活用で自己負担軽減。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 施工事例 Before/After -->
+<section id="cases" class="py-24 bg-gray-50">
+<div class="max-w-6xl mx-auto px-4">
+<div class="text-center mb-16 fade-in"><span class="text-brand text-sm font-bold tracking-widest">CASES</span><h2 class="text-3xl font-black mt-2">施工事例</h2></div>
+<div class="grid md:grid-cols-2 gap-8 fade-in">
+<div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+<div class="grid grid-cols-2"><div class="relative"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80" class="w-full h-40 object-cover"><div class="absolute bottom-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">Before</div></div><div class="relative"><img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=400&q=80" class="w-full h-40 object-cover"><div class="absolute bottom-2 left-2 bg-brand text-white text-xs px-2 py-1 rounded">After</div></div></div>
+<div class="p-6"><h3 class="font-black mb-1">キッチン全面改装</h3><p class="text-gray-500 text-sm">築25年のI型キッチンを対面式に変更。パントリーも新設し収納力UP。</p><p class="text-brand font-bold text-sm mt-2">工事費 ¥180万 / 工期14日</p></div>
+</div>
+<div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+<div class="grid grid-cols-2"><div class="relative"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80" class="w-full h-40 object-cover"><div class="absolute bottom-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">Before</div></div><div class="relative"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=80" class="w-full h-40 object-cover"><div class="absolute bottom-2 left-2 bg-brand text-white text-xs px-2 py-1 rounded">After</div></div></div>
+<div class="p-6"><h3 class="font-black mb-1">浴室リフォーム</h3><p class="text-gray-500 text-sm">タイル浴室からユニットバスへ。浴室乾燥機・追焚き付きで快適に。</p><p class="text-brand font-bold text-sm mt-2">工事費 ¥95万 / 工期5日</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 施工の流れ -->
+<section id="flow" class="py-24 bg-white">
+<div class="max-w-5xl mx-auto px-4">
+<div class="text-center mb-16 fade-in"><span class="text-brand text-sm font-bold tracking-widest">FLOW</span><h2 class="text-3xl font-black mt-2">施工の流れ</h2></div>
+<div class="grid sm:grid-cols-5 gap-4 fade-in">
+<div class="bg-brand-light rounded-xl p-5 text-center"><div class="w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center font-black mx-auto mb-3">1</div><h3 class="font-bold text-sm">無料相談</h3><p class="text-gray-500 text-xs mt-1">ご要望ヒアリング</p></div>
+<div class="bg-brand-light rounded-xl p-5 text-center"><div class="w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center font-black mx-auto mb-3">2</div><h3 class="font-bold text-sm">現地調査</h3><p class="text-gray-500 text-xs mt-1">採寸・状態確認</p></div>
+<div class="bg-brand-light rounded-xl p-5 text-center"><div class="w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center font-black mx-auto mb-3">3</div><h3 class="font-bold text-sm">プラン・見積</h3><p class="text-gray-500 text-xs mt-1">明朗会計で提示</p></div>
+<div class="bg-brand-light rounded-xl p-5 text-center"><div class="w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center font-black mx-auto mb-3">4</div><h3 class="font-bold text-sm">施工</h3><p class="text-gray-500 text-xs mt-1">丁寧な工事</p></div>
+<div class="bg-brand-light rounded-xl p-5 text-center"><div class="w-10 h-10 bg-brand text-white rounded-full flex items-center justify-center font-black mx-auto mb-3">5</div><h3 class="font-bold text-sm">完工・保証</h3><p class="text-gray-500 text-xs mt-1">検査+アフター</p></div>
+</div>
+</div>
+</section>
+
+<!-- 補助金 -->
+<section class="py-16 bg-brand-light">
+<div class="max-w-4xl mx-auto px-4 text-center fade-in">
+<h2 class="text-2xl font-black mb-4">&#128161; 補助金・助成金の活用をサポート</h2>
+<p class="text-gray-600 text-sm leading-relaxed mb-6">「こどもエコすまい支援事業」「介護保険住宅改修」「自治体独自の補助金」など、お客様が利用可能な制度を無料で調査・申請サポートいたします。最大で工事費の30〜50%が補助される場合も。</p>
+<a href="tel:000-000-0000" class="inline-block bg-brand text-white font-bold px-8 py-3 rounded-xl hover:bg-brand-dark transition">補助金について相談する</a>
+</div>
+</section>
+
+<!-- お客様の声 -->
+<section class="py-24 bg-white">
+<div class="max-w-6xl mx-auto px-4">
+<div class="text-center mb-16 fade-in"><span class="text-brand text-sm font-bold tracking-widest">VOICE</span><h2 class="text-3xl font-black mt-2">お客様の声</h2></div>
+<div class="grid md:grid-cols-3 gap-8 fade-in">
+<div class="bg-gray-50 p-8 rounded-2xl"><div class="flex gap-1 text-yellow-400 mb-4">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm leading-relaxed mb-4">「キッチンが見違えるように綺麗に。対面式にしたことで家族の会話が増えました。見積りも明確で安心でした。」</p><p class="font-bold text-sm">40代女性 / キッチン改装</p></div>
+<div class="bg-gray-50 p-8 rounded-2xl"><div class="flex gap-1 text-yellow-400 mb-4">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm leading-relaxed mb-4">「母のためにバリアフリー工事をお願いしました。補助金の申請まで代行してくれて、自己負担が大幅に減りました。」</p><p class="font-bold text-sm">50代男性 / バリアフリー</p></div>
+<div class="bg-gray-50 p-8 rounded-2xl"><div class="flex gap-1 text-yellow-400 mb-4">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-gray-600 text-sm leading-relaxed mb-4">「トイレと浴室を同時にリフォーム。工期も予定通りで、仮住まいの必要もなく助かりました。仕上がりも満足です。」</p><p class="font-bold text-sm">60代ご夫婦 / 水回りセット</p></div>
+</div>
+</div>
+</section>
+
+<!-- 会社情報 -->
+<section id="company" class="py-24 bg-gray-50">
+<div class="max-w-3xl mx-auto px-4 fade-in">
+<div class="text-center mb-12"><span class="text-brand text-sm font-bold tracking-widest">COMPANY</span><h2 class="text-3xl font-black mt-2">会社情報</h2></div>
+<div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+<table class="w-full text-sm">
+<tr class="border-b"><td class="px-6 py-4 font-bold w-36 bg-gray-50">社名</td><td class="px-6 py-4">株式会社リノベスタジオ</td></tr>
+<tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">代表者</td><td class="px-6 py-4">代表取締役 田村 裕太</td></tr>
+<tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">設立</td><td class="px-6 py-4">2008年（平成20年）</td></tr>
+<tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">従業員数</td><td class="px-6 py-4">22名</td></tr>
+<tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">許可</td><td class="px-6 py-4">建設業許可 静岡県知事許可（般-5）第00000号</td></tr>
+<tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">電話番号</td><td class="px-6 py-4"><a href="tel:000-000-0000" class="text-brand font-medium">000-000-0000</a></td></tr>
+<tr><td class="px-6 py-4 font-bold bg-gray-50">所在地</td><td class="px-6 py-4">静岡県沼津市（詳細はお問い合わせください）</td></tr>
+</table>
+</div>
+</div>
+</section>
+
+<footer class="bg-gray-900 text-white py-12 text-center">
+<div class="flex items-center justify-center gap-2 mb-4"><div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center"><span class="text-white font-black text-sm">R</span></div><span class="font-black text-lg">リノベスタジオ</span></div>
+<p class="text-gray-400 text-sm mb-2">暮らしを、リデザイン。</p>
+<p class="text-gray-500 text-xs">&copy; 2026 リノベスタジオ All Rights Reserved.</p>
+<p class="text-gray-600 text-xs mt-2">※これはHARTONが制作したサンプルサイトです</p>
+</footer>
+<script>const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1});document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));</script>
+</body>
+</html>

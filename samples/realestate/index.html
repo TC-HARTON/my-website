@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+  <title>沼津不動産 | 理想の暮らしを、見つけよう</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <script>tailwind.config={theme:{extend:{colors:{brand:'#059669','brand-light':'#ECFDF5'},fontFamily:{sans:['"Noto Sans JP"','sans-serif']}}}}</script>
+  <style>
+    html{scroll-behavior:smooth}
+    .fade-in{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+  </style>
+</head>
+<body class="font-sans text-gray-700 bg-gray-50">
+  <header class="fixed top-0 inset-x-0 bg-white/90 backdrop-blur shadow-sm z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-16 px-4">
+      <a href="#" class="flex items-center gap-2"><div class="w-8 h-8 bg-brand rounded flex items-center justify-center"><span class="text-white font-black text-xs">R</span></div><span class="font-black text-lg">沼津不動産</span></a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="#property" class="hover:text-brand">物件情報</a>
+        <a href="#service" class="hover:text-brand">サービス</a>
+        <a href="#voice" class="hover:text-brand">お客様の声</a>
+        <a href="tel:000-000-0000" class="bg-brand text-white px-5 py-2 rounded-lg">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ヒーロー: 検索ボックス -->
+  <section class="relative min-h-[80vh] flex items-center pt-16">
+    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=80" class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-r from-black/60 to-black/30"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 w-full">
+      <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight mb-4">理想の暮らしを、<br><span class="text-green-400">見つけよう。</span></h1>
+      <p class="text-white/70 text-lg mb-10">沼津エリアの不動産情報が満載。賃貸・売買・投資用まで。</p>
+      <!-- ダミー検索フォーム -->
+      <div class="bg-white rounded-2xl p-6 shadow-2xl max-w-3xl">
+        <div class="grid sm:grid-cols-4 gap-4">
+          <div><label class="text-xs text-gray-400 block mb-1">エリア</label><select class="w-full border rounded-lg px-3 py-2.5 text-sm"><option>沼津市全域</option><option>沼津駅周辺</option><option>大岡エリア</option></select></div>
+          <div><label class="text-xs text-gray-400 block mb-1">種別</label><select class="w-full border rounded-lg px-3 py-2.5 text-sm"><option>賃貸</option><option>売買</option><option>土地</option></select></div>
+          <div><label class="text-xs text-gray-400 block mb-1">価格帯</label><select class="w-full border rounded-lg px-3 py-2.5 text-sm"><option>指定なし</option><option>〜5万円</option><option>5〜10万円</option></select></div>
+          <div class="flex items-end"><button class="w-full bg-brand text-white font-bold py-2.5 rounded-lg hover:bg-green-700 transition">検索する</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- おすすめ物件 -->
+  <section id="property" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12 fade-in"><h2 class="text-3xl font-black">おすすめ物件</h2><p class="text-gray-400 mt-2">スタッフ厳選のおすすめ物件をご紹介</p></div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-in">
+        <div class="bg-white border rounded-2xl overflow-hidden hover:shadow-lg transition">
+          <div class="relative"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" class="w-full h-48 object-cover"><span class="absolute top-3 left-3 bg-brand text-white text-xs font-bold px-3 py-1 rounded-full">NEW</span></div>
+          <div class="p-5">
+            <p class="text-brand font-black text-2xl mb-1">6.5<span class="text-sm">万円/月</span></p>
+            <h3 class="font-bold mb-2">ライオンズマンション沼津</h3>
+            <div class="flex flex-wrap gap-2 text-xs text-gray-400 mb-3"><span>2LDK</span><span>|</span><span>58m&sup2;</span><span>|</span><span>築12年</span><span>|</span><span>3階</span></div>
+            <p class="text-xs text-gray-500 flex items-center gap-1"><span>&#128652;</span>JR沼津駅 徒歩8分</p>
+          </div>
+        </div>
+        <div class="bg-white border rounded-2xl overflow-hidden hover:shadow-lg transition">
+          <div class="relative"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" class="w-full h-48 object-cover"><span class="absolute top-3 left-3 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">人気</span></div>
+          <div class="p-5">
+            <p class="text-brand font-black text-2xl mb-1">2,480<span class="text-sm">万円</span></p>
+            <h3 class="font-bold mb-2">大岡 新築戸建</h3>
+            <div class="flex flex-wrap gap-2 text-xs text-gray-400 mb-3"><span>3LDK</span><span>|</span><span>98m&sup2;</span><span>|</span><span>新築</span><span>|</span><span>駐車場2台</span></div>
+            <p class="text-xs text-gray-500 flex items-center gap-1"><span>&#128652;</span>JR大岡駅 徒歩12分</p>
+          </div>
+        </div>
+        <div class="bg-white border rounded-2xl overflow-hidden hover:shadow-lg transition">
+          <div class="relative"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" class="w-full h-48 object-cover"></div>
+          <div class="p-5">
+            <p class="text-brand font-black text-2xl mb-1">5.2<span class="text-sm">万円/月</span></p>
+            <h3 class="font-bold mb-2">グリーンハイツ沼津</h3>
+            <div class="flex flex-wrap gap-2 text-xs text-gray-400 mb-3"><span>1LDK</span><span>|</span><span>42m&sup2;</span><span>|</span><span>築8年</span><span>|</span><span>5階</span></div>
+            <p class="text-xs text-gray-500 flex items-center gap-1"><span>&#128652;</span>JR沼津駅 徒歩5分</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- サービス -->
+  <section id="service" class="py-24 bg-brand-light">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-12 fade-in"><h2 class="text-3xl font-black">サービス内容</h2></div>
+      <div class="grid sm:grid-cols-3 gap-6 fade-in">
+        <div class="bg-white rounded-2xl p-8 text-center shadow-sm"><div class="text-4xl mb-4">&#127968;</div><h3 class="font-bold text-lg mb-2">賃貸仲介</h3><p class="text-sm text-gray-400">アパート・マンション・一戸建て。ライフスタイルに合った物件探しをお手伝い。</p></div>
+        <div class="bg-white rounded-2xl p-8 text-center shadow-sm"><div class="text-4xl mb-4">&#128176;</div><h3 class="font-bold text-lg mb-2">売買仲介</h3><p class="text-sm text-gray-400">マイホーム購入から投資用物件まで。適正価格でのお取引をサポート。</p></div>
+        <div class="bg-white rounded-2xl p-8 text-center shadow-sm"><div class="text-4xl mb-4">&#128188;</div><h3 class="font-bold text-lg mb-2">不動産管理</h3><p class="text-sm text-gray-400">オーナー様の大切な資産を、入居者募集から管理までトータルサポート。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- お客様の声 -->
+  <section id="voice" class="py-24 bg-white">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12 fade-in"><h2 class="text-3xl font-black">お客様の声</h2></div>
+      <div class="grid sm:grid-cols-2 gap-6 fade-in">
+        <div class="bg-gray-50 rounded-2xl p-8"><p class="text-sm leading-relaxed mb-4">「初めての一人暮らしで不安でしたが、担当の方が親身になって物件を探してくれました。引越し後のサポートも手厚く、安心して新生活をスタートできました。」</p><div class="flex items-center gap-3"><div class="w-10 h-10 bg-brand/10 rounded-full flex items-center justify-center text-brand font-bold">A</div><div><p class="font-bold text-sm">A.T様</p><p class="text-xs text-gray-400">20代 / 賃貸</p></div></div></div>
+        <div class="bg-gray-50 rounded-2xl p-8"><p class="text-sm leading-relaxed mb-4">「マイホーム購入で大変お世話になりました。予算内で希望エリアの物件を見つけていただき、ローンの相談にも乗ってもらえて心強かったです。」</p><div class="flex items-center gap-3"><div class="w-10 h-10 bg-brand/10 rounded-full flex items-center justify-center text-brand font-bold">S</div><div><p class="font-bold text-sm">S.K様ご夫婦</p><p class="text-xs text-gray-400">30代 / 売買</p></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 会社情報 -->
+  <section class="py-24 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-4 fade-in">
+      <h2 class="text-3xl font-black text-center mb-12">会社情報</h2>
+      <div class="bg-white rounded-xl overflow-hidden shadow-sm">
+        <table class="w-full text-sm">
+          <tr class="border-b"><td class="px-6 py-4 font-bold w-32 bg-gray-50">会社名</td><td class="px-6 py-4">沼津不動産株式会社</td></tr>
+          <tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">免許番号</td><td class="px-6 py-4">静岡県知事(X)第XXXXX号</td></tr>
+          <tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">電話番号</td><td class="px-6 py-4"><a href="tel:000-000-0000" class="text-brand">000-000-0000</a></td></tr>
+          <tr><td class="px-6 py-4 font-bold bg-gray-50">営業時間</td><td class="px-6 py-4">9:00〜18:00（水曜定休）</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-white py-10 text-center text-sm">
+    <p class="text-gray-400">&copy; 2026 Real Estate Numazu.</p>
+    <p class="text-gray-600 text-xs mt-2">※これはサンプルサイトです</p>
+  </footer>
+  <script>const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1});document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));</script>
+</body>
+</html>

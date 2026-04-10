@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+  <title>ケアホームさくら | 笑顔あふれる、安心の毎日</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <script>tailwind.config={theme:{extend:{colors:{brand:'#D97706','brand-light':'#FFFBEB','sakura':'#FDE8E8'},fontFamily:{sans:['"Noto Sans JP"','sans-serif']}}}}</script>
+  <style>
+    html{scroll-behavior:smooth}
+    .fade-in{opacity:0;transform:translateY(20px);transition:opacity .8s,transform .8s}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+    .petal{position:absolute;width:12px;height:12px;background:#FECDD3;border-radius:50% 0 50% 50%;opacity:.4;animation:fall linear infinite}
+    @keyframes fall{0%{transform:translateY(-10vh) rotate(0deg)}100%{transform:translateY(110vh) rotate(720deg)}}
+  </style>
+</head>
+<body class="font-sans text-gray-700 bg-white">
+  <header class="fixed top-0 inset-x-0 bg-white/90 backdrop-blur shadow-sm z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between h-16 px-4">
+      <a href="#" class="flex items-center gap-2"><span class="text-2xl">&#127800;</span><span class="font-black text-lg text-brand">ケアホームさくら</span></a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="#feature" class="hover:text-brand">施設の特徴</a>
+        <a href="#schedule" class="hover:text-brand">一日の流れ</a>
+        <a href="#info" class="hover:text-brand">施設概要</a>
+        <a href="tel:000-000-0000" class="bg-brand text-white px-5 py-2 rounded-full">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ヒーロー: 温かみ -->
+  <section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 pt-16">
+    <!-- 桜の花びら装飾 -->
+    <div class="petal" style="left:10%;animation-duration:8s;animation-delay:0s"></div>
+    <div class="petal" style="left:30%;animation-duration:10s;animation-delay:2s;width:16px;height:16px"></div>
+    <div class="petal" style="left:50%;animation-duration:12s;animation-delay:4s"></div>
+    <div class="petal" style="left:70%;animation-duration:9s;animation-delay:1s;width:10px;height:10px"></div>
+    <div class="petal" style="left:85%;animation-duration:11s;animation-delay:3s"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-4 py-20 text-center">
+      <div class="fade-in">
+        <p class="text-brand font-bold text-sm tracking-widest mb-4">&#127800; CARE HOME SAKURA</p>
+        <h1 class="text-4xl lg:text-6xl font-black leading-tight mb-6">笑顔あふれる、<br><span class="text-brand">安心の毎日。</span></h1>
+        <p class="text-gray-500 text-lg max-w-xl mx-auto mb-10">ご入居者様一人ひとりの「らしさ」を大切に。<br>ご家族と共に歩む、温もりのある介護をお届けします。</p>
+        <div class="flex justify-center gap-4">
+          <a href="tel:000-000-0000" class="bg-brand text-white px-8 py-4 rounded-full font-bold hover:bg-amber-700 transition shadow-lg shadow-brand/20">見学予約・お電話</a>
+          <a href="#feature" class="border-2 border-brand text-brand px-8 py-4 rounded-full font-bold hover:bg-brand hover:text-white transition">施設を見る</a>
+        </div>
+      </div>
+      <!-- 安心バッジ -->
+      <div class="flex justify-center gap-4 mt-12 fade-in">
+        <div class="bg-white rounded-2xl px-6 py-3 shadow-sm"><p class="text-xs text-gray-400">入居率</p><p class="font-black text-brand text-xl">98%</p></div>
+        <div class="bg-white rounded-2xl px-6 py-3 shadow-sm"><p class="text-xs text-gray-400">満足度</p><p class="font-black text-brand text-xl">4.9/5</p></div>
+        <div class="bg-white rounded-2xl px-6 py-3 shadow-sm"><p class="text-xs text-gray-400">看護師</p><p class="font-black text-brand text-xl">24H</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 施設の特徴: 交互レイアウト -->
+  <section id="feature" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-16 fade-in"><h2 class="text-3xl font-black">施設の<span class="text-brand">特徴</span></h2></div>
+
+      <div class="lg:grid lg:grid-cols-2 gap-12 items-center mb-20 fade-in">
+        <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=800&q=80" class="rounded-3xl shadow-lg w-full h-72 object-cover">
+        <div class="mt-8 lg:mt-0">
+          <span class="text-brand text-sm font-bold">01</span>
+          <h3 class="text-2xl font-black mb-4">温もりのある空間</h3>
+          <p class="text-gray-500 leading-relaxed">木の温もりを活かした居室と、明るい共有スペース。ご入居者様がリラックスして過ごせる環境づくりを大切にしています。全室個室でプライバシーも安心。</p>
+        </div>
+      </div>
+
+      <div class="lg:grid lg:grid-cols-2 gap-12 items-center mb-20 fade-in">
+        <div class="order-2 lg:order-1 mt-8 lg:mt-0">
+          <span class="text-brand text-sm font-bold">02</span>
+          <h3 class="text-2xl font-black mb-4">充実のケア体制</h3>
+          <p class="text-gray-500 leading-relaxed">看護師24時間常駐。介護福祉士を中心とした専門スタッフが、お一人おひとりに合わせたケアプランで日常生活をサポートします。</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=80" class="rounded-3xl shadow-lg w-full h-72 object-cover order-1 lg:order-2">
+      </div>
+
+      <div class="lg:grid lg:grid-cols-2 gap-12 items-center fade-in">
+        <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=80" class="rounded-3xl shadow-lg w-full h-72 object-cover">
+        <div class="mt-8 lg:mt-0">
+          <span class="text-brand text-sm font-bold">03</span>
+          <h3 class="text-2xl font-black mb-4">楽しいレクリエーション</h3>
+          <p class="text-gray-500 leading-relaxed">季節の行事、音楽療法、園芸、手芸など多彩なプログラムを毎日実施。心身の活性化と生きがいづくりをサポートします。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 一日の流れ -->
+  <section id="schedule" class="py-24 bg-brand-light">
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="text-center mb-16 fade-in"><h2 class="text-3xl font-black">一日の流れ</h2><p class="text-gray-400 mt-2">ゆったりとした時間の中で、心豊かな毎日を</p></div>
+      <div class="space-y-0 fade-in">
+        <div class="flex gap-6 items-start"><div class="w-20 text-right shrink-0"><span class="text-brand font-black text-lg">7:00</span></div><div class="flex flex-col items-center"><div class="w-4 h-4 bg-brand rounded-full shrink-0 mt-1"></div><div class="w-0.5 h-full bg-brand/20 min-h-[3rem]"></div></div><div class="pb-6"><p class="font-bold">起床・身支度</p><p class="text-sm text-gray-400">お一人おひとりのペースで</p></div></div>
+        <div class="flex gap-6 items-start"><div class="w-20 text-right shrink-0"><span class="text-brand font-black text-lg">8:00</span></div><div class="flex flex-col items-center"><div class="w-4 h-4 bg-brand rounded-full shrink-0 mt-1"></div><div class="w-0.5 h-full bg-brand/20 min-h-[3rem]"></div></div><div class="pb-6"><p class="font-bold">朝食</p><p class="text-sm text-gray-400">管理栄養士監修の手作り朝食</p></div></div>
+        <div class="flex gap-6 items-start"><div class="w-20 text-right shrink-0"><span class="text-brand font-black text-lg">10:00</span></div><div class="flex flex-col items-center"><div class="w-4 h-4 bg-brand rounded-full shrink-0 mt-1"></div><div class="w-0.5 h-full bg-brand/20 min-h-[3rem]"></div></div><div class="pb-6"><p class="font-bold">レクリエーション</p><p class="text-sm text-gray-400">体操・手芸・音楽など日替わり</p></div></div>
+        <div class="flex gap-6 items-start"><div class="w-20 text-right shrink-0"><span class="text-brand font-black text-lg">12:00</span></div><div class="flex flex-col items-center"><div class="w-4 h-4 bg-brand rounded-full shrink-0 mt-1"></div><div class="w-0.5 h-full bg-brand/20 min-h-[3rem]"></div></div><div class="pb-6"><p class="font-bold">昼食</p><p class="text-sm text-gray-400">旬の食材を使った手作り料理</p></div></div>
+        <div class="flex gap-6 items-start"><div class="w-20 text-right shrink-0"><span class="text-brand font-black text-lg">14:00</span></div><div class="flex flex-col items-center"><div class="w-4 h-4 bg-brand rounded-full shrink-0 mt-1"></div><div class="w-0.5 h-full bg-brand/20 min-h-[3rem]"></div></div><div class="pb-6"><p class="font-bold">入浴</p><p class="text-sm text-gray-400">ゆったりとした個浴で</p></div></div>
+        <div class="flex gap-6 items-start"><div class="w-20 text-right shrink-0"><span class="text-brand font-black text-lg">15:00</span></div><div class="flex flex-col items-center"><div class="w-4 h-4 bg-brand rounded-full shrink-0 mt-1"></div><div class="w-0.5 h-full bg-brand/20 min-h-[3rem]"></div></div><div class="pb-6"><p class="font-bold">おやつタイム</p><p class="text-sm text-gray-400">手作りおやつとお茶</p></div></div>
+        <div class="flex gap-6 items-start"><div class="w-20 text-right shrink-0"><span class="text-brand font-black text-lg">18:00</span></div><div class="flex flex-col items-center"><div class="w-4 h-4 bg-brand rounded-full shrink-0 mt-1"></div><div class="w-0.5 h-full bg-brand/20 min-h-[3rem]"></div></div><div class="pb-6"><p class="font-bold">夕食</p><p class="text-sm text-gray-400">栄養バランスの取れた夕食</p></div></div>
+        <div class="flex gap-6 items-start"><div class="w-20 text-right shrink-0"><span class="text-brand font-black text-lg">21:00</span></div><div class="flex flex-col items-center"><div class="w-4 h-4 bg-brand rounded-full shrink-0 mt-1"></div></div><div><p class="font-bold">就寝</p><p class="text-sm text-gray-400">夜間も職員が見守ります</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ご家族の声 -->
+  <section class="py-24 bg-white">
+    <div class="max-w-5xl mx-auto px-4">
+      <div class="text-center mb-12 fade-in"><h2 class="text-3xl font-black">ご家族の声</h2></div>
+      <div class="grid sm:grid-cols-2 gap-6 fade-in">
+        <div class="bg-brand-light rounded-3xl p-8">
+          <p class="text-sm leading-relaxed mb-4">「母が入居してから本当に明るくなりました。スタッフの皆さんが家族のように接してくださり、レクリエーションも楽しんでいるようで安心しています。」</p>
+          <div class="flex items-center gap-3"><div class="w-10 h-10 bg-brand/10 rounded-full flex items-center justify-center text-brand font-bold">M</div><div><p class="font-bold text-sm">M.S様のご家族</p><p class="text-xs text-gray-400">入居3年目</p></div></div>
+        </div>
+        <div class="bg-sakura rounded-3xl p-8">
+          <p class="text-sm leading-relaxed mb-4">「見学時の温かい雰囲気に惹かれて入居を決めました。栄養士さんの手作り食事がとても美味しいと父も喜んでいます。面会に行くたびに笑顔を見れて嬉しいです。」</p>
+          <div class="flex items-center gap-3"><div class="w-10 h-10 bg-brand/10 rounded-full flex items-center justify-center text-brand font-bold">T</div><div><p class="font-bold text-sm">T.K様のご家族</p><p class="text-xs text-gray-400">入居1年目</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 施設概要 -->
+  <section id="info" class="py-24 bg-brand-light">
+    <div class="max-w-3xl mx-auto px-4 fade-in">
+      <h2 class="text-3xl font-black text-center mb-12">施設概要</h2>
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+        <table class="w-full text-sm">
+          <tr class="border-b"><td class="px-6 py-4 font-bold w-32 bg-gray-50">施設名</td><td class="px-6 py-4">ケアホームさくら</td></tr>
+          <tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">種別</td><td class="px-6 py-4">住宅型有料老人ホーム</td></tr>
+          <tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">定員</td><td class="px-6 py-4">50名（全室個室）</td></tr>
+          <tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">電話番号</td><td class="px-6 py-4"><a href="tel:000-000-0000" class="text-brand">000-000-0000</a></td></tr>
+          <tr><td class="px-6 py-4 font-bold bg-gray-50">住所</td><td class="px-6 py-4">お問い合わせください</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-amber-900 text-white py-10 text-center text-sm">
+    <p class="text-2xl mb-2">&#127800; ケアホームさくら</p>
+    <p class="text-amber-300/60">&copy; 2026 Care Home Sakura.</p>
+    <p class="text-amber-300/40 text-xs mt-2">※これはサンプルサイトです</p>
+  </footer>
+  <script>const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1});document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));</script>
+</body>
+</html>

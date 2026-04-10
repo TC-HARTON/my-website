@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+  <title>PRON Inc. | 新鮮な食材を、確実にお届け</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <script>tailwind.config={theme:{extend:{colors:{brand:'#CC0000','brand-dark':'#A30000'},fontFamily:{sans:['"Noto Sans JP"','sans-serif']}}}}</script>
+  <style>
+    html{scroll-behavior:smooth}
+    .fade-in{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+  </style>
+</head>
+<body class="font-sans text-gray-800">
+
+  <!-- ヘッダー -->
+  <header class="fixed top-0 inset-x-0 bg-white/90 backdrop-blur shadow-sm z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between h-16 px-4">
+      <a href="#" class="flex items-center gap-2">
+        <div class="w-9 h-9 bg-brand rounded-lg flex items-center justify-center"><span class="text-white font-black text-sm">P</span></div>
+        <span class="text-lg font-black">PRON Inc.</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="#strength" class="hover:text-brand">強み</a>
+        <a href="#services" class="hover:text-brand">取扱商品</a>
+        <a href="#company" class="hover:text-brand">会社情報</a>
+        <a href="tel:000-000-0000" class="bg-brand text-white px-5 py-2 rounded-lg hover:bg-brand-dark">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ヒーロー: 大写真+オーバーレイ -->
+  <section class="relative min-h-screen flex items-end">
+    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80" alt="" class="absolute inset-0 w-full h-full object-cover">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 pb-20 pt-40 w-full">
+      <span class="inline-block bg-brand text-white text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-wider">HACCP対応 / 品質管理徹底</span>
+      <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black text-white leading-tight mb-4">新鮮な食材を、<br>確実にお届け。</h1>
+      <p class="text-white/70 text-lg max-w-lg mb-8">30,000種以上の業務用食材を全国の飲食店・小売店へ。<br>安心安全の品質管理体制で、お客様のビジネスを支えます。</p>
+      <div class="flex gap-4">
+        <a href="tel:000-000-0000" class="bg-brand text-white font-bold px-8 py-4 rounded-xl hover:bg-brand-dark transition">お電話で相談</a>
+        <a href="#strength" class="text-white border border-white/40 px-8 py-4 rounded-xl hover:bg-white/10 transition">詳しく見る</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 数字バー -->
+  <section class="bg-brand text-white py-10">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+      <div class="fade-in"><div class="text-4xl font-black">30,000<span class="text-lg">種+</span></div><div class="text-sm text-white/70 mt-1">取扱アイテム</div></div>
+      <div class="fade-in"><div class="text-4xl font-black">365<span class="text-lg">日</span></div><div class="text-sm text-white/70 mt-1">安定供給体制</div></div>
+      <div class="fade-in"><div class="text-4xl font-black">50<span class="text-lg">社+</span></div><div class="text-sm text-white/70 mt-1">取引先</div></div>
+      <div class="fade-in"><div class="text-4xl font-black">98<span class="text-lg">%</span></div><div class="text-sm text-white/70 mt-1">顧客満足度</div></div>
+    </div>
+  </section>
+
+  <!-- 強み: 大きな左右交互レイアウト -->
+  <section id="strength" class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-black text-center mb-4 fade-in">選ばれる<span class="text-brand">3つの理由</span></h2>
+      <p class="text-center text-gray-500 mb-16 fade-in">食のプロフェッショナルとして、品質・価格・スピードで応えます</p>
+
+      <!-- 理由1 -->
+      <div class="lg:grid lg:grid-cols-2 gap-12 items-center mb-20 fade-in">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80" class="rounded-2xl shadow-lg w-full h-72 object-cover">
+          <div class="absolute -top-4 -left-4 bg-brand text-white w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black shadow-lg">01</div>
+        </div>
+        <div class="mt-8 lg:mt-0">
+          <h3 class="text-2xl font-black mb-4">豊富な品揃え</h3>
+          <p class="text-gray-600 leading-relaxed mb-4">冷凍・冷蔵・常温の全温度帯で30,000種以上のアイテムを取り揃え。和食・洋食・中華・エスニックまで、あらゆるジャンルの食材をワンストップでお届けします。</p>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2"><span class="text-brand font-bold">&#10003;</span>全温度帯対応</li>
+            <li class="flex items-center gap-2"><span class="text-brand font-bold">&#10003;</span>小ロット注文OK</li>
+            <li class="flex items-center gap-2"><span class="text-brand font-bold">&#10003;</span>新商品の提案力</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 理由2（逆配置） -->
+      <div class="lg:grid lg:grid-cols-2 gap-12 items-center mb-20 fade-in">
+        <div class="order-2 lg:order-1 mt-8 lg:mt-0">
+          <h3 class="text-2xl font-black mb-4">徹底した品質管理</h3>
+          <p class="text-gray-600 leading-relaxed mb-4">HACCP対応の自社倉庫で、入荷から出荷まで一貫した温度管理を実施。トレーサビリティ体制を構築し、安心安全な食材をお届けします。</p>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2"><span class="text-brand font-bold">&#10003;</span>HACCP対応施設</li>
+            <li class="flex items-center gap-2"><span class="text-brand font-bold">&#10003;</span>全品トレーサビリティ</li>
+            <li class="flex items-center gap-2"><span class="text-brand font-bold">&#10003;</span>定期品質検査</li>
+          </ul>
+        </div>
+        <div class="order-1 lg:order-2 relative">
+          <img src="https://images.unsplash.com/photo-1582515073490-39981397c445?w=800&q=80" class="rounded-2xl shadow-lg w-full h-72 object-cover">
+          <div class="absolute -top-4 -right-4 bg-brand text-white w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black shadow-lg">02</div>
+        </div>
+      </div>
+
+      <!-- 理由3 -->
+      <div class="lg:grid lg:grid-cols-2 gap-12 items-center fade-in">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=800&q=80" class="rounded-2xl shadow-lg w-full h-72 object-cover">
+          <div class="absolute -top-4 -left-4 bg-brand text-white w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black shadow-lg">03</div>
+        </div>
+        <div class="mt-8 lg:mt-0">
+          <h3 class="text-2xl font-black mb-4">迅速な配送体制</h3>
+          <p class="text-gray-600 leading-relaxed mb-4">自社配送網で地域全域をカバー。朝注文・当日配送にも対応。お客様の営業時間に合わせた柔軟なデリバリーで、必要な時に必要な食材を確実にお届けします。</p>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2"><span class="text-brand font-bold">&#10003;</span>当日配送対応</li>
+            <li class="flex items-center gap-2"><span class="text-brand font-bold">&#10003;</span>自社配送網</li>
+            <li class="flex items-center gap-2"><span class="text-brand font-bold">&#10003;</span>時間指定OK</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 取扱商品 -->
+  <section id="services" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-black text-center mb-16 fade-in">取扱商品カテゴリ</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 fade-in">
+        <div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-md transition group">
+          <div class="text-4xl mb-3">&#10052;</div>
+          <h3 class="font-bold mb-1">冷凍食品</h3>
+          <p class="text-xs text-gray-500">業務用冷凍食材を豊富に</p>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-md transition group">
+          <div class="text-4xl mb-3">&#127813;</div>
+          <h3 class="font-bold mb-1">青果・生鮮</h3>
+          <p class="text-xs text-gray-500">毎朝仕入れの新鮮野菜</p>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-md transition group">
+          <div class="text-4xl mb-3">&#127830;</div>
+          <h3 class="font-bold mb-1">精肉・鮮魚</h3>
+          <p class="text-xs text-gray-500">厳選された肉・魚介類</p>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-md transition group">
+          <div class="text-4xl mb-3">&#127834;</div>
+          <h3 class="font-bold mb-1">調味料・乾物</h3>
+          <p class="text-xs text-gray-500">プロ仕様の調味料各種</p>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-md transition group">
+          <div class="text-4xl mb-3">&#127846;</div>
+          <h3 class="font-bold mb-1">菓子・デザート</h3>
+          <p class="text-xs text-gray-500">業務用スイーツ素材</p>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-6 text-center hover:shadow-md transition group">
+          <div class="text-4xl mb-3">&#128230;</div>
+          <h3 class="font-bold mb-1">包装・資材</h3>
+          <p class="text-xs text-gray-500">容器・包材もまとめて</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 会社情報 -->
+  <section id="company" class="py-24 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-4 fade-in">
+      <h2 class="text-3xl font-black text-center mb-12">会社情報</h2>
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+        <table class="w-full text-sm">
+          <tr class="border-b"><td class="px-6 py-4 font-bold w-32 bg-gray-50">社名</td><td class="px-6 py-4">PRON株式会社</td></tr>
+          <tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">所在地</td><td class="px-6 py-4">お問い合わせください</td></tr>
+          <tr class="border-b"><td class="px-6 py-4 font-bold bg-gray-50">電話番号</td><td class="px-6 py-4"><a href="tel:000-000-0000" class="text-brand">000-000-0000</a></td></tr>
+          <tr><td class="px-6 py-4 font-bold bg-gray-50">事業内容</td><td class="px-6 py-4">業務用食材の卸売・配送</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="bg-gray-900 text-white py-10 text-center text-sm">
+    <p class="text-gray-400">&copy; 2026 PRON Inc. All Rights Reserved.</p>
+    <p class="text-gray-600 text-xs mt-2">※これはサンプルサイトです</p>
+  </footer>
+
+  <script>
+    const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1});
+    document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>

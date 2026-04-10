@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>HARTON OGP</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1200px;height:630px;overflow:hidden;font-family:'Noto Sans JP','Inter',sans-serif}
+.ogp{width:1200px;height:630px;background:#0F172A;position:relative;overflow:hidden;display:flex}
+.ogp::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(148,163,184,.07) 1px,transparent 1px);background-size:24px 24px}
+.ogp::after{content:'';position:absolute;top:-120px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(14,165,233,.10) 0%,transparent 70%)}
+.left{flex:0 0 55%;padding:52px 32px 52px 56px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
+.logo{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.logo-i{width:40px;height:40px;background:linear-gradient(135deg,#0EA5E9,#38BDF8);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Inter,sans-serif;font-weight:900;font-size:22px}
+.logo-t{color:#fff;font-family:Inter,sans-serif;font-weight:900;font-size:26px;letter-spacing:2px}
+.sub{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.sub-d{width:8px;height:8px;background:#0EA5E9;border-radius:50%}
+.sub-t{color:#94A3B8;font-size:14px;letter-spacing:1.5px}
+.tag{font-weight:900;font-size:42px;line-height:1.35;color:#fff;margin-bottom:24px}
+.tag .hl{color:#0EA5E9}
+.desc{color:#64748B;font-size:13px;line-height:1.7}
+.right{flex:0 0 45%;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;padding-right:32px}
+.dash{width:440px;background:rgba(30,41,59,.85);border:1px solid rgba(148,163,184,.12);border-radius:16px;padding:22px 24px}
+.dh{display:flex;align-items:center;gap:6px;margin-bottom:18px}
+.dd{width:8px;height:8px;border-radius:50%}
+.dd.r{background:#EF4444}.dd.y{background:#F59E0B}.dd.g{background:#22C55E}
+.du{color:#64748b;font-size:11px;margin-left:8px;font-family:Inter,monospace}
+.ds{display:flex;gap:10px;margin-bottom:18px}
+.dst{flex:1;background:rgba(15,23,42,.6);border:1px solid rgba(148,163,184,.08);border-radius:10px;padding:14px 8px;text-align:center}
+.dsn{font-family:Inter,sans-serif;font-weight:900;font-size:21px;margin-bottom:4px}
+.dsn.c1{color:#22D3EE}.dsn.c2{color:#F472B6}.dsn.c3{color:#FBBF24}
+.dsl{color:#64748b;font-size:9px}
+.dch{display:flex;justify-content:space-between;margin-bottom:12px}
+.dct{color:#94a3b8;font-size:11px}
+.dcl{color:#0EA5E9;font-size:10px;font-weight:700}
+.cb{display:flex;align-items:flex-end;gap:5px;height:65px}
+.b{flex:1;border-radius:3px 3px 0 0;min-height:6px;background:rgba(14,165,233,.2)}
+.b.a{background:linear-gradient(to top,#0EA5E9,#38BDF8)}
+.b.p{background:linear-gradient(to top,rgba(14,165,233,.4),rgba(103,232,249,.3));border:1px dashed rgba(14,165,233,.35)}
+.bottom{position:absolute;bottom:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#0EA5E9,#38BDF8,#22D3EE);z-index:2}
+</style>
+</head>
+<body>
+<div class="ogp">
+  <div class="left">
+    <div class="logo"><div class="logo-i">H</div><div class="logo-t">HARTON</div></div>
+    <div class="sub"><div class="sub-d"></div><div class="sub-t">WEB構築 / 業務自動化 / AI活用</div></div>
+    <div class="tag">モヤっとを可視化し、<br><span class="hl">淀みない経営へ</span></div>
+    <div class="desc">隠れたロスを見つけ出し、最適なシステムで<br>御社のポテンシャルを最大化する。</div>
+  </div>
+  <div class="right">
+    <div class="dash">
+      <div class="dh"><div class="dd r"></div><div class="dd y"></div><div class="dd g"></div><span class="du">dashboard.harton.jp</span></div>
+      <div class="ds">
+        <div class="dst"><div class="dsn c1">+142%</div><div class="dsl">売上予測精度</div></div>
+        <div class="dst"><div class="dsn c2">-67%</div><div class="dsl">作業時間削減</div></div>
+        <div class="dst"><div class="dsn c3">3.2x</div><div class="dsl">問合せ増加率</div></div>
+      </div>
+      <div>
+        <div class="dch"><span class="dct">AI売上予測</span><span class="dcl">リアルタイム</span></div>
+        <div class="cb">
+          <div class="b" style="height:15%"></div>
+          <div class="b" style="height:22%"></div>
+          <div class="b" style="height:20%"></div>
+          <div class="b" style="height:32%"></div>
+          <div class="b" style="height:38%"></div>
+          <div class="b" style="height:35%"></div>
+          <div class="b" style="height:45%"></div>
+          <div class="b" style="height:50%"></div>
+          <div class="b" style="height:55%"></div>
+          <div class="b a" style="height:70%"></div>
+          <div class="b a" style="height:80%"></div>
+          <div class="b a" style="height:88%"></div>
+          <div class="b p" style="height:95%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom"></div>
+</div>
+</body>
+</html>

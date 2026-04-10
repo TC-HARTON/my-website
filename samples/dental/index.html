@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+  <title>スマイル歯科 | 健康な歯で、豊かな人生を</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <script>tailwind.config={theme:{extend:{colors:{brand:'#0D9488','brand-light':'#F0FDFA'},fontFamily:{sans:['"Noto Sans JP"','sans-serif']}}}}</script>
+  <style>
+    html{scroll-behavior:smooth}
+    .fade-in{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+  </style>
+</head>
+<body class="font-sans text-gray-700 bg-white">
+  <header class="fixed top-0 inset-x-0 bg-white/90 backdrop-blur shadow-sm z-50">
+    <div class="max-w-6xl mx-auto flex items-center justify-between h-16 px-4">
+      <a href="#" class="flex items-center gap-2"><span class="text-brand text-2xl">&#43;</span><span class="font-black text-lg">スマイル歯科</span></a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="#treatment" class="hover:text-brand">診療案内</a>
+        <a href="#feature" class="hover:text-brand">当院の特徴</a>
+        <a href="#info" class="hover:text-brand">医院案内</a>
+        <a href="tel:000-000-0000" class="bg-brand text-white px-5 py-2 rounded-lg">予約する</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ヒーロー: 明るく清潔感 -->
+  <section class="min-h-screen flex items-center bg-brand-light pt-16">
+    <div class="max-w-6xl mx-auto px-4 py-20 lg:grid lg:grid-cols-2 gap-16 items-center">
+      <div class="fade-in">
+        <div class="inline-flex items-center gap-2 bg-brand/10 text-brand px-4 py-1.5 rounded-full text-sm font-bold mb-6">&#128722; 土曜診療あり</div>
+        <h1 class="text-4xl lg:text-5xl font-black leading-tight mb-6">健康な歯で、<br><span class="text-brand">豊かな人生</span>を。</h1>
+        <p class="text-gray-500 leading-relaxed mb-8">痛みに配慮した丁寧な治療と、分かりやすいご説明で安心の歯科医療をご提供します。お子様からご年配の方まで、ご家族みんなの歯の健康をサポートします。</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="tel:000-000-0000" class="bg-brand text-white px-8 py-3.5 rounded-xl font-bold hover:bg-teal-700 transition shadow-lg shadow-brand/20">電話予約 000-000-0000</a>
+        </div>
+        <div class="flex gap-4 mt-6">
+          <div class="bg-white rounded-xl px-4 py-2 text-center shadow-sm"><p class="text-xs text-gray-400">安心</p><p class="font-black text-brand">痛みに配慮</p></div>
+          <div class="bg-white rounded-xl px-4 py-2 text-center shadow-sm"><p class="text-xs text-gray-400">衛生</p><p class="font-black text-brand">滅菌徹底</p></div>
+          <div class="bg-white rounded-xl px-4 py-2 text-center shadow-sm"><p class="text-xs text-gray-400">便利</p><p class="font-black text-brand">駅徒歩2分</p></div>
+        </div>
+      </div>
+      <div class="mt-12 lg:mt-0 fade-in">
+        <div class="bg-white rounded-3xl shadow-xl p-8 text-center">
+          <div class="text-6xl mb-4">&#128567;</div>
+          <h3 class="text-xl font-black mb-2">まずはお気軽にご相談を</h3>
+          <p class="text-gray-400 text-sm mb-6">初診の方も安心。丁寧なカウンセリングから始めます。</p>
+          <div class="bg-brand-light rounded-xl p-4">
+            <p class="text-xs text-gray-400 mb-1">診療時間</p>
+            <p class="font-bold">月-金 9:00〜18:00 / 土 9:00〜13:00</p>
+            <p class="text-xs text-brand mt-1">日曜・祝日 休診</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 診療案内 -->
+  <section id="treatment" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-16 fade-in"><h2 class="text-3xl font-black">診療案内</h2><p class="text-gray-400 mt-2">お口の健康を総合的にサポートします</p></div>
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 fade-in">
+        <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-md transition"><div class="text-3xl mb-3">&#129463;</div><h3 class="font-bold">一般歯科</h3><p class="text-xs text-gray-400 mt-1">虫歯・歯周病治療</p></div>
+        <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-md transition"><div class="text-3xl mb-3">&#128118;</div><h3 class="font-bold">小児歯科</h3><p class="text-xs text-gray-400 mt-1">お子様の歯を守る</p></div>
+        <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-md transition"><div class="text-3xl mb-3">&#10024;</div><h3 class="font-bold">審美歯科</h3><p class="text-xs text-gray-400 mt-1">ホワイトニング等</p></div>
+        <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-md transition"><div class="text-3xl mb-3">&#128736;</div><h3 class="font-bold">矯正歯科</h3><p class="text-xs text-gray-400 mt-1">歯並びの改善</p></div>
+        <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-md transition"><div class="text-3xl mb-3">&#129657;</div><h3 class="font-bold">インプラント</h3><p class="text-xs text-gray-400 mt-1">失った歯の再生</p></div>
+        <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-md transition"><div class="text-3xl mb-3">&#128170;</div><h3 class="font-bold">予防歯科</h3><p class="text-xs text-gray-400 mt-1">定期検診・クリーニング</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 当院の特徴: タイムライン -->
+  <section id="feature" class="py-24 bg-brand-light">
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="text-center mb-16 fade-in"><h2 class="text-3xl font-black">当院の<span class="text-brand">特徴</span></h2></div>
+      <div class="space-y-8 fade-in">
+        <div class="flex gap-6">
+          <div class="flex flex-col items-center"><div class="w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center font-black shrink-0">1</div><div class="w-0.5 flex-1 bg-brand/20 mt-2"></div></div>
+          <div class="pb-8"><h3 class="font-bold text-lg mb-2">痛みに配慮した治療</h3><p class="text-gray-500 text-sm">表面麻酔・電動注射器を使用し、痛みを最小限に。お子様にも安心です。</p></div>
+        </div>
+        <div class="flex gap-6">
+          <div class="flex flex-col items-center"><div class="w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center font-black shrink-0">2</div><div class="w-0.5 flex-1 bg-brand/20 mt-2"></div></div>
+          <div class="pb-8"><h3 class="font-bold text-lg mb-2">丁寧なカウンセリング</h3><p class="text-gray-500 text-sm">モニターを使い、患者様にわかりやすくご説明。納得いただいてから治療を開始します。</p></div>
+        </div>
+        <div class="flex gap-6">
+          <div class="flex flex-col items-center"><div class="w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center font-black shrink-0">3</div><div class="w-0.5 flex-1 bg-brand/20 mt-2"></div></div>
+          <div class="pb-8"><h3 class="font-bold text-lg mb-2">徹底した衛生管理</h3><p class="text-gray-500 text-sm">クラスB滅菌器導入。使い捨て器具を積極的に使用し、院内感染を防止します。</p></div>
+        </div>
+        <div class="flex gap-6">
+          <div class="flex flex-col items-center"><div class="w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center font-black shrink-0">4</div></div>
+          <div><h3 class="font-bold text-lg mb-2">最新設備</h3><p class="text-gray-500 text-sm">デジタルレントゲン・口腔内カメラなど最新設備を完備。精度の高い診断を行います。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 医院案内 -->
+  <section id="info" class="py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-4 fade-in">
+      <div class="text-center mb-12"><h2 class="text-3xl font-black">医院案内</h2></div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-brand-light rounded-2xl p-6">
+          <h3 class="font-bold mb-4 text-brand">診療時間</h3>
+          <table class="w-full text-sm">
+            <thead><tr class="border-b"><th class="py-2 text-left text-gray-400">曜日</th><th class="py-2 text-gray-400">午前</th><th class="py-2 text-gray-400">午後</th></tr></thead>
+            <tbody>
+              <tr class="border-b"><td class="py-2.5">月〜金</td><td class="py-2.5 text-center text-brand font-bold">9:00-12:30</td><td class="py-2.5 text-center text-brand font-bold">14:00-18:00</td></tr>
+              <tr class="border-b"><td class="py-2.5">土曜</td><td class="py-2.5 text-center text-brand font-bold">9:00-13:00</td><td class="py-2.5 text-center text-gray-300">-</td></tr>
+              <tr><td class="py-2.5">日曜・祝日</td><td class="py-2.5 text-center text-gray-300" colspan="2">休診</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bg-gray-50 rounded-2xl p-6">
+          <h3 class="font-bold mb-4">医院情報</h3>
+          <dl class="space-y-3 text-sm">
+            <div><dt class="text-gray-400 text-xs">医院名</dt><dd class="font-bold">スマイル歯科</dd></div>
+            <div><dt class="text-gray-400 text-xs">電話番号</dt><dd><a href="tel:000-000-0000" class="text-brand font-bold">000-000-0000</a></dd></div>
+            <div><dt class="text-gray-400 text-xs">住所</dt><dd>お問い合わせください</dd></div>
+            <div><dt class="text-gray-400 text-xs">アクセス</dt><dd>最寄駅より徒歩2分</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-brand text-white py-10 text-center text-sm">
+    <p class="text-xl font-black mb-2">&#43; スマイル歯科</p>
+    <p class="text-white/60">&copy; 2026 Smile Dental.</p>
+    <p class="text-white/40 text-xs mt-2">※これはサンプルサイトです</p>
+  </footer>
+  <script>const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1});document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));</script>
+</body>
+</html>
