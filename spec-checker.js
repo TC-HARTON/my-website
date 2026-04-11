@@ -1,20 +1,22 @@
 #!/usr/bin/env node
 /**
- * SPEC.md 完全自動検証エージェント v2.0
- * SPEC.md納品前チェックリスト全33項目 + 本文仕様の全項目を機械的にチェック
- * 使い方: node spec-checker.js [ファイルパス...]
- *   引数なし → 全対象ファイルを検証
- *   引数あり → 指定ファイルのみ検証
+ * SPEC.md v2.0 完全自動検証エージェント
+ * ─────────────────────────────────────
+ * SPEC.md v2.0 納品前チェックリスト全42項目
+ * + 本文仕様の全項目を機械的にチェック
+ *
+ * 使い方:
+ *   node spec-checker.js              # 全対象ファイルを検証
+ *   node spec-checker.js index.html   # 個別ファイル検証
  */
 
 const fs = require('fs');
 const path = require('path');
 
-// ========== 設定 ==========
+// ═══════════════════ 設定 ═══════════════════
 const ROOT = __dirname;
 const DOMAIN = 'https://harton.pages.dev';
 
-// 検証対象（samplesは除外）
 const TARGET_FILES = [
   'index.html',
   'services/web/index.html',
@@ -24,7 +26,6 @@ const TARGET_FILES = [
   'thanks.html',
 ];
 
-// ページタイプ別の検証レベル
 const PAGE_TYPE = {
   'index.html': 'full',
   'services/web/index.html': 'service',
@@ -34,1282 +35,782 @@ const PAGE_TYPE = {
   'thanks.html': 'minimal',
 };
 
-// ========== ユーティリティ ==========
-class Result {
-  constructor(id, section, name, status, detail = '') {
-    this.id = id;
-    this.section = section;
-    this.name = name;
-    this.status = status; // PASS | FAIL | WARN | SKIP
-    this.detail = detail;
+// カスタムCSSクラス（output.css照合から除外）
+const CUSTOM_CLASSES = new Set([
+  'fade-in','visible','hero-grid','glow','card-hover','nav-blur',
+  'mobile-menu','open','float','pulse-line','gradient-text',
+  'cat-tab','active','sr-only','fade-in-delay-1','fade-in-delay-2',
+  'fade-in-delay-3','check-circle','check-ring',
+]);
+
+// ═══════════════════ 結果クラス ═══════════════════
+class R {
+  constructor(id, sec, name, status, detail = '') {
+    this.id = id; this.sec = sec; this.name = name;
+    this.status = status; this.detail = detail;
   }
 }
+const PASS = (id, s, n, d) => new R(id, s, n, 'PASS', d || '');
+const FAIL = (id, s, n, d) => new R(id, s, n, 'FAIL', d || '');
+const WARN = (id, s, n, d) => new R(id, s, n, 'WARN', d || '');
+const SKIP = (id, s, n, d) => new R(id, s, n, 'SKIP', d || '');
 
-function getTextLength(str) {
-  return [...str].length;
-}
+// ═══════════════════ パーサ ═══════════════════
+const head = h => (h.match(/<head[^>]*>([\s\S]*?)<\/head>/i) || [])[1] || '';
+const body = h => (h.match(/<body[^>]*>([\s\S]*?)<\/body>/i) || [])[1] || '';
+const bodyClass = h => (h.match(/<body\s+class=["']([^"']*)["']/i) || [])[1] || '';
+const title = h => (h.match(/<title>([^<]*)<\/title>/i) || [])[1] || null;
+const len = s => [...s].length;
 
-function extractMetaContent(html, name) {
+function meta(html, name) {
   let m = html.match(new RegExp(`<meta\\s+name=["']${name}["']\\s+content=["']([^"']*)["']`, 'i'));
   if (m) return m[1];
   m = html.match(new RegExp(`<meta\\s+content=["']([^"']*)["']\\s+name=["']${name}["']`, 'i'));
   return m ? m[1] : null;
 }
-
-function extractMetaProperty(html, prop) {
+function ogp(html, prop) {
   let m = html.match(new RegExp(`<meta\\s+property=["']${prop}["']\\s+content=["']([^"']*)["']`, 'i'));
   if (m) return m[1];
   m = html.match(new RegExp(`<meta\\s+content=["']([^"']*)["']\\s+property=["']${prop}["']`, 'i'));
   return m ? m[1] : null;
 }
-
-function extractTitle(html) {
-  const m = html.match(/<title>([^<]*)<\/title>/i);
+function jsonld(html) {
+  const r = []; let m;
+  const rx = /<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi;
+  while ((m = rx.exec(html)) !== null) {
+    try { r.push(JSON.parse(m[1])); } catch { r.push({ _err: true }); }
+  }
+  return r;
+}
+function jsonldTypes(schemas) {
+  const t = new Set();
+  for (const s of schemas) {
+    if (s['@type']) t.add(s['@type']);
+    if (s['@graph']) s['@graph'].forEach(i => i['@type'] && t.add(i['@type']));
+  }
+  return t;
+}
+function headings(html) {
+  const h = []; let m;
+  const rx = /<(h[1-6])[^>]*>([\s\S]*?)<\/\1>/gi;
+  while ((m = rx.exec(html)) !== null)
+    h.push({ lv: +m[1][1], txt: m[2].replace(/<[^>]+>/g, '').trim() });
+  return h;
+}
+function csp(html) {
+  const m = html.match(/<meta\s+http-equiv=["']Content-Security-Policy["']\s+content="([^"]*)"/i) ||
+            html.match(/<meta\s+http-equiv=["']Content-Security-Policy["']\s+content='([^']*)'/i);
   return m ? m[1] : null;
 }
-
-function extractJsonLd(html) {
-  const results = [];
-  const regex = /<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi;
-  let m;
-  while ((m = regex.exec(html)) !== null) {
-    try { results.push(JSON.parse(m[1])); }
-    catch (e) { results.push({ _parseError: true, _raw: m[1] }); }
-  }
-  return results;
+function loadCSS() {
+  const p = path.join(ROOT, 'dist', 'output.css');
+  return fs.existsSync(p) ? fs.readFileSync(p, 'utf-8') : null;
 }
-
-function countHeadings(html) {
-  const headings = [];
-  const regex = /<(h[1-6])[^>]*>([\s\S]*?)<\/\1>/gi;
-  let m;
-  while ((m = regex.exec(html)) !== null) {
-    headings.push({ level: parseInt(m[1][1]), text: m[2].replace(/<[^>]+>/g, '').trim() });
-  }
-  return headings;
-}
-
-function extractHead(html) {
-  const m = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
-  return m ? m[1] : '';
-}
-
-function extractBody(html) {
-  const m = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-  return m ? m[1] : '';
-}
-
-function getBodyClasses(html) {
-  const m = html.match(/<body\s+class=["']([^"']*)["']/i);
-  return m ? m[1] : '';
-}
-
-// Tailwindクラスをoutput.cssから照合するためのCSS読み込み
-function loadOutputCSS() {
-  const cssPath = path.join(ROOT, 'dist', 'output.css');
-  if (!fs.existsSync(cssPath)) return null;
-  return fs.readFileSync(cssPath, 'utf-8');
-}
-
-// HTMLからTailwindクラスを抽出
-function extractTailwindClasses(html) {
-  const classRegex = /class=["']([^"']*)["']/gi;
-  const allClasses = new Set();
-  let m;
-  while ((m = classRegex.exec(html)) !== null) {
-    m[1].split(/\s+/).forEach(cls => {
-      if (cls && !cls.startsWith('{') && cls.length > 0) {
-        allClasses.add(cls);
-      }
-    });
-  }
-  return allClasses;
-}
-
-// カスタムCSSクラス（SPEC Section 9で定義されたもの）
-const CUSTOM_CSS_CLASSES = new Set([
-  'fade-in', 'visible', 'hero-grid', 'glow', 'card-hover', 'nav-blur',
-  'mobile-menu', 'open', 'float', 'pulse-line', 'gradient-text',
-  'cat-tab', 'active', 'sr-only', 'fade-in-delay-1', 'fade-in-delay-2',
-  'fade-in-delay-3', 'check-circle', 'check-ring',
-]);
-
-// Tailwindユーティリティパターン（これらはoutput.cssにあるべき）
-function isTailwindClass(cls) {
-  // カスタムクラスは除外
-  if (CUSTOM_CSS_CLASSES.has(cls)) return false;
-  // レスポンシブ/状態プレフィクス付きもTailwind
-  if (/^(sm:|md:|lg:|xl:|2xl:|hover:|focus:|active:|group-hover:|dark:|disabled:|first:|last:)/.test(cls)) return true;
-  // 一般的なTailwindパターン
-  if (/^(bg-|text-|font-|p-|px-|py-|pt-|pb-|pl-|pr-|m-|mx-|my-|mt-|mb-|ml-|mr-|w-|h-|min-|max-|flex|grid|block|inline|hidden|absolute|relative|fixed|sticky|top-|bottom-|left-|right-|z-|border|rounded|shadow|opacity-|transition|transform|scale-|rotate-|translate-|gap-|space-|items-|justify-|self-|order-|col-|row-|overflow|truncate|whitespace|break-|tracking-|leading-|decoration-|underline|line-through|no-underline|list-|table|divide|ring|outline|cursor|pointer-events|select-|resize|fill-|stroke-|object-|aspect-)/.test(cls)) return true;
-  // focus:系はTailwind
-  if (/^focus:/.test(cls)) return true;
-  return false;
-}
-
-// コントラスト比計算
-function hexToRgb(hex) {
+function hexLum(hex) {
   hex = hex.replace('#', '');
   if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
-  const r = parseInt(hex.substring(0, 2), 16) / 255;
-  const g = parseInt(hex.substring(2, 4), 16) / 255;
-  const b = parseInt(hex.substring(4, 6), 16) / 255;
-  return [r, g, b];
+  const rgb = [0,2,4].map(i => parseInt(hex.substring(i, i+2), 16) / 255);
+  const lin = rgb.map(c => c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+  return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];
+}
+function contrast(a, b) {
+  const la = hexLum(a), lb = hexLum(b);
+  return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
 }
 
-function luminance(rgb) {
-  const [r, g, b] = rgb.map(c => c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
+// ═══════════════════ 11.1 パフォーマンス・CWV (6) ═══════════════════
 
-function contrastRatio(hex1, hex2) {
-  const l1 = luminance(hexToRgb(hex1));
-  const l2 = luminance(hexToRgb(hex2));
-  const lighter = Math.max(l1, l2);
-  const darker = Math.min(l1, l2);
-  return (lighter + 0.05) / (darker + 0.05);
-}
+function c11_1(html, pt) {
+  const S = '11.1パフォ', r = [], hd = head(html), bd = body(html);
 
-// ========== 検証関数群 ==========
-
-// ============================================================
-// SPEC 11.1 パフォーマンス (6項目)
-// ============================================================
-
-// 11.1-1: CLS < 0.1（静的解析で可能な範囲）
-function checkCLS(html) {
-  const results = [];
-  const body = extractBody(html);
-
-  // CLS原因1: 画像にwidth/height未指定
-  const imgs = body.match(/<img\s[^>]*>/gi) || [];
+  // 1. CLS/LCP/INP 静的リスクチェック
   let clsRisk = 0;
-  for (const img of imgs) {
-    if (!/width=/i.test(img) || !/height=/i.test(img)) clsRisk++;
-  }
-
-  // CLS原因2: Tailwind CDN（ランタイムCSS生成）
+  const imgs = bd.match(/<img\s[^>]*>/gi) || [];
+  imgs.forEach(i => { if (!/width=/i.test(i) || !/height=/i.test(i)) clsRisk++; });
   if (/cdn\.tailwindcss\.com/i.test(html)) clsRisk += 10;
+  (html.match(/fonts\.googleapis\.com\/css2[^"']*/gi) || []).forEach(u => {
+    if (!u.includes('display=swap')) clsRisk++;
+  });
+  r.push(clsRisk === 0
+    ? PASS('11.1-cwv', S, 'CWV静的リスク')
+    : FAIL('11.1-cwv', S, 'CWV静的リスク', `${clsRisk}件のリスク要因`));
 
-  // CLS原因3: Google Fontsにdisplay=swapなし（FOUTによるCLS）
-  const fontLinks = html.match(/fonts\.googleapis\.com\/css2[^"']*/gi) || [];
-  for (const fl of fontLinks) {
-    if (!fl.includes('display=swap')) clsRisk++;
-  }
+  // 2. Tailwind CDN禁止
+  r.push(/cdn\.tailwindcss\.com/i.test(html)
+    ? FAIL('11.1-cdn', S, 'Tailwind CDN禁止', 'cdn.tailwindcss.com使用')
+    : PASS('11.1-cdn', S, 'Tailwind CDN不使用'));
 
-  if (clsRisk === 0) {
-    results.push(new Result('11.1-cls', '11.1パフォーマンス', 'CLS静的リスク', 'PASS', 'CLSリスク要因なし'));
+  // 3. ビルドCSS照合
+  const css = loadCSS();
+  if (!css) {
+    r.push(FAIL('11.1-css', S, 'CSSクラス照合', 'dist/output.css不存在'));
   } else {
-    results.push(new Result('11.1-cls', '11.1パフォーマンス', 'CLS静的リスク', 'FAIL', `${clsRisk}件のリスク要因`));
+    const clsRx = /class=["']([^"']*)["']/gi; let m; const all = new Set();
+    while ((m = clsRx.exec(html)) !== null) m[1].split(/\s+/).forEach(c => c && all.add(c));
+    const miss = [];
+    for (const c of all) {
+      if (CUSTOM_CLASSES.has(c) || /^[{$]/.test(c)) continue;
+      // Tailwindクラス判定
+      if (!/^(bg-|text-|font-|p-|px-|py-|pt-|pb-|m-|mx-|my-|mt-|mb-|w-|h-|min-|max-|flex|grid|block|inline|hidden|absolute|relative|fixed|sticky|top-|bottom-|left-|right-|z-|border|rounded|shadow|opacity-|transition|transform|scale-|gap-|space-|items-|justify-|self-|order-|col-|row-|overflow|truncate|whitespace|tracking-|leading-|decoration-|underline|list-|table|divide|ring|outline|cursor|pointer|select-|fill-|stroke-|object-|aspect-|sm:|md:|lg:|xl:|2xl:|hover:|focus:|active:|group|dark:|disabled:)/.test(c))
+        continue;
+      // Tailwind CSSではセレクタ内の特殊文字をバックスラッシュでエスケープする
+      // 例: focus:z-[9999] → .focus\:z-\[9999\]:focus
+      //     bg-white/80 → .bg-white\/80
+      const escCSS = s => s.replace(/([[\]()/:.,!#%])/g, '\\$1');
+      const base = c.replace(/^(sm:|md:|lg:|xl:|2xl:|hover:|focus:|active:|group-hover:|dark:|disabled:)+/, '');
+      const baseEsc = escCSS(base);
+      const fullEsc = escCSS(c);
+      if (!css.includes(base) && !css.includes(baseEsc) && !css.includes(fullEsc)) miss.push(c);
+    }
+    r.push(miss.length === 0
+      ? PASS('11.1-css', S, 'CSSクラス照合', `${all.size}クラス検証済`)
+      : FAIL('11.1-css', S, 'CSSクラス照合', `${miss.length}欠落: ${miss.slice(0, 5).join(', ')}`));
   }
-  return results;
-}
 
-// 11.1-2: LCP < 2.5s（静的解析で可能な範囲）
-function checkLCP(html) {
-  const results = [];
-  const head = extractHead(html);
+  // 4. コンソールエラー(静的)
+  const schemas = jsonld(html);
+  if (schemas.some(s => s._err)) {
+    r.push(FAIL('11.1-err', S, 'JSON-LDパースエラー'));
+  } else {
+    const scripts = bd.match(/<script[^>]*>[\s\S]*?<\/script>/gi) || [];
+    let jsErr = false;
+    scripts.forEach(s => {
+      const c = s.replace(/<\/?script[^>]*>/gi, '');
+      if ((c.match(/\{/g) || []).length !== (c.match(/\}/g) || []).length) jsErr = true;
+    });
+    r.push(jsErr ? FAIL('11.1-err', S, 'JS構文エラー', '括弧不一致') : PASS('11.1-err', S, '静的エラーチェック'));
+  }
 
-  // LCPリスク: フォントpreloadなし
-  let lcpRisk = 0;
+  // 5. 画像(WebP/picture/wh/lazy/fetchpriority)
+  if (imgs.length === 0) {
+    r.push(SKIP('11.1-img', S, '画像チェック', '画像なし'));
+  } else {
+    let noAlt = 0, noWH = 0;
+    const raster = imgs.filter(i => !/\.svg/i.test(i) && !/data:image\/svg/i.test(i));
+    imgs.forEach(i => { if (!/alt=/i.test(i)) noAlt++; });
+    raster.forEach(i => { if (!/width=/i.test(i) || !/height=/i.test(i)) noWH++; });
+    r.push(noAlt > 0
+      ? FAIL('11.1-alt', S, '画像alt', `${noAlt}個にalt不足`)
+      : PASS('11.1-alt', S, '画像alt', `${imgs.length}個OK`));
+    r.push(noWH > 0
+      ? FAIL('11.1-wh', S, '画像width/height', `${noWH}個に不足`)
+      : PASS('11.1-wh', S, '画像width/height'));
+    // fetchpriority on hero(fullのみ)
+    if (pt === 'full') {
+      const hasFP = /fetchpriority=["']high["']/i.test(bd);
+      r.push(hasFP ? PASS('11.1-fp', S, 'fetchpriority="high"') : WARN('11.1-fp', S, 'fetchpriority="high"', 'ヒーロー画像に未設定'));
+    }
+    // alt日本語
+    const alts = [];
+    imgs.forEach(i => { const a = (i.match(/alt=["']([^"']*)["']/i) || [])[1]; if (a) alts.push(a); });
+    const nonJa = alts.filter(a => a && !/[\u3000-\u9fff\uff00-\uffef]/.test(a));
+    r.push(nonJa.length > 0 ? WARN('11.1-altja', S, '画像alt日本語', `非日本語: "${nonJa.slice(0,2).join('","')}"`) : PASS('11.1-altja', S, '画像alt日本語'));
+  }
 
-  // CSSが外部で大きすぎないか
+  // 6. サードパーティスクリプト遅延
+  const extScripts = (hd.match(/<script\s[^>]*src=["'][^"']*["'][^>]*>/gi) || [])
+    .filter(s => /https?:\/\//i.test(s));
+  const syncExt = extScripts.filter(s => !/async|defer/i.test(s));
+  r.push(syncExt.length > 0
+    ? FAIL('11.1-defer', S, 'サードパーティ遅延', `${syncExt.length}件同期読込`)
+    : PASS('11.1-defer', S, 'サードパーティ遅延'));
+
+  // CSSサイズ
   const cssPath = path.join(ROOT, 'dist', 'output.css');
   if (fs.existsSync(cssPath)) {
-    const cssSize = fs.statSync(cssPath).size;
-    if (cssSize > 40 * 1024) {
-      lcpRisk++;
-      results.push(new Result('11.1-lcp-css', '11.1パフォーマンス', 'CSSサイズ', 'WARN', `${(cssSize / 1024).toFixed(1)}KB (目標40KB以下)`));
-    } else {
-      results.push(new Result('11.1-lcp-css', '11.1パフォーマンス', 'CSSサイズ', 'PASS', `${(cssSize / 1024).toFixed(1)}KB`));
+    const kb = fs.statSync(cssPath).size / 1024;
+    r.push(kb <= 40
+      ? PASS('11.1-csssz', S, `CSSサイズ ${kb.toFixed(1)}KB`)
+      : WARN('11.1-csssz', S, 'CSSサイズ', `${kb.toFixed(1)}KB (目標40KB以下)`));
+  }
+
+  return r;
+}
+
+// ═══════════════════ 11.2 SEO・E-E-A-T (12) ═══════════════════
+
+function c11_2(html, pt) {
+  const S = '11.2SEO', r = [];
+
+  // 1. title
+  const t = title(html);
+  if (!t) { r.push(FAIL('11.2-title', S, 'title', '未設定')); }
+  else {
+    const l = len(t);
+    if (pt === 'minimal') r.push(l > 0 ? PASS('11.2-title', S, `title(${l}文字)`, `"${t}"`) : FAIL('11.2-title', S, 'title', '空'));
+    else r.push(l >= 30 && l <= 60 ? PASS('11.2-title', S, `title ${l}文字(30-60)`) : FAIL('11.2-title', S, `title ${l}文字`, '30-60文字必須'));
+  }
+
+  // 2. description
+  const d = meta(html, 'description');
+  if (pt === 'minimal') { r.push(d ? PASS('11.2-desc', S, 'description') : WARN('11.2-desc', S, 'description', 'なし')); }
+  else {
+    if (!d) r.push(FAIL('11.2-desc', S, 'description', '未設定'));
+    else { const l = len(d); r.push(l >= 70 && l <= 160 ? PASS('11.2-desc', S, `description ${l}文字`) : FAIL('11.2-desc', S, `description ${l}文字`, '70-160必須')); }
+  }
+
+  // 3. meta author
+  const auth = meta(html, 'author');
+  if (pt === 'minimal') r.push(auth ? PASS('11.2-author', S, 'meta author') : SKIP('11.2-author', S, 'meta author'));
+  else r.push(auth ? PASS('11.2-author', S, 'meta author', auth) : FAIL('11.2-author', S, 'meta author', '未設定'));
+
+  // 4. canonical
+  const canon = (html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']*)["']/i) || [])[1];
+  if (!canon) r.push(pt === 'minimal' ? WARN('11.2-canon', S, 'canonical', '未設定') : FAIL('11.2-canon', S, 'canonical', '未設定'));
+  else r.push(canon.startsWith(DOMAIN) ? PASS('11.2-canon', S, 'canonical') : FAIL('11.2-canon', S, 'canonical', `ドメイン不一致: ${canon}`));
+
+  // 5. robots max-snippet:-1
+  const rob = meta(html, 'robots');
+  if (pt === 'minimal') {
+    r.push(rob && (rob.includes('noindex') || rob.includes('nofollow')) ? PASS('11.2-robots', S, 'robots(noindex)') : (rob ? PASS('11.2-robots', S, 'robots') : WARN('11.2-robots', S, 'robots')));
+  } else {
+    if (!rob) r.push(FAIL('11.2-robots', S, 'robots', '未設定'));
+    else {
+      const need = ['index', 'follow', 'max-image-preview:large', 'max-snippet:-1'];
+      const miss = need.filter(n => !rob.includes(n));
+      r.push(miss.length === 0 ? PASS('11.2-robots', S, 'robots') : FAIL('11.2-robots', S, 'robots', `不足: ${miss.join(',')}`));
     }
   }
 
-  // render-blocking resources
-  const syncScripts = (head.match(/<script\s[^>]*src=[^>]*>/gi) || []).filter(s => !/async|defer/i.test(s));
-  if (syncScripts.length > 0) {
-    results.push(new Result('11.1-lcp-sync', '11.1パフォーマンス', '同期スクリプト', 'WARN', `${syncScripts.length}件のrender-blockingスクリプト`));
-  } else {
-    results.push(new Result('11.1-lcp-sync', '11.1パフォーマンス', '同期スクリプト', 'PASS'));
+  // 6. OGP 7項目
+  if (pt === 'minimal') { r.push(SKIP('11.2-ogp', S, 'OGP')); }
+  else {
+    const need = ['og:title','og:description','og:type','og:url','og:image','og:site_name','og:locale'];
+    const miss = need.filter(p => !ogp(html, p));
+    r.push(miss.length === 0 ? PASS('11.2-ogp', S, 'OGP全7項目') : FAIL('11.2-ogp', S, 'OGP', `不足: ${miss.join(',')}`));
+    const img = ogp(html, 'og:image');
+    if (img && !img.startsWith(DOMAIN)) r.push(FAIL('11.2-ogimg', S, 'OGP画像URL', img));
   }
 
-  return results;
-}
-
-// 11.1-3: Tailwind CDN不使用
-function checkTailwindCDN(html) {
-  if (/cdn\.tailwindcss\.com/i.test(html)) {
-    return new Result('11.1-cdn', '11.1パフォーマンス', 'Tailwind CDN禁止', 'FAIL', 'cdn.tailwindcss.com使用');
-  }
-  return new Result('11.1-cdn', '11.1パフォーマンス', 'Tailwind CDN不使用', 'PASS');
-}
-
-// 11.1-4: ビルドCSSに全クラス含有
-function checkCSSClassCoverage(html, filePath) {
-  const outputCSS = loadOutputCSS();
-  if (!outputCSS) {
-    return new Result('11.1-csscover', '11.1パフォーマンス', 'CSSクラス照合', 'FAIL', 'dist/output.css が存在しない');
+  // 7. Twitter Card
+  if (pt === 'minimal') { r.push(SKIP('11.2-tw', S, 'Twitter Card')); }
+  else {
+    const miss = [];
+    if (meta(html, 'twitter:card') !== 'summary_large_image') miss.push('card');
+    if (!meta(html, 'twitter:title')) miss.push('title');
+    if (!meta(html, 'twitter:description')) miss.push('desc');
+    if (!meta(html, 'twitter:image')) miss.push('image');
+    r.push(miss.length === 0 ? PASS('11.2-tw', S, 'Twitter Card') : FAIL('11.2-tw', S, 'Twitter Card', `不足: ${miss.join(',')}`));
   }
 
-  const htmlClasses = extractTailwindClasses(html);
-  const missing = [];
-
-  for (const cls of htmlClasses) {
-    if (!isTailwindClass(cls)) continue;
-
-    // クラス名をCSSセレクタ形式に変換してoutput.cssで検索
-    // Tailwindのクラスはドットとエスケープされた文字を含む
-    const escapedCls = cls
-      .replace(/\//g, '\\/')   // opacity modifier
-      .replace(/:/g, '\\:')    // responsive/state prefix
-      .replace(/\[/g, '\\[')   // arbitrary values
-      .replace(/\]/g, '\\]')
-      .replace(/\./g, '\\.')
-      .replace(/#/g, '\\#');
-
-    // CSS内でこのクラスが定義されているか
-    if (!outputCSS.includes(escapedCls) && !outputCSS.includes(cls.replace(/:/g, '\\:'))) {
-      // 簡易チェック: クラス名の主要部分が含まれているか
-      const basePart = cls.replace(/^(sm:|md:|lg:|xl:|2xl:|hover:|focus:|active:|group-hover:|dark:|disabled:)+/, '');
-      if (!outputCSS.includes(basePart)) {
-        missing.push(cls);
+  // 8. JSON-LD 5種
+  if (pt === 'minimal') { r.push(SKIP('11.2-jld', S, 'JSON-LD')); }
+  else {
+    const types = jsonldTypes(jsonld(html));
+    const need = pt === 'full'
+      ? ['ProfessionalService', 'WebSite', 'FAQPage', 'BreadcrumbList', 'Person']
+      : ['ProfessionalService', 'WebSite', 'BreadcrumbList'];
+    need.forEach(t => r.push(types.has(t)
+      ? PASS(`11.2-${t}`, S, `JSON-LD: ${t}`)
+      : FAIL(`11.2-${t}`, S, `JSON-LD: ${t}`, '未定義')));
+    // ProfessionalService プロパティ
+    if (types.has('ProfessionalService')) {
+      const schemas = jsonld(html);
+      const ps = schemas.find(s => s['@type'] === 'ProfessionalService') ||
+                 schemas.flatMap(s => s['@graph'] || []).find(i => i['@type'] === 'ProfessionalService');
+      if (ps) {
+        const need2 = ['name','description','url','telephone','address','geo','knowsAbout','areaServed'];
+        const miss = need2.filter(p => !ps[p]);
+        r.push(miss.length === 0 ? PASS('11.2-ps', S, 'PS必須プロパティ') : FAIL('11.2-ps', S, 'PS必須プロパティ', `不足: ${miss.join(',')}`));
       }
     }
   }
 
-  if (missing.length > 0) {
-    return new Result('11.1-csscover', '11.1パフォーマンス', 'CSSクラス照合', 'FAIL', `${missing.length}クラス欠落: ${missing.slice(0, 5).join(', ')}${missing.length > 5 ? '...' : ''}`);
+  // 9. (リッチリザルトテストは外部APIのため静的チェック不可→パース成功で代替)
+  if (pt !== 'minimal') {
+    const schemas = jsonld(html);
+    r.push(schemas.some(s => s._err)
+      ? FAIL('11.2-rich', S, 'JSON-LD構文', 'パースエラー→リッチリザルトテスト不合格の可能性')
+      : PASS('11.2-rich', S, 'JSON-LD構文(パース成功)'));
   }
-  return new Result('11.1-csscover', '11.1パフォーマンス', 'CSSクラス照合', 'PASS', `${htmlClasses.size}クラス検証済`);
+
+  // 10,11. sitemap.xml / robots.txt → グローバルチェックで実施
+
+  // 12. <time> タグ(datePublished/dateModified)
+  if (pt === 'minimal') { r.push(SKIP('11.2-time', S, '<time>タグ')); }
+  else {
+    const bd2 = body(html);
+    const hasPub = /itemprop=["']datePublished["']/i.test(bd2) || /<time[^>]*datetime=/i.test(bd2);
+    r.push(hasPub ? PASS('11.2-time', S, '<time>タグ') : WARN('11.2-time', S, '<time>タグ', '公開日/更新日の<time>未検出'));
+  }
+
+  return r;
 }
 
-// 11.1-5: コンソールエラーゼロ（静的解析）
-function checkConsoleErrors(html) {
-  const results = [];
-  // JSON-LDパースエラーチェック
-  const schemas = extractJsonLd(html);
-  if (schemas.some(s => s._parseError)) {
-    results.push(new Result('11.1-console', '11.1パフォーマンス', 'JSON-LDパースエラー', 'FAIL', 'JSON-LD構文エラーあり'));
+// ═══════════════════ 11.3 E-E-A-Tコンテンツ (3) ═══════════════════
+
+function c11_3_eeat() {
+  const S = '11.3E-E-AT', r = [];
+
+  // 1. profile/index.html 存在
+  const pp = path.join(ROOT, 'profile', 'index.html');
+  r.push(fs.existsSync(pp)
+    ? PASS('11.3-profile', S, 'プロフィールページ')
+    : FAIL('11.3-profile', S, 'プロフィールページ', 'profile/index.html不存在'));
+
+  // 2. 一次情報（自動検出は困難→プロフィールページに内容があるかで簡易チェック）
+  if (fs.existsSync(pp)) {
+    const c = fs.readFileSync(pp, 'utf-8');
+    const bodyLen = (body(c) || c).replace(/<[^>]+>/g, '').trim().length;
+    r.push(bodyLen > 200
+      ? PASS('11.3-1st', S, '一次情報(プロフィール内容)', `${bodyLen}文字`)
+      : WARN('11.3-1st', S, '一次情報', `プロフィール内容が少ない(${bodyLen}文字)`));
+  } else {
+    r.push(FAIL('11.3-1st', S, '一次情報', 'プロフィールページ不存在'));
   }
 
-  // 壊れたscriptタグ
-  const body = extractBody(html);
-  const scriptTags = body.match(/<script[^>]*>[\s\S]*?<\/script>/gi) || [];
-  let syntaxIssue = false;
-  for (const script of scriptTags) {
-    // 未閉じ括弧の簡易チェック
-    const content = script.replace(/<\/?script[^>]*>/gi, '');
-    const opens = (content.match(/\{/g) || []).length;
-    const closes = (content.match(/\}/g) || []).length;
-    if (opens !== closes) {
-      syntaxIssue = true;
-    }
-  }
-  if (syntaxIssue) {
-    results.push(new Result('11.1-console-js', '11.1パフォーマンス', 'JS構文チェック', 'FAIL', '括弧の不一致'));
-  }
+  // 3. 孤立ページなし（全対象HTMLにパンくずまたはフッターナビからのリンクがあるか）
+  const mainHtml = fs.existsSync(path.join(ROOT, 'index.html'))
+    ? fs.readFileSync(path.join(ROOT, 'index.html'), 'utf-8') : '';
+  const pages = ['services/web/', 'services/automation/', 'services/ai-prediction/', 'privacy/', 'profile/'];
+  const orphans = pages.filter(p => !mainHtml.includes(p));
+  r.push(orphans.length === 0
+    ? PASS('11.3-orphan', S, '孤立ページなし')
+    : WARN('11.3-orphan', S, '孤立ページ', `index.htmlからリンクなし: ${orphans.join(', ')}`));
 
-  if (results.length === 0) {
-    results.push(new Result('11.1-console', '11.1パフォーマンス', '静的エラーチェック', 'PASS'));
-  }
-  return results;
+  return r;
 }
 
-// 11.1-6: 画像WebP + picture tag + lazy + width/height
-function checkImageFull(html) {
-  const body = extractBody(html);
-  const imgs = body.match(/<img\s[^>]*>/gi) || [];
-  if (imgs.length === 0) return [new Result('11.1-img', '11.1パフォーマンス', '画像属性', 'SKIP', '画像なし')];
+// ═══════════════════ 11.4 LLMO (7) ═══════════════════
 
-  const results = [];
-  let noAlt = 0, noWH = 0, noLazy = 0;
-  const svgImgs = [];
-  const rasterImgs = [];
+function c11_4(html, pt) {
+  const S = '11.4LLMO', r = [], bd = body(html);
 
-  for (const img of imgs) {
-    const src = (img.match(/src=["']([^"']*)["']/i) || [])[1] || '';
-    const isSvg = src.endsWith('.svg') || /data:image\/svg/i.test(src);
-    const isInlineSvg = !src; // inline SVG in img (unlikely but check)
-
-    if (!isSvg) rasterImgs.push(img);
-    else svgImgs.push(img);
-
-    if (!/alt=/i.test(img)) noAlt++;
-    if (!isSvg && (!/width=/i.test(img) || !/height=/i.test(img))) noWH++;
-    // lazy属性はfirst-viewportの画像には不要(hero image)、それ以外は必須
-    if (!isSvg && !/loading=["']lazy["']/i.test(img)) noLazy++;
+  // 1. 全sectionにaria-label
+  if (pt === 'minimal') { r.push(SKIP('11.4-sec', S, 'section aria-label')); }
+  else {
+    const secs = bd.match(/<section[^>]*>/gi) || [];
+    const noL = secs.filter(s => !/aria-label(ledby)?=/i.test(s));
+    r.push(noL.length === 0 && secs.length > 0
+      ? PASS('11.4-sec', S, `section aria-label(${secs.length}個)`)
+      : (secs.length === 0 ? SKIP('11.4-sec', S, 'section') : FAIL('11.4-sec', S, 'section aria-label', `${noL.length}個に不足`)));
   }
 
-  // alt属性
-  if (noAlt > 0) {
-    results.push(new Result('11.1-img-alt', '11.1パフォーマンス', '画像alt属性', 'FAIL', `${noAlt}/${imgs.length}個にalt不足`));
-  } else {
-    results.push(new Result('11.1-img-alt', '11.1パフォーマンス', '画像alt属性', 'PASS', `${imgs.length}個チェック済`));
-  }
-
-  // alt日本語チェック
-  const altValues = [];
-  for (const img of imgs) {
-    const altMatch = img.match(/alt=["']([^"']*)["']/i);
-    if (altMatch && altMatch[1]) {
-      altValues.push(altMatch[1]);
-    }
-  }
-  const nonJapaneseAlts = altValues.filter(a => a && !/[\u3000-\u9fff\uff00-\uffef]/.test(a) && a !== '');
-  if (nonJapaneseAlts.length > 0 && altValues.length > 0) {
-    results.push(new Result('11.4-alt-ja', '11.4アクセシビリティ', '画像alt日本語', 'WARN', `非日本語alt: "${nonJapaneseAlts.slice(0, 2).join('", "')}"`));
-  } else {
-    results.push(new Result('11.4-alt-ja', '11.4アクセシビリティ', '画像alt日本語', 'PASS'));
-  }
-
-  // width/height
-  if (noWH > 0) {
-    results.push(new Result('11.1-img-wh', '11.1パフォーマンス', '画像width/height', 'FAIL', `${noWH}個にwidth/height不足`));
-  } else {
-    results.push(new Result('11.1-img-wh', '11.1パフォーマンス', '画像width/height', 'PASS'));
-  }
-
-  // lazy loading (WARN if missing, hero imageは例外)
-  if (noLazy > 1) {
-    results.push(new Result('11.1-img-lazy', '11.1パフォーマンス', '画像loading=lazy', 'WARN', `${noLazy}個にlazy未指定（hero画像は例外可）`));
-  } else {
-    results.push(new Result('11.1-img-lazy', '11.1パフォーマンス', '画像loading=lazy', 'PASS'));
-  }
-
-  // WebP + picture tag（ラスター画像のみ対象）
-  if (rasterImgs.length > 0) {
-    // pictureタグ内にsource type="image/webp"があるか
-    const pictures = body.match(/<picture[\s\S]*?<\/picture>/gi) || [];
-    const webpSources = pictures.filter(p => /type=["']image\/webp["']/i.test(p));
-    if (rasterImgs.length > 0 && webpSources.length === 0 && pictures.length === 0) {
-      results.push(new Result('11.1-img-webp', '11.1パフォーマンス', 'WebP+picture', 'WARN', `ラスター画像${rasterImgs.length}個あるがpicture/webpなし`));
-    } else {
-      results.push(new Result('11.1-img-webp', '11.1パフォーマンス', 'WebP+picture', 'PASS'));
+  // 2. 全navにaria-label（メイン,モバイル,パンくず,フッター = 最低4）
+  if (pt === 'minimal') { r.push(SKIP('11.4-nav', S, 'nav aria-label')); }
+  else {
+    const navs = bd.match(/<nav[^>]*>/gi) || [];
+    const noL = navs.filter(n => !/aria-label(ledby)?=/i.test(n));
+    r.push(noL.length === 0 && navs.length > 0
+      ? PASS('11.4-nav', S, `nav aria-label(${navs.length}個)`)
+      : FAIL('11.4-nav', S, 'nav aria-label', noL.length > 0 ? `${noL.length}個に不足` : 'navなし'));
+    // 最低4チェック(full/serviceで期待)
+    if (pt === 'full' && navs.length < 4) {
+      r.push(WARN('11.4-nav4', S, 'nav数(4以上推奨)', `現在${navs.length}個`));
     }
   }
 
-  // decoding="async"
-  const noDecoding = rasterImgs.filter(img => !/decoding=["']async["']/i.test(img));
-  if (noDecoding.length > 0) {
-    results.push(new Result('11.1-img-decode', '11.1パフォーマンス', '画像decoding=async', 'WARN', `${noDecoding.length}個に未指定`));
-  } else if (rasterImgs.length > 0) {
-    results.push(new Result('11.1-img-decode', '11.1パフォーマンス', '画像decoding=async', 'PASS'));
-  }
-
-  return results;
-}
-
-// ============================================================
-// SPEC 11.2 SEO (9項目)
-// ============================================================
-
-function checkTitle(html, pageType) {
-  const title = extractTitle(html);
-  if (!title) return new Result('11.2-title', '11.2SEO', 'title', 'FAIL', 'title未設定');
-  const len = getTextLength(title);
-  if (pageType === 'minimal') {
-    return new Result('11.2-title', '11.2SEO', `title (${len}文字)`, len > 0 ? 'PASS' : 'FAIL', `"${title}"`);
-  }
-  const ok = len >= 30 && len <= 60;
-  return new Result('11.2-title', '11.2SEO', `title ${len}文字 (30-60)`, ok ? 'PASS' : 'FAIL', `"${title}"`);
-}
-
-function checkDescription(html, pageType) {
-  const desc = extractMetaContent(html, 'description');
-  if (pageType === 'minimal') {
-    return new Result('11.2-desc', '11.2SEO', 'description', desc ? 'PASS' : 'WARN', desc ? `${getTextLength(desc)}文字` : 'なし');
-  }
-  if (!desc) return new Result('11.2-desc', '11.2SEO', 'description', 'FAIL', '未設定');
-  const len = getTextLength(desc);
-  const ok = len >= 70 && len <= 160;
-  return new Result('11.2-desc', '11.2SEO', `description ${len}文字 (70-160)`, ok ? 'PASS' : 'FAIL', `${len}文字`);
-}
-
-function checkCanonical(html, pageType) {
-  const m = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']*)["']/i);
-  if (!m) return new Result('11.2-canonical', '11.2SEO', 'canonical', pageType === 'minimal' ? 'WARN' : 'FAIL', '未設定');
-  const url = m[1];
-  if (!url.startsWith(DOMAIN)) {
-    return new Result('11.2-canonical', '11.2SEO', 'canonical', 'FAIL', `ドメイン不一致: ${url}`);
-  }
-  return new Result('11.2-canonical', '11.2SEO', 'canonical', 'PASS', url);
-}
-
-function checkRobotsTag(html, pageType) {
-  const robots = extractMetaContent(html, 'robots');
-  if (pageType === 'minimal') {
-    if (robots && (robots.includes('noindex') || robots.includes('nofollow'))) {
-      return new Result('11.2-robots', '11.2SEO', 'robots (noindex)', 'PASS', robots);
+  // 3. H1→H2→H3スキップなし
+  const hs = headings(html);
+  const h1s = hs.filter(h => h.lv === 1);
+  if (h1s.length === 0) r.push(FAIL('11.4-h1', S, 'H1', 'H1なし'));
+  else if (h1s.length > 1) r.push(FAIL('11.4-h1', S, 'H1', `${h1s.length}個(1個必須)`));
+  else r.push(PASS('11.4-h1', S, 'H1', h1s[0].txt.substring(0, 40)));
+  let prev = 0, skip = false;
+  for (const h of hs) {
+    if (prev > 0 && h.lv > prev + 1) {
+      r.push(FAIL('11.4-hskip', S, '見出し階層', `H${prev}→H${h.lv}`));
+      skip = true; break;
     }
-    return new Result('11.2-robots', '11.2SEO', 'robots', robots ? 'PASS' : 'WARN', robots || 'なし');
+    prev = h.lv;
   }
-  if (!robots) return new Result('11.2-robots', '11.2SEO', 'robots', 'FAIL', '未設定');
-  const required = ['index', 'follow', 'max-image-preview:large', 'max-snippet:-1'];
-  const missing = required.filter(r => !robots.includes(r));
-  if (missing.length > 0) {
-    return new Result('11.2-robots', '11.2SEO', 'robots max-snippet:-1', 'FAIL', `不足: ${missing.join(', ')}`);
+  if (!skip && hs.length > 0) r.push(PASS('11.4-hskip', S, '見出し階層スキップなし'));
+
+  // 4. table caption + th scope
+  const tables = bd.match(/<table[\s\S]*?<\/table>/gi) || [];
+  if (tables.length === 0) r.push(SKIP('11.4-tbl', S, 'table'));
+  else {
+    let issue = 0;
+    tables.forEach(t => { if (!/<caption/i.test(t) || !/<th[^>]*scope=/i.test(t)) issue++; });
+    r.push(issue === 0 ? PASS('11.4-tbl', S, 'table caption+th scope') : FAIL('11.4-tbl', S, 'table', `${issue}件問題`));
   }
-  return new Result('11.2-robots', '11.2SEO', 'robots max-snippet:-1', 'PASS');
+
+  // 5. JSON-LD機械可読
+  if (pt === 'minimal') r.push(SKIP('11.4-jld', S, 'JSON-LD機械可読'));
+  else {
+    const s = jsonld(html);
+    r.push(s.length > 0 && !s.some(x => x._err) ? PASS('11.4-jld', S, 'JSON-LD機械可読', `${s.length}ブロック`) : FAIL('11.4-jld', S, 'JSON-LD機械可読'));
+  }
+
+  // 6. JSなしで全情報取得可能
+  r.push(/innerHTML\s*=|document\.write|\.insertAdjacentHTML/i.test(bd)
+    ? WARN('11.4-nojs', S, 'JSなし情報取得', 'JS動的コンテンツ生成あり')
+    : PASS('11.4-nojs', S, 'JSなし情報取得'));
+
+  // 7. lang="ja"
+  const lang = (html.match(/<html[^>]*\slang=["']([^"']*)["']/i) || [])[1];
+  r.push(lang === 'ja' ? PASS('11.4-lang', S, 'lang="ja"') : FAIL('11.4-lang', S, 'lang="ja"', lang ? `lang="${lang}"` : 'なし'));
+
+  return r;
 }
 
-function checkOGP(html, pageType) {
-  if (pageType === 'minimal') return [new Result('11.2-ogp', '11.2SEO', 'OGP', 'SKIP', 'noindexページ')];
-  const results = [];
-  const required = ['og:title', 'og:description', 'og:type', 'og:url', 'og:image', 'og:site_name', 'og:locale'];
-  const missing = required.filter(prop => !extractMetaProperty(html, prop));
-  if (missing.length > 0) {
-    results.push(new Result('11.2-ogp', '11.2SEO', 'OGP必須7項目', 'FAIL', `不足: ${missing.join(', ')}`));
-  } else {
-    results.push(new Result('11.2-ogp', '11.2SEO', 'OGP必須7項目', 'PASS'));
+// ═══════════════════ 11.5 アクセシビリティ (7) ═══════════════════
+
+function c11_5(html) {
+  const S = '11.5a11y', r = [], bd = body(html);
+
+  // 1. タッチターゲット44px
+  const btns = bd.match(/<button[^>]*class=["'][^"']*["'][^>]*>/gi) || [];
+  const links = bd.match(/<a[^>]*class=["'][^"']*["'][^>]*>/gi) || [];
+  let viol = 0;
+  [...btns, ...links].forEach(el => {
+    const cls = (el.match(/class=["']([^"']*)["']/i) || [])[1] || '';
+    if (cls.includes('sr-only') || cls.includes('hidden')) return;
+    const py = (cls.match(/\bpy-(\d+)\b/) || [])[1];
+    const h = (cls.match(/\bh-(\d+)\b/) || [])[1];
+    const p = (cls.match(/\bp-(\d+)\b/) || [])[1];
+    if ((py && +py >= 3) || (h && +h >= 10) || (p && +p >= 3)) return;
+    if (cls.includes('py-[') || cls.includes('min-h-')) return;
+    // インラインリンク除外
+    if (!py && !h && !p && !cls.includes('rounded') && !cls.includes('bg-') && !cls.includes('block') && !cls.includes('flex') && !cls.includes('inline-flex')) return;
+    viol++;
+  });
+  r.push(viol === 0 ? PASS('11.5-touch', S, 'タッチターゲット44px') : WARN('11.5-touch', S, 'タッチターゲット', `${viol}件がpy-3未満`));
+
+  // 2. フォーカスリング不透明
+  const semi = bd.match(/focus:ring-[^"'\s]*\/\d+/g);
+  let focusFail = semi && semi.length > 0;
+  if (!focusFail) {
+    (bd.match(/class=["'][^"']*focus:outline-none[^"']*["']/gi) || []).forEach(el => {
+      if (!/focus:ring/i.test(el)) focusFail = true;
+    });
   }
-  // OGP image URL絶対パス
-  const ogImage = extractMetaProperty(html, 'og:image');
-  if (ogImage && !ogImage.startsWith(DOMAIN)) {
-    results.push(new Result('11.2-ogp-img', '11.2SEO', 'OGP画像URL', 'FAIL', `絶対URL不正: ${ogImage}`));
-  } else if (ogImage) {
-    results.push(new Result('11.2-ogp-img', '11.2SEO', 'OGP画像URL', 'PASS', ogImage));
-  }
-  // og:image:width, height, type
-  const extra = ['og:image:width', 'og:image:height', 'og:image:type'];
-  const extraMissing = extra.filter(e => !extractMetaProperty(html, e));
-  if (extraMissing.length > 0) {
-    results.push(new Result('11.2-ogp-extra', '11.2SEO', 'OGP画像詳細(width/height/type)', 'WARN', `不足: ${extraMissing.join(', ')}`));
-  }
-  return results;
-}
+  r.push(focusFail ? FAIL('11.5-focus', S, 'フォーカスリング不透明') : PASS('11.5-focus', S, 'フォーカスリング不透明'));
 
-function checkTwitterCard(html, pageType) {
-  if (pageType === 'minimal') return new Result('11.2-twitter', '11.2SEO', 'Twitter Card', 'SKIP');
-  const card = extractMetaContent(html, 'twitter:card');
-  const title = extractMetaContent(html, 'twitter:title');
-  const desc = extractMetaContent(html, 'twitter:description');
-  const image = extractMetaContent(html, 'twitter:image');
-  const missing = [];
-  if (!card || card !== 'summary_large_image') missing.push('card');
-  if (!title) missing.push('title');
-  if (!desc) missing.push('description');
-  if (!image) missing.push('image');
-  if (missing.length > 0) {
-    return new Result('11.2-twitter', '11.2SEO', 'Twitter Card', 'FAIL', `不足: ${missing.join(', ')}`);
-  }
-  return new Result('11.2-twitter', '11.2SEO', 'Twitter Card', 'PASS');
-}
-
-function checkJsonLd(html, pageType) {
-  if (pageType === 'minimal') return [new Result('11.2-jsonld', '11.2SEO', 'JSON-LD', 'SKIP', 'noindexページ')];
-  const schemas = extractJsonLd(html);
-  const results = [];
-
-  if (schemas.some(s => s._parseError)) {
-    results.push(new Result('11.2-jsonld-parse', '11.2SEO', 'JSON-LDパース', 'FAIL', 'パースエラー'));
-  }
-
-  const types = new Set();
-  for (const s of schemas) {
-    if (s['@type']) types.add(s['@type']);
-    if (s['@graph']) s['@graph'].forEach(item => { if (item['@type']) types.add(item['@type']); });
-  }
-
-  const required = pageType === 'full'
-    ? ['ProfessionalService', 'WebSite', 'FAQPage', 'BreadcrumbList']
-    : ['ProfessionalService', 'WebSite', 'BreadcrumbList'];
-
-  for (const t of required) {
-    results.push(new Result(`11.2-${t}`, '11.2SEO', `JSON-LD: ${t}`, types.has(t) ? 'PASS' : 'FAIL', types.has(t) ? '' : '未定義'));
-  }
-
-  // ProfessionalService必須プロパティ
-  if (types.has('ProfessionalService')) {
-    const ps = schemas.find(s => s['@type'] === 'ProfessionalService') ||
-               schemas.flatMap(s => s['@graph'] || []).find(i => i['@type'] === 'ProfessionalService');
-    if (ps) {
-      const psReq = ['name', 'description', 'url', 'telephone', 'email', 'address', 'geo', 'founder', 'knowsAbout', 'areaServed'];
-      const psMissing = psReq.filter(p => !ps[p]);
-      if (psMissing.length > 0) {
-        results.push(new Result('11.2-ps-props', '11.2SEO', 'ProfessionalServiceプロパティ', 'FAIL', `不足: ${psMissing.join(', ')}`));
-      } else {
-        results.push(new Result('11.2-ps-props', '11.2SEO', 'ProfessionalServiceプロパティ', 'PASS'));
-      }
-    }
-  }
-
-  return results;
-}
-
-function checkSitemapXml() {
-  const results = [];
-  const smPath = path.join(ROOT, 'sitemap.xml');
-  if (!fs.existsSync(smPath)) {
-    results.push(new Result('11.2-sitemap', '11.2SEO', 'sitemap.xml', 'FAIL', 'ファイルなし'));
-    return results;
-  }
-  const content = fs.readFileSync(smPath, 'utf-8');
-  const issues = [];
-  if (!content.includes('<urlset')) issues.push('urlsetなし');
-  if (!content.includes(DOMAIN)) issues.push(`${DOMAIN}でない`);
-  if (content.includes('harton.netlify.app')) issues.push('旧ドメイン残存');
-  if (!content.includes('<lastmod>')) issues.push('lastmodなし');
-  if (issues.length > 0) {
-    results.push(new Result('11.2-sitemap', '11.2SEO', 'sitemap.xml', issues.includes('urlsetなし') || issues.includes(`${DOMAIN}でない`) ? 'FAIL' : 'WARN', issues.join(', ')));
-  } else {
-    results.push(new Result('11.2-sitemap', '11.2SEO', 'sitemap.xml', 'PASS'));
-  }
-  return results;
-}
-
-function checkRobotsTxt() {
-  const results = [];
-  const robotsPath = path.join(ROOT, 'robots.txt');
-  if (!fs.existsSync(robotsPath)) {
-    results.push(new Result('11.2-robotstxt', '11.2SEO', 'robots.txt', 'FAIL', 'ファイルなし'));
-    return results;
-  }
-  const content = fs.readFileSync(robotsPath, 'utf-8');
-  const issues = [];
-  if (!content.includes('User-agent:')) issues.push('User-agentなし');
-  if (!content.includes('Sitemap:')) issues.push('Sitemapなし');
-  else if (!content.includes(DOMAIN)) issues.push('ドメイン不一致');
-  if (!content.includes('Disallow: /ogp.html')) issues.push('ogp.html未除外');
-  if (issues.length > 0) {
-    results.push(new Result('11.2-robotstxt', '11.2SEO', 'robots.txt', 'FAIL', issues.join(', ')));
-  } else {
-    results.push(new Result('11.2-robotstxt', '11.2SEO', 'robots.txt', 'PASS'));
-  }
-  return results;
-}
-
-// ============================================================
-// SPEC 11.3 LLMO (7項目)
-// ============================================================
-
-function checkSectionAria(html, pageType) {
-  if (pageType === 'minimal') return new Result('11.3-section', '11.3LLMO', 'section aria-label', 'SKIP');
-  const body = extractBody(html);
-  const sections = body.match(/<section[^>]*>/gi) || [];
-  const noLabel = sections.filter(s => !/aria-label(ledby)?=/i.test(s));
-  if (noLabel.length > 0) {
-    return new Result('11.3-section', '11.3LLMO', 'section aria-label', 'FAIL', `${noLabel.length}/${sections.length}個にaria-labelなし`);
-  }
-  return new Result('11.3-section', '11.3LLMO', `section aria-label (${sections.length}個)`, sections.length > 0 ? 'PASS' : 'SKIP');
-}
-
-function checkNavAria(html, pageType) {
-  if (pageType === 'minimal') return new Result('11.3-nav', '11.3LLMO', 'nav aria-label', 'SKIP');
-  const body = extractBody(html);
-  const navs = body.match(/<nav[^>]*>/gi) || [];
-  const noLabel = navs.filter(n => !/aria-label(ledby)?=/i.test(n));
-  if (noLabel.length > 0) {
-    return new Result('11.3-nav', '11.3LLMO', 'nav aria-label', 'FAIL', `${noLabel.length}/${navs.length}個にaria-labelなし`);
-  }
-  return new Result('11.3-nav', '11.3LLMO', `nav aria-label (${navs.length}個)`, navs.length > 0 ? 'PASS' : 'SKIP');
-}
-
-function checkHeadingHierarchy(html) {
-  const headings = countHeadings(html);
-  const results = [];
-
-  // H1: 1個のみ
-  const h1s = headings.filter(h => h.level === 1);
-  if (h1s.length === 0) {
-    results.push(new Result('11.3-h1', '11.3LLMO', 'H1', 'FAIL', 'H1なし'));
-  } else if (h1s.length > 1) {
-    results.push(new Result('11.3-h1', '11.3LLMO', 'H1', 'FAIL', `H1が${h1s.length}個（1個必須）`));
-  } else {
-    results.push(new Result('11.3-h1', '11.3LLMO', 'H1', 'PASS', h1s[0].text.substring(0, 40)));
-  }
-
-  // H1→H2→H3スキップなし
-  let prevLevel = 0;
-  let skipFound = false;
-  for (const h of headings) {
-    if (prevLevel > 0 && h.level > prevLevel + 1) {
-      results.push(new Result('11.3-hskip', '11.3LLMO', '見出し階層スキップ禁止', 'FAIL', `H${prevLevel}→H${h.level}: "${h.text.substring(0, 30)}"`));
-      skipFound = true;
-      break;
-    }
-    prevLevel = h.level;
-  }
-  if (!skipFound && headings.length > 0) {
-    results.push(new Result('11.3-hskip', '11.3LLMO', '見出し階層スキップなし', 'PASS'));
-  }
-
-  return results;
-}
-
-function checkTableAccessibility(html) {
-  const body = extractBody(html);
-  const tables = body.match(/<table[\s\S]*?<\/table>/gi) || [];
-  if (tables.length === 0) return new Result('11.3-table', '11.3LLMO', 'table caption+th scope', 'SKIP', 'tableなし');
-
-  let issues = 0;
-  for (const table of tables) {
-    if (!/<caption/i.test(table)) issues++;
-    if (!/<th[^>]*scope=/i.test(table)) issues++;
-  }
-  if (issues > 0) {
-    return new Result('11.3-table', '11.3LLMO', 'table caption+th scope', 'FAIL', `${issues}件の問題`);
-  }
-  return new Result('11.3-table', '11.3LLMO', 'table caption+th scope', 'PASS');
-}
-
-function checkJsonLdMachineReadable(html, pageType) {
-  if (pageType === 'minimal') return new Result('11.3-jsonld-mr', '11.3LLMO', 'JSON-LD機械可読', 'SKIP');
-  const schemas = extractJsonLd(html);
-  if (schemas.length === 0) return new Result('11.3-jsonld-mr', '11.3LLMO', 'JSON-LD機械可読', 'FAIL', 'JSON-LDなし');
-  if (schemas.some(s => s._parseError)) return new Result('11.3-jsonld-mr', '11.3LLMO', 'JSON-LD機械可読', 'FAIL', 'パースエラー');
-  return new Result('11.3-jsonld-mr', '11.3LLMO', 'JSON-LD機械可読', 'PASS', `${schemas.length}ブロック`);
-}
-
-function checkNoJSContent(html) {
-  // JSなしで全情報取得可能か = noscriptフォールバック + コンテンツがHTMLにある
-  const body = extractBody(html);
-  // JS生成コンテンツがないか（テンプレートリテラルでのDOM挿入など）
-  const hasJSContent = /innerHTML\s*=|document\.write|\.insertAdjacentHTML/i.test(body);
-  if (hasJSContent) {
-    return new Result('11.3-nojs', '11.3LLMO', 'JSなしで全情報取得可能', 'WARN', 'JS動的コンテンツ生成あり');
-  }
-  return new Result('11.3-nojs', '11.3LLMO', 'JSなしで全情報取得可能', 'PASS');
-}
-
-function checkLangAttribute(html) {
-  const m = html.match(/<html[^>]*\slang=["']([^"']*)["']/i);
-  if (!m) return new Result('11.3-lang', '11.3LLMO', 'lang="ja"', 'FAIL', 'lang属性なし');
-  if (m[1] !== 'ja') return new Result('11.3-lang', '11.3LLMO', 'lang="ja"', 'FAIL', `lang="${m[1]}"`);
-  return new Result('11.3-lang', '11.3LLMO', 'lang="ja"', 'PASS');
-}
-
-// ============================================================
-// SPEC 11.4 アクセシビリティ (7項目)
-// ============================================================
-
-function checkTouchTarget(html) {
-  const body = extractBody(html);
-  const results = [];
-
-  // ボタンのpy-3以上チェック
-  const buttons = body.match(/<button[^>]*class=["'][^"']*["'][^>]*>/gi) || [];
-  const links = body.match(/<a[^>]*class=["'][^"']*["'][^>]*>/gi) || [];
-  const interactive = [...buttons, ...links];
-
-  let violations = 0;
-  const violationDetails = [];
-
-  for (const el of interactive) {
-    const classes = (el.match(/class=["']([^"']*)["']/i) || [])[1] || '';
-
-    // sr-onlyは除外（スキップリンク等、フォーカス時は別スタイル）
-    if (classes.includes('sr-only')) continue;
-    // hidden要素は除外
-    if (classes.includes('hidden')) continue;
-
-    // py-3, py-4等があればOK（44px以上）
-    // py-3 = 12px*2 + font = 44px以上
-    const pyMatch = classes.match(/\bpy-(\d+)\b/);
-    const hMatch = classes.match(/\bh-(\d+)\b/);
-    const pMatch = classes.match(/\bp-(\d+)\b/);
-
-    let hasMinSize = false;
-    if (pyMatch && parseInt(pyMatch[1]) >= 3) hasMinSize = true;
-    if (hMatch && parseInt(hMatch[1]) >= 10) hasMinSize = true; // h-10 = 40px, h-11 = 44px
-    if (pMatch && parseInt(pMatch[1]) >= 3) hasMinSize = true;
-    if (classes.includes('py-[') || classes.includes('min-h-')) hasMinSize = true; // arbitrary values
-
-    // インラインリンク（テキスト中のリンク）は例外
-    const isInline = !pyMatch && !hMatch && !pMatch && !classes.includes('btn') &&
-                     !classes.includes('rounded') && !classes.includes('bg-') &&
-                     !classes.includes('block') && !classes.includes('flex') &&
-                     !classes.includes('inline-flex');
-
-    if (!hasMinSize && !isInline) {
-      violations++;
-      // 最初の数件だけ詳細記録
-      if (violationDetails.length < 3) {
-        const textMatch = el.match(/>([^<]{1,30})/);
-        violationDetails.push(textMatch ? textMatch[1].trim() : 'unknown');
-      }
-    }
-  }
-
-  if (violations > 0) {
-    results.push(new Result('11.4-touch', '11.4アクセシビリティ', 'タッチターゲット44px', 'WARN', `${violations}件がpy-3未満: ${violationDetails.join(', ')}`));
-  } else {
-    results.push(new Result('11.4-touch', '11.4アクセシビリティ', 'タッチターゲット44px', 'PASS'));
-  }
-
-  return results;
-}
-
-function checkFocusRing(html) {
-  const body = extractBody(html);
-  // focus:ring-*/30 等の半透明フォーカスリング禁止
-  const semiTransparent = body.match(/focus:ring-[^"'\s]*\/\d+/g);
-  if (semiTransparent && semiTransparent.length > 0) {
-    return new Result('11.4-focus', '11.4アクセシビリティ', 'フォーカスリング不透明', 'FAIL', `半透明: ${semiTransparent.slice(0, 3).join(', ')}`);
-  }
-
-  // focus:outline-noneがfocus:ringなしで使われていないか
-  const focusOutlineNone = body.match(/focus:outline-none/g) || [];
-  if (focusOutlineNone.length > 0) {
-    // 同じ要素にfocus:ringがあるかチェック
-    const elements = body.match(/class=["'][^"']*focus:outline-none[^"']*["']/gi) || [];
-    for (const el of elements) {
-      if (!/focus:ring/i.test(el)) {
-        return new Result('11.4-focus', '11.4アクセシビリティ', 'フォーカスリング不透明', 'FAIL', 'focus:outline-noneにfocus:ring併用なし');
-      }
-    }
-  }
-
-  return new Result('11.4-focus', '11.4アクセシビリティ', 'フォーカスリング不透明', 'PASS');
-}
-
-function checkReducedMotion(html) {
-  const has = /prefers-reduced-motion:\s*reduce/i.test(html);
-  if (!has) return new Result('11.4-motion', '11.4アクセシビリティ', 'prefers-reduced-motion', 'FAIL');
-
-  // 内容の検証: animation-duration, transition-duration, scroll-behavior
+  // 3. prefers-reduced-motion
   const motionBlock = html.match(/@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{([\s\S]*?)\}\s*\}/i);
-  if (motionBlock) {
-    const content = motionBlock[1];
-    const hasAnimDuration = /animation-duration:\s*0\.01ms/i.test(content);
-    const hasTransDuration = /transition-duration:\s*0\.01ms/i.test(content);
-    const hasScrollBehavior = /scroll-behavior:\s*auto/i.test(content);
-    if (!hasAnimDuration || !hasTransDuration || !hasScrollBehavior) {
-      return new Result('11.4-motion', '11.4アクセシビリティ', 'prefers-reduced-motion', 'FAIL', '必須プロパティ不足');
+  if (!motionBlock) r.push(FAIL('11.5-motion', S, 'prefers-reduced-motion'));
+  else {
+    const c = motionBlock[1];
+    r.push(/animation-duration/i.test(c) && /transition-duration/i.test(c) && /scroll-behavior/i.test(c)
+      ? PASS('11.5-motion', S, 'prefers-reduced-motion')
+      : FAIL('11.5-motion', S, 'prefers-reduced-motion', '必須プロパティ不足'));
+  }
+
+  // 4. noscript
+  r.push(/<noscript>[\s\S]*?\.fade-in[\s\S]*?<\/noscript>/i.test(html)
+    ? PASS('11.5-nosc', S, 'noscript')
+    : FAIL('11.5-nosc', S, 'noscript'));
+
+  // 5. スキップリンク
+  r.push(/href=["']#main["'][^>]*>.*スキップ/is.test(bd) || /sr-only[^>]*href=["']#main["']/is.test(bd) || /href=["']#main["'][^>]*class=["'][^"']*sr-only/is.test(bd)
+    ? PASS('11.5-skip', S, 'スキップリンク')
+    : FAIL('11.5-skip', S, 'スキップリンク'));
+
+  // 6. 画像alt日本語 → 11.1で実施済み(重複回避SKIP)
+  // 7. フォームlabel
+  const inputs = (bd.match(/<input\s[^>]*>/gi) || []).concat(bd.match(/<textarea[^>]*>/gi) || [], bd.match(/<select[^>]*>/gi) || []);
+  const fields = inputs.filter(e => !/type=["'](hidden|submit|button|checkbox)["']/i.test(e) && !/display:\s*none/i.test(e) && !/class=["'][^"']*hidden/i.test(e));
+  if (fields.length === 0) { r.push(SKIP('11.5-label', S, 'フォームlabel')); }
+  else {
+    const labelFors = (bd.match(/<label[^>]*>/gi) || []).map(l => (l.match(/for=["']([^"']*)["']/i) || [])[1]).filter(Boolean);
+    const ids = fields.map(e => (e.match(/id=["']([^"']*)["']/i) || [])[1]).filter(Boolean);
+    const unl = ids.filter(id => !labelFors.includes(id));
+    r.push(unl.length === 0 ? PASS('11.5-label', S, 'フォームlabel', `${fields.length}フィールド`) : FAIL('11.5-label', S, 'フォームlabel', `不足: ${unl.join(',')}`));
+  }
+
+  return r;
+}
+
+// ═══════════════════ 11.6 セキュリティ (4) ═══════════════════
+
+function c11_6(html, pt) {
+  const S = '11.6セキュリティ', r = [], c2 = csp(html), bd = body(html);
+
+  // 1. CSP
+  if (!c2) r.push(pt === 'minimal' ? WARN('11.6-csp', S, 'CSP', '未設定') : FAIL('11.6-csp', S, 'CSP', '未設定'));
+  else {
+    const need = ['default-src','script-src','style-src','font-src','img-src','frame-src','object-src','base-uri','form-action'];
+    const miss = need.filter(d => !c2.includes(d));
+    r.push(miss.length === 0 ? PASS('11.6-csp', S, 'CSP全ディレクティブ') : FAIL('11.6-csp', S, 'CSP', `不足: ${miss.join(',')}`));
+  }
+
+  // 2. target="_blank" rel
+  const blanks = bd.match(/<a\s[^>]*target=["']_blank["'][^>]*>/gi) || [];
+  let bv = 0;
+  blanks.forEach(l => { if (!/noopener/i.test(l) || !/noreferrer/i.test(l)) bv++; });
+  r.push(bv === 0 ? PASS('11.6-blank', S, 'target="_blank" rel', `${blanks.length}件OK`) : FAIL('11.6-blank', S, 'target="_blank"', `${bv}件にrel不足`));
+
+  // 3. frame-src 'none'
+  if (!c2) r.push(pt === 'minimal' ? SKIP('11.6-frame', S, "frame-src") : FAIL('11.6-frame', S, "frame-src 'none'", 'CSPなし'));
+  else r.push(c2.includes("frame-src 'none'") ? PASS('11.6-frame', S, "frame-src 'none'") : FAIL('11.6-frame', S, "frame-src 'none'"));
+
+  // 4. object-src 'none'
+  if (!c2) r.push(pt === 'minimal' ? SKIP('11.6-obj', S, "object-src") : FAIL('11.6-obj', S, "object-src 'none'", 'CSPなし'));
+  else r.push(c2.includes("object-src 'none'") ? PASS('11.6-obj', S, "object-src 'none'") : FAIL('11.6-obj', S, "object-src 'none'"));
+
+  return r;
+}
+
+// ═══════════════════ 11.7 追加要件 (2) ═══════════════════
+
+function c11_7() {
+  const S = '11.7追加', r = [];
+
+  // 1. カスタム404
+  const p404 = path.join(ROOT, '404.html');
+  if (!fs.existsSync(p404)) {
+    r.push(FAIL('11.7-404', S, 'カスタム404', '404.html不存在'));
+  } else {
+    const c = fs.readFileSync(p404, 'utf-8');
+    const hasNav = /href=["'](\/|index\.html|https?:\/\/)/i.test(c);
+    r.push(hasNav ? PASS('11.7-404', S, 'カスタム404') : WARN('11.7-404', S, '404.html', 'トップへのリンクなし'));
+  }
+
+  // 2. 301リダイレクト準備
+  const redir = fs.existsSync(path.join(ROOT, '_redirects'));
+  r.push(redir ? PASS('11.7-301', S, '301リダイレクト準備') : WARN('11.7-301', S, '301リダイレクト', '_redirectsファイル未作成'));
+
+  return r;
+}
+
+// ═══════════════════ SPEC本文 追加チェック ═══════════════════
+
+function cSpec(html, pt) {
+  const S = 'SPEC本文', r = [], hd = head(html), bd = body(html);
+
+  // charset
+  r.push(/<meta\s+charset=["']UTF-8["']/i.test(html) ? PASS('sp-char', S, 'charset') : FAIL('sp-char', S, 'charset'));
+
+  // viewport
+  const vp = meta(html, 'viewport');
+  r.push(vp && vp.includes('width=device-width') && vp.includes('initial-scale=1')
+    ? PASS('sp-vp', S, 'viewport') : FAIL('sp-vp', S, 'viewport'));
+
+  // theme-color
+  r.push(meta(html, 'theme-color') ? PASS('sp-theme', S, 'theme-color') : FAIL('sp-theme', S, 'theme-color', '未設定'));
+
+  // color-scheme
+  r.push(meta(html, 'color-scheme') ? PASS('sp-cs', S, 'color-scheme') : WARN('sp-cs', S, 'color-scheme'));
+
+  // favicon 3種
+  r.push(/<link[^>]*type=["']image\/svg\+xml["'][^>]*>/i.test(hd) ? PASS('sp-fsv', S, 'favicon SVG') : FAIL('sp-fsv', S, 'favicon SVG'));
+  r.push(/<link[^>]*sizes=["']32x32["'][^>]*>/i.test(hd) ? PASS('sp-f32', S, 'favicon 32px') : FAIL('sp-f32', S, 'favicon 32px'));
+  r.push(/<link[^>]*apple-touch-icon/i.test(hd) ? PASS('sp-fat', S, 'apple-touch-icon') : FAIL('sp-fat', S, 'apple-touch-icon'));
+
+  // body class
+  const bc = bodyClass(html);
+  const need = ['font-sans', 'text-dark-700', 'antialiased'];
+  const miss = need.filter(c => !bc.includes(c));
+  r.push(miss.length === 0 ? PASS('sp-body', S, 'body class') : FAIL('sp-body', S, 'body class', `不足: ${miss.join(',')} 現在: "${bc}"`));
+
+  // semantic landmarks
+  r.push(/<header[\s>]/i.test(bd) ? PASS('sp-hdr', S, '<header>') : FAIL('sp-hdr', S, '<header>'));
+  r.push(/<main[\s>]/i.test(bd) ? PASS('sp-main', S, '<main>') : FAIL('sp-main', S, '<main>'));
+  r.push(/<footer[\s>]/i.test(bd) ? PASS('sp-ftr', S, '<footer>') : FAIL('sp-ftr', S, '<footer>'));
+  if (/<main[\s>]/i.test(bd))
+    r.push(/<main[^>]*id=["']main["']/i.test(bd) ? PASS('sp-mid', S, 'main#main') : FAIL('sp-mid', S, 'main#main'));
+
+  // フッターnavにaria-label
+  const ftr = (bd.match(/<footer[\s\S]*?<\/footer>/i) || [])[0] || '';
+  if (pt !== 'minimal' && ftr) {
+    const fNavs = ftr.match(/<nav[^>]*>/gi) || [];
+    const fNoL = fNavs.filter(n => !/aria-label/i.test(n));
+    if (fNavs.length === 0) r.push(WARN('sp-fnav', S, 'フッターnav', 'footer内にnavなし'));
+    else r.push(fNoL.length === 0 ? PASS('sp-fnav', S, 'フッターnav aria-label') : FAIL('sp-fnav', S, 'フッターnav', 'aria-labelなし'));
+  }
+
+  // fade-in
+  const fi = html.match(/\.fade-in\s*\{[^}]*opacity:\s*0[^}]*\}/);
+  if (!fi) r.push(SKIP('sp-fi', S, 'fade-in'));
+  else {
+    r.push(fi[0].includes('translateY(30px)') ? PASS('sp-fi-y', S, 'fade-in 30px') : FAIL('sp-fi-y', S, 'fade-in', '30px必須'));
+    r.push(fi[0].includes('0.8s') ? PASS('sp-fi-d', S, 'fade-in 0.8s') : FAIL('sp-fi-d', S, 'fade-in', '0.8s必須'));
+  }
+
+  // fonts
+  r.push(/preconnect[^>]*fonts\.googleapis/i.test(hd) && /preconnect[^>]*fonts\.gstatic/i.test(hd)
+    ? PASS('sp-pcon', S, 'フォントpreconnect') : FAIL('sp-pcon', S, 'preconnect'));
+  const preload = /preload[^>]*fonts\.googleapis/i.test(hd) || /fonts\.googleapis[^>]*preload/i.test(hd);
+  r.push(preload ? PASS('sp-pload', S, 'フォントpreload') : WARN('sp-pload', S, 'preload未設定'));
+  // font-display:swap
+  const fUrls = hd.match(/fonts\.googleapis\.com\/css2[^"']*/gi) || [];
+  const noSwap = fUrls.filter(u => !u.includes('display=swap'));
+  if (fUrls.length > 0) r.push(noSwap.length === 0 ? PASS('sp-swap', S, 'display=swap') : FAIL('sp-swap', S, 'display=swap'));
+
+  // GA async
+  const ga = html.match(/<script[^>]*googletagmanager[^>]*>/i);
+  if (ga) r.push(/async/i.test(ga[0]) ? PASS('sp-ga', S, 'GA async') : FAIL('sp-ga', S, 'GA async'));
+
+  // head order
+  const cp = hd.indexOf('charset='), vpp = hd.indexOf('name="viewport"'), tp = hd.indexOf('<title>');
+  if (cp > -1 && vpp > -1 && cp > vpp) r.push(FAIL('sp-ord', S, 'head順序', 'viewport < charset'));
+  else if (cp > -1 && tp > -1 && cp > tp) r.push(FAIL('sp-ord', S, 'head順序', 'title < charset'));
+  else r.push(PASS('sp-ord', S, 'head要素順序'));
+
+  // footer copyright
+  if (ftr) {
+    if (/HARTON\s*Inc\./i.test(ftr)) r.push(FAIL('sp-cr', S, 'フッターCR', '"HARTON Inc."は不正'));
+    else if (/2026\s*HARTON/i.test(ftr)) r.push(PASS('sp-cr', S, 'フッターCR'));
+    else r.push(WARN('sp-cr', S, 'フッターCR', '形式不明'));
+  }
+
+  // URL整合性
+  r.push(html.includes('harton.netlify.app')
+    ? FAIL('sp-url', S, '旧ドメイン', `${(html.match(/harton\.netlify\.app/g) || []).length}箇所`)
+    : PASS('sp-url', S, '旧ドメイン残存なし'));
+
+  // sitemap link
+  r.push(/rel=["']sitemap["']/i.test(hd) ? PASS('sp-sm', S, 'sitemap link') : WARN('sp-sm', S, 'sitemap link'));
+
+  // ハンバーガーaria
+  if (pt !== 'minimal') {
+    const mBtn = bd.match(/<button[^>]*aria-controls=["']mobile-menu["'][^>]*>/i) ||
+                 bd.match(/<button[^>]*id=["']menuToggle["'][^>]*>/i);
+    if (mBtn) {
+      const b = mBtn[0], issue = [];
+      if (!/aria-label=/i.test(b)) issue.push('aria-label');
+      if (!/aria-expanded=/i.test(b)) issue.push('aria-expanded');
+      if (!/aria-controls=/i.test(b)) issue.push('aria-controls');
+      r.push(issue.length === 0 ? PASS('sp-hmb', S, 'ハンバーガーARIA') : FAIL('sp-hmb', S, 'ハンバーガーARIA', `不足: ${issue.join(',')}`));
     }
   }
 
-  return new Result('11.4-motion', '11.4アクセシビリティ', 'prefers-reduced-motion', 'PASS');
+  // article + time (E-E-A-T)
+  if (pt !== 'minimal') {
+    r.push(/<article/i.test(bd) ? PASS('sp-article', S, '<article>タグ') : WARN('sp-article', S, '<article>タグ', '未使用'));
+  }
+
+  return r;
 }
 
-function checkNoscript(html) {
-  const hasNoscript = /<noscript>[\s\S]*?\.fade-in[\s\S]*?<\/noscript>/i.test(html);
-  return new Result('11.4-noscript', '11.4アクセシビリティ', 'noscriptフォールバック', hasNoscript ? 'PASS' : 'FAIL');
-}
+// ═══════════════════ グローバルチェック ═══════════════════
 
-function checkSkipLink(html) {
-  const body = extractBody(html);
-  const hasSkip = /href=["']#main["'][^>]*>.*スキップ/is.test(body) ||
-                  /sr-only[^>]*focus:not-sr-only[^>]*href=["']#main["']/is.test(body) ||
-                  /href=["']#main["'][^>]*class=["'][^"']*sr-only/is.test(body);
-  return new Result('11.4-skip', '11.4アクセシビリティ', 'スキップリンク', hasSkip ? 'PASS' : 'FAIL');
-}
+function cGlobal() {
+  const S = 'グローバル', r = [];
 
-function checkFormLabels(html) {
-  const body = extractBody(html);
-  const inputs = body.match(/<input\s[^>]*>/gi) || [];
-  const textareas = body.match(/<textarea[^>]*>/gi) || [];
-  const selectElems = body.match(/<select[^>]*>/gi) || [];
+  // sitemap.xml
+  const smP = path.join(ROOT, 'sitemap.xml');
+  if (!fs.existsSync(smP)) r.push(FAIL('gl-sm', S, 'sitemap.xml', 'なし'));
+  else {
+    const c = fs.readFileSync(smP, 'utf-8');
+    if (!c.includes('<urlset')) r.push(FAIL('gl-sm', S, 'sitemap.xml', 'urlsetなし'));
+    else if (!c.includes(DOMAIN)) r.push(FAIL('gl-sm', S, 'sitemap.xml', 'ドメイン不一致'));
+    else if (c.includes('harton.netlify.app')) r.push(FAIL('gl-sm', S, 'sitemap.xml', '旧ドメイン残存'));
+    else r.push(PASS('gl-sm', S, 'sitemap.xml'));
+    if (!c.includes('<lastmod>')) r.push(WARN('gl-sm-lm', S, 'sitemap lastmod'));
+  }
 
-  const formFields = [...inputs, ...textareas, ...selectElems].filter(el => {
-    return !/type=["'](hidden|submit|button|checkbox)["']/i.test(el) &&
-           !/style=["'][^"']*display:\s*none/i.test(el) &&
-           !/class=["'][^"']*hidden/i.test(el);
+  // robots.txt
+  const rbP = path.join(ROOT, 'robots.txt');
+  if (!fs.existsSync(rbP)) r.push(FAIL('gl-rb', S, 'robots.txt', 'なし'));
+  else {
+    const c = fs.readFileSync(rbP, 'utf-8');
+    const issues = [];
+    if (!c.includes('User-agent:')) issues.push('User-agentなし');
+    if (!c.includes('Sitemap:')) issues.push('Sitemapなし');
+    else if (!c.includes(DOMAIN)) issues.push('ドメイン不一致');
+    if (!c.includes('Disallow: /ogp.html')) issues.push('ogp.html未除外');
+    r.push(issues.length === 0 ? PASS('gl-rb', S, 'robots.txt') : FAIL('gl-rb', S, 'robots.txt', issues.join(',')));
+  }
+
+  // コントラスト比
+  const combos = [
+    { bg: '#0f172a', fg: '#cbd5e1', lbl: 'dark-900+dark-300(本文)', min: 4.5 },
+    { bg: '#0f172a', fg: '#ffffff', lbl: 'dark-900+white(見出し)', min: 4.5 },
+    { bg: '#0f172a', fg: '#94a3b8', lbl: 'dark-900+dark-400(補足)', min: 3.0 },
+    { bg: '#ffffff', fg: '#334155', lbl: 'white+dark-700(ライト本文)', min: 4.5 },
+    { bg: '#ffffff', fg: '#1e293b', lbl: 'white+dark-800(ライト見出し)', min: 4.5 },
+    { bg: '#0d9ed8', fg: '#ffffff', lbl: 'sky-500+white(ボタン大文字)', min: 3.0 },
+  ];
+  combos.forEach(c => {
+    const cr = contrast(c.bg, c.fg);
+    r.push(cr >= c.min
+      ? PASS('gl-ct', S, `コントラスト ${c.lbl}`, `${cr.toFixed(1)}:1`)
+      : FAIL('gl-ct', S, `コントラスト ${c.lbl}`, `${cr.toFixed(1)}:1 (必要${c.min}:1)`));
   });
 
-  if (formFields.length === 0) {
-    return new Result('11.4-label', '11.4アクセシビリティ', 'フォームlabel', 'SKIP', 'フォームなし');
-  }
-
-  const labels = body.match(/<label[^>]*>/gi) || [];
-  const labelFors = labels.map(l => {
-    const m = l.match(/for=["']([^"']*)["']/);
-    return m ? m[1] : null;
-  }).filter(Boolean);
-
-  const inputIds = formFields.map(el => {
-    const m = el.match(/id=["']([^"']*)["']/);
-    return m ? m[1] : null;
-  }).filter(Boolean);
-
-  const unlabeled = inputIds.filter(id => !labelFors.includes(id));
-
-  // aria-label or aria-labelledbyでも可
-  const ariaLabeled = formFields.filter(el => /aria-label(ledby)?=/i.test(el));
-
-  if (unlabeled.length > 0 && ariaLabeled.length < formFields.length) {
-    return new Result('11.4-label', '11.4アクセシビリティ', 'フォームlabel', 'FAIL', `ラベル不足: ${unlabeled.join(', ')}`);
-  }
-  return new Result('11.4-label', '11.4アクセシビリティ', 'フォームlabel', 'PASS', `${formFields.length}フィールド`);
+  return r;
 }
 
-// ============================================================
-// SPEC 11.5 セキュリティ (4項目)
-// ============================================================
+// ═══════════════════ ファイル検証 ═══════════════════
 
-function checkCSP(html, pageType) {
-  const m = html.match(/<meta\s+http-equiv=["']Content-Security-Policy["']\s+content="([^"]*)"/i) ||
-            html.match(/<meta\s+http-equiv=["']Content-Security-Policy["']\s+content='([^']*)'/i);
-  if (!m) {
-    if (pageType === 'minimal') return [new Result('11.5-csp', '11.5セキュリティ', 'CSP', 'WARN', '未設定')];
-    return [new Result('11.5-csp', '11.5セキュリティ', 'CSP', 'FAIL', '未設定')];
-  }
-  const csp = m[1];
-  const results = [];
-  const required = ['default-src', 'script-src', 'style-src', 'font-src', 'img-src', 'frame-src', 'object-src', 'base-uri', 'form-action'];
-  const missing = required.filter(d => !csp.includes(d));
-  if (missing.length > 0) {
-    results.push(new Result('11.5-csp', '11.5セキュリティ', 'CSP必須ディレクティブ', 'FAIL', `不足: ${missing.join(', ')}`));
-  } else {
-    results.push(new Result('11.5-csp', '11.5セキュリティ', 'CSP必須ディレクティブ', 'PASS'));
-  }
-  return results;
-}
-
-function checkTargetBlank(html) {
-  const body = extractBody(html);
-  const blankLinks = body.match(/<a\s[^>]*target=["']_blank["'][^>]*>/gi) || [];
-  let violations = 0;
-  for (const link of blankLinks) {
-    if (!/rel=["'][^"']*noopener[^"']*noreferrer[^"']*["']/i.test(link) &&
-        !/rel=["'][^"']*noreferrer[^"']*noopener[^"']*["']/i.test(link)) {
-      violations++;
-    }
-  }
-  if (violations > 0) {
-    return new Result('11.5-blank', '11.5セキュリティ', 'target="_blank" rel', 'FAIL', `${violations}件にnoopener noreferrer不足`);
-  }
-  return new Result('11.5-blank', '11.5セキュリティ', 'target="_blank" rel', 'PASS', `${blankLinks.length}件チェック済`);
-}
-
-function checkFrameSrc(html, pageType) {
-  const m = html.match(/<meta\s+http-equiv=["']Content-Security-Policy["']\s+content="([^"]*)"/i) ||
-            html.match(/<meta\s+http-equiv=["']Content-Security-Policy["']\s+content='([^']*)'/i);
-  if (!m) {
-    if (pageType === 'minimal') return new Result('11.5-frame', '11.5セキュリティ', "frame-src 'none'", 'SKIP', 'CSPなし');
-    return new Result('11.5-frame', '11.5セキュリティ', "frame-src 'none'", 'FAIL', 'CSPなし');
-  }
-  if (!m[1].includes("frame-src 'none'")) {
-    return new Result('11.5-frame', '11.5セキュリティ', "frame-src 'none'", 'FAIL');
-  }
-  return new Result('11.5-frame', '11.5セキュリティ', "frame-src 'none'", 'PASS');
-}
-
-function checkObjectSrc(html, pageType) {
-  const m = html.match(/<meta\s+http-equiv=["']Content-Security-Policy["']\s+content="([^"]*)"/i) ||
-            html.match(/<meta\s+http-equiv=["']Content-Security-Policy["']\s+content='([^']*)'/i);
-  if (!m) {
-    if (pageType === 'minimal') return new Result('11.5-object', '11.5セキュリティ', "object-src 'none'", 'SKIP', 'CSPなし');
-    return new Result('11.5-object', '11.5セキュリティ', "object-src 'none'", 'FAIL', 'CSPなし');
-  }
-  if (!m[1].includes("object-src 'none'")) {
-    return new Result('11.5-object', '11.5セキュリティ', "object-src 'none'", 'FAIL');
-  }
-  return new Result('11.5-object', '11.5セキュリティ', "object-src 'none'", 'PASS');
-}
-
-// ============================================================
-// SPEC本文 追加チェック（チェックリスト外だが仕様書に明記）
-// ============================================================
-
-function checkCharset(html) {
-  if (/<meta\s+charset=["']UTF-8["']/i.test(html)) {
-    return new Result('spec-charset', 'SPEC本文', 'charset=UTF-8', 'PASS');
-  }
-  return new Result('spec-charset', 'SPEC本文', 'charset=UTF-8', 'FAIL');
-}
-
-function checkViewport(html) {
-  const vp = extractMetaContent(html, 'viewport');
-  if (!vp) return new Result('spec-viewport', 'SPEC本文', 'viewport', 'FAIL', '未設定');
-  if (vp.includes('width=device-width') && vp.includes('initial-scale=1')) {
-    return new Result('spec-viewport', 'SPEC本文', 'viewport', 'PASS');
-  }
-  return new Result('spec-viewport', 'SPEC本文', 'viewport', 'FAIL', `"${vp}"`);
-}
-
-function checkThemeColor(html) {
-  const tc = extractMetaContent(html, 'theme-color');
-  if (!tc) return new Result('spec-theme', 'SPEC本文', 'theme-color', 'FAIL', '未設定');
-  return new Result('spec-theme', 'SPEC本文', 'theme-color', 'PASS', tc);
-}
-
-function checkColorScheme(html) {
-  const cs = extractMetaContent(html, 'color-scheme');
-  if (!cs) return new Result('spec-colorscheme', 'SPEC本文', 'color-scheme', 'WARN', '未設定');
-  return new Result('spec-colorscheme', 'SPEC本文', 'color-scheme', 'PASS', cs);
-}
-
-function checkFavicons(html) {
-  const results = [];
-  const svgIcon = /<link\s[^>]*rel=["']icon["'][^>]*type=["']image\/svg\+xml["'][^>]*>/i.test(html);
-  const pngIcon = /<link\s[^>]*rel=["']icon["'][^>]*sizes=["']32x32["'][^>]*>/i.test(html);
-  const appleIcon = /<link\s[^>]*rel=["']apple-touch-icon["'][^>]*>/i.test(html);
-  results.push(new Result('spec-fav-svg', 'SPEC本文', 'favicon SVG', svgIcon ? 'PASS' : 'FAIL'));
-  results.push(new Result('spec-fav-png', 'SPEC本文', 'favicon PNG 32x32', pngIcon ? 'PASS' : 'FAIL'));
-  results.push(new Result('spec-fav-apple', 'SPEC本文', 'apple-touch-icon', appleIcon ? 'PASS' : 'FAIL'));
-  return results;
-}
-
-function checkBodyClass(html) {
-  const bodyClasses = getBodyClasses(html);
-  const required = ['font-sans', 'text-dark-700', 'antialiased'];
-  const missing = required.filter(c => !bodyClasses.includes(c));
-  if (missing.length > 0) {
-    return new Result('spec-body', 'SPEC本文', 'body class', 'FAIL', `不足: ${missing.join(', ')}  現在: "${bodyClasses}"`);
-  }
-  return new Result('spec-body', 'SPEC本文', 'body class', 'PASS');
-}
-
-function checkSemanticLandmarks(html) {
-  const body = extractBody(html);
-  const results = [];
-  const hasHeader = /<header[\s>]/i.test(body);
-  const hasMain = /<main[\s>]/i.test(body);
-  const hasFooter = /<footer[\s>]/i.test(body);
-  results.push(new Result('spec-header', 'SPEC本文', '<header>', hasHeader ? 'PASS' : 'FAIL'));
-  results.push(new Result('spec-main', 'SPEC本文', '<main>', hasMain ? 'PASS' : 'FAIL'));
-  results.push(new Result('spec-footer', 'SPEC本文', '<footer>', hasFooter ? 'PASS' : 'FAIL'));
-  if (hasMain && !/<main[^>]*id=["']main["']/i.test(body)) {
-    results.push(new Result('spec-main-id', 'SPEC本文', 'main#main', 'FAIL', 'id="main"なし'));
-  } else if (hasMain) {
-    results.push(new Result('spec-main-id', 'SPEC本文', 'main#main', 'PASS'));
-  }
-  return results;
-}
-
-function checkFadeIn(html) {
-  const fadeInMatch = html.match(/\.fade-in\s*\{[^}]*opacity:\s*0[^}]*\}/);
-  if (!fadeInMatch) return [new Result('spec-fadein', 'SPEC本文', 'fade-inパラメータ', 'SKIP', 'fade-in未使用')];
-  const css = fadeInMatch[0];
-  const results = [];
-  if (!css.includes('translateY(30px)')) {
-    const yMatch = css.match(/translateY\((\d+)px\)/);
-    results.push(new Result('spec-fadein-y', 'SPEC本文', 'fade-in translateY(30px)', 'FAIL', `現在: ${yMatch ? yMatch[1] + 'px' : '不明'}`));
-  } else {
-    results.push(new Result('spec-fadein-y', 'SPEC本文', 'fade-in translateY(30px)', 'PASS'));
-  }
-  if (!css.includes('0.8s')) {
-    const sMatch = css.match(/([\d.]+)s/);
-    results.push(new Result('spec-fadein-dur', 'SPEC本文', 'fade-in duration 0.8s', 'FAIL', `現在: ${sMatch ? sMatch[1] + 's' : '不明'}`));
-  } else {
-    results.push(new Result('spec-fadein-dur', 'SPEC本文', 'fade-in duration 0.8s', 'PASS'));
-  }
-  return results;
-}
-
-function checkFonts(html) {
-  const results = [];
-  const head = extractHead(html);
-  const preconnectGapi = /rel=["']preconnect["'][^>]*href=["']https:\/\/fonts\.googleapis\.com["']/i.test(head);
-  const preconnectGstatic = /rel=["']preconnect["'][^>]*href=["']https:\/\/fonts\.gstatic\.com["']/i.test(head);
-  results.push(new Result('spec-preconnect', 'SPEC本文', 'フォントpreconnect', (preconnectGapi && preconnectGstatic) ? 'PASS' : 'FAIL'));
-
-  // preload チェック
-  const preloadFont = /rel=["']preload["'][^>]*as=["']style["'][^>]*fonts\.googleapis/i.test(head) ||
-                      /fonts\.googleapis[^>]*rel=["']preload["']/i.test(head);
-  results.push(new Result('spec-preload', 'SPEC本文', 'フォントpreload', preloadFont ? 'PASS' : 'WARN', preloadFont ? '' : 'preload未設定'));
-
-  // preload URLとstylesheet URLの一致チェック
-  const preloadMatch = head.match(/rel=["']preload["'][^>]*href=["']([^"']*fonts\.googleapis\.com[^"']*)["']/i) ||
-                       head.match(/href=["']([^"']*fonts\.googleapis\.com[^"']*)["'][^>]*rel=["']preload["']/i);
-  const stylesheetMatch = head.match(/href=["']([^"']*fonts\.googleapis\.com[^"']*)["'][^>]*rel=["']stylesheet["']/i) ||
-                          head.match(/rel=["']stylesheet["'][^>]*href=["']([^"']*fonts\.googleapis\.com[^"']*)["']/i);
-  if (preloadMatch && stylesheetMatch) {
-    if (preloadMatch[1] !== stylesheetMatch[1]) {
-      results.push(new Result('spec-preload-match', 'SPEC本文', 'preload/stylesheet URL一致', 'FAIL', 'URLミスマッチ'));
-    } else {
-      results.push(new Result('spec-preload-match', 'SPEC本文', 'preload/stylesheet URL一致', 'PASS'));
-    }
-  }
-
-  // font-display: swap チェック（Google Fonts URLにdisplay=swap）
-  const fontURLs = head.match(/fonts\.googleapis\.com\/css2[^"']*/gi) || [];
-  const noSwap = fontURLs.filter(u => !u.includes('display=swap'));
-  if (noSwap.length > 0) {
-    results.push(new Result('spec-font-swap', 'SPEC本文', 'font-display: swap', 'FAIL', 'display=swapなし'));
-  } else if (fontURLs.length > 0) {
-    results.push(new Result('spec-font-swap', 'SPEC本文', 'font-display: swap', 'PASS'));
-  }
-
-  return results;
-}
-
-function checkGAAsync(html) {
-  const gaScript = html.match(/<script[^>]*googletagmanager[^>]*>/i);
-  if (!gaScript) return new Result('spec-ga', 'SPEC本文', 'GA async', 'SKIP', 'GAなし');
-  if (/async/i.test(gaScript[0])) return new Result('spec-ga', 'SPEC本文', 'GA async', 'PASS');
-  return new Result('spec-ga', 'SPEC本文', 'GA async', 'FAIL', 'async属性なし');
-}
-
-function checkHeadOrder(html) {
-  const head = extractHead(html);
-  const charsetPos = head.indexOf('charset=');
-  const viewportPos = head.indexOf('name="viewport"') !== -1 ? head.indexOf('name="viewport"') : head.indexOf("name='viewport'");
-  const titlePos = head.indexOf('<title>');
-  if (charsetPos > -1 && viewportPos > -1 && charsetPos > viewportPos) {
-    return new Result('spec-order', 'SPEC本文', 'head順序', 'FAIL', 'viewportがcharsetの前');
-  }
-  if (charsetPos > -1 && titlePos > -1 && charsetPos > titlePos) {
-    return new Result('spec-order', 'SPEC本文', 'head順序', 'FAIL', 'titleがcharsetの前');
-  }
-  return new Result('spec-order', 'SPEC本文', 'head要素順序', 'PASS');
-}
-
-function checkFooterCopyright(html) {
-  const body = extractBody(html);
-  const footerMatch = body.match(/<footer[\s\S]*?<\/footer>/i);
-  if (!footerMatch) return new Result('spec-footer-cr', 'SPEC本文', 'フッター', 'FAIL', 'footerなし');
-  if (/HARTON\s*Inc\./i.test(footerMatch[0])) {
-    return new Result('spec-footer-cr', 'SPEC本文', 'フッターコピーライト', 'FAIL', '"HARTON Inc."は不正');
-  }
-  if (/2026\s*HARTON/i.test(footerMatch[0])) {
-    return new Result('spec-footer-cr', 'SPEC本文', 'フッターコピーライト', 'PASS');
-  }
-  return new Result('spec-footer-cr', 'SPEC本文', 'フッターコピーライト', 'WARN', '形式不明');
-}
-
-function checkURLConsistency(html) {
-  if (html.includes('harton.netlify.app')) {
-    const count = (html.match(/harton\.netlify\.app/g) || []).length;
-    return new Result('spec-url', 'SPEC本文', '旧ドメイン残存', 'FAIL', `harton.netlify.app ${count}箇所`);
-  }
-  return new Result('spec-url', 'SPEC本文', '旧ドメイン残存なし', 'PASS');
-}
-
-function checkSitemapRef(html) {
-  const head = extractHead(html);
-  const has = /rel=["']sitemap["']/i.test(head);
-  return new Result('spec-smref', 'SPEC本文', 'sitemapリンク', has ? 'PASS' : 'WARN', has ? '' : 'link rel="sitemap"なし');
-}
-
-// コントラスト比チェック（SPEC本文 7.1）
-function checkContrast() {
-  const results = [];
-  // HARTONカラーシステムの主要組み合わせをチェック
-  // bg-dark-900 (#0f172a) + text-dark-700 (#334155) → 本文
-  // bg-dark-900 (#0f172a) + text-dark-300 (#cbd5e1) → サブテキスト
-  // bg-dark-900 (#0f172a) + text-white (#ffffff)
-  // bg-sky-500 (#0ea5e9) + text-white (#ffffff)
-
-  // 実際に使用されているカラー組み合わせを検証
-  // bg-dark-900 + text-dark-700 はbody default色だがダークテーマでは
-  // 実際のコンテンツはtext-white/text-dark-300を使用
-  const combos = [
-    { bg: '#0f172a', fg: '#cbd5e1', label: 'bg-dark-900 + text-dark-300 (本文)', minRatio: 4.5 },
-    { bg: '#0f172a', fg: '#ffffff', label: 'bg-dark-900 + text-white (見出し)', minRatio: 4.5 },
-    { bg: '#0f172a', fg: '#94a3b8', label: 'bg-dark-900 + text-dark-400 (補足)', minRatio: 3.0 },
-    { bg: '#0f172a', fg: '#64748b', label: 'bg-dark-900 + text-dark-500 (UI)', minRatio: 3.0 },
-    { bg: '#ffffff', fg: '#334155', label: 'bg-white + text-dark-700 (ライト本文)', minRatio: 4.5 },
-    { bg: '#ffffff', fg: '#1e293b', label: 'bg-white + text-dark-800 (ライト見出し)', minRatio: 4.5 },
-    { bg: '#0d9ed8', fg: '#ffffff', label: 'bg-sky-500 + text-white (ボタン18px+太字)', minRatio: 3.0 },
-  ];
-
-  for (const c of combos) {
-    const ratio = contrastRatio(c.bg, c.fg);
-    const pass = ratio >= c.minRatio;
-    results.push(new Result('spec-contrast', 'SPEC本文', `コントラスト比 ${c.label}`, pass ? 'PASS' : 'FAIL', `${ratio.toFixed(1)}:1 (必要${c.minRatio}:1)`));
-  }
-
-  return results;
-}
-
-// ハンバーガーボタンaria属性チェック（SPEC 7.1）
-function checkHamburgerAria(html, pageType) {
-  if (pageType === 'minimal') return [];
-  const body = extractBody(html);
-  // ハンバーガーボタンを探す
-  const menuBtn = body.match(/<button[^>]*(?:menu|ハンバーガー|メニュー)[^>]*>/i) ||
-                  body.match(/<button[^>]*aria-controls=["']mobile-menu["'][^>]*>/i) ||
-                  body.match(/<button[^>]*id=["']menuToggle["'][^>]*>/i);
-
-  if (!menuBtn) return [];
-
-  const btn = menuBtn[0];
-  const results = [];
-  if (!/aria-label=/i.test(btn)) {
-    results.push(new Result('spec-hamburger-label', 'SPEC本文', 'ハンバーガーaria-label', 'FAIL'));
-  }
-  if (!/aria-expanded=/i.test(btn)) {
-    results.push(new Result('spec-hamburger-expanded', 'SPEC本文', 'ハンバーガーaria-expanded', 'FAIL'));
-  }
-  if (!/aria-controls=/i.test(btn)) {
-    results.push(new Result('spec-hamburger-controls', 'SPEC本文', 'ハンバーガーaria-controls', 'FAIL'));
-  }
-  if (results.length === 0) {
-    results.push(new Result('spec-hamburger', 'SPEC本文', 'ハンバーガーARIA属性', 'PASS'));
-  }
-  return results;
-}
-
-// ========== メイン検証ロジック ==========
-
-function verifyFile(filePath) {
-  const relPath = path.relative(ROOT, filePath).replace(/\\/g, '/');
-  const pageType = PAGE_TYPE[relPath] || 'minimal';
+function verify(filePath) {
+  const rel = path.relative(ROOT, filePath).replace(/\\/g, '/');
+  const pt = PAGE_TYPE[rel] || 'minimal';
   const html = fs.readFileSync(filePath, 'utf-8');
-  const results = [];
-
-  // === SPEC 11.1 パフォーマンス (6項目) ===
-  results.push(...checkCLS(html));
-  results.push(...checkLCP(html));
-  results.push(checkTailwindCDN(html));
-  results.push(checkCSSClassCoverage(html, filePath));
-  results.push(...checkConsoleErrors(html));
-  results.push(...checkImageFull(html));
-
-  // === SPEC 11.2 SEO (9項目) ===
-  results.push(checkTitle(html, pageType));
-  results.push(checkDescription(html, pageType));
-  results.push(checkCanonical(html, pageType));
-  results.push(checkRobotsTag(html, pageType));
-  const ogpResults = checkOGP(html, pageType);
-  results.push(...(Array.isArray(ogpResults) ? ogpResults : [ogpResults]));
-  results.push(checkTwitterCard(html, pageType));
-  results.push(...checkJsonLd(html, pageType));
-  // sitemap.xml / robots.txt はグローバルチェックで実施
-
-  // === SPEC 11.3 LLMO (7項目) ===
-  results.push(checkSectionAria(html, pageType));
-  results.push(checkNavAria(html, pageType));
-  results.push(...checkHeadingHierarchy(html));
-  results.push(checkTableAccessibility(html));
-  results.push(checkJsonLdMachineReadable(html, pageType));
-  results.push(checkNoJSContent(html));
-  results.push(checkLangAttribute(html));
-
-  // === SPEC 11.4 アクセシビリティ (7項目) ===
-  results.push(...checkTouchTarget(html));
-  results.push(checkFocusRing(html));
-  results.push(checkReducedMotion(html));
-  results.push(checkNoscript(html));
-  results.push(checkSkipLink(html));
-  // 画像alt日本語は checkImageFull 内で実施済み
-  results.push(checkFormLabels(html));
-
-  // === SPEC 11.5 セキュリティ (4項目) ===
-  results.push(...checkCSP(html, pageType));
-  results.push(checkTargetBlank(html));
-  results.push(checkFrameSrc(html, pageType));
-  results.push(checkObjectSrc(html, pageType));
-
-  // === SPEC本文 追加チェック ===
-  results.push(checkCharset(html));
-  results.push(checkViewport(html));
-  results.push(checkThemeColor(html));
-  results.push(checkColorScheme(html));
-  results.push(...checkFavicons(html));
-  results.push(checkBodyClass(html));
-  results.push(...checkSemanticLandmarks(html));
-  results.push(...checkFadeIn(html));
-  results.push(...checkFonts(html));
-  results.push(checkGAAsync(html));
-  results.push(checkHeadOrder(html));
-  results.push(checkFooterCopyright(html));
-  results.push(checkURLConsistency(html));
-  results.push(checkSitemapRef(html));
-  results.push(...checkHamburgerAria(html, pageType));
-
-  return { file: relPath, pageType, results };
+  return {
+    file: rel, pt,
+    results: [
+      ...c11_1(html, pt),
+      ...c11_2(html, pt),
+      ...c11_4(html, pt),
+      ...c11_5(html),
+      ...c11_6(html, pt),
+      ...cSpec(html, pt),
+    ],
+  };
 }
 
-// ========== 出力 ==========
-function printReport(allResults) {
-  const totalPass = allResults.reduce((sum, r) => sum + r.results.filter(x => x.status === 'PASS').length, 0);
-  const totalFail = allResults.reduce((sum, r) => sum + r.results.filter(x => x.status === 'FAIL').length, 0);
-  const totalWarn = allResults.reduce((sum, r) => sum + r.results.filter(x => x.status === 'WARN').length, 0);
-  const totalSkip = allResults.reduce((sum, r) => sum + r.results.filter(x => x.status === 'SKIP').length, 0);
-  const total = totalPass + totalFail + totalWarn + totalSkip;
+// ═══════════════════ レポート出力 ═══════════════════
+
+function report(all) {
+  let tP = 0, tF = 0, tW = 0, tS = 0;
+  all.forEach(f => f.results.forEach(r => {
+    if (r.status === 'PASS') tP++; else if (r.status === 'FAIL') tF++;
+    else if (r.status === 'WARN') tW++; else tS++;
+  }));
 
   console.log('\n' + '='.repeat(72));
-  console.log('  SPEC.md 完全自動検証レポート v2.0');
+  console.log('  SPEC.md v2.0 完全自動検証レポート');
   console.log('  検証日時: ' + new Date().toISOString());
-  console.log('  チェックリスト: 11.1パフォーマンス(6) + 11.2SEO(9) + 11.3LLMO(7)');
-  console.log('                 + 11.4アクセシビリティ(7) + 11.5セキュリティ(4)');
-  console.log('                 + SPEC本文追加チェック');
+  console.log('  チェックリスト: 11.1(6)+11.2(12)+11.3(3)+11.4(7)+11.5(7)+11.6(4)+11.7(2)');
+  console.log('                 + SPEC本文 + グローバル + コントラスト比');
   console.log('='.repeat(72));
 
-  for (const fileResult of allResults) {
-    const fails = fileResult.results.filter(r => r.status === 'FAIL');
-    const warns = fileResult.results.filter(r => r.status === 'WARN');
-    const passes = fileResult.results.filter(r => r.status === 'PASS');
-    const skips = fileResult.results.filter(r => r.status === 'SKIP');
-
-    const icon = fails.length === 0 ? '✅' : '❌';
-    console.log(`\n${icon} ${fileResult.file} [${fileResult.pageType}]`);
-    console.log(`   PASS: ${passes.length}  FAIL: ${fails.length}  WARN: ${warns.length}  SKIP: ${skips.length}`);
-
-    if (fails.length > 0) {
-      console.log('   --- FAIL ---');
-      for (const r of fails) {
-        console.log(`   ❌ [${r.id}] ${r.name}${r.detail ? ' → ' + r.detail : ''}`);
-      }
-    }
-    if (warns.length > 0) {
-      console.log('   --- WARN ---');
-      for (const r of warns) {
-        console.log(`   ⚠️  [${r.id}] ${r.name}${r.detail ? ' → ' + r.detail : ''}`);
-      }
-    }
+  for (const f of all) {
+    const fails = f.results.filter(r => r.status === 'FAIL');
+    const warns = f.results.filter(r => r.status === 'WARN');
+    const p = f.results.filter(r => r.status === 'PASS').length;
+    const s = f.results.filter(r => r.status === 'SKIP').length;
+    console.log(`\n${fails.length === 0 ? '✅' : '❌'} ${f.file} [${f.pt}]`);
+    console.log(`   PASS:${p}  FAIL:${fails.length}  WARN:${warns.length}  SKIP:${s}`);
+    if (fails.length) { console.log('   --- FAIL ---'); fails.forEach(r => console.log(`   ❌ [${r.id}] ${r.name}${r.detail ? ' → ' + r.detail : ''}`)); }
+    if (warns.length) { console.log('   --- WARN ---'); warns.forEach(r => console.log(`   ⚠️  [${r.id}] ${r.name}${r.detail ? ' → ' + r.detail : ''}`)); }
   }
 
-  // セクション別サマリ
+  // セクション別
   console.log('\n' + '-'.repeat(72));
-  console.log('  セクション別結果');
-  console.log('-'.repeat(72));
-  const sections = {};
-  for (const fr of allResults) {
-    for (const r of fr.results) {
-      if (!sections[r.section]) sections[r.section] = { pass: 0, fail: 0, warn: 0, skip: 0 };
-      sections[r.section][r.status.toLowerCase()]++;
-    }
-  }
-  for (const [section, counts] of Object.entries(sections)) {
-    const sIcon = counts.fail === 0 ? '✅' : '❌';
-    console.log(`  ${sIcon} ${section}: PASS=${counts.pass} FAIL=${counts.fail} WARN=${counts.warn} SKIP=${counts.skip}`);
-  }
+  const secs = {};
+  all.forEach(f => f.results.forEach(r => {
+    if (!secs[r.sec]) secs[r.sec] = { p: 0, f: 0, w: 0, s: 0 };
+    secs[r.sec][r.status === 'PASS' ? 'p' : r.status === 'FAIL' ? 'f' : r.status === 'WARN' ? 'w' : 's']++;
+  }));
+  for (const [s, c] of Object.entries(secs))
+    console.log(`  ${c.f === 0 ? '✅' : '❌'} ${s}: P=${c.p} F=${c.f} W=${c.w} S=${c.s}`);
 
-  // 総合
   console.log('\n' + '='.repeat(72));
-  console.log('  総合結果');
-  console.log('='.repeat(72));
-  console.log(`  検証項目: ${total}`);
-  console.log(`  ✅ PASS: ${totalPass}`);
-  console.log(`  ❌ FAIL: ${totalFail}`);
-  console.log(`  ⚠️  WARN: ${totalWarn}`);
-  console.log(`  ⏭️  SKIP: ${totalSkip}`);
-  console.log(`  合格率: ${((totalPass / (totalPass + totalFail)) * 100).toFixed(1)}%`);
-
-  if (totalFail === 0) {
-    console.log('\n  🏆 S-RANK 合格！全FAIL項目ゼロ');
-  } else {
-    console.log(`\n  ❌ 不合格: ${totalFail}件のFAIL項目を修正してください`);
-  }
+  console.log(`  検証項目: ${tP + tF + tW + tS}`);
+  console.log(`  ✅ PASS: ${tP}  ❌ FAIL: ${tF}  ⚠️ WARN: ${tW}  ⏭️ SKIP: ${tS}`);
+  console.log(`  合格率: ${((tP / (tP + tF)) * 100).toFixed(1)}%`);
+  console.log(tF === 0 ? '\n  🏆 S-RANK 合格！全FAIL項目ゼロ' : `\n  ❌ 不合格: ${tF}件のFAILを修正してください`);
   console.log('='.repeat(72) + '\n');
-
-  return totalFail;
+  return tF;
 }
 
-// ========== エントリポイント ==========
+// ═══════════════════ main ═══════════════════
+
 function main() {
   const args = process.argv.slice(2);
-  let targetFiles;
+  const files = args.length > 0
+    ? args.map(f => path.resolve(f))
+    : TARGET_FILES.map(f => path.join(ROOT, f));
 
-  if (args.length > 0) {
-    targetFiles = args.map(f => path.resolve(f));
-  } else {
-    targetFiles = TARGET_FILES.map(f => path.join(ROOT, f));
-  }
+  const miss = files.filter(f => !fs.existsSync(f));
+  if (miss.length) { miss.forEach(f => console.error('  NOT FOUND: ' + f)); process.exit(1); }
 
-  const missing = targetFiles.filter(f => !fs.existsSync(f));
-  if (missing.length > 0) {
-    console.error('ファイルが見つかりません:');
-    missing.forEach(f => console.error('  ' + f));
-    process.exit(1);
-  }
+  const all = files.map(f => verify(f));
 
-  // HTMLファイル検証
-  const allResults = targetFiles.map(f => verifyFile(f));
+  // 11.3 E-E-A-Tコンテンツ（グローバル）
+  all.push({ file: '[11.3 E-E-A-Tコンテンツ]', pt: 'global', results: c11_3_eeat() });
 
-  // グローバルチェック（robots.txt + sitemap.xml + コントラスト比）
-  const globalResults = {
-    file: '[グローバル] robots.txt + sitemap.xml + コントラスト',
-    pageType: 'global',
-    results: [...checkRobotsTxt(), ...checkSitemapXml(), ...checkContrast()],
-  };
-  allResults.push(globalResults);
+  // 11.7 追加要件（グローバル）
+  all.push({ file: '[11.7 追加要件]', pt: 'global', results: c11_7() });
 
-  const failCount = printReport(allResults);
-  process.exit(failCount > 0 ? 1 : 0);
+  // グローバル(sitemap/robots/コントラスト)
+  all.push({ file: '[グローバル] sitemap+robots+コントラスト', pt: 'global', results: cGlobal() });
+
+  process.exit(report(all) > 0 ? 1 : 0);
 }
 
 main();

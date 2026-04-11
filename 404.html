@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ページが見つかりません | HARTON</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d9ed8">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/dist/output.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    .hero-grid { background-image: radial-gradient(circle at 1px 1px, rgba(13,158,216,0.15) 1px, transparent 0); background-size: 40px 40px; }
+    .gradient-text { background: linear-gradient(135deg, #0d9ed8 0%, #06b6d4 50%, #0d9ed8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans text-dark-700 antialiased bg-dark-900">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-sky-500 focus:text-white focus:px-4 focus:py-3 focus:rounded-lg focus:text-sm focus:font-bold">メインコンテンツへスキップ</a>
+
+  <!-- ヘッダー -->
+  <header class="fixed top-0 left-0 right-0 bg-dark-900/80 nav-blur border-b border-dark-800 z-50" role="banner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-9 h-9 bg-gradient-to-br from-sky-400 to-sky-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-black text-sm font-display">H</span>
+          </div>
+          <span class="text-xl font-black font-display tracking-tight text-white">HARTON</span>
+        </a>
+        <nav aria-label="メインナビゲーション">
+          <a href="/" class="text-sm text-dark-400 hover:text-white transition-colors px-4 py-3">トップに戻る</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="relative min-h-screen flex items-center overflow-hidden">
+    <div class="hero-grid absolute inset-0"></div>
+    <div class="absolute top-20 right-10 w-72 h-72 bg-sky-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 left-10 w-96 h-96 bg-sky-400/5 rounded-full blur-3xl"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full text-center">
+      <p class="text-8xl sm:text-9xl font-black font-display text-dark-700 mb-4">4<span class="gradient-text">0</span>4</p>
+      <h1 class="text-2xl sm:text-3xl font-bold text-white mb-4 font-display">ページが見つかりません</h1>
+      <p class="text-dark-400 text-lg mb-10 max-w-md mx-auto">お探しのページは削除されたか、URLが変更された可能性があります。</p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/" class="inline-flex items-center justify-center gap-2 bg-sky-500 text-white font-bold px-8 py-4 rounded-xl text-lg hover:bg-sky-600 transition-all shadow-lg shadow-sky-500/25">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>
+          トップページへ
+        </a>
+        <a href="/services/web/" class="inline-flex items-center justify-center gap-2 text-dark-300 font-medium px-8 py-4 rounded-xl text-lg hover:text-white border border-dark-700 hover:border-dark-500 transition-all">
+          サービス一覧 &rarr;
+        </a>
+      </div>
+
+      <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+        <a href="/services/web/" class="bg-dark-800 border border-dark-700 rounded-xl p-6 hover:border-sky-500/50 transition-colors text-left">
+          <p class="text-white font-bold text-sm mb-1">WEBサイト構築</p>
+          <p class="text-dark-500 text-xs">コーポレートサイト制作</p>
+        </a>
+        <a href="/services/automation/" class="bg-dark-800 border border-dark-700 rounded-xl p-6 hover:border-emerald-500/50 transition-colors text-left">
+          <p class="text-white font-bold text-sm mb-1">業務自動化</p>
+          <p class="text-dark-500 text-xs">定型作業の効率化</p>
+        </a>
+        <a href="/services/ai-prediction/" class="bg-dark-800 border border-dark-700 rounded-xl p-6 hover:border-violet-500/50 transition-colors text-left">
+          <p class="text-white font-bold text-sm mb-1">AI売上予測</p>
+          <p class="text-dark-500 text-xs">データ活用で需要予測</p>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-dark-900 border-t border-dark-800 py-12" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-gradient-to-br from-sky-400 to-sky-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-black text-sm font-display">H</span>
+          </div>
+          <span class="text-white font-bold font-display">HARTON</span>
+        </div>
+        <nav aria-label="フッターナビゲーション" class="flex gap-6 text-dark-500 text-xs">
+          <a href="/" class="hover:text-white transition-colors py-3">ホーム</a>
+          <a href="/services/web/" class="hover:text-white transition-colors py-3">WEB構築</a>
+          <a href="/services/automation/" class="hover:text-white transition-colors py-3">業務自動化</a>
+          <a href="/services/ai-prediction/" class="hover:text-white transition-colors py-3">AI予測</a>
+          <a href="/privacy/" class="hover:text-white transition-colors py-3">プライバシー</a>
+        </nav>
+        <p class="text-dark-500 text-xs">&copy; 2026 HARTON. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

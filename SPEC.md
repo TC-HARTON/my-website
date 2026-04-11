@@ -1,8 +1,9 @@
-# HARTON WEBサイト構築仕様書 v1.0
+# HARTON WEBサイト構築仕様書 v2.0
 
 > 本仕様書はHARTON自社サイト（Sクラス判定済み）を基準とする。
+> 【判定根拠】Google検索セントラルガイドライン（E-E-A-T）、Core Web Vitals最新仕様に完全準拠。
 > 今後の全クライアントサイト構築において本仕様に準拠すること。
-> 2026-04-10 策定
+> 2026-04-10 初版策定 / 2026-04-11 v2.0 Google基準統合改訂
 
 ---
 
@@ -11,6 +12,7 @@
 ```
 project-root/
 ├── index.html              # メインHTML（単一SPA）
+├── 404.html                # カスタム404（サイト内回遊導線必須）
 ├── package.json            # ビルドスクリプト
 ├── tailwind.config.js      # Tailwind設定
 ├── src/
@@ -20,6 +22,8 @@ project-root/
 ├── fonts/                  # （ローカルフォント使用時のみ）
 ├── privacy/
 │   └── index.html          # プライバシーポリシー
+├── profile/
+│   └── index.html          # 運営者・著者プロフィール（E-E-A-T担保用）
 ├── sitemap.xml             # サイトマップ
 ├── robots.txt              # クローラー制御
 ├── favicon.svg             # SVGファビコン
@@ -52,7 +56,7 @@ project-root/
 ```js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html'],
+  content: ['./index.html', './**/*.html'],
   theme: {
     extend: {
       colors: {
@@ -91,7 +95,7 @@ module.exports = {
 
 **CSSビルド後、納品前に必ず実行:**
 
-1. index.htmlから全Tailwindクラスを抽出
+1. 全HTMLから全Tailwindクラスを抽出
 2. dist/output.cssに全クラスが含まれているか照合
 3. **欠落ゼロで合格。1件でも欠落があれば納品不可**
 
@@ -99,7 +103,7 @@ module.exports = {
 
 ### 2.5 禁止事項
 
-- **Tailwind CDN（scriptタグ版）の使用禁止。** ランタイムCSS生成はCLS悪化の原因
+- **Tailwind CDN（scriptタグ版）の使用禁止。** ランタイムCSS生成はCLS悪化およびINP低下の原因
 - ビルド検証なしのCSS差し替え禁止
 - `node_modules/` のコミット禁止
 
@@ -115,6 +119,9 @@ module.exports = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{サイト名} | {主要キーワード}を含む30-60文字のタイトル</title>
   <meta name="description" content="70-160文字。地名+サービス名+差別化+CTA">
+
+  <!-- 著者情報（E-E-A-T） -->
+  <meta name="author" content="{運営者または著者名}">
 
   <!-- OGP（全7項目必須） -->
   <meta property="og:title" content="{titleと同一}">
@@ -152,7 +159,10 @@ module.exports = {
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-  <!-- JSON-LD構造化データ（後述） -->
+  <!-- JSON-LD構造化データ（5種: 後述） -->
+  <script type="application/ld+json">
+    // ProfessionalService, WebSite, FAQPage, BreadcrumbList, Person
+  </script>
 
   <!-- CSS: ビルド済みCSSのみ -->
   <link rel="stylesheet" href="/dist/output.css">
@@ -165,7 +175,7 @@ module.exports = {
 
   <!-- カスタムCSS -->
   <style>
-    /* 後述のカスタムCSS仕様に準拠 */
+    /* 後述のカスタムCSS仕様（Section 9）に準拠 */
   </style>
 
   <!-- noscriptフォールバック -->
@@ -196,29 +206,39 @@ module.exports = {
       <!-- BreadcrumbList対応 -->
     </nav>
 
-    <section id="{セクションID}" aria-label="{日本語セクション名}">
-      <!-- 各セクション: 必ずaria-label付与 -->
-    </section>
-    <!-- ... -->
+    <article>
+      <!-- 公開日・更新日（E-E-A-T: 鮮度シグナル） -->
+      <time itemprop="datePublished" datetime="2026-04-10">2026年4月10日</time>
+      <time itemprop="dateModified" datetime="2026-04-12">（更新: 2026年4月12日）</time>
+
+      <section id="{セクションID}" aria-label="{日本語セクション名}">
+        <!-- 各セクション: 必ずaria-label付与 -->
+      </section>
+      <!-- ... -->
+    </article>
   </main>
 
   <footer>
-    <!-- フッターナビ + コピーライト -->
+    <nav aria-label="フッターナビゲーション">
+      <!-- フッターナビ: サイト内孤立ページを防ぐ回遊導線 -->
+    </nav>
+    <!-- コピーライト -->
   </footer>
 </body>
 ```
 
-### 3.3 見出し階層（必須ルール）
+### 3.3 見出し階層と内部リンク（必須ルール）
 
 - **H1**: ページに1つだけ。主要キーワードを含む
 - **H2**: セクション見出し。スキップ禁止（H1→H3は不可）
 - **H3**: サブセクション見出し
 - **H4**: カード内タイトル等
 - スキャンだけでサイト全体像が把握できること（LLMO対応）
+- **内部リンク網**: 孤立したページ（オーファンページ）を作らない。関連トピック同士は文脈に沿ったアンカーテキストで相互リンクする
 
 ---
 
-## 4. SEO仕様
+## 4. SEO & E-E-A-T 仕様
 
 ### 4.1 メタタグ基準
 
@@ -226,14 +246,15 @@ module.exports = {
 |------|------|
 | title | 30-60文字。サイト名 + 主要キーワード |
 | description | 70-160文字。地名 + サービス名 + 差別化 + CTA |
+| author | 運営者または著者名（E-E-A-T） |
 | canonical | 必須。正規URL |
 | robots | `index, follow, max-image-preview:large, max-snippet:-1` |
 | OGP | 全7項目必須（title, desc, type, url, image, site_name, locale） |
 | Twitter Card | summary_large_image + title + desc + image |
 
-### 4.2 構造化データ（JSON-LD）必須4種
+### 4.2 構造化データ（JSON-LD）必須5種
 
-#### ProfessionalService（必須プロパティ）
+#### 1. ProfessionalService / LocalBusiness（必須プロパティ）
 ```
 name, alternateName, description, url, telephone, email,
 address (PostalAddress), geo (GeoCoordinates),
@@ -244,29 +265,65 @@ serviceType[], priceRange, sameAs[],
 openingHoursSpecification
 ```
 
-#### WebSite
+#### 2. WebSite（SearchAction含む）
 ```
-name, alternateName, url, inLanguage
+name, alternateName, url, inLanguage,
+potentialAction (SearchAction)
 ```
 
-#### FAQPage
+#### 3. FAQPage
 ```
 mainEntity[] (Question + acceptedAnswer)
-最低5問。事業に関する実用的なQ&A
+最低5問。ユーザーの検索意図（インテント）に直接答える実用的なQ&A
 ```
 
-#### BreadcrumbList
+#### 4. BreadcrumbList
 ```
 itemListElement[] (ListItem + position + name + item)
+サイト内の階層構造を正確にクローラーへ伝える
 ```
 
-### 4.3 sitemap.xml
+#### 5. Person / Organization（E-E-A-T強化用）
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "代表者名",
+  "jobTitle": "役職",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "HARTON"
+  },
+  "url": "https://{ドメイン}/profile/"
+}
+```
+※ `profile/index.html` にて、代表者・監修者の実績や専門性を言語化して記述すること。一次情報（実体験に基づく一次データ）を必ず含める。
+
+### 4.3 E-E-A-T コンテンツ要件
+
+| 要素 | 要件 |
+|------|------|
+| Experience（経験） | 実体験に基づく一次情報（自社独自の事例・データ）を含める |
+| Expertise（専門性） | profile/index.htmlに代表者の専門分野・資格・実績を明記 |
+| Authoritativeness（権威性） | 構造化データ（Person JSON-LD）で著者情報を機械可読に |
+| Trustworthiness（信頼性） | プライバシーポリシー、連絡先、所在地を明示 |
+
+### 4.4 公開日・更新日（鮮度シグナル）
+
+```html
+<time itemprop="datePublished" datetime="2026-04-10">2026年4月10日</time>
+<time itemprop="dateModified" datetime="2026-04-12">（更新: 2026年4月12日）</time>
+```
+- `<article>` 内に `<time>` タグで公開日と最終更新日を機械可読に明示
+- Google検索結果の日付表示にも影響
+
+### 4.5 sitemap.xml
 
 - 全ページ収録
 - `<lastmod>` を最新日付に維持
 - `robots.txt` からSitemap参照
 
-### 4.4 robots.txt
+### 4.6 robots.txt
 
 ```
 User-agent: *
@@ -275,6 +332,18 @@ Disallow: /ogp.html
 
 Sitemap: https://{ドメイン}/sitemap.xml
 ```
+
+### 4.7 カスタム404ページ
+
+- `404.html` を必ず作成
+- トップページへの導線（ナビゲーション）を含める
+- サイト内回遊を促す関連リンクを配置
+- 同一デザインテーマを維持
+
+### 4.8 301リダイレクト準備
+
+- 独自ドメイン移行を見据えた301リダイレクト設定の準備を完了させること
+- Cloudflare Pages: `_redirects` ファイルまたはPages Functions で対応
 
 ---
 
@@ -285,8 +354,8 @@ Sitemap: https://{ドメイン}/sitemap.xml
 | 要素 | 要件 |
 |------|------|
 | `<section>` | 全セクションに `aria-label` 付与。LLMがブロック意味を理解可能にする |
-| `<nav>` | 全ナビゲーションに `aria-label`。最低3つ（メイン、モバイル、パンくず） |
-| `<article>` | 独立コンテンツ単位に使用 |
+| `<nav>` | 全ナビゲーションに `aria-label`。最低4つ（メイン、モバイル、パンくず、フッター） |
+| `<article>` | 独立コンテンツ単位に使用。`<time>` で日付情報を付与 |
 | `<table>` | `<caption>` + `<th scope="row">` でLLMがテーブル構造を正確に読み取れるようにする |
 | `<strong>` | 意味的に重要なテキストに使用 |
 | `<header>`, `<main>`, `<footer>` | ランドマーク必須 |
@@ -295,20 +364,20 @@ Sitemap: https://{ドメイン}/sitemap.xml
 
 - `max-snippet:-1`: スニペット長制限なし（LLMに全テキスト提供）
 - JSなしで全情報取得可能であること
-- JSON-LD構造化データで事業情報を機械可読に
+- JSON-LD構造化データ（5種）で事業情報を機械可読に
 - `lang="ja"` で言語識別を明確に
 
 ---
 
-## 6. パフォーマンス仕様
+## 6. パフォーマンス仕様（Core Web Vitals）
 
 ### 6.1 Core Web Vitals基準
 
-| 指標 | 基準 | 不合格ライン |
-|------|------|-------------|
-| CLS | < 0.1 | > 0.25 |
-| LCP | < 2.5s | > 4.0s |
-| FID/INP | < 100ms | > 300ms |
+| 指標 | 基準 | 不合格ライン | 対策 |
+|------|------|-------------|------|
+| LCP | < 2.5s | > 4.0s | ヒーロー画像への `fetchpriority="high"` 付与。画像のWebP化 |
+| CLS | < 0.1 | > 0.25 | 全 `<img>` に `width` と `height` を明記しレイアウトシフトを防ぐ |
+| INP | < 200ms | > 500ms | JSのメインスレッド占有を防ぐ。サードパーティスクリプトは遅延実行 |
 
 ### 6.2 CSS配信
 
@@ -321,8 +390,9 @@ Sitemap: https://{ドメイン}/sitemap.xml
 | 項目 | 基準 |
 |------|------|
 | フォーマット | WebP優先。`<picture>` + `<source type="image/webp">` + `<img>` PNGフォールバック |
-| 属性 | `width`, `height`, `loading="lazy"`, `decoding="async"` 必須 |
-| alt | 日本語で具体的な説明。空altは装飾画像のみ |
+| 属性 | `width`, `height` 必須。ファーストビュー以外は `loading="lazy"`, `decoding="async"` |
+| LCP対策 | ヒーロー画像には `fetchpriority="high"` を付与（lazy禁止） |
+| alt | 日本語で具体的な説明。装飾画像は空（`alt=""`） |
 
 ### 6.4 フォント
 
@@ -331,11 +401,12 @@ Sitemap: https://{ドメイン}/sitemap.xml
 - preload URLとstylesheet URLは完全一致させること（ミスマッチ禁止）
 - `font-display: swap` で表示ブロック防止
 
-### 6.5 外部リソース
+### 6.5 外部リソースとJS実行（INP対策）
 
-- Google Analytics: `async` 属性必須
+- Google Analytics等のサードパーティスクリプトは `defer`/`async` または `requestIdleCallback` 等を用いて**遅延読み込みを義務化**
 - 全外部リクエストを把握し、CSPに反映
 - 不要な外部リソース読み込み禁止
+- JSのメインスレッド占有時間を最小化
 
 ---
 
@@ -505,6 +576,7 @@ html { scroll-behavior: smooth; }
 - ニュートラル: darkパレット（原則固定）
 - セマンティック: red=エラー, emerald=成功, amber=警告
 - opacity modifierで奥行き表現（`bg-sky-500/10`等）
+- **コントラスト比**: sky-500 + white は大文字基準3:1以上を確保すること
 
 ### 10.3 スペーシング
 
@@ -524,38 +596,47 @@ html { scroll-behavior: smooth; }
 
 ## 11. 納品前チェックリスト
 
-### 11.1 パフォーマンス
+### 11.1 パフォーマンス・Core Web Vitals
 
-- [ ] CLS < 0.1
-- [ ] LCP < 2.5s
+- [ ] LCP < 2.5s, CLS < 0.1, INP < 200ms をクリア
 - [ ] Tailwind CDN不使用（ビルドCSS使用）
 - [ ] ビルドCSSに全クラス含有（照合検証済み）
 - [ ] コンソールエラーゼロ
-- [ ] 画像WebP + picture tag + lazy + width/height
+- [ ] 画像WebP + picture tag + width/height + lazy(非FV) + fetchpriority="high"(FV)
+- [ ] サードパーティスクリプト遅延実行（defer/async）
 
-### 11.2 SEO
+### 11.2 SEO・E-E-A-T
 
 - [ ] title 30-60文字
 - [ ] description 70-160文字
+- [ ] `<meta name="author">` 設定
 - [ ] canonical設定
 - [ ] robots `max-snippet:-1`
 - [ ] OGP全7項目
 - [ ] Twitter Card設定
-- [ ] JSON-LD 4種（ProfessionalService, WebSite, FAQPage, BreadcrumbList）
+- [ ] JSON-LD 5種（ProfessionalService, WebSite, FAQPage, BreadcrumbList, Person）
+- [ ] JSON-LD がGoogleリッチリザルトテストでエラーなし
 - [ ] sitemap.xml
 - [ ] robots.txt
+- [ ] `<time>` タグで公開日/更新日が機械可読
 
-### 11.3 LLMO
+### 11.3 E-E-A-Tコンテンツ
+
+- [ ] プロフィールページ（profile/index.html）が存在し、専門性が明記されている
+- [ ] 一次情報（自社独自の事例、データ等）が含まれている
+- [ ] サイト内に孤立ページが存在しない（パンくず、フッターナビで網羅）
+
+### 11.4 LLMO
 
 - [ ] 全sectionにaria-label
-- [ ] 全navにaria-label
+- [ ] 全navにaria-label（メイン、モバイル、パンくず、フッター）
 - [ ] H1→H2→H3スキップなし
 - [ ] tableにcaption + th scope
 - [ ] JSON-LD構造化データで事業情報を機械可読に
 - [ ] JSなしで全情報取得可能
 - [ ] lang="ja"
 
-### 11.4 アクセシビリティ
+### 11.5 アクセシビリティ
 
 - [ ] タッチターゲット44px以上
 - [ ] フォーカスリング不透明
@@ -565,12 +646,17 @@ html { scroll-behavior: smooth; }
 - [ ] 画像alt日本語
 - [ ] フォームlabel対応
 
-### 11.5 セキュリティ
+### 11.6 セキュリティ
 
 - [ ] CSPメタタグ設定
 - [ ] target="_blank"にrel="noopener noreferrer"
 - [ ] frame-src 'none'
 - [ ] object-src 'none'
+
+### 11.7 追加要件
+
+- [ ] カスタム404ページが存在し、トップへのナビゲーションがある
+- [ ] 独自ドメイン移行用301リダイレクト設定の準備が完了
 
 ---
 
@@ -579,3 +665,4 @@ html { scroll-behavior: smooth; }
 | 版 | 日付 | 内容 |
 |----|------|------|
 | 1.0 | 2026-04-10 | 初版。HARTON自社サイトSクラス判定を基に策定 |
+| 2.0 | 2026-04-11 | Google検索セントラル/E-E-A-T/Core Web Vitals最新基準を統合。JSON-LD 5種化、Person追加、404.html/profile/index.html必須化、INP基準採用、fetchpriority対応、内部リンク網・一次情報要件追加 |

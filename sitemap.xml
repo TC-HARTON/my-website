@@ -25,6 +25,12 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://harton.pages.dev/profile/</loc>
+    <lastmod>2026-04-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://harton.pages.dev/privacy/</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>yearly</changefreq>

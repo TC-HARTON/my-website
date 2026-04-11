@@ -1,0 +1,3 @@
+# Cloudflare Pages redirects
+# 独自ドメイン移行時に旧URLからのリダイレクトを設定
+# 例: /old-path /new-path 301

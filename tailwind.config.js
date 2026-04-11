@@ -6,6 +6,8 @@ module.exports = {
     './services/automation/index.html',
     './services/ai-prediction/index.html',
     './privacy/index.html',
+    './profile/index.html',
+    './404.html',
     './thanks.html',
   ],
   theme: {
