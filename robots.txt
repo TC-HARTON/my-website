@@ -3,4 +3,4 @@ Allow: /
 Disallow: /ogp.html
 Disallow: /samples/
 
-Sitemap: https://harton.netlify.app/sitemap.xml
+Sitemap: https://harton.pages.dev/sitemap.xml
