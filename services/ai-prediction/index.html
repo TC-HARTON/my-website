@@ -8,13 +8,13 @@
   <meta name="description" content="HARTONのAI予測モデル。売上予測・需要予測・来客数予測・在庫最適化・離職リスク・価格最適化など、既存データからあらゆる予測が可能。沼津市を拠点に全国対応。">
   <meta name="author" content="大内 達也">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-  <meta name="theme-color" content="#8b5cf6">
+  <meta name="theme-color" content="#0d9ed8">
   <meta name="color-scheme" content="light">
   <link rel="canonical" href="https://harton.pages.dev/services/ai-prediction/">
-  <link rel="sitemap" type="application/xml" href="../../sitemap.xml">
-  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
-  <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32.png">
-  <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
   <!-- OGP -->
   <meta property="og:title" content="AI売上予測モデル | 料金・活用事例 | HARTON 沼津">
@@ -51,7 +51,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap">
 
   <!-- Build CSS -->
-  <link rel="stylesheet" href="../../dist/output.css">
+  <link rel="stylesheet" href="/dist/output.css">
 
   <!-- JSON-LD: Service -->
   <script type="application/ld+json">
@@ -222,16 +222,19 @@
   <!-- ========== ヘッダー ========== -->
   <header class="fixed top-0 inset-x-0 bg-white/90 nav-blur shadow-sm z-50" role="banner">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-      <a href="../../index.html" class="flex items-center gap-2 py-3">
+      <a href="/" class="flex items-center gap-2 py-3">
         <div class="w-8 h-8 bg-gradient-to-br from-sky-400 to-sky-600 rounded-lg flex items-center justify-center">
           <span class="text-white font-black text-sm font-display">H</span>
         </div>
         <span class="font-black font-display text-lg">HARTON</span>
       </a>
       <nav aria-label="メインナビゲーション" class="hidden md:flex items-center gap-6 text-sm font-medium">
-        <a href="../../index.html#services" class="hover:text-violet-600 transition py-3">サービス</a>
-        <a href="../../index.html#works" class="hover:text-violet-600 transition py-3">業種別サンプル</a>
-        <a href="../../index.html#simulator" class="bg-violet-500 text-white px-5 py-3 rounded-lg hover:bg-violet-600 transition font-bold">無料相談する</a>
+        <a href="/#services" class="hover:text-violet-600 transition py-3">サービス</a>
+        <a href="/#works" class="hover:text-violet-600 transition py-3">業種別サンプル</a>
+        <a href="/site-builder/" class="hover:text-violet-600 transition py-3">Site Builder</a>
+        <a href="/blog/" class="hover:text-violet-600 transition py-3">ブログ</a>
+        <a href="/#about" class="hover:text-violet-600 transition py-3">会社概要</a>
+        <a href="/#simulator" class="bg-violet-500 text-white px-5 py-3 rounded-lg hover:bg-violet-600 transition font-bold focus:ring-2 focus:ring-sky-500">無料相談する</a>
       </nav>
       <button type="button" id="mobileMenuBtn" class="md:hidden flex items-center justify-center w-11 h-11 rounded-lg hover:bg-dark-50 transition" aria-expanded="false" aria-controls="mobileMenu" aria-label="メニューを開く">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -240,11 +243,14 @@
         </svg>
       </button>
     </div>
-    <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-dark-100 shadow-lg">
-      <nav aria-label="モバイルナビゲーション" class="max-w-7xl mx-auto px-4 py-4 space-y-2">
-        <a href="../../index.html#services" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium">サービス</a>
-        <a href="../../index.html#works" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium">業種別サンプル</a>
-        <a href="../../index.html#simulator" class="block px-4 py-3 bg-violet-500 text-white rounded-lg text-center font-bold">無料相談する</a>
+    <div id="mobileMenu" class="hidden md:hidden fixed top-16 left-0 right-0 h-[calc(100vh-4rem)] bg-white z-50 overflow-y-auto" role="dialog" aria-label="モバイルナビゲーション">
+      <nav aria-label="モバイルナビゲーション" class="flex flex-col p-6 gap-1">
+        <a href="/#services" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">サービス</a>
+        <a href="/#works" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">業種別サンプル</a>
+        <a href="/site-builder/" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">Site Builder</a>
+        <a href="/blog/" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">ブログ</a>
+        <a href="/#about" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">会社概要</a>
+        <a href="/#simulator" class="block px-4 py-3 bg-violet-500 text-white rounded-lg text-center font-bold focus:ring-2 focus:ring-sky-500">無料相談する</a>
       </nav>
     </div>
   </header>
@@ -253,9 +259,9 @@
     <!-- Breadcrumb -->
     <div class="bg-white pt-[4.5rem]">
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 text-[0.8125rem] text-dark-500" aria-label="パンくずリスト">
-        <a href="../../index.html" class="text-dark-500 hover:text-violet-600 transition">ホーム</a>
+        <a href="/" class="text-dark-500 hover:text-violet-600 transition">ホーム</a>
         <span class="mx-1.5">&gt;</span>
-        <a href="../../index.html#services" class="text-dark-500 hover:text-violet-600 transition">サービス</a>
+        <a href="/#services" class="text-dark-500 hover:text-violet-600 transition">サービス</a>
         <span class="mx-1.5">&gt;</span>
         <span aria-current="page">AI売上予測モデル</span>
       </nav>
@@ -278,8 +284,8 @@
           <p class="text-dark-300 text-lg leading-relaxed mb-4 max-w-lg">勘と経験だけの経営は、終わりにしませんか。</p>
           <p class="text-dark-400 text-[0.9375rem] leading-relaxed mb-8 max-w-lg">「売上が読めない」「在庫が余る」「仕入れが足りない」<br>過去データからAIが需要を予測。<strong class="text-white">数字に基づく経営判断</strong>で、ロスを最小化し、利益を最大化する。<br>既存データさえあれば、<strong class="text-white">あらゆる予測が可能</strong>です。</p>
           <div class="flex flex-wrap gap-4">
-            <a href="../../index.html#simulator" class="inline-flex items-center justify-center bg-violet-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-violet-600 transition shadow-lg shadow-violet-500/25 min-h-[44px]">無料データ診断してみる</a>
-            <a href="#predictions" class="inline-flex items-center justify-center border border-dark-700 text-dark-300 font-medium px-8 py-4 rounded-xl hover:text-white hover:border-dark-500 transition min-h-[44px]">予測できること一覧 &rarr;</a>
+            <a href="/#simulator" class="inline-flex items-center justify-center bg-violet-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-violet-600 transition shadow-lg shadow-violet-500/25 min-h-[44px] focus:ring-2 focus:ring-sky-500">無料データ診断してみる</a>
+            <a href="#predictions" class="inline-flex items-center justify-center border border-dark-700 text-dark-300 font-medium px-8 py-4 rounded-xl hover:text-white hover:border-dark-500 transition min-h-[44px] focus:ring-2 focus:ring-sky-500">予測できること一覧 &rarr;</a>
           </div>
         </div>
         <!-- Dashboard UI -->
@@ -814,7 +820,7 @@
       <div class="max-w-2xl mx-auto px-4 fade-in">
         <h2 class="text-3xl font-black text-white mb-4">まずは無料シミュレーターから</h2>
         <p class="text-dark-400 mb-10">5つの質問に答えるだけで、AI予測の可能性と概算費用がわかります。</p>
-        <a href="../../index.html#simulator" class="inline-flex items-center justify-center bg-violet-500 text-white font-bold px-10 py-5 rounded-xl text-lg hover:bg-violet-600 transition shadow-lg shadow-violet-500/25">無料シミュレーター →</a>
+        <a href="/#simulator" class="inline-flex items-center justify-center bg-violet-500 text-white font-bold px-10 py-5 rounded-xl text-lg hover:bg-violet-600 transition shadow-lg shadow-violet-500/25 focus:ring-2 focus:ring-sky-500">無料シミュレーター →</a>
       </div>
     </section>
   </main>
@@ -823,17 +829,18 @@
   <footer class="bg-dark-900 border-t border-dark-800 py-12" role="contentinfo">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-        <a href="../../index.html" class="flex items-center gap-2">
+        <a href="/" class="flex items-center gap-2">
           <div class="w-7 h-7 bg-gradient-to-br from-sky-400 to-sky-600 rounded-lg flex items-center justify-center">
             <span class="text-white font-black text-xs font-display">H</span>
           </div>
           <span class="text-white font-black font-display">HARTON</span>
         </a>
-        <nav class="flex items-center gap-6 text-sm text-dark-400" aria-label="フッターナビゲーション">
-          <a href="../../index.html#services" class="hover:text-white transition py-3">サービス</a>
-          <a href="../../index.html#works" class="hover:text-white transition py-3">業種別サンプル</a>
-          <a href="../../index.html#about" class="hover:text-white transition py-3">会社概要</a>
-          <a href="../../index.html#simulator" class="hover:text-white transition py-3">無料相談</a>
+        <nav class="flex flex-wrap items-center gap-6 text-sm text-dark-400" aria-label="フッターナビゲーション">
+          <a href="/" class="hover:text-white transition py-3">ホーム</a>
+          <a href="/site-builder/" class="hover:text-white transition py-3">Site Builder</a>
+          <a href="/blog/" class="hover:text-white transition py-3">ブログ</a>
+          <a href="/privacy/" class="hover:text-white transition py-3">プライバシーポリシー</a>
+          <a href="/profile/" class="hover:text-white transition py-3">プロフィール</a>
         </nav>
       </div>
       <div class="mt-8 pt-8 border-t border-dark-800 text-center">
@@ -858,9 +865,23 @@ if (btn && menu) {
   btn.addEventListener('click', () => {
     const isOpen = !menu.classList.contains('hidden');
     menu.classList.toggle('hidden');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
     btn.setAttribute('aria-expanded', !isOpen);
+    btn.setAttribute('aria-label', isOpen ? 'メニューを開く' : 'メニューを閉じる');
     iconOpen.classList.toggle('hidden');
     iconClose.classList.toggle('hidden');
+  });
+
+  // Close menu when clicking a link
+  menu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      document.body.style.overflow = '';
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'メニューを開く');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    });
   });
 }
   </script>

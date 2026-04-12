@@ -23,6 +23,7 @@
   <meta name="theme-color" content="#0d9ed8">
   <meta name="color-scheme" content="light">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="canonical" href="https://harton.pages.dev/profile/">
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -54,9 +55,18 @@
     ]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMGZG751KF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DMGZG751KF');
+  </script>
   <link rel="stylesheet" href="/dist/output.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     .sr-only {
@@ -73,6 +83,9 @@
       }
     }
   </style>
+  <noscript>
+    <style>.fade-in { opacity: 1 !important; transform: none !important; }</style>
+  </noscript>
 </head>
 <body class="font-sans text-dark-700 antialiased bg-dark-900">
 
@@ -260,11 +273,13 @@
           </div>
           <span class="text-white font-bold font-display">HARTON</span>
         </div>
-        <nav aria-label="フッターナビゲーション" class="flex gap-6 text-dark-500 text-xs">
+        <nav aria-label="フッターナビゲーション" class="flex flex-wrap justify-center gap-6 text-dark-500 text-xs">
           <a href="/" class="hover:text-white transition-colors py-3">ホーム</a>
-          <a href="/services/web/" class="hover:text-white transition-colors py-3">WEB構築</a>
+          <a href="/site-builder/" class="hover:text-white transition-colors py-3">Site Builder</a>
+          <a href="/#services" class="hover:text-white transition-colors py-3">WEB構築</a>
           <a href="/services/automation/" class="hover:text-white transition-colors py-3">業務自動化</a>
           <a href="/services/ai-prediction/" class="hover:text-white transition-colors py-3">AI予測</a>
+          <a href="/blog/" class="hover:text-white transition-colors py-3">ブログ</a>
           <a href="/privacy/" class="hover:text-white transition-colors py-3">プライバシー</a>
         </nav>
         <p class="text-dark-500 text-xs">&copy; 2026 HARTON. All Rights Reserved.</p>

@@ -3,15 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>プライバシーポリシー | HARTON</title>
-  <meta name="description" content="HARTON（ハートン）のプライバシーポリシー。個人情報の取り扱い、利用目的、第三者提供について。">
-  <meta name="robots" content="noindex">
+  <title>プライバシーポリシー | HARTON（ハートン）</title>
+  <meta name="description" content="HARTON（ハートン）のプライバシーポリシー。個人情報の取得・利用目的・第三者提供・アクセス解析ツールの使用について説明しています。">
+  <meta name="author" content="大内 達也">
+  <meta name="robots" content="noindex, max-snippet:-1">
+  <meta property="og:title" content="プライバシーポリシー | HARTON（ハートン）">
+  <meta property="og:description" content="HARTON（ハートン）のプライバシーポリシー。個人情報の取得・利用目的・第三者提供・アクセス解析ツールの使用について説明しています。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://harton.pages.dev/privacy/">
+  <meta property="og:image" content="https://harton.pages.dev/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:site_name" content="HARTON">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="プライバシーポリシー | HARTON（ハートン）">
+  <meta name="twitter:description" content="HARTON（ハートン）のプライバシーポリシー。個人情報の取得・利用目的・第三者提供・アクセス解析ツールの使用について説明しています。">
+  <meta name="twitter:image" content="https://harton.pages.dev/ogp.png">
+  <meta name="theme-color" content="#0d9ed8">
+  <meta name="color-scheme" content="light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="canonical" href="https://harton.pages.dev/privacy/">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ホーム",
+        "item": "https://harton.pages.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "プライバシーポリシー",
+        "item": "https://harton.pages.dev/privacy/"
+      }
+    ]
+  }
+  </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMGZG751KF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -22,6 +59,7 @@
   <link rel="stylesheet" href="/dist/output.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     .sr-only {
@@ -41,6 +79,7 @@
   <noscript>
     <style>.fade-in { opacity: 1 !important; transform: none !important; }</style>
   </noscript>
+  <meta name="author" content="大内 達也">
 </head>
 <body class="font-sans text-dark-700 antialiased bg-dark-900">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-sky-500 focus:text-white focus:px-4 focus:py-3 focus:rounded-lg focus:text-sm focus:font-bold">メインコンテンツへスキップ</a>
@@ -71,7 +110,7 @@
 
     <h1 class="text-3xl font-black text-white mb-12 font-display">プライバシーポリシー</h1>
 
-    <div class="space-y-10 text-sm leading-relaxed">
+    <div class="space-y-10 text-sm leading-relaxed text-dark-300">
 
       <section>
         <h2 class="text-lg font-bold text-white mb-4">1. 個人情報の取り扱いについて</h2>
@@ -135,9 +174,17 @@
   </main>
 
   <!-- フッター -->
-  <footer class="bg-dark-900 border-t border-dark-800 py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-dark-500 text-xs">&copy; 2026 HARTON. All Rights Reserved.</p>
+  <footer class="bg-dark-900 border-t border-dark-800 py-8" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center gap-3">
+        <nav aria-label="フッターナビゲーション" class="flex flex-wrap justify-center gap-6 text-dark-500 text-xs">
+          <a href="/" class="hover:text-white transition-colors py-3">ホーム</a>
+          <a href="/site-builder/" class="hover:text-white transition-colors py-3">Site Builder</a>
+          <a href="/blog/" class="hover:text-white transition-colors py-3">ブログ</a>
+          <a href="/privacy/" class="hover:text-white transition-colors py-3">プライバシー</a>
+        </nav>
+        <p class="text-dark-500 text-xs">&copy; 2026 HARTON. All Rights Reserved.</p>
+      </div>
     </div>
   </footer>
 

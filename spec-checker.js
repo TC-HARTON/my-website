@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /**
- * SPEC.md v2.0 完全自動検証エージェント
+ * SPEC.md v2.2 完全自動検証エージェント
  * ─────────────────────────────────────
- * SPEC.md v2.0 納品前チェックリスト全42項目
+ * SPEC.md v2.2 納品前チェックリスト全項目
+ * + Google Search Central準拠チェック
  * + 本文仕様の全項目を機械的にチェック
  *
  * 使い方:
@@ -24,6 +25,9 @@ const TARGET_FILES = [
   'services/ai-prediction/index.html',
   'privacy/index.html',
   'thanks.html',
+  '404.html',
+  'profile/index.html',
+  'site-builder/index.html',
 ];
 
 const PAGE_TYPE = {
@@ -33,6 +37,9 @@ const PAGE_TYPE = {
   'services/ai-prediction/index.html': 'service',
   'privacy/index.html': 'minimal',
   'thanks.html': 'minimal',
+  '404.html': 'minimal',
+  'profile/index.html': 'profile',
+  'site-builder/index.html': 'subpage',
 };
 
 // カスタムCSSクラス（output.css照合から除外）
@@ -238,6 +245,7 @@ function c11_2(html, pt) {
   else {
     const l = len(t);
     if (pt === 'minimal') r.push(l > 0 ? PASS('11.2-title', S, `title(${l}文字)`, `"${t}"`) : FAIL('11.2-title', S, 'title', '空'));
+    else if (pt === 'subpage' || pt === 'profile') r.push(l >= 15 && l <= 60 ? PASS('11.2-title', S, `title ${l}文字(15-60)`) : FAIL('11.2-title', S, `title ${l}文字`, '15-60文字必須'));
     else r.push(l >= 30 && l <= 60 ? PASS('11.2-title', S, `title ${l}文字(30-60)`) : FAIL('11.2-title', S, `title ${l}文字`, '30-60文字必須'));
   }
 
@@ -299,6 +307,7 @@ function c11_2(html, pt) {
     const types = jsonldTypes(jsonld(html));
     const need = pt === 'full'
       ? ['ProfessionalService', 'WebSite', 'FAQPage', 'BreadcrumbList', 'Person']
+      : (pt === 'subpage' || pt === 'profile') ? ['BreadcrumbList']
       : ['ProfessionalService', 'WebSite', 'BreadcrumbList'];
     need.forEach(t => r.push(types.has(t)
       ? PASS(`11.2-${t}`, S, `JSON-LD: ${t}`)
@@ -542,7 +551,104 @@ function c11_6(html, pt) {
   return r;
 }
 
-// ═══════════════════ 11.7 追加要件 (2) ═══════════════════
+// ═══════════════════ 11.7 モバイル品質 (10) ═══════════════════
+
+function c11_7_mobile(html, pt) {
+  const S = '11.7モバイル', r = [], bd = body(html);
+  if (pt === 'minimal' || pt === 'profile') return [SKIP('11.7-mob', S, 'モバイル品質', `${pt}ページ`)];
+
+  // 1. モバイルメニューがフルスクリーンオーバーレイ
+  // mobile-menu / mobileMenu / モバイルナビゲーション のいずれかで検出
+  const menuPatterns = [
+    /<(?:nav|div)[^>]*id=["']mobile-menu["'][^>]*>/i,
+    /<(?:nav|div)[^>]*id=["']mobileMenu["'][^>]*>/i,
+    /<(?:nav|div)[^>]*aria-label=["']モバイルナビゲーション["'][^>]*>/i,
+  ];
+  let mobileMenu = null;
+  for (const p of menuPatterns) { mobileMenu = bd.match(p); if (mobileMenu) break; }
+  // Also check parent div wrapping nav for mobileMenu pattern
+  if (!mobileMenu) {
+    const divMenu = bd.match(/<div[^>]*id=["']mobileMenu["'][^>]*class=["']([^"']*)["'][^>]*>/i) ||
+                    bd.match(/<div[^>]*class=["']([^"']*)["'][^>]*id=["']mobileMenu["'][^>]*>/i);
+    if (divMenu) mobileMenu = divMenu;
+  }
+  if (mobileMenu) {
+    const cls = (mobileMenu[0].match(/class=["']([^"']*)["']/i) || [])[1] || '';
+    const isFixed = cls.includes('fixed');
+    const hasBg = /bg-(white|dark-\d+|black|gray-\d+|slate-\d+)/i.test(cls);
+    const hasZ = /z-\d+/i.test(cls);
+    r.push(isFixed && hasBg ? PASS('11.7-overlay', S, 'フルスクリーンオーバーレイ') : FAIL('11.7-overlay', S, 'モバイルメニュー', `fixed:${isFixed} bg:${hasBg}`));
+    if (isFixed) r.push(hasZ ? PASS('11.7-z', S, 'z-index設定') : WARN('11.7-z', S, 'z-index', '未設定'));
+  } else {
+    r.push(WARN('11.7-overlay', S, 'モバイルメニュー', 'mobile-menu未検出'));
+  }
+
+  // 2. スクロールロック
+  const hasScrollLock = /overflow\s*=\s*['"]hidden['"]|overflow\s*=\s*'hidden'/i.test(bd) ||
+                        /body\.style\.overflow/i.test(bd);
+  r.push(hasScrollLock ? PASS('11.7-scroll', S, 'スクロールロック') : WARN('11.7-scroll', S, 'スクロールロック', 'JS未検出'));
+
+  // 3. aria-expanded連動
+  const hasAriaExp = /aria-expanded/i.test(bd);
+  r.push(hasAriaExp ? PASS('11.7-aria', S, 'aria-expanded') : FAIL('11.7-aria', S, 'aria-expanded', '未設定'));
+
+  // 4. ハンバーガーボタンARIA (aria-label, aria-expanded, aria-controls)
+  const menuBtn = bd.match(/<button[^>]*aria-controls=["']mobile-menu["'][^>]*>/i) ||
+                  bd.match(/<button[^>]*aria-controls=["']mobileMenu["'][^>]*>/i) ||
+                  bd.match(/<button[^>]*id=["']menuToggle["'][^>]*>/i) ||
+                  bd.match(/<button[^>]*id=["']mobileMenuBtn["'][^>]*>/i) ||
+                  bd.match(/<button[^>]*class=["'][^"']*lg:hidden[^"']*["'][^>]*>/i) ||
+                  bd.match(/<button[^>]*class=["'][^"']*md:hidden[^"']*["'][^>]*>/i);
+  if (menuBtn) {
+    const b = menuBtn[0], issues = [];
+    if (!/aria-label=/i.test(b)) issues.push('aria-label');
+    if (!/aria-expanded=/i.test(b)) issues.push('aria-expanded');
+    if (!/aria-controls=/i.test(b)) issues.push('aria-controls');
+    r.push(issues.length === 0 ? PASS('11.7-hmb', S, 'ハンバーガーARIA') : FAIL('11.7-hmb', S, 'ハンバーガーARIA', `不足: ${issues.join(',')}`));
+  } else {
+    r.push(WARN('11.7-hmb', S, 'ハンバーガーボタン', '未検出'));
+  }
+
+  // 5. lang="ja" (再確認)
+  // Already checked in 11.4 — skip here
+
+  return r;
+}
+
+// ═══════════════════ 11.8 Google Search Central準拠 ═══════════════════
+
+function c11_8_google(html, pt) {
+  const S = '11.8Google', r = [], bd = body(html), hd = head(html);
+
+  // 1. meta keywordsが使われていないこと
+  const mkw = meta(html, 'keywords');
+  r.push(mkw ? WARN('11.8-mkw', S, 'meta keywords', 'Googleは無視するため不要') : PASS('11.8-mkw', S, 'meta keywords不使用'));
+
+  // 2. リンクテキストチェック（曖昧な「こちら」「クリック」等を検出）
+  if (pt !== 'minimal') {
+    const vague = bd.match(/<a[^>]*>\s*(こちら|ここ|クリック|click here|here|詳細|more|read more)\s*<\/a>/gi) || [];
+    r.push(vague.length === 0
+      ? PASS('11.8-link', S, '説明的リンクテキスト')
+      : WARN('11.8-link', S, 'リンクテキスト', `曖昧なリンク${vague.length}件: ${vague.slice(0,3).map(v => v.replace(/<[^>]+>/g,'')).join(',')}`));
+  }
+
+  // 3. canonical設定
+  const canon = (hd.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']*)["']/i) || [])[1];
+  if (pt !== 'minimal') {
+    r.push(canon ? PASS('11.8-canon', S, 'canonical設定') : WARN('11.8-canon', S, 'canonical', '未設定（クロール統合に推奨）'));
+  }
+
+  // 4. JSレンダリング — クリティカル情報がHTML直書きか
+  const hasInnerHTML = /innerHTML\s*=\s*[`'"]/i.test(bd);
+  const hasDocWrite = /document\.write/i.test(bd);
+  r.push(!hasInnerHTML && !hasDocWrite
+    ? PASS('11.8-jsrender', S, 'HTML直接記述')
+    : WARN('11.8-jsrender', S, 'JS動的生成', 'innerHTML/document.write使用 → Googlebot確認推奨'));
+
+  return r;
+}
+
+// ═══════════════════ 11.9 追加要件 (2) ═══════════════════
 
 function c11_7() {
   const S = '11.7追加', r = [];
@@ -737,6 +843,8 @@ function verify(filePath) {
       ...c11_4(html, pt),
       ...c11_5(html),
       ...c11_6(html, pt),
+      ...c11_7_mobile(html, pt),
+      ...c11_8_google(html, pt),
       ...cSpec(html, pt),
     ],
   };
@@ -752,9 +860,9 @@ function report(all) {
   }));
 
   console.log('\n' + '='.repeat(72));
-  console.log('  SPEC.md v2.0 完全自動検証レポート');
+  console.log('  SPEC.md v2.2 完全自動検証レポート');
   console.log('  検証日時: ' + new Date().toISOString());
-  console.log('  チェックリスト: 11.1(6)+11.2(12)+11.3(3)+11.4(7)+11.5(7)+11.6(4)+11.7(2)');
+  console.log('  チェックリスト: 11.1(6)+11.2(12)+11.3(3)+11.4(7)+11.5(7)+11.6(4)+11.7モバイル+11.8Google+11.9(2)');
   console.log('                 + SPEC本文 + グローバル + コントラスト比');
   console.log('='.repeat(72));
 
@@ -804,8 +912,8 @@ function main() {
   // 11.3 E-E-A-Tコンテンツ（グローバル）
   all.push({ file: '[11.3 E-E-A-Tコンテンツ]', pt: 'global', results: c11_3_eeat() });
 
-  // 11.7 追加要件（グローバル）
-  all.push({ file: '[11.7 追加要件]', pt: 'global', results: c11_7() });
+  // 11.9 追加要件（グローバル）
+  all.push({ file: '[11.9 追加要件]', pt: 'global', results: c11_7() });
 
   // グローバル(sitemap/robots/コントラスト)
   all.push({ file: '[グローバル] sitemap+robots+コントラスト', pt: 'global', results: cGlobal() });

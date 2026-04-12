@@ -3,15 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ページが見つかりません | HARTON</title>
+  <title>ページが見つかりません | HARTON（ハートン）</title>
+  <meta name="description" content="お探しのページは移動または削除された可能性があります。HARTONトップページからお探しください。">
   <meta name="robots" content="noindex, nofollow">
+  <meta property="og:title" content="ページが見つかりません | HARTON">
+  <meta property="og:description" content="お探しのページは削除されたか、URLが変更された可能性があります。HARTONのトップページまたはサービス一覧から目的のページをお探しください。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://harton.pages.dev/404.html">
+  <meta property="og:image" content="https://harton.pages.dev/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:site_name" content="HARTON">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ページが見つかりません | HARTON">
+  <meta name="twitter:description" content="お探しのページは削除されたか、URLが変更された可能性があります。HARTONのトップページまたはサービス一覧から目的のページをお探しください。">
+  <meta name="twitter:image" content="https://harton.pages.dev/ogp.png">
   <meta name="theme-color" content="#0d9ed8">
   <meta name="color-scheme" content="light">
+  <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ホーム",
+        "item": "https://harton.pages.dev/"
+      }
+    ]
+  }
+  </script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMGZG751KF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DMGZG751KF');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" as="style">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/dist/output.css">
   <style>
@@ -32,6 +68,7 @@
       }
     }
   </style>
+  <noscript><style>.fade-in{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body class="font-sans text-dark-700 antialiased bg-dark-900">
 
@@ -69,13 +106,13 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>
           トップページへ
         </a>
-        <a href="/services/web/" class="inline-flex items-center justify-center gap-2 text-dark-300 font-medium px-8 py-4 rounded-xl text-lg hover:text-white border border-dark-700 hover:border-dark-500 transition-all">
+        <a href="/#services" class="inline-flex items-center justify-center gap-2 text-dark-300 font-medium px-8 py-4 rounded-xl text-lg hover:text-white border border-dark-700 hover:border-dark-500 transition-all">
           サービス一覧 &rarr;
         </a>
       </div>
 
       <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
-        <a href="/services/web/" class="bg-dark-800 border border-dark-700 rounded-xl p-6 hover:border-sky-500/50 transition-colors text-left">
+        <a href="/#services" class="bg-dark-800 border border-dark-700 rounded-xl p-6 hover:border-sky-500/50 transition-colors text-left">
           <p class="text-white font-bold text-sm mb-1">WEBサイト構築</p>
           <p class="text-dark-500 text-xs">コーポレートサイト制作</p>
         </a>
@@ -101,11 +138,13 @@
           </div>
           <span class="text-white font-bold font-display">HARTON</span>
         </div>
-        <nav aria-label="フッターナビゲーション" class="flex gap-6 text-dark-500 text-xs">
+        <nav aria-label="フッターナビゲーション" class="flex flex-wrap justify-center gap-6 text-dark-500 text-xs">
           <a href="/" class="hover:text-white transition-colors py-3">ホーム</a>
-          <a href="/services/web/" class="hover:text-white transition-colors py-3">WEB構築</a>
+          <a href="/site-builder/" class="hover:text-white transition-colors py-3">Site Builder</a>
+          <a href="/#services" class="hover:text-white transition-colors py-3">WEB構築</a>
           <a href="/services/automation/" class="hover:text-white transition-colors py-3">業務自動化</a>
           <a href="/services/ai-prediction/" class="hover:text-white transition-colors py-3">AI予測</a>
+          <a href="/blog/" class="hover:text-white transition-colors py-3">ブログ</a>
           <a href="/privacy/" class="hover:text-white transition-colors py-3">プライバシー</a>
         </nav>
         <p class="text-dark-500 text-xs">&copy; 2026 HARTON. All Rights Reserved.</p>

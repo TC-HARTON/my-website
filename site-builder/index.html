@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Builder — AI搭載サイト構築ツール | HARTON</title>
+  <meta name="description" content="HARTON Site BuilderはAI搭載のWEBサイト構築ツール。SPEC v2.0 Sランク準拠のプロ品質サイトを自動生成。SEO・E-E-A-T完全対応。">
+  <meta name="author" content="大内 達也">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <meta name="theme-color" content="#0d9ed8">
+  <meta name="color-scheme" content="light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
+  <link rel="canonical" href="https://harton.pages.dev/site-builder/">
+
+  <!-- OGP -->
+  <meta property="og:title" content="Site Builder — AI搭載サイト構築ツール | HARTON">
+  <meta property="og:description" content="HARTONのSite BuilderはAI搭載のWEBサイト構築ツール。SPEC v2.0 Sランク準拠のプロ品質サイトを自動生成。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://harton.pages.dev/site-builder/">
+  <meta property="og:image" content="https://harton.pages.dev/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:site_name" content="HARTON">
+  <meta property="og:locale" content="ja_JP">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Site Builder — AI搭載サイト構築ツール | HARTON">
+  <meta name="twitter:description" content="HARTONのSite BuilderはAI搭載のWEBサイト構築ツール。SPEC v2.0 Sランク準拠のプロ品質サイトを自動生成。">
+  <meta name="twitter:image" content="https://harton.pages.dev/ogp.png">
+
+  <!-- Favicons -->
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "ホーム",
+        "item": "https://harton.pages.dev/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Site Builder",
+        "item": "https://harton.pages.dev/site-builder/"
+      }
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "HARTON Site Builder",
+    "applicationCategory": "WebApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "description": "AI搭載のSPEC v2.0準拠WEBサイト構築ツール。初心者でもプロ品質のサイトを自動生成。",
+    "author": {
+      "@type": "Person",
+      "name": "大内 達也",
+      "url": "https://harton.pages.dev/profile/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HARTON（ハートン）",
+      "url": "https://harton.pages.dev/"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "JPY",
+      "description": "無料でお試しいただけます"
+    },
+    "featureList": [
+      "AI自動コンテンツ生成（Claude/Gemini/ChatGPT対応）",
+      "SPEC v2.0 Sランク品質保証",
+      "SEO・E-E-A-T・Core Web Vitals完全準拠",
+      "ワンクリックデプロイ",
+      "ブログCMS",
+      "AIチャットボット",
+      "30業種テンプレート"
+    ]
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMGZG751KF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DMGZG751KF');
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" as="style">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap">
+
+  <!-- Build CSS -->
+  <link rel="stylesheet" href="/dist/output.css">
+
+  <style>
+    html { scroll-behavior: smooth; }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .nav-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+    .mobile-menu.open { transform: translateX(0); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
+    .hero-grid { background-image: radial-gradient(circle at 1px 1px, rgba(13,158,216,0.15) 1px, transparent 0); background-size: 40px 40px; }
+    .gradient-text { background: linear-gradient(135deg, #0d9ed8 0%, #06b6d4 50%, #0d9ed8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+      .fade-in { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+
+  <noscript>
+    <style>
+      .fade-in { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
+</head>
+<body class="font-sans text-dark-700 antialiased bg-white">
+
+  <!-- Skip Link -->
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-sky-500 focus:text-white focus:px-6 focus:py-3 focus:rounded-lg focus:text-sm focus:font-bold focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
+
+  <!-- ========== ヘッダー ========== -->
+  <header class="fixed top-0 left-0 right-0 bg-white/80 nav-blur shadow-sm z-50" role="banner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-9 h-9 bg-gradient-to-br from-sky-400 to-sky-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-black text-sm font-display">H</span>
+          </div>
+          <span class="text-xl font-black font-display tracking-tight text-dark-900">HARTON</span>
+        </a>
+        <nav class="hidden lg:flex items-center gap-8" aria-label="メインナビゲーション">
+          <a href="/site-builder/" class="text-sm font-medium text-sky-600 transition-colors py-3" aria-current="page">Site Builder</a>
+          <a href="/#services" class="text-sm font-medium text-dark-600 hover:text-sky-600 transition-colors py-3">サービス</a>
+          <a href="/blog/" class="text-sm font-medium text-dark-600 hover:text-sky-600 transition-colors py-3">ブログ</a>
+          <a href="/#contact" class="text-sm font-medium text-dark-600 hover:text-sky-600 transition-colors py-3">お問い合わせ</a>
+          <a href="/#contact" class="inline-flex items-center gap-2 bg-sky-500 text-white text-sm font-bold px-5 py-3 rounded-lg hover:bg-sky-600 transition-colors shadow-sm focus:ring-2 focus:ring-sky-500">
+            無料相談する
+          </a>
+        </nav>
+        <button id="menuBtn" class="lg:hidden w-11 h-11 flex items-center justify-center" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path id="menuIcon" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="mobile-menu fixed top-16 left-0 right-0 h-[calc(100vh-4rem)] bg-white lg:hidden z-50 overflow-y-auto" role="dialog" aria-label="モバイルナビゲーション">
+      <nav class="flex flex-col p-6 gap-1" aria-label="モバイルナビゲーション">
+        <a href="/site-builder/" class="mobile-link py-3 px-4 rounded-lg bg-sky-50 text-sky-600 font-medium text-dark-800" aria-current="page">Site Builder</a>
+        <a href="/#services" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">サービス</a>
+        <a href="/blog/" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">ブログ</a>
+        <a href="/#about" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">会社概要</a>
+        <a href="/#contact" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">お問い合わせ</a>
+        <hr class="my-3">
+        <a href="/#contact" class="py-3 px-4 bg-sky-500 text-white rounded-lg font-bold text-center">無料相談する</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== メイン ========== -->
+  <main id="main">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="パンくずリスト" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 lg:pt-24 pb-2 text-sm">
+      <ol class="flex items-center gap-2 text-dark-400">
+        <li><a href="/" class="hover:text-sky-600 py-3 inline-block">ホーム</a></li>
+        <li aria-hidden="true">&gt;</li>
+        <li><span aria-current="page" class="text-dark-700">Site Builder</span></li>
+      </ol>
+    </nav>
+
+    <!-- ========== ヒーロー ========== -->
+    <section class="relative min-h-[80vh] flex items-center overflow-hidden bg-gradient-to-br from-dark-900 via-dark-800 to-sky-900" aria-label="Site Builder概要">
+      <div class="hero-grid absolute inset-0" aria-hidden="true"></div>
+      <div class="absolute top-20 right-10 w-72 h-72 bg-sky-500/10 rounded-full blur-3xl" aria-hidden="true"></div>
+      <div class="absolute bottom-20 left-10 w-96 h-96 bg-sky-400/5 rounded-full blur-3xl" aria-hidden="true"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10 lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+        <div class="fade-in">
+          <div class="inline-flex items-center gap-2 bg-sky-500/10 border border-sky-500/20 text-sky-400 px-4 py-1.5 rounded-full text-sm font-medium mb-8">
+            <span class="w-2 h-2 bg-sky-400 rounded-full" aria-hidden="true"></span>
+            AI &times; SPEC v2.0 準拠
+          </div>
+          <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight mb-6 font-display">プロ品質のWEBサイトを、<br><span class="gradient-text">AIと一緒に。</span></h1>
+          <p class="text-dark-300 text-lg leading-relaxed mb-4 max-w-lg">コード不要。制作費ゼロ。専門知識不要。</p>
+          <p class="text-dark-400 text-[0.9375rem] leading-relaxed mb-8 max-w-lg">事業情報を入力するだけで、<strong class="text-white">SEO・E-E-A-T・Core Web Vitals完全準拠</strong>のSランクサイトをAIが自動生成。誰でもプロ品質のWEBサイトを公開できます。</p>
+          <div class="flex flex-wrap gap-4">
+            <a href="/#contact" class="inline-flex items-center justify-center bg-sky-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-sky-600 transition shadow-lg shadow-sky-500/25 min-h-[44px] focus:ring-2 focus:ring-sky-500">無料で始める</a>
+            <a href="#features" class="inline-flex items-center justify-center border border-dark-700 text-dark-300 font-medium px-8 py-4 rounded-xl hover:text-white hover:border-dark-500 transition min-h-[44px] focus:ring-2 focus:ring-sky-500">機能を詳しく見る &rarr;</a>
+          </div>
+        </div>
+        <!-- Dashboard UI mockup -->
+        <div class="hidden lg:block fade-in" aria-hidden="true">
+          <div class="bg-dark-800 rounded-2xl border border-dark-700 p-6">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              <span class="text-dark-500 text-xs ml-2">Site Builder</span>
+              <span class="ml-auto bg-sky-500/20 text-sky-400 text-xs px-2 py-0.5 rounded">GENERATING</span>
+            </div>
+            <!-- Mock output -->
+            <div class="space-y-3 mb-4">
+              <div class="bg-dark-700/50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                  <span class="text-xs text-green-400 font-medium">HTML構造生成完了</span>
+                </div>
+                <div class="text-[0.6875rem] text-dark-400 font-mono">index.html / privacy/ / blog/ ... 8 pages</div>
+              </div>
+              <div class="bg-dark-700/50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                  <span class="text-xs text-green-400 font-medium">SEO・OGP・JSON-LD設定完了</span>
+                </div>
+                <div class="text-[0.6875rem] text-dark-400 font-mono">5種 JSON-LD / OGP / Twitter Card</div>
+              </div>
+              <div class="bg-dark-700/50 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                  <span class="text-xs text-green-400 font-medium">SPEC品質チェック完了</span>
+                </div>
+                <div class="text-[0.6875rem] text-dark-400 font-mono">314 PASS / 0 FAIL / Grade: S</div>
+              </div>
+            </div>
+            <!-- Stats row -->
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-dark-700/50 rounded-xl p-3 text-center">
+                <div class="text-xl font-black font-display text-sky-400">S</div>
+                <div class="text-[0.6875rem] text-dark-400 mt-1">品質ランク</div>
+              </div>
+              <div class="bg-dark-700/50 rounded-xl p-3 text-center">
+                <div class="text-xl font-black font-display text-sky-400">100</div>
+                <div class="text-[0.6875rem] text-dark-400 mt-1">Lighthouse</div>
+              </div>
+              <div class="bg-dark-700/50 rounded-xl p-3 text-center">
+                <div class="text-xl font-black font-display text-sky-400">AA</div>
+                <div class="text-[0.6875rem] text-dark-400 mt-1">WCAG 2.2</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== お悩みセクション ========== -->
+    <section id="problems" class="py-20 lg:py-28 bg-dark-50" aria-label="こんなお悩みありませんか">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <h2 class="text-3xl lg:text-4xl font-black font-display text-dark-900 mb-4">こんなお悩みありませんか？</h2>
+          <p class="text-dark-500 max-w-2xl mx-auto">WEBサイト制作で多くの方が直面する課題。Site Builderならすべて解決します。</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 fade-in">
+          <!-- 制作費 -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">制作費が高すぎる</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">WEB制作会社に依頼すると数十万円。中小企業には大きな負担です。</p>
+          </div>
+          <!-- 時間 -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">完成まで時間がかかる</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">打ち合わせ・デザイン・コーディング。完成まで数ヶ月かかることも。</p>
+          </div>
+          <!-- SEO -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">SEO対策が不十分</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">せっかく作ったサイトが検索に出ない。メタタグや構造化データが不完全。</p>
+          </div>
+          <!-- 運用 -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.384-3.084A1 1 0 005 13.028V18.97a1 1 0 001.036.942l5.384-.308m0-4.434l5.384 3.084A1 1 0 0018 16.972V11.03a1 1 0 00-1.036-.942l-5.384.308m0 4.434V4.47a1 1 0 00-1.036-.942L5.964 3.84A1 1 0 005 4.782v5.94"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">更新・運用が面倒</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">更新するたびに制作会社へ依頼。自分では触れないサイトになりがち。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 解決策セクション ========== -->
+    <section id="solution" class="py-20 lg:py-28 bg-white" aria-label="Site Builderの解決策">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <h2 class="text-3xl lg:text-4xl font-black font-display text-dark-900 mb-4">Site Builderがすべて解決</h2>
+          <p class="text-dark-500 max-w-2xl mx-auto">AIとSPEC v2.0の力で、WEBサイト制作の課題をまとめて解消します。</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
+          <!-- AI自動生成 -->
+          <div class="bg-sky-50/50 border border-sky-100 rounded-2xl p-8 text-center">
+            <div class="w-16 h-16 bg-sky-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-sky-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-dark-900 mb-3">AI自動コンテンツ生成</h3>
+            <p class="text-sm text-dark-500 leading-relaxed mb-4">AIが事業情報からプロ品質のコンテンツを自動作成。ライティングの知識は一切不要です。</p>
+            <p class="text-xs text-dark-400">Claude・Gemini・ChatGPT対応</p>
+          </div>
+          <!-- Sランク保証 -->
+          <div class="bg-sky-50/50 border border-sky-100 rounded-2xl p-8 text-center">
+            <div class="w-16 h-16 bg-sky-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-sky-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-dark-900 mb-3">SPEC v2.0 Sランク保証</h3>
+            <p class="text-sm text-dark-500 leading-relaxed mb-4">Google評価基準を自動クリア。SEO・E-E-A-T・Core Web Vitals完全準拠。</p>
+            <p class="text-xs text-dark-400">314+ PASS / 0 FAIL 品質保証</p>
+          </div>
+          <!-- ワンクリック公開 -->
+          <div class="bg-sky-50/50 border border-sky-100 rounded-2xl p-8 text-center">
+            <div class="w-16 h-16 bg-sky-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-sky-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.58-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-dark-900 mb-3">ワンクリック公開</h3>
+            <p class="text-sm text-dark-500 leading-relaxed mb-4">GitHub連携で世界中に無料公開。更新もボタン1つで完了します。</p>
+            <p class="text-xs text-dark-400">Cloudflare Pages対応・独自ドメインOK</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 主要機能 ========== -->
+    <section id="features" class="py-20 lg:py-28 bg-dark-50" aria-label="主要機能">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <h2 class="text-3xl lg:text-4xl font-black font-display text-dark-900 mb-4">主要機能</h2>
+          <p class="text-dark-500 max-w-2xl mx-auto">サイト構築に必要なすべてをワンストップで提供します。</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 fade-in">
+          <!-- AIコンテンツ生成 -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">AIコンテンツ生成</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">Claude・Gemini・ChatGPT対応。事業情報からプロ品質テキストを自動生成。</p>
+          </div>
+          <!-- SEO完全自動化 -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">SEO完全自動化</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">メタタグ・OGP・JSON-LD構造化データ(5種)を自動設定。検索上位を狙えます。</p>
+          </div>
+          <!-- E-E-A-T対応 -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">E-E-A-T対応</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">著者プロフィール・専門性・信頼性を構造化データで自動実装。</p>
+          </div>
+          <!-- ブログCMS -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">ブログCMS</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">記事の作成・編集・公開。4コンテンツタイプ対応のCMS機能を内蔵。</p>
+          </div>
+          <!-- AIチャットボット -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">AIチャットボット</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">訪問者の質問にAIが24時間自動回答。問い合わせ対応を効率化。</p>
+          </div>
+          <!-- SPEC品質チェック -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">SPEC品質チェック</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">公開前にSランク基準を自動検証。FAILゼロで品質を保証します。</p>
+          </div>
+          <!-- レスポンシブ対応 -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">レスポンシブ対応</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">PC・タブレット・スマホ完全対応のデザインを自動生成します。</p>
+          </div>
+          <!-- 30業種テンプレート -->
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-dark-100">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zm0 9.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zm0 9.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25a2.25 2.25 0 01-2.25-2.25v-2.25z"/></svg>
+            </div>
+            <h3 class="font-bold text-dark-900 mb-2">30業種テンプレート</h3>
+            <p class="text-sm text-dark-500 leading-relaxed">飲食・医療・建設・法律など業種別テンプレートを完備。すぐに始められます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 3ステップ ========== -->
+    <section id="steps" class="py-20 lg:py-28 bg-white" aria-label="3ステップで完成">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <h2 class="text-3xl lg:text-4xl font-black font-display text-dark-900 mb-4">3ステップで完成</h2>
+          <p class="text-dark-500 max-w-2xl mx-auto">事業情報の入力からサイト公開まで、驚くほどシンプルです。</p>
+        </div>
+        <div class="max-w-3xl mx-auto fade-in">
+          <div class="relative">
+            <!-- Connecting line -->
+            <div class="absolute left-6 top-8 bottom-8 w-0.5 bg-sky-200 hidden sm:block" aria-hidden="true"></div>
+            <!-- Step 1 -->
+            <div class="relative flex gap-6 mb-12">
+              <div class="flex-shrink-0 w-12 h-12 bg-sky-500 rounded-full flex items-center justify-center text-white font-black font-display text-lg relative z-10 shadow-lg shadow-sky-500/25">1</div>
+              <div class="pt-1">
+                <h3 class="text-lg font-bold text-dark-900 mb-2">事業情報を入力</h3>
+                <p class="text-dark-500 leading-relaxed mb-3">AIが対話形式でヒアリング。業種・サービス内容・強みなどを自然な会話で入力するだけ。</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs bg-sky-50 text-sky-600 px-3 py-1 rounded-full">業種選択</span>
+                  <span class="text-xs bg-sky-50 text-sky-600 px-3 py-1 rounded-full">事業内容</span>
+                  <span class="text-xs bg-sky-50 text-sky-600 px-3 py-1 rounded-full">強み・実績</span>
+                </div>
+              </div>
+            </div>
+            <!-- Step 2 -->
+            <div class="relative flex gap-6 mb-12">
+              <div class="flex-shrink-0 w-12 h-12 bg-sky-500 rounded-full flex items-center justify-center text-white font-black font-display text-lg relative z-10 shadow-lg shadow-sky-500/25">2</div>
+              <div class="pt-1">
+                <h3 class="text-lg font-bold text-dark-900 mb-2">AIがサイトを自動生成</h3>
+                <p class="text-dark-500 leading-relaxed mb-3">SPEC v2.0準拠のHTML・CSS・構造化データを一括作成。プロ品質のサイトが数分で完成。</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs bg-sky-50 text-sky-600 px-3 py-1 rounded-full">HTML/CSS</span>
+                  <span class="text-xs bg-sky-50 text-sky-600 px-3 py-1 rounded-full">JSON-LD</span>
+                  <span class="text-xs bg-sky-50 text-sky-600 px-3 py-1 rounded-full">SEO最適化</span>
+                </div>
+              </div>
+            </div>
+            <!-- Step 3 -->
+            <div class="relative flex gap-6">
+              <div class="flex-shrink-0 w-12 h-12 bg-sky-500 rounded-full flex items-center justify-center text-white font-black font-display text-lg relative z-10 shadow-lg shadow-sky-500/25">3</div>
+              <div class="pt-1">
+                <h3 class="text-lg font-bold text-dark-900 mb-2">ワンクリックで公開</h3>
+                <p class="text-dark-500 leading-relaxed mb-3">GitHub + Cloudflare Pagesで世界中に無料公開。独自ドメインにも対応。更新もボタン1つ。</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs bg-sky-50 text-sky-600 px-3 py-1 rounded-full">GitHub連携</span>
+                  <span class="text-xs bg-sky-50 text-sky-600 px-3 py-1 rounded-full">自動デプロイ</span>
+                  <span class="text-xs bg-sky-50 text-sky-600 px-3 py-1 rounded-full">独自ドメイン</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 品質基準 ========== -->
+    <section id="quality" class="py-20 lg:py-28 bg-dark-900" aria-label="品質基準">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 fade-in">
+          <h2 class="text-3xl lg:text-4xl font-black font-display text-white mb-4">Sランク品質基準</h2>
+          <p class="text-dark-400 max-w-2xl mx-auto">Site Builderが生成するサイトは、すべてSPEC v2.0のSランク基準をクリアします。</p>
+        </div>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12 fade-in">
+          <div class="bg-dark-800 border border-dark-700 rounded-2xl p-6 text-center">
+            <div class="text-3xl lg:text-4xl font-black font-display text-sky-400 mb-2">314+</div>
+            <p class="text-dark-400 text-sm">PASS項目</p>
+          </div>
+          <div class="bg-dark-800 border border-dark-700 rounded-2xl p-6 text-center">
+            <div class="text-3xl lg:text-4xl font-black font-display text-sky-400 mb-2">0</div>
+            <p class="text-dark-400 text-sm">FAIL</p>
+          </div>
+          <div class="bg-dark-800 border border-dark-700 rounded-2xl p-6 text-center">
+            <div class="text-3xl lg:text-4xl font-black font-display text-sky-400 mb-2">5種</div>
+            <p class="text-dark-400 text-sm">JSON-LD</p>
+          </div>
+          <div class="bg-dark-800 border border-dark-700 rounded-2xl p-6 text-center">
+            <div class="text-3xl lg:text-4xl font-black font-display text-sky-400 mb-2">AA</div>
+            <p class="text-dark-400 text-sm">WCAG 2.2</p>
+          </div>
+        </div>
+        <div class="text-center fade-in">
+          <p class="text-dark-300 mb-4">このサイト（<a href="https://harton.pages.dev/" class="text-sky-400 hover:text-sky-300 transition-colors underline">harton.pages.dev</a>）自体がSite Builderの品質を証明する実例です。</p>
+          <a href="/blog/" class="text-sky-400 hover:text-sky-300 transition-colors font-medium focus:ring-2 focus:ring-sky-500 rounded py-2 px-1">ブログで詳しく見る &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 対応AI一覧 ========== -->
+    <section class="py-16 lg:py-20 bg-white border-t border-dark-100" aria-label="対応AIモデル">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+        <p class="text-dark-400 text-sm font-medium mb-8 uppercase tracking-wider">対応 AI モデル</p>
+        <div class="flex flex-wrap items-center justify-center gap-8 lg:gap-16">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-dark-100 rounded-xl flex items-center justify-center">
+              <svg class="w-5 h-5 text-dark-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+            </div>
+            <span class="font-bold text-dark-700">Claude</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-dark-100 rounded-xl flex items-center justify-center">
+              <svg class="w-5 h-5 text-dark-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+            </div>
+            <span class="font-bold text-dark-700">Gemini</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-dark-100 rounded-xl flex items-center justify-center">
+              <svg class="w-5 h-5 text-dark-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+            </div>
+            <span class="font-bold text-dark-700">ChatGPT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section id="cta" class="relative py-20 lg:py-28 bg-gradient-to-br from-sky-500 to-sky-600 overflow-hidden" aria-label="お問い合わせ">
+      <div class="absolute inset-0 hero-grid opacity-20" aria-hidden="true"></div>
+      <div class="absolute top-10 left-10 w-64 h-64 bg-white/5 rounded-full blur-3xl" aria-hidden="true"></div>
+      <div class="absolute bottom-10 right-10 w-80 h-80 bg-white/5 rounded-full blur-3xl" aria-hidden="true"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 fade-in">
+        <h2 class="text-3xl lg:text-4xl font-black font-display text-white mb-6">Site Builderで、<br class="sm:hidden">高品質サイトを手に入れよう</h2>
+        <p class="text-sky-100 text-lg mb-4 max-w-2xl mx-auto">AI搭載のSite Builderなら、初心者でもSランク品質のWEBサイトを構築できます。</p>
+        <p class="text-sky-200/80 text-sm mb-10 max-w-xl mx-auto">制作費ゼロ・専門知識不要・最短数分で公開。まずはお気軽にご相談ください。</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="/#contact" class="inline-flex items-center justify-center bg-white text-sky-600 font-bold px-10 py-4 rounded-xl hover:bg-sky-50 transition shadow-lg min-h-[44px] focus:ring-2 focus:ring-sky-500">無料で相談する</a>
+          <a href="#steps" class="inline-flex items-center justify-center border border-white/30 text-white font-medium px-10 py-4 rounded-xl hover:bg-white/10 transition min-h-[44px] focus:ring-2 focus:ring-sky-500">使い方を見る</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== フッター ========== -->
+  <footer class="bg-dark-900 border-t border-dark-800 py-12" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-gradient-to-br from-sky-400 to-sky-600 rounded-lg flex items-center justify-center">
+            <span class="text-white font-black text-sm font-display">H</span>
+          </div>
+          <span class="text-white font-bold font-display">HARTON</span>
+        </div>
+        <nav class="flex flex-wrap items-center justify-center gap-6 text-sm text-dark-400" aria-label="フッターナビゲーション">
+          <a href="/" class="hover:text-white transition-colors py-3">ホーム</a>
+          <a href="/site-builder/" class="hover:text-white transition-colors py-3">Site Builder</a>
+          <a href="/blog/" class="hover:text-white transition-colors py-3">ブログ</a>
+          <a href="/privacy/" class="hover:text-white transition-colors py-3">プライバシーポリシー</a>
+          <a href="/profile/" class="hover:text-white transition-colors py-3">プロフィール</a>
+        </nav>
+      </div>
+      <div class="mt-8 pt-8 border-t border-dark-800 flex flex-col items-center gap-3">
+        <p class="text-dark-500 text-xs">&copy; 2026 HARTON. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- noscript fallback -->
+  <noscript>
+    <style>
+      .fade-in { opacity: 1 !important; transform: none !important; }
+    </style>
+  </noscript>
+
+  <!-- Fade-in Observer -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+  <!-- Mobile menu toggle -->
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menuIcon');
+    let menuOpen = false;
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('open');
+      menuIcon.setAttribute('d', menuOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16');
+      menuBtn.setAttribute('aria-expanded', menuOpen ? 'true' : 'false');
+      menuBtn.setAttribute('aria-label', menuOpen ? 'メニューを閉じる' : 'メニューを開く');
+      document.body.style.overflow = menuOpen ? 'hidden' : '';
+    }
+    function closeMenu() {
+      if (!menuOpen) return;
+      mobileMenu.classList.remove('open');
+      menuOpen = false;
+      menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.setAttribute('aria-label', 'メニューを開く');
+      document.body.style.overflow = '';
+    }
+    menuBtn.addEventListener('click', toggleMenu);
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  </script>
+</body>
+</html>

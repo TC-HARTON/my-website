@@ -9,6 +9,9 @@ module.exports = {
     './profile/index.html',
     './404.html',
     './thanks.html',
+    './site-builder/index.html',
+    './blog/index.html',
+    './blog/*/index.html',
   ],
   theme: {
     extend: {
