@@ -648,6 +648,75 @@ function c11_8_google(html, pt) {
   return r;
 }
 
+// ═══════════════════ GEO/LLMO 検証 (Aggarwal et al. KDD2024 arXiv:2311.09735) ═══════════════════
+// G-1〜G-6: 生成エンジン (Perplexity/SGE/BingChat) 引用率最大化のための検証
+// 典拠: GEO-STANDARDS.md §8
+
+function cGeo(html, pt) {
+  const S = 'GEO/LLMO', r = [], bd = body(html);
+  if (pt === 'minimal') return [SKIP('G-skip', S, 'GEO検証', 'minimalページ対象外')];
+
+  // G-1: blockquote または <q cite> が 1 ページ最低 1 件以上 (Quotation Addition: +27.8%)
+  const blockquotes = (bd.match(/<blockquote[\s>][\s\S]*?<\/blockquote>/gi) || []).length;
+  const qCites = (bd.match(/<q\s+[^>]*cite=/gi) || []).length;
+  const quoteCount = blockquotes + qCites;
+  r.push(quoteCount >= 1
+    ? PASS('G-1', S, 'Quotation Addition (引用句)', `${quoteCount}件 (blockquote:${blockquotes}, q[cite]:${qCites})`)
+    : WARN('G-1', S, 'Quotation Addition', '<blockquote>/<q cite>未検出 — 引用句を追加すべき (論文+27.8%)'));
+
+  // G-2: 公的ソース (.go.jp/.gov/.edu/.ac.jp) への被リンクが 1 件以上 (Cite Sources: +24.9%)
+  const allLinks = bd.match(/<a\s+[^>]*href=["']([^"']+)["']/gi) || [];
+  const authoritativeLinks = allLinks.filter(l =>
+    /href=["'][^"']*\.(go\.jp|gov|edu|ac\.jp|or\.jp\/[a-z]+)/i.test(l)
+  );
+  r.push(authoritativeLinks.length >= 1
+    ? PASS('G-2', S, '公的ソース被リンク (Cite Sources)', `${authoritativeLinks.length}件 (.go.jp/.gov/.edu/.ac.jp)`)
+    : WARN('G-2', S, '公的ソース被リンク', '.go.jp/.gov/.edu等への被リンクなし (論文+24.9%)'));
+
+  // G-3: 数値 (パーセンテージ/円/件数/年) が本文中に 3 件以上 (Statistics Addition: +25.9%)
+  const text = bd.replace(/<script[\s\S]*?<\/script>/gi, '')
+                 .replace(/<style[\s\S]*?<\/style>/gi, '')
+                 .replace(/<[^>]+>/g, ' ');
+  const stats = (text.match(/\d+(?:\.\d+)?\s*(?:%|％|円|万円|件|名|年|位|倍|分|秒|時間|kg|cm|m²|平方メートル|社|店|人)/g) || []);
+  r.push(stats.length >= 3
+    ? PASS('G-3', S, 'Statistics Addition (数値)', `${stats.length}件の数値`)
+    : WARN('G-3', S, 'Statistics Addition', `数値${stats.length}件 (3件以上推奨, 論文+25.9%)`));
+
+  // G-4: schema.org Quotation または Claim の JSON-LD 存在
+  const schemas = jsonld(html);
+  let hasQuoteSchema = false;
+  for (const s of schemas) {
+    const types = [];
+    if (s['@type']) types.push(s['@type']);
+    if (s['@graph']) s['@graph'].forEach(i => i['@type'] && types.push(i['@type']));
+    if (types.some(t => t === 'Quotation' || t === 'Claim' || t === 'ClaimReview')) {
+      hasQuoteSchema = true; break;
+    }
+  }
+  r.push(hasQuoteSchema
+    ? PASS('G-4', S, 'JSON-LD Quotation/Claim')
+    : SKIP('G-4', S, 'JSON-LD Quotation/Claim', '構造化マークアップ補強 (任意・推奨)'));
+
+  // G-5: 曖昧表現「思います/かもしれません/らしい」の出現 ≦ 2 (Authoritative: +21.8%)
+  const vague = (text.match(/(思います|思われる|かもしれません|かもしれない|らしいです|多分|たぶん|おそらく)/g) || []);
+  r.push(vague.length <= 2
+    ? PASS('G-5', S, 'Authoritative tone (曖昧表現)', `曖昧表現 ${vague.length}件 (≦2)`)
+    : WARN('G-5', S, 'Authoritative tone', `曖昧表現${vague.length}件: ${[...new Set(vague)].slice(0,3).join('/')} (断定調へ修正推奨, 論文+21.8%)`));
+
+  // G-6: hero/h1 + 第一段落に主張+出典 (Position-Adjusted Word Count 最大化)
+  const upperBd = bd.slice(0, Math.floor(bd.length * 0.30));
+  const upperText = upperBd.replace(/<[^>]+>/g, ' ');
+  const upperHasStat = /\d+(?:\.\d+)?\s*(?:%|％|円|万円|件|名|年|位|倍)/.test(upperText);
+  const upperHasAuthLink = /href=["'][^"']*\.(go\.jp|gov|edu|ac\.jp)/i.test(upperBd);
+  const upperHasQuote = /<blockquote|<q\s+[^>]*cite=/i.test(upperBd);
+  const upperSignals = [upperHasStat && '数値', upperHasAuthLink && '公的リンク', upperHasQuote && '引用句'].filter(Boolean);
+  r.push(upperSignals.length >= 1
+    ? PASS('G-6', S, '位置最適化 (上位30%にエビデンス)', upperSignals.join('+'))
+    : FAIL('G-6', S, '位置最適化 (Position-Adjusted)', '上位30%領域に数値/公的リンク/引用句なし — 文頭にエビデンス必須'));
+
+  return r;
+}
+
 // ═══════════════════ 11.9 追加要件 (2) ═══════════════════
 
 function c11_7() {
@@ -845,6 +914,7 @@ function verify(filePath) {
       ...c11_6(html, pt),
       ...c11_7_mobile(html, pt),
       ...c11_8_google(html, pt),
+      ...cGeo(html, pt),
       ...cSpec(html, pt),
     ],
   };
@@ -863,7 +933,8 @@ function report(all) {
   console.log('  SPEC.md v2.2 完全自動検証レポート');
   console.log('  検証日時: ' + new Date().toISOString());
   console.log('  チェックリスト: 11.1(6)+11.2(12)+11.3(3)+11.4(7)+11.5(7)+11.6(4)+11.7モバイル+11.8Google+11.9(2)');
-  console.log('                 + SPEC本文 + グローバル + コントラスト比');
+  console.log('                 + GEO/LLMO(G-1〜G-6) + SPEC本文 + グローバル + コントラスト比');
+  console.log('                 GEO典拠: Aggarwal et al. KDD2024 arXiv:2311.09735');
   console.log('='.repeat(72));
 
   for (const f of all) {

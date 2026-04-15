@@ -41,9 +41,9 @@
 | `/services/automation/index.html` | 定型業務自動化 |
 | `/services/ai-prediction/index.html` | AI売上予測 |
 
-### 2.3 業種別サンプル（30ページ）
+### 2.3 業種別サンプル（50ページ）
 
-`/samples/` 配下に30業種のサンプルサイトを格納。`robots.txt`で`noindex`指定済み。
+`/samples/` 配下に50業種のサンプルサイトを格納。`robots.txt`で`noindex`指定済み。
 
 ### 2.4 必須ファイル
 

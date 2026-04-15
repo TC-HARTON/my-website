@@ -4,7 +4,8 @@
 > 【判定根拠】Google検索セントラル（SEO Starter Guide / Search Essentials）、Core Web Vitals最新仕様に完全準拠。
 > ※ E-E-A-Tはランキング要因ではなく、品質評価の枠組みである（Google公式見解）。本仕様ではE-E-A-Tの考え方に沿った高品質コンテンツ制作を推奨する。
 > 今後の全クライアントサイト構築において本仕様に準拠すること。
-> 2026-04-10 初版策定 / 2026-04-11 v2.0 Google基準統合改訂 / 2026-04-12 v2.2 Google Search Central完全準拠
+> 2026-04-10 初版策定 / 2026-04-11 v2.0 Google基準統合改訂 / 2026-04-12 v2.2 Google Search Central完全準拠 / 2026-04-13 v2.3 GOOGLE-STANDARDS.md統合
+> **補助基準書:** GOOGLE-STANDARDS.md — Google公式11ドキュメントから抽出した完全基準（E-E-A-T, Core Web Vitals, スパムポリシー, 構造化データ等）
 
 ---
 
@@ -410,8 +411,77 @@ Sitemap: https://{ドメイン}/sitemap.xml
 
 - `max-snippet:-1`: スニペット長制限なし（LLMに全テキスト提供）
 - JSなしで全情報取得可能であること
-- JSON-LD構造化データ（5種）で事業情報を機械可読に
+- JSON-LD構造化データ（5種+）で事業情報を機械可読に
 - `lang="ja"` で言語識別を明確に
+
+### 5.3 AI検索エンジン引用最適化
+
+AI検索エンジン（Perplexity, ChatGPT Search, Gemini等）が回答生成時にサイトを情報源として引用しやすくする。
+
+| 項目 | 要件 |
+|------|------|
+| トピック文 | 各ページのメインコンテンツ最初の`<p>`は、ページの主題を端的に述べる完結文とする |
+| FAQ回答 | 各回答は自己完結文とする。「上記参照」「詳しくはこちら」等の相対参照を禁止 |
+| サービス説明 | 「〇〇は△△を提供する□□サービスです」のような定義文から開始する |
+| メタディスクリプション | 検索意図に対する直接回答となる完結文（70-160文字） |
+
+### 5.4 Speakable構造化データ
+
+音声アシスタント・AI検索エンジンが最重要テキストを特定するための `speakable` プロパティを `WebSite` JSON-LDに追加する。
+
+```json
+{
+  "@type": "WebSite",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".hero-content", ".business-description", ".faq-section"]
+  }
+}
+```
+
+### 5.5 AIクローラー明示許可（robots.txt）
+
+```
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+```
+
+- `<meta name="robots" content="max-image-preview:large">` をトップページに追加
+- AI向けに全コンテンツをクロール許可し、情報源としての引用機会を最大化する
+
+### 5.6 コンテンツ構造のAI解析最適化
+
+| パターン | 用途 | 要件 |
+|---------|------|------|
+| `<dl>/<dt>/<dd>` | サービス特徴・料金等のキーバリュー情報 | AIが構造的に情報を抽出可能にする |
+| `data-nosnippet` | ナビゲーション・フッターの定型テキスト | AIクローラーが本文コンテンツに集中するための除外指定 |
+| `<time datetime>` | 日付・営業時間 | 機械可読な日時情報を提供 |
+
+### 5.7 HowToスキーマ（オプション）
+
+サービスページにプロセス・フロー情報がある場合、`HowTo` JSON-LDを追加する。AI検索の「〇〇のやり方」クエリに直接回答される可能性を高める。
+
+```json
+{
+  "@type": "HowTo",
+  "name": "〇〇の流れ",
+  "step": [
+    { "@type": "HowToStep", "name": "ステップ1", "text": "..." }
+  ]
+}
+```
 
 ---
 
@@ -725,9 +795,16 @@ html { scroll-behavior: smooth; }
 - [ ] 全navにaria-label（メイン、モバイル、パンくず、フッター）
 - [ ] H1→H2→H3スキップなし
 - [ ] tableにcaption + th scope
-- [ ] JSON-LD構造化データで事業情報を機械可読に
+- [ ] JSON-LD構造化データで事業情報を機械可読に（5種+Speakable）
 - [ ] JSなしで全情報取得可能
 - [ ] lang="ja"
+- [ ] 各ページ最初の`<p>`がトピック文（完結した定義文）
+- [ ] FAQ回答が自己完結（相対参照なし）
+- [ ] robots.txtにAIクローラー明示許可（GPTBot, PerplexityBot, ClaudeBot等）
+- [ ] ナビ・フッター定型テキストに`data-nosnippet`
+- [ ] `<meta name="robots" content="max-image-preview:large">`
+- [ ] Speakable JSON-LD（hero, business-description, faq-section）
+- [ ] サービス特徴に`<dl>/<dt>/<dd>`パターン使用
 
 ### 11.5 アクセシビリティ
 

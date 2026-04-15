@@ -1,0 +1,123 @@
+
+========================================================================
+  SPEC.md v2.2 完全自動検証レポート
+  検証日時: 2026-04-15T11:45:46.948Z
+  チェックリスト: 11.1(6)+11.2(12)+11.3(3)+11.4(7)+11.5(7)+11.6(4)+11.7モバイル+11.8Google+11.9(2)
+                 + GEO/LLMO(G-1〜G-6) + SPEC本文 + グローバル + コントラスト比
+                 GEO典拠: Aggarwal et al. KDD2024 arXiv:2311.09735
+========================================================================
+
+✅ index.html [full]
+   PASS:75  FAIL:0  WARN:7  SKIP:1
+   --- WARN ---
+   ⚠️  [11.1-fp] fetchpriority="high" → ヒーロー画像に未設定
+   ⚠️  [11.1-csssz] CSSサイズ → 47.6KB (目標40KB以下)
+   ⚠️  [11.2-time] <time>タグ → 公開日/更新日の<time>未検出
+   ⚠️  [11.4-nojs] JSなし情報取得 → JS動的コンテンツ生成あり
+   ⚠️  [11.5-touch] タッチターゲット → 52件がpy-3未満
+   ⚠️  [G-1] Quotation Addition → <blockquote>/<q cite>未検出 — 引用句を追加すべき (論文+27.8%)
+   ⚠️  [G-2] 公的ソース被リンク → .go.jp/.gov/.edu等への被リンクなし (論文+24.9%)
+
+✅ services/web/index.html [service]
+   PASS:67  FAIL:0  WARN:6  SKIP:4
+   --- WARN ---
+   ⚠️  [11.1-csssz] CSSサイズ → 47.6KB (目標40KB以下)
+   ⚠️  [11.2-time] <time>タグ → 公開日/更新日の<time>未検出
+   ⚠️  [11.5-touch] タッチターゲット → 3件がpy-3未満
+   ⚠️  [G-1] Quotation Addition → <blockquote>/<q cite>未検出 — 引用句を追加すべき (論文+27.8%)
+   ⚠️  [G-2] 公的ソース被リンク → .go.jp/.gov/.edu等への被リンクなし (論文+24.9%)
+   ⚠️  [sp-article] <article>タグ → 未使用
+
+✅ services/automation/index.html [service]
+   PASS:67  FAIL:0  WARN:6  SKIP:4
+   --- WARN ---
+   ⚠️  [11.1-csssz] CSSサイズ → 47.6KB (目標40KB以下)
+   ⚠️  [11.2-time] <time>タグ → 公開日/更新日の<time>未検出
+   ⚠️  [11.5-touch] タッチターゲット → 1件がpy-3未満
+   ⚠️  [G-1] Quotation Addition → <blockquote>/<q cite>未検出 — 引用句を追加すべき (論文+27.8%)
+   ⚠️  [G-2] 公的ソース被リンク → .go.jp/.gov/.edu等への被リンクなし (論文+24.9%)
+   ⚠️  [sp-article] <article>タグ → 未使用
+
+✅ services/ai-prediction/index.html [service]
+   PASS:67  FAIL:0  WARN:6  SKIP:4
+   --- WARN ---
+   ⚠️  [11.1-csssz] CSSサイズ → 47.6KB (目標40KB以下)
+   ⚠️  [11.2-time] <time>タグ → 公開日/更新日の<time>未検出
+   ⚠️  [11.5-touch] タッチターゲット → 1件がpy-3未満
+   ⚠️  [G-1] Quotation Addition → <blockquote>/<q cite>未検出 — 引用句を追加すべき (論文+27.8%)
+   ⚠️  [G-2] 公的ソース被リンク → .go.jp/.gov/.edu等への被リンクなし (論文+24.9%)
+   ⚠️  [sp-article] <article>タグ → 未使用
+
+✅ privacy/index.html [minimal]
+   PASS:44  FAIL:0  WARN:2  SKIP:13
+   --- WARN ---
+   ⚠️  [11.1-csssz] CSSサイズ → 47.6KB (目標40KB以下)
+   ⚠️  [11.5-touch] タッチターゲット → 1件がpy-3未満
+
+✅ thanks.html [minimal]
+   PASS:45  FAIL:0  WARN:3  SKIP:12
+   --- WARN ---
+   ⚠️  [11.1-csssz] CSSサイズ → 47.6KB (目標40KB以下)
+   ⚠️  [11.2-canon] canonical → 未設定
+   ⚠️  [11.5-touch] タッチターゲット → 1件がpy-3未満
+
+✅ 404.html [minimal]
+   PASS:43  FAIL:0  WARN:3  SKIP:13
+   --- WARN ---
+   ⚠️  [11.1-csssz] CSSサイズ → 47.6KB (目標40KB以下)
+   ⚠️  [11.2-canon] canonical → 未設定
+   ⚠️  [11.5-touch] タッチターゲット → 1件がpy-3未満
+
+✅ profile/index.html [profile]
+   PASS:59  FAIL:0  WARN:5  SKIP:5
+   --- WARN ---
+   ⚠️  [11.1-csssz] CSSサイズ → 47.6KB (目標40KB以下)
+   ⚠️  [11.5-touch] タッチターゲット → 1件がpy-3未満
+   ⚠️  [G-1] Quotation Addition → <blockquote>/<q cite>未検出 — 引用句を追加すべき (論文+27.8%)
+   ⚠️  [G-2] 公的ソース被リンク → .go.jp/.gov/.edu等への被リンクなし (論文+24.9%)
+   ⚠️  [G-3] Statistics Addition → 数値2件 (3件以上推奨, 論文+25.9%)
+
+❌ site-builder/index.html [subpage]
+   PASS:63  FAIL:1  WARN:7  SKIP:4
+   --- FAIL ---
+   ❌ [G-6] 位置最適化 (Position-Adjusted) → 上位30%領域に数値/公的リンク/引用句なし — 文頭にエビデンス必須
+   --- WARN ---
+   ⚠️  [11.1-csssz] CSSサイズ → 47.6KB (目標40KB以下)
+   ⚠️  [11.2-time] <time>タグ → 公開日/更新日の<time>未検出
+   ⚠️  [11.5-touch] タッチターゲット → 2件がpy-3未満
+   ⚠️  [G-1] Quotation Addition → <blockquote>/<q cite>未検出 — 引用句を追加すべき (論文+27.8%)
+   ⚠️  [G-2] 公的ソース被リンク → .go.jp/.gov/.edu等への被リンクなし (論文+24.9%)
+   ⚠️  [G-3] Statistics Addition → 数値1件 (3件以上推奨, 論文+25.9%)
+   ⚠️  [sp-article] <article>タグ → 未使用
+
+✅ [11.3 E-E-A-Tコンテンツ] [global]
+   PASS:3  FAIL:0  WARN:0  SKIP:0
+
+✅ [11.9 追加要件] [global]
+   PASS:2  FAIL:0  WARN:0  SKIP:0
+
+✅ [グローバル] sitemap+robots+コントラスト [global]
+   PASS:8  FAIL:0  WARN:0  SKIP:0
+
+------------------------------------------------------------------------
+  ✅ 11.1パフォ: P=48 F=0 W=10 S=8
+  ✅ 11.2SEO: P=82 F=0 W=7 S=12
+  ✅ 11.4LLMO: P=55 F=0 W=1 S=16
+  ✅ 11.5a11y: P=37 F=0 W=9 S=8
+  ✅ 11.6セキュリティ: P=36 F=0 W=0 S=0
+  ✅ 11.7モバイル: P=25 F=0 W=0 S=4
+  ✅ 11.8Google: P=30 F=0 W=0 S=0
+  ❌ GEO/LLMO: P=15 F=1 W=14 S=9
+  ✅ SPEC本文: P=202 F=0 W=4 S=3
+  ✅ 11.3E-E-AT: P=3 F=0 W=0 S=0
+  ✅ 11.7追加: P=2 F=0 W=0 S=0
+  ✅ グローバル: P=8 F=0 W=0 S=0
+
+========================================================================
+  検証項目: 649
+  ✅ PASS: 543  ❌ FAIL: 1  ⚠️ WARN: 45  ⏭️ SKIP: 60
+  合格率: 99.8%
+
+  ❌ 不合格: 1件のFAILを修正してください
+========================================================================
+
