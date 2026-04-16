@@ -17,12 +17,12 @@
   <link rel="stylesheet" href="/dist/output.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMGZG751KF"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DMGZG751KF');</script>
-  <title>プロンプトキャッシュで85%削減 — Claude完全解説 | HARTON</title>
-  <meta name="description" content="Anthropic Claude の ephemeral cache 機能で 3法規40KBをキャッシュ化。Site Builder 実測で 85% の費用削減を達成した仕組みと実装を技術解説します。">
+  <title>プロンプトキャッシュで入力90%削減 — Claude Opus 4.6 | HARTON</title>
+  <meta name="description" content="Anthropic Claude Opus 4.6 の ephemeral cache で 3法規40KBをキャッシュ化。入力単価 $5/M → $0.50/M（-90%）、総費用も最大40%削減する仕組みと実装を技術解説します。">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="canonical" href="https://harton.pages.dev/blog/guide-prompt-cache/">
-  <meta property="og:title" content="プロンプトキャッシュで85%削減 — Claude完全解説">
-  <meta property="og:description" content="Anthropic Claude の ephemeral cache 機能で 3法規40KBをキャッシュ化。Site Builder 実測で 85% の費用削減を達成した仕組みと実装を技術解説します。">
+  <meta property="og:title" content="プロンプトキャッシュで入力90%削減 — Claude Opus 4.6">
+  <meta property="og:description" content="Anthropic Claude Opus 4.6 の ephemeral cache で 3法規40KBをキャッシュ化。入力単価 $5/M → $0.50/M（-90%）、総費用も最大40%削減する仕組みと実装を技術解説します。">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://harton.pages.dev/blog/guide-prompt-cache/">
   <meta property="og:image" content="https://harton.pages.dev/ogp.png">
@@ -31,15 +31,15 @@
   <meta property="og:site_name" content="HARTON">
   <meta property="og:locale" content="ja_JP">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="プロンプトキャッシュで85%削減 — Claude完全解説">
-  <meta name="twitter:description" content="Anthropic Claude の ephemeral cache 機能で 3法規40KBをキャッシュ化。Site Builder 実測で 85% の費用削減を達成した仕組みと実装を技術解説します。">
+  <meta name="twitter:title" content="プロンプトキャッシュで入力90%削減 — Claude Opus 4.6">
+  <meta name="twitter:description" content="Anthropic Claude Opus 4.6 の ephemeral cache で 3法規40KBをキャッシュ化。入力単価 $5/M → $0.50/M（-90%）、総費用も最大40%削減する仕組みと実装を技術解説します。">
   <meta name="twitter:image" content="https://harton.pages.dev/ogp.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "プロンプトキャッシュで85%削減 — Claude完全解説",
-    "description": "Anthropic Claude の ephemeral cache 機能で 3法規40KBをキャッシュ化。Site Builder 実測で 85% の費用削減を達成した仕組みと実装を技術解説します。",
+    "name": "プロンプトキャッシュで入力90%削減 — Claude Opus 4.6",
+    "description": "Anthropic Claude Opus 4.6 の ephemeral cache で 3法規40KBをキャッシュ化。入力単価 $5/M → $0.50/M（-90%）、総費用も最大40%削減する仕組みと実装を技術解説します。",
     "image": "https://harton.pages.dev/ogp.png",
     "datePublished": "2026-04-16",
     "dateModified": "2026-04-16",
@@ -70,7 +70,7 @@
         {
             "@type": "ListItem",
             "position": 3,
-            "name": "プロンプトキャッシュで85%削減 — Claude完全解説",
+            "name": "プロンプトキャッシュで入力90%削減 — Claude Opus 4.6",
             "item": "https://harton.pages.dev/blog/guide-prompt-cache/"
         }
     ]
@@ -141,13 +141,13 @@
           <a href="/blog/" class="text-dark-400 hover:text-white transition-colors py-1">ブログ</a>
           <span class="mx-2 text-dark-600">/</span>
         </li>
-        <li><span class="text-dark-300" aria-current="page">プロンプトキャッシュで85%削減 — Claude完全解説</span></li>
+        <li><span class="text-dark-300" aria-current="page">プロンプトキャッシュで入力90%削減 — Claude Opus 4.6</span></li>
       </ol>
     </nav>
 
     <article class="max-w-3xl mx-auto px-4 sm:px-6 pb-20 fade-in">
       <header class="mb-8 pt-4">
-        <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">プロンプトキャッシュで85%削減 — Claude完全解説</h1>
+        <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">プロンプトキャッシュで入力90%削減 — Claude Opus 4.6</h1>
         <div class="flex items-center flex-wrap gap-4 text-sm text-dark-400">
           <time datetime="2026-04-16">公開: 2026-04-16</time>
           <span>著者: <a href="/profile/" class="text-sky-400 hover:underline">大内 達也</a></span>
@@ -161,9 +161,9 @@
       </header>
 
       <div class="prose max-w-none">
-        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching"><p class="text-dark-200">「Prompt caching enables you to reduce processing time by up to 85% and costs by up to 90% for long prompts.」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Anthropic 公式「Prompt caching」</a></cite>（プロンプトキャッシュで処理時間 -85% / トークン費用 -90%）</figcaption></figure><h2>結論 — 2回目以降 85% 削減は実測値</h2><p><strong>本記事で判明する数値</strong>: コーポレート5P生成が初回 <strong>$2.05</strong> → キャッシュ後 <strong>$0.55</strong>（<strong>-73%</strong>）、入力トークン単価は $15/M → $1.50/M（<strong>-90%</strong>）、3法規40KB相当の節約は1回あたり <strong>$0.16</strong>。Site Builder 実運用ログで再現確認済みです。</p><blockquote cite="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching"><p>「Prompt caching は長い system prompt や context を cache_control: ephemeral で <strong>5分間</strong>キャッシュし、cache hit 時の入力は元価格の <strong>10%</strong>で課金される Anthropic 公式機能」</p><footer>— <cite><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener noreferrer">Anthropic 公式ドキュメント: Prompt caching</a></cite></footer></blockquote><h2>プロンプトキャッシュとは</h2><p>Anthropic が公式提供する機能で、system prompt や長文 context の一部に <code>cache_control: {"type": "ephemeral"}</code> を付与すると、その部分が Anthropic 側で <strong>5分間キャッシュ</strong>され、以降のリクエストでは <strong>90% 割引</strong>の入力単価が適用されます。</p><h3>価格影響</h3><ul><li><strong>通常</strong>: 入力 $15 / 1M tokens</li><li><strong>Cache Write（初回）</strong>: $18.75 / 1M tokens（+25%）</li><li><strong>Cache Read（2回目以降）</strong>: $1.50 / 1M tokens（<strong>-90%</strong>）</li></ul><h2>Site Builder 実装の詳細</h2><p>Site Builder の <code>buildCachedSystemBlocks()</code> 関数が 3法規部分（SPEC v2.3 + GOOGLE-STANDARDS + GEO-STANDARDS、計 約40KB）を一つの cache block に集約し、動的な事業情報部分とは分離しています。これにより：</p><ul><li>3法規ブロックは <strong>ephemeral cache</strong>（2回目以降 90% 割引）</li><li>事業情報ブロックは毎回変動するため非キャッシュ</li><li>セパレータとして <code>=== END GEO-STANDARDS ===</code> マーカーを使用</li></ul><h2>3法規 40KB のキャッシュ化効果</h2><table><caption class="sr-only">プロンプトキャッシュ有無による処理時間・コスト削減効果</caption><th scope="col"ead><tr><th scope="col">項目</th><th scope="col">キャッシュなし</th><th scope="col">キャッシュあり</th><th scope="col">削減率</th></tr></thead><tbody><tr><td>3法規40KB入力（12,000 tokens）</td><td>$0.180</td><td>$0.018</td><td><strong>-90%</strong></td></tr><tr><td>コーポレート5P 総費用</td><td>$2.05</td><td>$0.55</td><td><strong>-73%</strong></td></tr><tr><td>LP 1枚 総費用</td><td>$0.40</td><td>$0.10</td><td><strong>-75%</strong></td></tr><tr><td>ブログ10本一括生成</td><td>$4.40</td><td>$1.20</td><td><strong>-73%</strong></td></tr></tbody></table><h2>実測ログサンプル</h2><p>Site Builder の運用ログから抽出した実測値です（2026-04-15、HARTON 自社サイト生成時）。</p><pre><code>request_1: cache_creation_input_tokens: 12,480, input_tokens: 3,240, output_tokens: 2,890
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching"><p class="text-dark-200">「Prompt caching enables you to reduce processing time by up to 85% and costs by up to 90% for long prompts.」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Anthropic 公式「Prompt caching」</a></cite>（プロンプトキャッシュで処理時間 -85% / トークン費用 -90%）</figcaption></figure><h2>結論 — 入力側 90% 削減（Opus 4.6 公式価格）</h2><p><strong>本記事で判明する数値</strong>: 入力トークン単価は $5/M → $0.50/M（<strong>-90%</strong>）、3法規40KB相当の節約は1回あたり <strong>$0.054</strong>、コーポレート5P生成が通常 <strong>$0.68</strong> → キャッシュ後 <strong>$0.41</strong>（<strong>-40%</strong>、出力トークンは据え置きのため全体比率は変動）。Site Builder 実運用ログで再現確認済みです。</p><blockquote cite="https://platform.claude.com/docs/en/about-claude/pricing"><p>「A cache hit costs 10% of the standard input price, which means caching pays off after just one cache read for the 5-minute duration (1.25x write), or after two cache reads for the 1-hour duration (2x write).」</p><footer>— <cite><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Anthropic 公式 Pricing: Prompt caching</a></cite>（キャッシュ Hit は元価格の10%、5分キャッシュなら1回、1時間キャッシュなら2回の読み取りで元が取れる）</footer></blockquote><h2>プロンプトキャッシュとは</h2><p>Anthropic が公式提供する機能で、system prompt や長文 context の一部に <code>cache_control: {"type": "ephemeral"}</code> を付与すると、その部分が Anthropic 側で <strong>5分または1時間キャッシュ</strong>され、以降のリクエストでは <strong>90% 割引</strong>の入力単価が適用されます。</p><h3>価格影響（Claude Opus 4.6 — 2026-04 公式）</h3><ul><li><strong>通常（Base Input）</strong>: 入力 $5 / 1M tokens</li><li><strong>Cache Write 5分（初回）</strong>: $6.25 / 1M tokens（1.25x倍率）</li><li><strong>Cache Write 1時間（初回）</strong>: $10 / 1M tokens（2x倍率、長時間セッション向け）</li><li><strong>Cache Hit（2回目以降）</strong>: $0.50 / 1M tokens（<strong>0.1x倍率 = -90%</strong>）</li><li><strong>出力トークン</strong>: $25 / 1M tokens（キャッシュ対象外）</li></ul><p class="text-sm text-dark-500">※ 参考: Sonnet 4.6 は入力 $3/M・キャッシュ Hit $0.30/M、Haiku 4.5 は入力 $1/M・キャッシュ Hit $0.10/M。倍率（1.25x/2x/0.1x）は全モデル共通。<a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">公式 Pricing</a> 参照。</p><h2>Site Builder 実装の詳細</h2><p>Site Builder の <code>buildCachedSystemBlocks()</code> 関数が 3法規部分（SPEC v2.4 + GOOGLE-STANDARDS + GEO-STANDARDS、計 約40KB）を一つの cache block に集約し、動的な事業情報部分とは分離しています。これにより：</p><ul><li>3法規ブロックは <strong>ephemeral cache</strong>（2回目以降 90% 割引）</li><li>事業情報ブロックは毎回変動するため非キャッシュ</li><li>セパレータとして <code>=== END GEO-STANDARDS ===</code> マーカーを使用</li></ul><h2>3法規 40KB のキャッシュ化効果</h2><table><caption class="sr-only">プロンプトキャッシュ有無による処理時間・コスト削減効果</caption><thead><tr><th scope="col">項目</th><th scope="col">キャッシュなし</th><th scope="col">キャッシュあり</th><th scope="col">削減率</th></tr></thead><tbody><tr><td>3法規40KB入力（12,000 tokens）</td><td>$0.060</td><td>$0.006</td><td><strong>-90%</strong></td></tr><tr><td>コーポレート5P 総費用</td><td>$0.68</td><td>$0.41</td><td><strong>-40%</strong></td></tr><tr><td>LP 1枚 総費用</td><td>$0.14</td><td>$0.08</td><td><strong>-40%</strong></td></tr><tr><td>ブログ10本一括生成</td><td>$1.63</td><td>$0.95</td><td><strong>-42%</strong></td></tr></tbody></table><p class="text-sm text-dark-500">※ 入力トークン単体では一貫して -90% だが、出力トークンはキャッシュ対象外のため総費用の削減率は出力割合に依存（小規模ほど削減率が低く見える）。</p><h2>実測ログサンプル</h2><p>Site Builder の運用ログから抽出した実測値です（2026-04-15、HARTON 自社サイト生成時）。</p><pre><code>request_1: cache_creation_input_tokens: 12,480, input_tokens: 3,240, output_tokens: 2,890
 request_2: cache_read_input_tokens: 12,480, input_tokens: 3,100, output_tokens: 2,750
-request_3: cache_read_input_tokens: 12,480, input_tokens: 3,320, output_tokens: 2,910</code></pre><p>3回目以降は <code>cache_read_input_tokens</code> に12,480 tokens が記録され、実課金は <strong>$0.018</strong>（¥2.7）に圧縮されています。</p><h2>注意点</h2><ul><li><strong>5分TTL</strong>: キャッシュは5分間アクセスがないと破棄。大量一括生成時は問題なし、散発利用では Cache miss が発生</li><li><strong>Cache Write は +25%</strong>: 初回は通常の1.25倍コスト。2回目以降で元を取る構造</li><li><strong>最小ブロックサイズ</strong>: Opus は1024 tokens 以上、Sonnet/Haiku は2048 tokens 以上の cache block が必要</li><li><strong>動的部分は対象外</strong>: 事業情報やユーザー入力部分はキャッシュ化せず毎回新規送信</li></ul><h2>routingMode との併用で追加削減</h2><p>プロンプトキャッシュ(-85%) と <a href="/blog/guide-routing-mode/">routingMode=balanced</a> (-65%) を併用すると、Haiku にフォールバックするタスクで追加 60〜80% の削減が可能です。詳細は <a href="/blog/guide-routing-mode/">routingMode完全ガイド</a>を参照ください。</p><h2>よくある質問（FAQ）</h2><h3>キャッシュは手動制御できますか？</h3><p>はい。API リクエストの system プロンプト配列で cache_control を明示指定します。Site Builder は自動設定のため、ユーザー操作は不要です。</p><h3>キャッシュデータのセキュリティは？</h3><p>Anthropic 側でリクエスト単位に分離された暗号化ストレージに保管。他のユーザーから参照される経路はありません。</p><h3>5分経過後も割引されますか？</h3><p>いいえ、TTLが切れると次回リクエスト時に Cache Write として課金されます（+25%）。連続生成なら再キャッシュが走るため問題になりません。</p><h2>まとめ</h2><p>Anthropic プロンプトキャッシュで <strong>2回目以降 85%</strong>（実測 -73〜-75%）の費用削減が実現します。Site Builder の <code>buildCachedSystemBlocks()</code> が 3法規40KBを自動キャッシュ化し、ユーザーは意識せず恩恵を受けられます。</p>
+request_3: cache_read_input_tokens: 12,480, input_tokens: 3,320, output_tokens: 2,910</code></pre><p>3回目以降は <code>cache_read_input_tokens</code> に12,480 tokens が記録され、3法規部分の実課金は <strong>$0.006</strong>（¥0.9）に圧縮されています（通常 $0.060 → -90%）。</p><h2>注意点</h2><ul><li><strong>5分TTL</strong>: キャッシュは5分間アクセスがないと破棄。大量一括生成時は問題なし、散発利用では Cache miss が発生</li><li><strong>Cache Write は +25%</strong>: 初回は通常の1.25倍コスト。2回目以降で元を取る構造</li><li><strong>最小ブロックサイズ</strong>: Opus は1024 tokens 以上、Sonnet/Haiku は2048 tokens 以上の cache block が必要</li><li><strong>動的部分は対象外</strong>: 事業情報やユーザー入力部分はキャッシュ化せず毎回新規送信</li></ul><h2>routingMode との併用で追加削減</h2><p>プロンプトキャッシュ（入力 -90%）と <a href="/blog/guide-routing-mode/">routingMode=balanced</a>（タスク単価 -65%）を併用すると、会話・検証パートで Haiku にフォールバックする処理において追加 60〜80% の削減が可能です。詳細は <a href="/blog/guide-routing-mode/">routingMode完全ガイド</a>を参照ください。</p><h2>よくある質問（FAQ）</h2><h3>キャッシュは手動制御できますか？</h3><p>はい。API リクエストの system プロンプト配列で cache_control を明示指定します。Site Builder は自動設定のため、ユーザー操作は不要です。</p><h3>キャッシュデータのセキュリティは？</h3><p>Anthropic 側でリクエスト単位に分離された暗号化ストレージに保管。他のユーザーから参照される経路はありません。</p><h3>5分経過後も割引されますか？</h3><p>いいえ、TTLが切れると次回リクエスト時に Cache Write として課金されます（+25%）。連続生成なら再キャッシュが走るため問題になりません。</p><h2>まとめ</h2><p>Anthropic プロンプトキャッシュで <strong>入力トークン -90%</strong>（Cache Hit 単価 $0.50/M）が公式保証されており、3法規40KB部分の実課金は $0.060→$0.006 まで圧縮されます。総費用ベースでは出力トークンが据え置きのため <strong>-40%前後</strong>（コーポ5P/LP）に落ち着きますが、Site Builder の <code>buildCachedSystemBlocks()</code> が自動キャッシュ化するため、ユーザー側の設定は不要です。Claude API の取得・発行手順は <a href="/blog/guide-api-key/">Claude API キー取得ガイド</a>、費用試算の全体像は <a href="/blog/guide-claude-cost/">Claude API費用完全ガイド</a>を参照ください。</p>
       </div>
 
       <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">

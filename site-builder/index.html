@@ -542,12 +542,12 @@
           <div class="bg-sky-50/60 rounded-2xl p-6">
             <div class="text-sky-500 text-2xl font-black mb-2">#2</div>
             <h3 class="font-bold text-dark-900 mb-2">3法規 40KB を完全理解</h3>
-            <p class="text-sm text-dark-600">SPEC v2.3 + Google 公式基準 + Cornell GEO 論文の 3法規を system prompt 全文埋込で常時参照。長文コンテキスト処理で最高性能。</p>
+            <p class="text-sm text-dark-600">SPEC v2.4 + Google 公式基準 + Cornell GEO 論文の 3法規を system prompt 全文埋込で常時参照。長文コンテキスト処理で最高性能。</p>
           </div>
           <div class="bg-sky-50/60 rounded-2xl p-6">
             <div class="text-sky-500 text-2xl font-black mb-2">#3</div>
             <h3 class="font-bold text-dark-900 mb-2">プロンプトキャッシュ対応</h3>
-            <p class="text-sm text-dark-600">Anthropic 公式の ephemeral cache で 3法規部分をキャッシュ化。2回目以降は最大 <strong>85% トークン費用削減</strong>。</p>
+            <p class="text-sm text-dark-600">Anthropic 公式の ephemeral cache で 3法規部分をキャッシュ化。2回目以降は入力トークン単価が <strong>$5/M → $0.50/M（-90%）</strong>に圧縮。</p>
           </div>
         </div>
         <div class="mt-10 bg-sky-50 border border-sky-200 rounded-xl p-5 fade-in">
@@ -582,14 +582,14 @@
           </div>
           <div class="bg-emerald-50 border-2 border-emerald-500 rounded-2xl p-6 text-center shadow-lg">
             <p class="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-2">Site Builder + Claude API</p>
-            <div class="text-4xl font-black font-display text-emerald-600 mb-2">¥300〜</div>
+            <div class="text-4xl font-black font-display text-emerald-600 mb-2">¥103〜</div>
             <p class="text-sm text-dark-600">コーポレートサイト1本<br>約5分で生成・S-RANK保証</p>
           </div>
         </div>
 
         <div class="bg-white border border-dark-200 rounded-2xl p-6 lg:p-8 mb-8 fade-in">
           <h3 class="text-xl font-bold font-display text-dark-900 mb-2">規模別 API費用シミュレーション</h3>
-          <p class="text-sm text-dark-500 mb-6">※ Anthropic Claude Opus 4.6 公式価格（$15/M入力 / $75/M出力）、$1=¥150換算で概算</p>
+          <p class="text-sm text-dark-500 mb-6">※ Anthropic <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer" class="text-sky-600 hover:text-sky-700 underline">公式 Pricing</a> の Claude Opus 4.6（入力 $5/M・出力 $25/M・キャッシュ Hit $0.50/M）、$1=¥150換算で概算</p>
           <div class="overflow-x-auto">
             <table class="w-full text-sm">
               <caption class="sr-only">規模別 Claude API 費用シミュレーション（初回生成・キャッシュ後・外注比）</caption>
@@ -604,32 +604,32 @@
               <tbody class="divide-y divide-dark-100">
                 <tr>
                   <td class="py-3 px-3"><strong>ランディングページ 1枚</strong><br><span class="text-xs text-dark-500">2,000〜3,000字</span></td>
-                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥60 <span class="text-xs text-dark-500">($0.40)</span></td>
-                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥15 <span class="text-xs">($0.10)</span></td>
-                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥10万の<br>約0.06%</td>
+                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥20 <span class="text-xs text-dark-500">($0.14)</span></td>
+                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥12 <span class="text-xs">($0.08)</span></td>
+                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥10万の<br>約0.02%</td>
                 </tr>
                 <tr>
                   <td class="py-3 px-3"><strong>コーポレート 5ページ</strong><br><span class="text-xs text-dark-500">各3,000字 + JSON-LD</span></td>
-                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥310 <span class="text-xs text-dark-500">($2.05)</span></td>
-                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥85 <span class="text-xs">($0.55)</span></td>
-                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥30万の<br>約0.1%</td>
+                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥103 <span class="text-xs text-dark-500">($0.68)</span></td>
+                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥62 <span class="text-xs">($0.41)</span></td>
+                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥30万の<br>約0.03%</td>
                 </tr>
                 <tr>
                   <td class="py-3 px-3"><strong>大規模 8ページ + ブログ10本</strong><br><span class="text-xs text-dark-500">構造化データ完備</span></td>
-                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥790 <span class="text-xs text-dark-500">($5.25)</span></td>
-                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥225 <span class="text-xs">($1.50)</span></td>
-                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥80万の<br>約0.1%</td>
+                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥258 <span class="text-xs text-dark-500">($1.72)</span></td>
+                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥155 <span class="text-xs">($1.03)</span></td>
+                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥80万の<br>約0.03%</td>
                 </tr>
                 <tr>
                   <td class="py-3 px-3"><strong>ブログ記事 単発</strong><br><span class="text-xs text-dark-500">3,000字</span></td>
-                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥66 <span class="text-xs text-dark-500">($0.44)</span></td>
-                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥18 <span class="text-xs">($0.12)</span></td>
-                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥3万の<br>約0.2%</td>
+                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥24 <span class="text-xs text-dark-500">($0.16)</span></td>
+                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥14 <span class="text-xs">($0.09)</span></td>
+                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥3万の<br>約0.08%</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <p class="text-xs text-dark-500 mt-4">※ キャッシュは Anthropic 公式 <a href="/blog/guide-prompt-cache/" class="text-sky-600 hover:text-sky-700 underline">ephemeral cache により最大85%削減</a>。<a href="/blog/guide-routing-mode/" class="text-sky-600 hover:text-sky-700 underline">routingMode=balanced 設定</a>で会話・検証部分は更に60〜80%削減可能。</p>
+          <p class="text-xs text-dark-500 mt-4">※ キャッシュは Anthropic 公式 <a href="/blog/guide-prompt-cache/" class="text-sky-600 hover:text-sky-700 underline">ephemeral cache により入力トークン最大90%削減</a>（$5/M → $0.50/M）。<a href="/blog/guide-routing-mode/" class="text-sky-600 hover:text-sky-700 underline">routingMode=balanced 設定</a>で会話・検証部分は更に60〜80%削減可能。API キー取得は <a href="/blog/guide-api-key/" class="text-sky-600 hover:text-sky-700 underline">Claude APIキー取得ガイド</a>を参照。</p>
         </div>
 
         <div class="bg-sky-50 border border-sky-200 rounded-2xl p-6 lg:p-8 mb-8 fade-in">
@@ -637,7 +637,7 @@
           <div class="grid md:grid-cols-3 gap-6">
             <div>
               <p class="text-sm font-bold text-dark-700 mb-2">①月額上限 自動停止</p>
-              <p class="text-2xl font-black text-dark-900">$5 上限 <span class="text-sky-600">でLP12枚</span></p>
+              <p class="text-2xl font-black text-dark-900">$5 上限 <span class="text-sky-600">でLP約35枚</span></p>
               <p class="text-xs text-dark-500 mt-2">Anthropic コンソールで任意額設定。上限到達で API 停止</p>
             </div>
             <div>
@@ -652,12 +652,12 @@
             </div>
           </div>
           <div class="mt-6 pt-6 border-t border-sky-200">
-            <p class="text-sm text-dark-700"><strong>月額上限 $5 の例:</strong> LP 12枚 / コーポレート 2.4サイト / ブログ 11本 / チャット 150回（どれかを実行して到達で停止）。99%のユーザーは月¥1,000以内に収まります（詳細は <a href="/blog/guide-claude-max-plan/" class="text-sky-600 hover:text-sky-700 underline font-medium">API課金の安全装置ガイド</a>）。</p>
+            <p class="text-sm text-dark-700"><strong>月額上限 $5 の例:</strong> LP 約35枚 / コーポレート 約7サイト / ブログ 約31本 / チャット 約300回（どれかを実行して到達で停止）。99%のユーザーは月¥1,000以内に収まります（詳細は <a href="/blog/guide-claude-max-plan/" class="text-sky-600 hover:text-sky-700 underline font-medium">API課金の安全装置ガイド</a>）。</p>
           </div>
         </div>
 
         <blockquote cite="/" class="bg-dark-900 text-white rounded-2xl p-6 lg:p-8 mb-8 fade-in">
-          <p class="text-base lg:text-lg leading-relaxed mb-4">「このサイト <strong class="text-sky-400">harton.pages.dev</strong> 自体が Site Builder で生成され、<strong class="text-sky-400">SPEC v2.3 / 649項目中 100.0%合格 / S-RANK</strong> を達成しています。制作費は実質 <strong class="text-emerald-400">¥500以下</strong>。外注¥30万と同等以上の品質を、1/600 の費用で実現した生きた実例です。」</p>
+          <p class="text-base lg:text-lg leading-relaxed mb-4">「このサイト <strong class="text-sky-400">harton.pages.dev</strong> 自体が Site Builder で生成され、<strong class="text-sky-400">SPEC v2.4 / 2554項目 FAIL=0 / 100% S-RANK</strong> を達成しています。Opus 4.6 公式価格での制作費は実質 <strong class="text-emerald-400">¥150以下</strong>（コーポ5P ¥103）。外注¥30万と同等以上の品質を、<strong class="text-emerald-400">0.03%</strong>の費用で実現した生きた実例です。」</p>
           <footer class="text-dark-400 text-sm">— <cite>HARTON 自社検証 2026-04-15 / <a href="/blog/" class="text-sky-400 hover:text-sky-300 underline">詳細レポート</a> / <a href="https://arxiv.org/abs/2311.09735" class="text-sky-400 hover:text-sky-300 underline">GEO論文 Cornell KDD2024</a></cite></footer>
         </blockquote>
 
@@ -669,7 +669,7 @@
           </a>
           <a href="/blog/guide-prompt-cache/" class="block bg-white hover:bg-sky-50 border border-dark-200 rounded-xl p-5 transition">
             <p class="text-xs text-sky-600 font-bold uppercase tracking-wider mb-1">技術解説</p>
-            <p class="font-bold text-dark-900 text-sm mb-1">プロンプトキャッシュで85%削減</p>
+            <p class="font-bold text-dark-900 text-sm mb-1">プロンプトキャッシュで入力90%削減</p>
             <p class="text-xs text-dark-500">Anthropic公式機能の仕組みと検証結果</p>
           </a>
           <a href="/blog/guide-claude-vs-outsource/" class="block bg-white hover:bg-sky-50 border border-dark-200 rounded-xl p-5 transition">

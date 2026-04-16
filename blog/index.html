@@ -130,17 +130,25 @@
             <figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Aggarwal et al. "Generative Engine Optimization" KDD 2024</a></cite>（当ブログ全24記事は GEO/LLMO 基準 G-1〜G-6 に準拠）</figcaption>
           </figure>
           <div class="grid gap-6">
+          <a href="/blog/guide-api-key/" class="block p-6 bg-dark-800 rounded-xl border border-dark-700 hover:border-sky-500/50 transition-all hover:-translate-y-1 hover:shadow-lg group">
+            <h2 class="text-xl font-bold text-white group-hover:text-sky-400 transition-colors mb-2">Claude APIキー取得完全ガイド — 1本で Opus/Sonnet/Haiku すべて</h2>
+            <p class="text-dark-400 text-sm mb-3 line-clamp-2">Anthropic Claude APIキーの取得方法を公式手順に沿って解説。1本のキーで Opus 4.6・Sonnet 4.6・Haiku 4.5 すべてにアクセス可能です。月額上限・セキュリティ・よくある誤解まで完全網羅。</p>
+            <div class="flex items-center flex-wrap gap-3 text-xs text-dark-500">
+              <time datetime="2026-04-16">2026-04-16</time>
+              <span class="bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded-full">Claude API</span>
+            </div>
+          </a>
           <a href="/blog/guide-ai-setup/" class="block p-6 bg-dark-800 rounded-xl border border-dark-700 hover:border-sky-500/50 transition-all hover:-translate-y-1 hover:shadow-lg group">
             <h2 class="text-xl font-bold text-white group-hover:text-sky-400 transition-colors mb-2">Claude API の設定方法 — Sクラス保証の唯一条件</h2>
-            <p class="text-dark-400 text-sm mb-3 line-clamp-2">Site Builderは Claude Opus 4.6 限定。SPEC v2.3 + Google公式 + Cornell大学GEO論文 の3法規に完全準拠する唯一のモデルとして、Sクラス品質を保証します。APIキー取得からルーティング戦略まで解説。</p>
+            <p class="text-dark-400 text-sm mb-3 line-clamp-2">Site Builderは Claude Opus 4.6 限定。SPEC v2.4 + Google公式 + Cornell大学GEO論文 の3法規に完全準拠する唯一のモデルとして、Sクラス品質を保証します。APIキー取得からルーティング戦略まで解説。</p>
             <div class="flex items-center flex-wrap gap-3 text-xs text-dark-500">
               <time datetime="2026-04-16">2026-04-16</time>
               <span class="bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded-full">Site Builder ガイド</span>
             </div>
           </a>
           <a href="/blog/guide-claude-cost/" class="block p-6 bg-dark-800 rounded-xl border border-dark-700 hover:border-sky-500/50 transition-all hover:-translate-y-1 hover:shadow-lg group">
-            <h2 class="text-xl font-bold text-white group-hover:text-sky-400 transition-colors mb-2">Claude API費用完全ガイド — 規模別シミュレーション</h2>
-            <p class="text-dark-400 text-sm mb-3 line-clamp-2">Claude Opus 4.6 の API費用を LP1枚¥60〜大規模¥790まで規模別に実測シミュレーション。外注¥30万との比較で真のコスパを解説します。</p>
+            <h2 class="text-xl font-bold text-white group-hover:text-sky-400 transition-colors mb-2">Claude API費用完全ガイド — Opus 4.6 公式価格準拠</h2>
+            <p class="text-dark-400 text-sm mb-3 line-clamp-2">Claude Opus 4.6 公式価格（入力 $5／出力 $25 per MTok）準拠の費用試算。LP ¥20〜大規模 ¥258 まで規模別に実測シミュレーション。外注 ¥30万との比較で真のコスパを解説します。</p>
             <div class="flex items-center flex-wrap gap-3 text-xs text-dark-500">
               <time datetime="2026-04-16">2026-04-16</time>
               <span class="bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded-full">Claude API</span>
@@ -155,8 +163,8 @@
             </div>
           </a>
           <a href="/blog/guide-prompt-cache/" class="block p-6 bg-dark-800 rounded-xl border border-dark-700 hover:border-sky-500/50 transition-all hover:-translate-y-1 hover:shadow-lg group">
-            <h2 class="text-xl font-bold text-white group-hover:text-sky-400 transition-colors mb-2">プロンプトキャッシュで85%削減 — Claude完全解説</h2>
-            <p class="text-dark-400 text-sm mb-3 line-clamp-2">Anthropic Claude の ephemeral cache 機能で 3法規40KBをキャッシュ化。Site Builder 実測で 85% の費用削減を達成した仕組みと実装を技術解説します。</p>
+            <h2 class="text-xl font-bold text-white group-hover:text-sky-400 transition-colors mb-2">プロンプトキャッシュで入力90%削減 — Claude Opus 4.6</h2>
+            <p class="text-dark-400 text-sm mb-3 line-clamp-2">Anthropic Claude 公式のプロンプトキャッシュ機能で 3法規40KBをキャッシュ化。キャッシュヒット時は入力単価 $5/M → $0.50/M（-90%）となり、総費用ベースで約40%削減を達成した仕組みを解説します。</p>
             <div class="flex items-center flex-wrap gap-3 text-xs text-dark-500">
               <time datetime="2026-04-16">2026-04-16</time>
               <span class="bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded-full">Claude API</span>
@@ -180,7 +188,7 @@
           </a>
           <a href="/blog/guide-claude-max-plan/" class="block p-6 bg-dark-800 rounded-xl border border-dark-700 hover:border-sky-500/50 transition-all hover:-translate-y-1 hover:shadow-lg group">
             <h2 class="text-xl font-bold text-white group-hover:text-sky-400 transition-colors mb-2">API課金が怖い人へ — 上限設定と安全装置の全て</h2>
-            <p class="text-dark-400 text-sm mb-3 line-clamp-2">Claude APIの従量課金が不安な方へ。Anthropicコンソールの月額上限設定・自動停止の仕組み・routingModeによるコスト制御を徹底解説。LP1枚¥60の世界で「使いすぎ」は起きません。</p>
+            <p class="text-dark-400 text-sm mb-3 line-clamp-2">Claude APIの従量課金が不安な方へ。Anthropicコンソールの月額上限設定・自動停止の仕組み・routingModeによるコスト制御を徹底解説。LP 1枚 約¥20 の世界で「使いすぎ」は起きません。</p>
             <div class="flex items-center flex-wrap gap-3 text-xs text-dark-500">
               <time datetime="2026-04-16">2026-04-16</time>
               <span class="bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded-full">Claude API</span>

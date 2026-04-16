@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d9ed8">
+  <meta name="color-scheme" content="dark">
+  <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="/dist/output.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMGZG751KF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DMGZG751KF');</script>
+  <title>Claude APIキー取得完全ガイド — 1本で Opus/Sonnet/Haiku すべて | HARTON</title>
+  <meta name="description" content="Anthropic Claude APIキーの取得方法を公式手順に沿って解説。1本のキーで Opus 4.6・Sonnet 4.6・Haiku 4.5 すべてにアクセス可能です。月額上限・セキュリティ・よくある誤解まで完全網羅。">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="https://harton.pages.dev/blog/guide-api-key/">
+  <meta property="og:title" content="Claude APIキー取得完全ガイド — 1本で Opus/Sonnet/Haiku すべて">
+  <meta property="og:description" content="Anthropic Claude APIキーの取得方法を公式手順に沿って解説。1本のキーで Opus 4.6・Sonnet 4.6・Haiku 4.5 すべてにアクセス可能です。月額上限・セキュリティ・よくある誤解まで完全網羅。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://harton.pages.dev/blog/guide-api-key/">
+  <meta property="og:image" content="https://harton.pages.dev/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="HARTON">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude APIキー取得完全ガイド — 1本で Opus/Sonnet/Haiku すべて">
+  <meta name="twitter:description" content="Anthropic Claude APIキーの取得方法を公式手順に沿って解説。1本のキーで Opus 4.6・Sonnet 4.6・Haiku 4.5 すべてにアクセス可能です。月額上限・セキュリティ・よくある誤解まで完全網羅。">
+  <meta name="twitter:image" content="https://harton.pages.dev/ogp.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Claude APIキー取得完全ガイド — 1本で Opus/Sonnet/Haiku すべて",
+    "description": "Anthropic Claude APIキーの取得方法を公式手順に沿って解説。1本のキーで Opus 4.6・Sonnet 4.6・Haiku 4.5 すべてにアクセス可能です。月額上限・セキュリティ・よくある誤解まで完全網羅。",
+    "image": "https://harton.pages.dev/ogp.png",
+    "datePublished": "2026-04-16",
+    "dateModified": "2026-04-16",
+    "author": {
+        "@type": "Person",
+        "name": "大内 達也",
+        "url": "https://harton.pages.dev/profile/"
+    }
+}
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "ホーム",
+            "item": "https://harton.pages.dev/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "ブログ",
+            "item": "https://harton.pages.dev/blog/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Claude APIキー取得完全ガイド — 1本で Opus/Sonnet/Haiku すべて",
+            "item": "https://harton.pages.dev/blog/guide-api-key/"
+        }
+    ]
+}
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .prose h2 { color: #fff; font-size: 1.5rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .prose h3 { color: #e2e8f0; font-size: 1.25rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .prose p { color: #cbd5e1; line-height: 1.8; margin-bottom: 1rem; }
+    .prose ul, .prose ol { color: #cbd5e1; margin-bottom: 1rem; padding-left: 1.5rem; }
+    .prose li { margin-bottom: 0.5rem; line-height: 1.7; }
+    .prose strong { color: #fff; }
+    .prose a { color: #0d9ed8; text-decoration: underline; text-underline-offset: 2px; }
+    .prose a:hover { color: #38bdf8; }
+    .prose code { background: rgba(13,158,216,0.1); color: #7dd3fc; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+    .prose pre { background: #0f172a; border: 1px solid #1e293b; padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; }
+    .prose pre code { background: none; color: #7dd3fc; padding: 0; font-size: 0.85em; }
+    .prose blockquote { border-left: 3px solid #0d9ed8; padding-left: 1rem; color: #94a3b8; font-style: italic; margin: 1.5rem 0; }
+    .prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9em; }
+    .prose th, .prose td { border: 1px solid #334155; padding: 0.6rem 0.75rem; color: #cbd5e1; text-align: left; }
+    .prose th { background: #1e293b; color: #fff; font-weight: 600; }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .nav-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+    .mobile-menu.open { transform: translateX(0); }
+    .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0; }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
+  </style>
+</head>
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
+  <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="/" class="text-xl font-bold text-white hover:opacity-80 transition-opacity py-3">HARTON</a>
+        <nav aria-label="メインナビゲーション" class="hidden md:flex items-center space-x-1">
+          <a href="/" class="text-sm font-medium text-dark-300 hover:text-white transition-colors py-3 px-2">ホーム</a>
+          <a href="/#services" class="text-sm font-medium text-dark-300 hover:text-white transition-colors py-3 px-2">サービス</a>
+          <a href="/blog/" class="text-sm font-medium text-dark-300 hover:text-white transition-colors py-3 px-2">ブログ</a>
+          <a href="/#contact" class="text-sm font-medium text-dark-300 hover:text-white transition-colors py-3 px-2">お問い合わせ</a>
+        </nav>
+        <button type="button" id="menu-toggle" class="md:hidden p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-expanded="false" aria-controls="mobile-menu" aria-label="メニューを開く">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
+
+  <main id="main">
+    <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
+      <ol class="flex items-center flex-wrap text-sm">
+        <li class="flex items-center">
+          <a href="/" class="text-dark-400 hover:text-white transition-colors py-1">ホーム</a>
+          <span class="mx-2 text-dark-600">/</span>
+        </li>
+        <li class="flex items-center">
+          <a href="/blog/" class="text-dark-400 hover:text-white transition-colors py-1">ブログ</a>
+          <span class="mx-2 text-dark-600">/</span>
+        </li>
+        <li><span class="text-dark-300" aria-current="page">Claude APIキー取得完全ガイド — 1本で Opus/Sonnet/Haiku すべて</span></li>
+      </ol>
+    </nav>
+
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 pb-20 fade-in">
+      <header class="mb-8 pt-4">
+        <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight mb-4">Claude APIキー取得完全ガイド — 1本で Opus/Sonnet/Haiku すべて</h1>
+        <div class="flex items-center flex-wrap gap-4 text-sm text-dark-400">
+          <time datetime="2026-04-16">公開: 2026-04-16</time>
+          <span>著者: <a href="/profile/" class="text-sky-400 hover:underline">大内 達也</a></span>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <span class="bg-sky-500/20 text-sky-300 px-3 py-1 rounded-full text-xs font-medium">Claude API</span>
+          <span class="bg-dark-700 text-dark-300 px-3 py-1 rounded-full text-xs">#Claude</span>
+          <span class="bg-dark-700 text-dark-300 px-3 py-1 rounded-full text-xs">#APIキー</span>
+          <span class="bg-dark-700 text-dark-300 px-3 py-1 rounded-full text-xs">#初心者向け</span>
+        </div>
+      </header>
+
+      <div class="prose max-w-none">
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://docs.anthropic.com/en/api/getting-started"><p class="text-dark-200">「Your API key grants access to the Anthropic API. You can use a single API key to access any model available to your organization, including Claude Opus, Sonnet, and Haiku.」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://docs.anthropic.com/en/api/getting-started" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Anthropic API 公式「Getting Started」</a></cite>（1 本の API キーで組織がアクセスできる全モデル（Opus / Sonnet / Haiku）を利用可能）</figcaption></figure><h2>結論 — APIキーは1本で全モデル共通</h2><p><strong>本記事で判明する事実</strong>: Anthropic Claude の API キーは <strong>1本で Opus 4.6・Sonnet 4.6・Haiku 4.5 すべてにアクセス可能</strong>です。モデル別に個別のキーを発行する必要はありません。<a href="https://www.anthropic.com/claude/opus" target="_blank" rel="noopener noreferrer">Opus 専用ページ</a> や <a href="https://www.anthropic.com/claude/sonnet" target="_blank" rel="noopener noreferrer">Sonnet 専用ページ</a> はモデル紹介用であり、それぞれに「別のキー」が必要というわけではありません。API リクエスト時に <code>model</code> パラメータで使い分けます。</p><blockquote cite="https://docs.anthropic.com/en/api/getting-started"><p>「You can specify the model you want to use in your request body with the <code>model</code> parameter. Available models include <code>claude-opus-4-6</code>, <code>claude-sonnet-4-6</code>, and <code>claude-haiku-4-5</code>. The same API key authenticates all requests.」</p><footer>— <cite><a href="https://docs.anthropic.com/en/api/getting-started" target="_blank" rel="noopener noreferrer">Anthropic API リファレンス: model parameter</a></cite></footer></blockquote><h2>取得手順（5分で完了）</h2><ol><li><strong><a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer">console.anthropic.com</a> にアクセス</strong> — Google アカウントまたはメールアドレスでサインアップ可能</li><li><strong>メール認証を完了</strong> — 確認メールの URL をクリック</li><li><strong>組織情報を登録</strong> — 個人利用なら「Personal」でOK</li><li><strong>支払い方法を登録</strong> — Settings → Plans & Billing → クレジットカード追加（初回 $5 無料クレジットが付与される場合あり）</li><li><strong>API キーを発行</strong> — <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer">Settings → API Keys</a> → <code>Create Key</code> をクリック</li><li><strong>キー名を入力</strong>（例: <code>site-builder-main</code>）して作成</li><li><strong>表示された <code>sk-ant-api03-...</code> をコピー</strong> — <strong class="text-red-400">再表示できないため、この場で保管場所に貼り付け</strong></li><li><strong>Site Builder の設定画面に貼り付け</strong> → 接続テストで動作確認</li></ol><p class="text-sm text-dark-500">※ 発行後は <a href="https://console.anthropic.com/settings/usage" target="_blank" rel="noopener noreferrer">Usage ダッシュボード</a> でリアルタイムの利用額が確認できます。</p><h2>APIキーのフォーマット</h2><pre><code>sk-ant-api03-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxAA</code></pre><ul><li><strong>プレフィックス</strong>: <code>sk-ant-api03-</code>（2026年4月現在のバージョン）</li><li><strong>長さ</strong>: 約 100 文字の英数字＋ハイフン</li><li><strong>用途</strong>: HTTP Header <code>x-api-key: sk-ant-api03-...</code> で認証</li><li><strong>有効期限</strong>: 明示的な失効日なし（Revoke するまで永続）</li></ul><h2>1本のキーでモデルを切り替える仕組み</h2><p>Anthropic の API は REST エンドポイント <code>https://api.anthropic.com/v1/messages</code> に対して <code>model</code> パラメータを変えるだけで、同一キーから各モデルへリクエストできます。</p><pre><code>// Opus 4.6 を使う場合
+{
+  "model": "claude-opus-4-6",
+  "max_tokens": 4096,
+  "messages": [{"role": "user", "content": "Hello"}]
+}
+
+// Sonnet 4.6 を使う場合（同じキーで model だけ変更）
+{
+  "model": "claude-sonnet-4-6",
+  ...
+}
+
+// Haiku 4.5 を使う場合（同じキーで model だけ変更）
+{
+  "model": "claude-haiku-4-5-20251001",
+  ...
+}</code></pre><h2>モデル別の特性と料金</h2><table><caption class="sr-only">Claude 各モデルの公式価格・特性比較</caption><thead><tr><th scope="col">モデル</th><th scope="col">用途</th><th scope="col">入力 $/M</th><th scope="col">出力 $/M</th><th scope="col">キャッシュ Hit $/M</th></tr></thead><tbody><tr><td><strong>Opus 4.6</strong></td><td>最高品質・構造設計</td><td>$5</td><td>$25</td><td>$0.50</td></tr><tr><td>Sonnet 4.6</td><td>バランス・大量生成</td><td>$3</td><td>$15</td><td>$0.30</td></tr><tr><td>Haiku 4.5</td><td>軽量・検証タスク</td><td>$1</td><td>$5</td><td>$0.10</td></tr></tbody></table><p class="text-sm text-dark-500">出典: <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer">Anthropic 公式 Pricing（2026-04-16 取得）</a>。倍率（キャッシュ 0.1x / 5m Write 1.25x / 1h Write 2x）は全モデル共通。</p><h2>月額上限の設定（必須）</h2><p>発行直後に必ず <a href="https://console.anthropic.com/settings/limits" target="_blank" rel="noopener noreferrer">Settings → Limits</a> で月額上限を設定してください。上限到達時に API が自動停止し、想定外の課金を防ぎます。</p><ul><li><strong>$5 上限</strong> — 個人利用の目安（LP 約35枚 / コーポレート5P 約7サイト / ブログ約31本）</li><li><strong>$20 上限</strong> — 小規模事業者の目安</li><li><strong>$50 上限</strong> — 制作会社の月5件ペース</li></ul><p>詳しくは <a href="/blog/guide-claude-max-plan/">API課金の安全装置ガイド</a> を参照してください。</p><h2>セキュリティの鉄則</h2><ul><li><strong>クライアントサイドに埋め込まない</strong> — JavaScript から直接呼ぶと誰でもキーを盗めます。Site Builder は AES-256 ローカル暗号化で保存</li><li><strong>Git リポジトリにコミットしない</strong> — <code>.env</code> / <code>.gitignore</code> を必ず設定。うっかりコミットしたら即 Revoke</li><li><strong>公開チャットに貼らない</strong> — AI チャット含め、チャット履歴に流れると流出リスク</li><li><strong>定期ローテーション</strong> — 半年〜1年ごとに Revoke → 新規発行を推奨</li><li><strong>万一の漏洩時</strong> — <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer">Keys 画面</a> で即 Revoke（無効化）可能。既存生成物への影響はありません</li></ul><h2>Claude MAX プラン（$100/月）との違い</h2><p>Anthropic には有料サブスクリプションの <strong>Claude MAX プラン</strong>も存在しますが、これは <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer">claude.ai</a>（ブラウザのチャットUI）を大量に使うためのプランで、<strong>API 利用とは完全に別サービス</strong>です。</p><table><caption class="sr-only">Claude MAX プラン vs Anthropic API 比較</caption><thead><tr><th scope="col"></th><th scope="col">Claude MAX プラン</th><th scope="col">Anthropic API</th></tr></thead><tbody><tr><td>提供先</td><td>claude.ai（チャットUI）</td><td>console.anthropic.com</td></tr><tr><td>課金方式</td><td>月額固定（$100〜$200）</td><td>従量課金（$0から）</td></tr><tr><td>用途</td><td>ブラウザでの対話</td><td>外部アプリからの API 呼び出し</td></tr><tr><td>Site Builder</td><td>❌ 使用不可</td><td>✅ 必須</td></tr><tr><td>キー形式</td><td>なし（ログインで使用）</td><td><code>sk-ant-api03-...</code></td></tr></tbody></table><p>MAX プランに加入していても、Site Builder などの外部アプリを使うには<strong>別途 API キーの発行（無料）</strong>が必要です。</p><h2>よくある質問（FAQ）</h2><h3>Opus 用と Sonnet 用で別々にキーが必要ですか？</h3><p><strong>いいえ、1本で十分です。</strong><a href="https://www.anthropic.com/claude/opus" target="_blank" rel="noopener noreferrer">Opus 公式ページ</a>や <a href="https://www.anthropic.com/claude/sonnet" target="_blank" rel="noopener noreferrer">Sonnet 公式ページ</a>はモデルの機能紹介で、それぞれに別のキーを発行する仕組みではありません。API リクエスト時の <code>model</code> パラメータで切り替えます。</p><h3>キーを忘れてしまいました</h3><p>再表示はできません。<a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer">Keys 画面</a>で古いキーを Revoke し、新しいキーを発行して Site Builder の設定を更新してください。</p><h3>クレジットカードなしで試せますか？</h3><p>アカウント作成とキー発行は無料ですが、API 呼び出しには支払い方法の登録が必須です。初回 $5 の無料クレジットが付与されるケースがあり、その範囲内なら実質無料で試せます。</p><h3>法人契約は可能ですか？</h3><p>はい、Organization 単位での契約が可能です。Settings → Organization で複数メンバー招待・請求先分離が可能で、企業のセキュリティ要件に沿った管理ができます。詳細は <a href="https://www.anthropic.com/enterprise" target="_blank" rel="noopener noreferrer">Anthropic Enterprise</a> を参照してください。</p><h3>Gemini や ChatGPT のキーを流用できますか？</h3><p>いいえ、できません。Anthropic Claude / Google Gemini / OpenAI GPT はそれぞれ独立した会社・認証基盤のサービスです。Site Builder は Anthropic Claude 専用設計のため、<code>sk-ant-api03-...</code> 形式のキーのみ動作します。</p><h2>まとめ</h2><p>Claude API キーは <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener noreferrer">Anthropic Console</a> で無料発行でき、<strong>1本で Opus 4.6・Sonnet 4.6・Haiku 4.5 すべてにアクセス可能</strong>です。発行後は必ず月額上限（$5〜）を設定し、セキュリティ鉄則（クライアント埋込禁止・Git 管理外・漏洩時は即 Revoke）を守りましょう。費用の全体像は <a href="/blog/guide-claude-cost/">Claude API費用完全ガイド</a>、キャッシュ活用は <a href="/blog/guide-prompt-cache/">プロンプトキャッシュ完全解説</a>、課金安全装置は <a href="/blog/guide-claude-max-plan/">API課金の安全装置ガイド</a> を参照してください。</p>
+      </div>
+
+      <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">
+        <h2 class="text-lg font-bold text-white mb-2">著者について</h2>
+        <p class="text-dark-300 text-sm">
+          <a href="/profile/" class="text-sky-400 hover:underline font-medium">大内 達也</a>
+          — 代表 / 開発エンジニア。HARTON（ハートン）代表。
+          WEB制作・業務自動化・AI活用の実践情報を発信しています。
+        </p>
+      </aside>
+    </article>
+  </main>
+
+  <footer role="contentinfo" class="bg-dark-950 border-t border-dark-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-lg font-bold text-white mb-4">HARTON（ハートン）</h3>
+          <p class="text-dark-400 text-sm mb-2">〒410-0012 静岡県沼津市大岡</p>
+          <p class="text-dark-400 text-sm flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg> 080-1058-0538</p>
+          <p class="text-dark-400 text-sm flex items-center gap-2 mt-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> <a href="mailto:harton.info@gmail.com" class="hover:text-white transition-colors">harton.info@gmail.com</a></p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-white mb-4">ナビゲーション</h3>
+          <nav aria-label="フッターナビゲーション" class="flex flex-col space-y-2">
+            <a href="/" class="text-dark-400 hover:text-white transition-colors py-1">ホーム</a>
+            <a href="/blog/" class="text-dark-400 hover:text-white transition-colors py-1">ブログ</a>
+            <a href="/privacy/" class="text-dark-400 hover:text-white transition-colors py-1">プライバシーポリシー</a>
+            <a href="/profile/" class="text-dark-400 hover:text-white transition-colors py-1">プロフィール</a>
+          </nav>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-white mb-4">営業時間</h3>
+          <p class="text-dark-400 text-sm flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> 09:00 - 18:00</p>
+          <p class="text-dark-400 text-sm mt-1">月曜日〜金曜日</p>
+        </div>
+      </div>
+      <div class="border-t border-dark-800 mt-8 pt-8 text-center">
+        <p class="text-dark-500 text-sm">&copy; 2026 HARTON（ハートン）. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <noscript><style>.fade-in{opacity:1!important;transform:none!important;}</style></noscript>
+  <script>
+    (function(){var els=document.querySelectorAll('.fade-in');if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});els.forEach(function(el){obs.observe(el);});}else{els.forEach(function(el){el.classList.add('visible');});}})();
+  </script>
+  <script>
+    (function(){var toggle=document.getElementById('menu-toggle'),close=document.getElementById('menu-close'),menu=document.getElementById('mobile-menu');function openMenu(){menu.classList.add('open');toggle.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}function closeMobileMenu(){menu.classList.remove('open');toggle.setAttribute('aria-expanded','false');document.body.style.overflow='';}if(toggle)toggle.addEventListener('click',openMenu);if(close)close.addEventListener('click',closeMobileMenu);window.closeMobileMenu=closeMobileMenu;})();
+  </script>
+</body>
+</html>
