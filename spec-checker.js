@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * SPEC.md v2.2 完全自動検証エージェント
+ * SPEC.md v2.3 完全自動検証エージェント
  * ─────────────────────────────────────
- * SPEC.md v2.2 納品前チェックリスト全項目
+ * SPEC.md v2.3 納品前チェックリスト全項目
  * + Google Search Central準拠チェック
  * + 本文仕様の全項目を機械的にチェック
  *
@@ -930,7 +930,7 @@ function report(all) {
   }));
 
   console.log('\n' + '='.repeat(72));
-  console.log('  SPEC.md v2.2 完全自動検証レポート');
+  console.log('  SPEC.md v2.3 完全自動検証レポート');
   console.log('  検証日時: ' + new Date().toISOString());
   console.log('  チェックリスト: 11.1(6)+11.2(12)+11.3(3)+11.4(7)+11.5(7)+11.6(4)+11.7モバイル+11.8Google+11.9(2)');
   console.log('                 + GEO/LLMO(G-1〜G-6) + SPEC本文 + グローバル + コントラスト比');

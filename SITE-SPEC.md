@@ -1,7 +1,7 @@
 # HARTON コーポレートサイト 仕様書
-**バージョン:** 1.0  
-**最終更新:** 2026-04-11  
-**ステータス:** S-RANK準拠（SPEC v2.3 + GEO/LLMO 全649項目中 合格率99.8%）
+**バージョン:** 2.3  
+**最終更新:** 2026-04-16  
+**ステータス:** S-RANK準拠（SPEC v2.3 + GEO/LLMO 全649項目中 合格率100.0% / FAIL:0）
 
 ---
 
@@ -257,7 +257,7 @@ npm run watch:css
 ## 11. SPEC v2.3 + GEO/LLMO 検証結果
 
 ```
-PASS: 546 / FAIL: 0 / WARN: 43 / SKIP: 60（計 649項目）
+PASS: 547 / FAIL: 0 / WARN: 43 / SKIP: 59（計 649項目）
 Grade: S-RANK（合格率100.0%）
 GEO/LLMO: FAIL:0 WARN:0（完全準拠）
 ```
