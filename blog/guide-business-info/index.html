@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -160,7 +161,7 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>事業情報が重要な理由</h2><p>入力した事業情報は、サイトの<strong>ヘッダー・フッター・JSON-LD構造化データ・SEOメタ情報</strong>に自動で反映されます。Googleの検索結果に会社情報が正しく表示されるために不可欠なステップです。正確かつ充実した情報を入力することで、検索エンジンからの評価が大幅に向上します。</p><h2>必須項目</h2><ul><li><strong>会社名・屋号</strong> — 正式名称を入力してください。個人事業主の方は屋号（ビジネスネーム）でOKです</li><li><strong>事業概要（説明文）</strong> — 何をしている会社かを50〜150文字で簡潔に説明します。「誰に」「何を」「どんな価値を」の3点を含めると効果的です</li></ul><h2>推奨項目（できるだけ入力しましょう）</h2><ul><li><strong>略称</strong> — ヘッダーのロゴ表示やナビゲーションに使用されます</li><li><strong>キャッチコピー・スローガン</strong> — サイトのファーストビューに大きく表示される訴求文です</li><li><strong>電話番号</strong> — 信頼性の向上とローカルSEOに大きな効果があります。スマホからのタップ発信にも対応</li><li><strong>メールアドレス</strong> — 問い合わせ先としてフッターや構造化データに表示されます</li><li><strong>設立日・創業日</strong> — 構造化データに反映され、事業の信頼性を裏付ける情報になります</li></ul><h2>住所とローカルSEO</h2><p>実店舗やオフィスがある場合は<strong>住所の登録を強くおすすめ</strong>します。住所を登録すると、Googleマップやローカル検索結果（「近くの〇〇」検索）に表示されやすくなり、地域のお客様からの集客に直結します。都道府県・市区町村・番地をそれぞれ入力してください。</p><h2>営業時間の設定</h2><p>営業時間を登録すると、Google検索結果に「営業中」「営業時間外」が表示されるようになります。曜日ごとに異なる時間の設定も可能で、定休日の指定もできます。飲食店やサービス業の方には特に効果が高い設定です。</p><h2>GEO（生成エンジン最適化）に効く事業概要の書き方</h2><blockquote cite="https://arxiv.org/abs/2311.09735"><p>「事業概要に統計数値3件以上を含めると生成AIの引用率が <strong>+25.9%</strong>、第三者視点の引用を含めると <strong>+27.8%</strong> 向上する」</p><footer>— <cite>Aggarwal et al. <a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener noreferrer">Generative Engine Optimization, KDD 2024</a></cite></footer></blockquote><p>Perplexity / SGE / BingChat で引用される事業概要を書くコツは次の3点です。</p><ul><li><strong>数値を3件以上含める</strong> — 創業年・取引社数・実績件数（例: 「創業2015年、累計150社、成約率85%」）</li><li><strong>第三者視点の引用</strong> — スローガンに受賞歴や評価を含める（例: 「静岡県知事賞 2024 受賞」）</li><li><strong>.go.jp リンクで裏付け</strong> — 対応エリアを総務省統計局データで補強すると信頼度 +24.9%</li></ul><h2>個人事業主・フリーランスの場合</h2><p>個人事業主やフリーランスの方は、<strong>屋号（ビジネスネーム）</strong>を会社名の欄に入力してください。本名を公開したくない場合でも屋号で問題ありません。ただし、信頼性の観点から、代表者名は別途E-E-A-T設定で登録することを推奨します。</p><h2>よくある質問（FAQ）</h2><h3>事業概要は何文字くらいがベストですか？</h3><p>50〜150文字が目安です。短すぎると情報不足で検索エンジンに内容が伝わらず、長すぎると読みにくくなります。「誰に」「何を」「どんな価値を」の3要素を含めましょう。</p><h3>入力した情報は後から変更できますか？</h3><p>はい、いつでも修正可能です。変更後にサイトを再生成すれば、すべてのページと構造化データに反映されます。</p><h3>電話番号は必須ですか？</h3><p>必須ではありませんが、登録するとローカルSEOと信頼性が大きく向上します。特に地域密着型のビジネスでは効果が顕著です。</p><h2>まとめ</h2><p>事業情報の入力は、SEO対策の土台となる重要なステップです。必須の会社名と事業概要に加え、電話番号・住所・営業時間を登録するとさらに効果的です。Site Builderが構造化データまで自動生成するので、あなたは情報を入力するだけでプロレベルのSEO対策が完了します。</p>
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://arxiv.org/abs/2311.09735"><p class="text-dark-200">「事業情報に統計数値3件以上を含めると生成AIの引用率が +25.9%、第三者視点の引用を含めると +27.8% 向上する。」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Aggarwal et al. "Generative Engine Optimization" KDD 2024</a></cite>（数値3件 + 第三者引用で生成AI引用率 +25.9% / +27.8%）</figcaption></figure><h2>事業情報が重要な理由</h2><p>入力した事業情報は、サイトの<strong>ヘッダー・フッター・JSON-LD構造化データ・SEOメタ情報</strong>に自動で反映されます。Googleの検索結果に会社情報が正しく表示されるために不可欠なステップです。正確かつ充実した情報を入力することで、検索エンジンからの評価が大幅に向上します。</p><h2>必須項目</h2><ul><li><strong>会社名・屋号</strong> — 正式名称を入力してください。個人事業主の方は屋号（ビジネスネーム）でOKです</li><li><strong>事業概要（説明文）</strong> — 何をしている会社かを50〜150文字で簡潔に説明します。「誰に」「何を」「どんな価値を」の3点を含めると効果的です</li></ul><h2>推奨項目（できるだけ入力しましょう）</h2><ul><li><strong>略称</strong> — ヘッダーのロゴ表示やナビゲーションに使用されます</li><li><strong>キャッチコピー・スローガン</strong> — サイトのファーストビューに大きく表示される訴求文です</li><li><strong>電話番号</strong> — 信頼性の向上とローカルSEOに大きな効果があります。スマホからのタップ発信にも対応</li><li><strong>メールアドレス</strong> — 問い合わせ先としてフッターや構造化データに表示されます</li><li><strong>設立日・創業日</strong> — 構造化データに反映され、事業の信頼性を裏付ける情報になります</li></ul><h2>住所とローカルSEO</h2><p>実店舗やオフィスがある場合は<strong>住所の登録を強くおすすめ</strong>します。住所を登録すると、Googleマップやローカル検索結果（「近くの〇〇」検索）に表示されやすくなり、地域のお客様からの集客に直結します。都道府県・市区町村・番地をそれぞれ入力してください。</p><h2>営業時間の設定</h2><p>営業時間を登録すると、Google検索結果に「営業中」「営業時間外」が表示されるようになります。曜日ごとに異なる時間の設定も可能で、定休日の指定もできます。飲食店やサービス業の方には特に効果が高い設定です。</p><h2>GEO（生成エンジン最適化）に効く事業概要の書き方</h2><blockquote cite="https://arxiv.org/abs/2311.09735"><p>「事業概要に統計数値3件以上を含めると生成AIの引用率が <strong>+25.9%</strong>、第三者視点の引用を含めると <strong>+27.8%</strong> 向上する」</p><footer>— <cite>Aggarwal et al. <a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener noreferrer">Generative Engine Optimization, KDD 2024</a></cite></footer></blockquote><p>Perplexity / SGE / BingChat で引用される事業概要を書くコツは次の3点です。</p><ul><li><strong>数値を3件以上含める</strong> — 創業年・取引社数・実績件数（例: 「創業2015年、累計150社、成約率85%」）</li><li><strong>第三者視点の引用</strong> — スローガンに受賞歴や評価を含める（例: 「静岡県知事賞 2024 受賞」）</li><li><strong>.go.jp リンクで裏付け</strong> — 対応エリアを総務省統計局データで補強すると信頼度 +24.9%</li></ul><h2>個人事業主・フリーランスの場合</h2><p>個人事業主やフリーランスの方は、<strong>屋号（ビジネスネーム）</strong>を会社名の欄に入力してください。本名を公開したくない場合でも屋号で問題ありません。ただし、信頼性の観点から、代表者名は別途E-E-A-T設定で登録することを推奨します。</p><h2>よくある質問（FAQ）</h2><h3>事業概要は何文字くらいがベストですか？</h3><p>50〜150文字が目安です。短すぎると情報不足で検索エンジンに内容が伝わらず、長すぎると読みにくくなります。「誰に」「何を」「どんな価値を」の3要素を含めましょう。</p><h3>入力した情報は後から変更できますか？</h3><p>はい、いつでも修正可能です。変更後にサイトを再生成すれば、すべてのページと構造化データに反映されます。</p><h3>電話番号は必須ですか？</h3><p>必須ではありませんが、登録するとローカルSEOと信頼性が大きく向上します。特に地域密着型のビジネスでは効果が顕著です。</p><h2>まとめ</h2><p>事業情報の入力は、SEO対策の土台となる重要なステップです。必須の会社名と事業概要に加え、電話番号・住所・営業時間を登録するとさらに効果的です。Site Builderが構造化データまで自動生成するので、あなたは情報を入力するだけでプロレベルのSEO対策が完了します。</p>
       </div>
 
       <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">

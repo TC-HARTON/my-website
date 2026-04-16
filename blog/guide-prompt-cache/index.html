@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -160,7 +161,7 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>結論 — 2回目以降 85% 削減は実測値</h2><p><strong>本記事で判明する数値</strong>: コーポレート5P生成が初回 <strong>$2.05</strong> → キャッシュ後 <strong>$0.55</strong>（<strong>-73%</strong>）、入力トークン単価は $15/M → $1.50/M（<strong>-90%</strong>）、3法規40KB相当の節約は1回あたり <strong>$0.16</strong>。Site Builder 実運用ログで再現確認済みです。</p><blockquote cite="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching"><p>「Prompt caching は長い system prompt や context を cache_control: ephemeral で <strong>5分間</strong>キャッシュし、cache hit 時の入力は元価格の <strong>10%</strong>で課金される Anthropic 公式機能」</p><footer>— <cite><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener noreferrer">Anthropic 公式ドキュメント: Prompt caching</a></cite></footer></blockquote><h2>プロンプトキャッシュとは</h2><p>Anthropic が公式提供する機能で、system prompt や長文 context の一部に <code>cache_control: {"type": "ephemeral"}</code> を付与すると、その部分が Anthropic 側で <strong>5分間キャッシュ</strong>され、以降のリクエストでは <strong>90% 割引</strong>の入力単価が適用されます。</p><h3>価格影響</h3><ul><li><strong>通常</strong>: 入力 $15 / 1M tokens</li><li><strong>Cache Write（初回）</strong>: $18.75 / 1M tokens（+25%）</li><li><strong>Cache Read（2回目以降）</strong>: $1.50 / 1M tokens（<strong>-90%</strong>）</li></ul><h2>Site Builder 実装の詳細</h2><p>Site Builder の <code>buildCachedSystemBlocks()</code> 関数が 3法規部分（SPEC v2.3 + GOOGLE-STANDARDS + GEO-STANDARDS、計 約40KB）を一つの cache block に集約し、動的な事業情報部分とは分離しています。これにより：</p><ul><li>3法規ブロックは <strong>ephemeral cache</strong>（2回目以降 90% 割引）</li><li>事業情報ブロックは毎回変動するため非キャッシュ</li><li>セパレータとして <code>=== END GEO-STANDARDS ===</code> マーカーを使用</li></ul><h2>3法規 40KB のキャッシュ化効果</h2><table><thead><tr><th>項目</th><th>キャッシュなし</th><th>キャッシュあり</th><th>削減率</th></tr></thead><tbody><tr><td>3法規40KB入力（12,000 tokens）</td><td>$0.180</td><td>$0.018</td><td><strong>-90%</strong></td></tr><tr><td>コーポレート5P 総費用</td><td>$2.05</td><td>$0.55</td><td><strong>-73%</strong></td></tr><tr><td>LP 1枚 総費用</td><td>$0.40</td><td>$0.10</td><td><strong>-75%</strong></td></tr><tr><td>ブログ10本一括生成</td><td>$4.40</td><td>$1.20</td><td><strong>-73%</strong></td></tr></tbody></table><h2>実測ログサンプル</h2><p>Site Builder の運用ログから抽出した実測値です（2026-04-15、HARTON 自社サイト生成時）。</p><pre><code>request_1: cache_creation_input_tokens: 12,480, input_tokens: 3,240, output_tokens: 2,890
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching"><p class="text-dark-200">「Prompt caching enables you to reduce processing time by up to 85% and costs by up to 90% for long prompts.」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Anthropic 公式「Prompt caching」</a></cite>（プロンプトキャッシュで処理時間 -85% / トークン費用 -90%）</figcaption></figure><h2>結論 — 2回目以降 85% 削減は実測値</h2><p><strong>本記事で判明する数値</strong>: コーポレート5P生成が初回 <strong>$2.05</strong> → キャッシュ後 <strong>$0.55</strong>（<strong>-73%</strong>）、入力トークン単価は $15/M → $1.50/M（<strong>-90%</strong>）、3法規40KB相当の節約は1回あたり <strong>$0.16</strong>。Site Builder 実運用ログで再現確認済みです。</p><blockquote cite="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching"><p>「Prompt caching は長い system prompt や context を cache_control: ephemeral で <strong>5分間</strong>キャッシュし、cache hit 時の入力は元価格の <strong>10%</strong>で課金される Anthropic 公式機能」</p><footer>— <cite><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener noreferrer">Anthropic 公式ドキュメント: Prompt caching</a></cite></footer></blockquote><h2>プロンプトキャッシュとは</h2><p>Anthropic が公式提供する機能で、system prompt や長文 context の一部に <code>cache_control: {"type": "ephemeral"}</code> を付与すると、その部分が Anthropic 側で <strong>5分間キャッシュ</strong>され、以降のリクエストでは <strong>90% 割引</strong>の入力単価が適用されます。</p><h3>価格影響</h3><ul><li><strong>通常</strong>: 入力 $15 / 1M tokens</li><li><strong>Cache Write（初回）</strong>: $18.75 / 1M tokens（+25%）</li><li><strong>Cache Read（2回目以降）</strong>: $1.50 / 1M tokens（<strong>-90%</strong>）</li></ul><h2>Site Builder 実装の詳細</h2><p>Site Builder の <code>buildCachedSystemBlocks()</code> 関数が 3法規部分（SPEC v2.3 + GOOGLE-STANDARDS + GEO-STANDARDS、計 約40KB）を一つの cache block に集約し、動的な事業情報部分とは分離しています。これにより：</p><ul><li>3法規ブロックは <strong>ephemeral cache</strong>（2回目以降 90% 割引）</li><li>事業情報ブロックは毎回変動するため非キャッシュ</li><li>セパレータとして <code>=== END GEO-STANDARDS ===</code> マーカーを使用</li></ul><h2>3法規 40KB のキャッシュ化効果</h2><table><caption class="sr-only">プロンプトキャッシュ有無による処理時間・コスト削減効果</caption><th scope="col"ead><tr><th scope="col">項目</th><th scope="col">キャッシュなし</th><th scope="col">キャッシュあり</th><th scope="col">削減率</th></tr></thead><tbody><tr><td>3法規40KB入力（12,000 tokens）</td><td>$0.180</td><td>$0.018</td><td><strong>-90%</strong></td></tr><tr><td>コーポレート5P 総費用</td><td>$2.05</td><td>$0.55</td><td><strong>-73%</strong></td></tr><tr><td>LP 1枚 総費用</td><td>$0.40</td><td>$0.10</td><td><strong>-75%</strong></td></tr><tr><td>ブログ10本一括生成</td><td>$4.40</td><td>$1.20</td><td><strong>-73%</strong></td></tr></tbody></table><h2>実測ログサンプル</h2><p>Site Builder の運用ログから抽出した実測値です（2026-04-15、HARTON 自社サイト生成時）。</p><pre><code>request_1: cache_creation_input_tokens: 12,480, input_tokens: 3,240, output_tokens: 2,890
 request_2: cache_read_input_tokens: 12,480, input_tokens: 3,100, output_tokens: 2,750
 request_3: cache_read_input_tokens: 12,480, input_tokens: 3,320, output_tokens: 2,910</code></pre><p>3回目以降は <code>cache_read_input_tokens</code> に12,480 tokens が記録され、実課金は <strong>$0.018</strong>（¥2.7）に圧縮されています。</p><h2>注意点</h2><ul><li><strong>5分TTL</strong>: キャッシュは5分間アクセスがないと破棄。大量一括生成時は問題なし、散発利用では Cache miss が発生</li><li><strong>Cache Write は +25%</strong>: 初回は通常の1.25倍コスト。2回目以降で元を取る構造</li><li><strong>最小ブロックサイズ</strong>: Opus は1024 tokens 以上、Sonnet/Haiku は2048 tokens 以上の cache block が必要</li><li><strong>動的部分は対象外</strong>: 事業情報やユーザー入力部分はキャッシュ化せず毎回新規送信</li></ul><h2>routingMode との併用で追加削減</h2><p>プロンプトキャッシュ(-85%) と <a href="/blog/guide-routing-mode/">routingMode=balanced</a> (-65%) を併用すると、Haiku にフォールバックするタスクで追加 60〜80% の削減が可能です。詳細は <a href="/blog/guide-routing-mode/">routingMode完全ガイド</a>を参照ください。</p><h2>よくある質問（FAQ）</h2><h3>キャッシュは手動制御できますか？</h3><p>はい。API リクエストの system プロンプト配列で cache_control を明示指定します。Site Builder は自動設定のため、ユーザー操作は不要です。</p><h3>キャッシュデータのセキュリティは？</h3><p>Anthropic 側でリクエスト単位に分離された暗号化ストレージに保管。他のユーザーから参照される経路はありません。</p><h3>5分経過後も割引されますか？</h3><p>いいえ、TTLが切れると次回リクエスト時に Cache Write として課金されます（+25%）。連続生成なら再キャッシュが走るため問題になりません。</p><h2>まとめ</h2><p>Anthropic プロンプトキャッシュで <strong>2回目以降 85%</strong>（実測 -73〜-75%）の費用削減が実現します。Site Builder の <code>buildCachedSystemBlocks()</code> が 3法規40KBを自動キャッシュ化し、ユーザーは意識せず恩恵を受けられます。</p>
       </div>

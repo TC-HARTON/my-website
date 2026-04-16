@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -160,7 +161,7 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>E-E-A-Tとは何か？</h2><p>E-E-A-Tは、Googleがウェブサイトの品質を評価する際に用いる重要な基準です。<strong>Experience（経験）・Expertise（専門性）・Authoritativeness（権威性）・Trustworthiness（信頼性）</strong>の頭文字をとったもので、これらの要素が高いサイトほどGoogle検索で優遇される傾向にあります。著者情報を充実させることが、E-E-A-T評価を高める最も効果的な方法です。</p><h2>設定項目の詳細</h2><h3>基本情報（必須）</h3><ul><li><strong>著者名</strong> — フルネームを入力します。ビジネスの代表者や主要な執筆者の名前を設定しましょう</li><li><strong>資格・肩書き</strong> — 保有する資格（例：中小企業診断士、ウェブ解析士）や役職（代表取締役、チーフエンジニアなど）を記載します</li></ul><h3>ソーシャルリンク（推奨）</h3><p>SNSやプロフィールサイトのURLを登録すると、<strong>sameAs</strong>プロパティとしてJSON-LDに反映され、著者の実在性をGoogleに証明できます。</p><ul><li>LinkedInプロフィールURL</li><li>X（Twitter）アカウントURL</li><li>GitHubプロフィールURL</li><li>Wantedly、note、その他の公開プロフィールURL</li></ul><h3>詳細情報（推奨）</h3><ul><li><strong>専門分野</strong> — 「Webマーケティング」「飲食店コンサルティング」など得意な領域を具体的に明示します</li><li><strong>自己紹介文</strong> — これまでの経験や実績を含む紹介文。数字や具体的な成果を含めると効果的です</li><li><strong>ビジネスの理念・哲学</strong> — 事業への想いや価値観を伝える文章。信頼性と親近感の向上に寄与します</li></ul><h2>自動生成されるもの</h2><p>著者情報を設定すると、Site Builderが以下の3つを自動で生成します。</p><ul><li><strong>プロフィールページ</strong> — 著者の経歴・専門性・理念を紹介する専用ページ。訪問者の信頼獲得に効果的です</li><li><strong>Person JSON-LD</strong> — Googleに著者情報を構造化データとして伝える技術的な仕組み。検索結果での表示改善に貢献します</li><li><strong>ブログ記事の著者表示</strong> — 各ブログ記事に著者名・プロフィールリンクが自動的に付与されます</li></ul><h2>E-E-A-T × GEO — AI 検索時代の新常識</h2><blockquote cite="https://arxiv.org/abs/2311.09735"><p>「Person JSON-LD の <code>sameAs</code>（LinkedIn / X / GitHub 等）は、生成AIが著者の実在性と権威性を検証する主要シグナルであり、Authoritative Tone手法と組み合わせると引用率が <strong>+27.8%</strong> 向上する」</p><footer>— <cite>Aggarwal et al. <a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener noreferrer">Generative Engine Optimization, KDD 2024</a></cite></footer></blockquote><ul><li><strong>従来</strong> — Google検索結果で信頼性評価を受けるための E-E-A-T</li><li><strong>現在</strong> — Perplexity / Google SGE / BingChat など <strong>生成エンジンが引用元として採用する確率</strong>も著者プロフィールの完成度に依存</li><li><strong>Person JSON-LD の sameAs</strong> — LinkedIn / X / GitHub へのリンクは AI が著者の実在性を検証する主要シグナル</li><li><strong>Cornell大学 論文 (arXiv:2311.09735)</strong> の「Authoritative Tone」手法と連動し、引用率が大幅改善</li></ul><h2>よくある質問（FAQ）</h2><h3>E-E-A-Tの設定でSEO順位は直接上がりますか？</h3><p>E-E-A-Tは直接的なランキング要因ではありませんが、Googleの品質評価ガイドラインに含まれる重要な基準です。特にYMYL（お金や健康に関わる）分野のサイトでは信頼性評価への影響が非常に大きいです。</p><h3>本名を公開したくない場合はどうすればいいですか？</h3><p>ビジネスネームやペンネームでの設定も可能です。ただし、信頼性の観点からは本名の方が有利です。資格や実績で専門性を補完する方法もあります。</p><h3>ソーシャルリンクは必須ですか？</h3><p>必須ではありませんが、1つ以上の登録を強くおすすめします。著者がインターネット上に実在する人物であることをGoogleに示す重要なシグナルになります。</p><h2>まとめ</h2><p>E-E-A-T著者情報の設定は、Google検索での信頼性を高める非常に重要なステップです。名前・資格・ソーシャルリンク・専門分野を入力するだけで、Site Builderがプロフィールページとperson JSON-LDを自動生成します。あなたの専門性と信頼性をGoogleに正しく伝えましょう。</p>
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://developers.google.com/search/docs/fundamentals/creating-helpful-content"><p class="text-dark-200">「経験・専門性・権威性・信頼性（E-E-A-T）は、Google の検索品質評価者ガイドラインで定義される高品質コンテンツの指標である。」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Google Search Central「有用で信頼性の高いコンテンツの作成」</a></cite>（E-E-A-T 4要素（Experience / Expertise / Authoritativeness / Trust））</figcaption></figure><h2>E-E-A-Tとは何か？</h2><p>E-E-A-Tは、Googleがウェブサイトの品質を評価する際に用いる重要な基準です。<strong>Experience（経験）・Expertise（専門性）・Authoritativeness（権威性）・Trustworthiness（信頼性）</strong>の頭文字をとったもので、これらの要素が高いサイトほどGoogle検索で優遇される傾向にあります。著者情報を充実させることが、E-E-A-T評価を高める最も効果的な方法です。</p><h2>設定項目の詳細</h2><h3>基本情報（必須）</h3><ul><li><strong>著者名</strong> — フルネームを入力します。ビジネスの代表者や主要な執筆者の名前を設定しましょう</li><li><strong>資格・肩書き</strong> — 保有する資格（例：中小企業診断士、ウェブ解析士）や役職（代表取締役、チーフエンジニアなど）を記載します</li></ul><h3>ソーシャルリンク（推奨）</h3><p>SNSやプロフィールサイトのURLを登録すると、<strong>sameAs</strong>プロパティとしてJSON-LDに反映され、著者の実在性をGoogleに証明できます。</p><ul><li>LinkedInプロフィールURL</li><li>X（Twitter）アカウントURL</li><li>GitHubプロフィールURL</li><li>Wantedly、note、その他の公開プロフィールURL</li></ul><h3>詳細情報（推奨）</h3><ul><li><strong>専門分野</strong> — 「Webマーケティング」「飲食店コンサルティング」など得意な領域を具体的に明示します</li><li><strong>自己紹介文</strong> — これまでの経験や実績を含む紹介文。数字や具体的な成果を含めると効果的です</li><li><strong>ビジネスの理念・哲学</strong> — 事業への想いや価値観を伝える文章。信頼性と親近感の向上に寄与します</li></ul><h2>自動生成されるもの</h2><p>著者情報を設定すると、Site Builderが以下の3つを自動で生成します。</p><ul><li><strong>プロフィールページ</strong> — 著者の経歴・専門性・理念を紹介する専用ページ。訪問者の信頼獲得に効果的です</li><li><strong>Person JSON-LD</strong> — Googleに著者情報を構造化データとして伝える技術的な仕組み。検索結果での表示改善に貢献します</li><li><strong>ブログ記事の著者表示</strong> — 各ブログ記事に著者名・プロフィールリンクが自動的に付与されます</li></ul><h2>E-E-A-T × GEO — AI 検索時代の新常識</h2><blockquote cite="https://arxiv.org/abs/2311.09735"><p>「Person JSON-LD の <code>sameAs</code>（LinkedIn / X / GitHub 等）は、生成AIが著者の実在性と権威性を検証する主要シグナルであり、Authoritative Tone手法と組み合わせると引用率が <strong>+27.8%</strong> 向上する」</p><footer>— <cite>Aggarwal et al. <a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener noreferrer">Generative Engine Optimization, KDD 2024</a></cite></footer></blockquote><ul><li><strong>従来</strong> — Google検索結果で信頼性評価を受けるための E-E-A-T</li><li><strong>現在</strong> — Perplexity / Google SGE / BingChat など <strong>生成エンジンが引用元として採用する確率</strong>も著者プロフィールの完成度に依存</li><li><strong>Person JSON-LD の sameAs</strong> — LinkedIn / X / GitHub へのリンクは AI が著者の実在性を検証する主要シグナル</li><li><strong>Cornell大学 論文 (arXiv:2311.09735)</strong> の「Authoritative Tone」手法と連動し、引用率が大幅改善</li></ul><h2>よくある質問（FAQ）</h2><h3>E-E-A-Tの設定でSEO順位は直接上がりますか？</h3><p>E-E-A-Tは直接的なランキング要因ではありませんが、Googleの品質評価ガイドラインに含まれる重要な基準です。特にYMYL（お金や健康に関わる）分野のサイトでは信頼性評価への影響が非常に大きいです。</p><h3>本名を公開したくない場合はどうすればいいですか？</h3><p>ビジネスネームやペンネームでの設定も可能です。ただし、信頼性の観点からは本名の方が有利です。資格や実績で専門性を補完する方法もあります。</p><h3>ソーシャルリンクは必須ですか？</h3><p>必須ではありませんが、1つ以上の登録を強くおすすめします。著者がインターネット上に実在する人物であることをGoogleに示す重要なシグナルになります。</p><h2>まとめ</h2><p>E-E-A-T著者情報の設定は、Google検索での信頼性を高める非常に重要なステップです。名前・資格・ソーシャルリンク・専門分野を入力するだけで、Site Builderがプロフィールページとperson JSON-LDを自動生成します。あなたの専門性と信頼性をGoogleに正しく伝えましょう。</p>
       </div>
 
       <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">

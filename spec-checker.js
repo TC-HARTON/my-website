@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * SPEC.md v2.3 完全自動検証エージェント
+ * SPEC.md v2.4 完全自動検証エージェント
  * ─────────────────────────────────────
- * SPEC.md v2.3 納品前チェックリスト全項目
+ * SPEC.md v2.4 納品前チェックリスト全項目
  * + Google Search Central準拠チェック
  * + 本文仕様の全項目を機械的にチェック
  *
@@ -18,7 +18,8 @@ const path = require('path');
 const ROOT = __dirname;
 const DOMAIN = 'https://harton.pages.dev';
 
-const TARGET_FILES = [
+// 静的ページ（手書き/テンプレート管理）
+const STATIC_TARGETS = [
   'index.html',
   'services/web/index.html',
   'services/automation/index.html',
@@ -29,6 +30,25 @@ const TARGET_FILES = [
   'profile/index.html',
   'site-builder/index.html',
 ];
+
+// ブログ記事（generate-blog.js で動的生成）を自動検出して追加
+// SPEC v2.4 以降、ブログも静的ページと同一の S-RANK 基準で検証する
+function detectBlogTargets() {
+  const blogDir = path.join(ROOT, 'blog');
+  if (!fs.existsSync(blogDir)) return [];
+  const targets = [];
+  if (fs.existsSync(path.join(blogDir, 'index.html'))) targets.push('blog/index.html');
+  for (const entry of fs.readdirSync(blogDir, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      const p = `blog/${entry.name}/index.html`;
+      if (fs.existsSync(path.join(ROOT, p))) targets.push(p);
+    }
+  }
+  return targets.sort();
+}
+
+const BLOG_TARGETS = detectBlogTargets();
+const TARGET_FILES = [...STATIC_TARGETS, ...BLOG_TARGETS];
 
 const PAGE_TYPE = {
   'index.html': 'full',
@@ -41,6 +61,38 @@ const PAGE_TYPE = {
   'profile/index.html': 'profile',
   'site-builder/index.html': 'subpage',
 };
+// ブログ記事は 'subpage' 相当（BreadcrumbList + OGP + canonical + モバイル品質 全て必須）
+// blog/index.html は一覧ページなので同じく 'subpage'
+for (const bp of BLOG_TARGETS) PAGE_TYPE[bp] = 'subpage';
+
+// ─── SPEC 10.6 Body Theme Variants（v2.4 必須） ───
+// 各ページがどの Variant を採用すべきかを定義（SPEC 10.6.2 準拠）
+const THEME_VARIANTS = {
+  marketing: {
+    required: ['bg-white', 'text-dark-700', 'font-sans', 'antialiased'],
+    forbidden: ['bg-dark-900', 'text-dark-300'],
+    colorScheme: 'light',
+  },
+  reading: {
+    required: ['bg-dark-900', 'text-dark-300', 'font-sans', 'antialiased'],
+    forbidden: ['bg-white', 'text-dark-700'],
+    colorScheme: 'dark',
+  },
+};
+
+function getVariant(relPath) {
+  // marketing Variant (light theme): LP / サービス / プロダクト LP
+  const MARKETING = [
+    'index.html',
+    'services/web/index.html',
+    'services/automation/index.html',
+    'services/ai-prediction/index.html',
+    'site-builder/index.html',
+  ];
+  if (MARKETING.includes(relPath)) return 'marketing';
+  // reading Variant (dark theme): blog / 法務 / profile / 管理 / エラー
+  return 'reading';
+}
 
 // カスタムCSSクラス（output.css照合から除外）
 const CUSTOM_CLASSES = new Set([
@@ -579,6 +631,50 @@ function c11_7_mobile(html, pt) {
     const hasZ = /z-\d+/i.test(cls);
     r.push(isFixed && hasBg ? PASS('11.7-overlay', S, 'フルスクリーンオーバーレイ') : FAIL('11.7-overlay', S, 'モバイルメニュー', `fixed:${isFixed} bg:${hasBg}`));
     if (isFixed) r.push(hasZ ? PASS('11.7-z', S, 'z-index設定') : WARN('11.7-z', S, 'z-index', '未設定'));
+
+    // 【SPEC 10.5.1.1 準拠】Containing Block 汚染検証
+    // position:fixed オーバーレイの祖先に backdrop-filter / filter / transform / perspective / will-change
+    // を持つ要素があると、CSS仕様上 containing block が viewport から祖先に書き換わり、
+    // `inset-0` などの viewport 基準配置が壊れる（W3C CSS Positioned Layout L3 §2.1）
+    const menuPos = bd.indexOf(mobileMenu[0]);
+    if (isFixed && menuPos >= 0) {
+      const before = bd.slice(0, menuPos);
+      const voidTags = new Set(['meta','link','br','hr','img','input','source','area','base','col','embed','param','track','wbr']);
+      const tagRegex = /<(\/?)([a-zA-Z][a-zA-Z0-9]*)([^>]*?)(\/?)>/g;
+      const stack = [];
+      let m;
+      while ((m = tagRegex.exec(before)) !== null) {
+        const isClose = m[1] === '/';
+        const tagName = m[2].toLowerCase();
+        const attrs = m[3] || '';
+        const selfClose = m[4] === '/' || voidTags.has(tagName);
+        if (selfClose) continue;
+        if (isClose) {
+          for (let i = stack.length - 1; i >= 0; i--) {
+            if (stack[i].tag === tagName) { stack.splice(i, 1); break; }
+          }
+        } else {
+          stack.push({ tag: tagName, attrs });
+        }
+      }
+      // 禁止パターン: containing block を生成するプロパティ
+      const FORBIDDEN_CLASS = /\bnav-blur\b|\bbackdrop-blur(-[a-z0-9]+)?\b|\bbackdrop-filter\b/i;
+      const FORBIDDEN_STYLE = /backdrop-filter\s*:(?!\s*none)|(?<!-)filter\s*:(?!\s*none)|(?<![-])transform\s*:(?!\s*none)|perspective\s*:(?!\s*none)|will-change\s*:\s*(transform|perspective|filter|backdrop-filter)/i;
+      const offenders = [];
+      for (const a of stack) {
+        const classMatch = a.attrs.match(/class=["']([^"']*)["']/i);
+        const styleMatch = a.attrs.match(/style=["']([^"']*)["']/i);
+        const classes = classMatch ? classMatch[1] : '';
+        const style = styleMatch ? styleMatch[1] : '';
+        if (FORBIDDEN_CLASS.test(classes) || FORBIDDEN_STYLE.test(style)) {
+          const excerpt = classes ? classes.slice(0, 50) : style.slice(0, 50);
+          offenders.push(`<${a.tag} class="${excerpt}">`);
+        }
+      }
+      r.push(offenders.length === 0
+        ? PASS('11.7-ancestor', S, 'containing block汚染なし')
+        : FAIL('11.7-ancestor', S, 'モバイルメニューの祖先にbackdrop-filter/filter/transform等あり（SPEC 10.5.1.1 違反）', offenders.join(' / ')));
+    }
   } else {
     r.push(WARN('11.7-overlay', S, 'モバイルメニュー', 'mobile-menu未検出'));
   }
@@ -703,16 +799,23 @@ function cGeo(html, pt) {
     ? PASS('G-5', S, 'Authoritative tone (曖昧表現)', `曖昧表現 ${vague.length}件 (≦2)`)
     : WARN('G-5', S, 'Authoritative tone', `曖昧表現${vague.length}件: ${[...new Set(vague)].slice(0,3).join('/')} (断定調へ修正推奨, 論文+21.8%)`));
 
-  // G-6: hero/h1 + 第一段落に主張+出典 (Position-Adjusted Word Count 最大化)
-  const upperBd = bd.slice(0, Math.floor(bd.length * 0.30));
-  const upperText = upperBd.replace(/<[^>]+>/g, ' ');
-  const upperHasStat = /\d+(?:\.\d+)?\s*(?:%|％|円|万円|件|名|年|位|倍)/.test(upperText);
-  const upperHasAuthLink = /href=["'][^"']*\.(go\.jp|gov|edu|ac\.jp)/i.test(upperBd);
-  const upperHasQuote = /<blockquote|<q\s+[^>]*cite=/i.test(upperBd);
-  const upperSignals = [upperHasStat && '数値', upperHasAuthLink && '公的リンク', upperHasQuote && '引用句'].filter(Boolean);
-  r.push(upperSignals.length >= 1
-    ? PASS('G-6', S, '位置最適化 (上位30%にエビデンス)', upperSignals.join('+'))
-    : FAIL('G-6', S, '位置最適化 (Position-Adjusted)', '上位30%領域に数値/公的リンク/引用句なし — 文頭にエビデンス必須'));
+  // G-6: 記事冒頭 Lead Evidence 配置 (Position-Adjusted / SPEC 4.13 準拠)
+  // 意味論的判定: <main> 内部で、最初の <h2> 以前（＝導入部）にエビデンスが出現すること。
+  // <h2> が無いページは <main> 先頭 40% を導入部と見なす。<main> が無いページは body 先頭 30% にフォールバック。
+  const mainMatch = bd.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
+  const scope = mainMatch ? mainMatch[1] : bd;
+  const firstH2Idx = scope.search(/<h2[\s>]/i);
+  const leadRegion = firstH2Idx > 0
+    ? scope.slice(0, firstH2Idx)
+    : scope.slice(0, Math.floor(scope.length * (mainMatch ? 0.40 : 0.30)));
+  const leadText = leadRegion.replace(/<[^>]+>/g, ' ');
+  const leadHasStat = /\d+(?:\.\d+)?\s*(?:%|％|円|万円|ドル|\$|件|名|年|位|倍|KB|MB|GB)/.test(leadText);
+  const leadHasAuthLink = /href=["'][^"']*(?:\.go\.jp|\.gov|\.edu|\.ac\.jp|arxiv\.org|doi\.org|anthropic\.com|google\.com\/search-central|developers\.google\.com|schema\.org|w3\.org|wcag|cloudflare\.com|github\.com|web\.dev|meti\.go\.jp|ppc\.go\.jp)/i.test(leadRegion);
+  const leadHasQuote = /<blockquote|<q\s+[^>]*cite=/i.test(leadRegion);
+  const leadSignals = [leadHasStat && '数値', leadHasAuthLink && '公的リンク', leadHasQuote && '引用句'].filter(Boolean);
+  r.push(leadSignals.length >= 1
+    ? PASS('G-6', S, '位置最適化 (Lead Evidence — 最初のh2以前)', leadSignals.join('+'))
+    : FAIL('G-6', S, '位置最適化 (Position-Adjusted / SPEC 4.13 Lead Evidence Block)', '記事冒頭（最初の<h2>以前）に数値/公的リンク/引用句なし — Lead Evidence Block必須'));
 
   return r;
 }
@@ -741,8 +844,10 @@ function c11_7() {
 
 // ═══════════════════ SPEC本文 追加チェック ═══════════════════
 
-function cSpec(html, pt) {
+function cSpec(html, pt, variant) {
   const S = 'SPEC本文', r = [], hd = head(html), bd = body(html);
+  variant = variant || 'marketing';
+  const vspec = THEME_VARIANTS[variant] || THEME_VARIANTS.marketing;
 
   // charset
   r.push(/<meta\s+charset=["']UTF-8["']/i.test(html) ? PASS('sp-char', S, 'charset') : FAIL('sp-char', S, 'charset'));
@@ -755,19 +860,33 @@ function cSpec(html, pt) {
   // theme-color
   r.push(meta(html, 'theme-color') ? PASS('sp-theme', S, 'theme-color') : FAIL('sp-theme', S, 'theme-color', '未設定'));
 
-  // color-scheme
-  r.push(meta(html, 'color-scheme') ? PASS('sp-cs', S, 'color-scheme') : WARN('sp-cs', S, 'color-scheme'));
+  // color-scheme (SPEC 10.6.3 準拠: Variant と一致必須)
+  const cs = meta(html, 'color-scheme');
+  if (!cs) {
+    r.push(FAIL('sp-cs', S, 'color-scheme', '未設定'));
+  } else {
+    r.push(cs.trim() === vspec.colorScheme
+      ? PASS('sp-cs', S, `color-scheme=${cs} (Variant: ${variant})`)
+      : FAIL('sp-cs', S, 'color-scheme Variant不一致', `期待: ${vspec.colorScheme} / 実際: ${cs}`));
+  }
 
   // favicon 3種
   r.push(/<link[^>]*type=["']image\/svg\+xml["'][^>]*>/i.test(hd) ? PASS('sp-fsv', S, 'favicon SVG') : FAIL('sp-fsv', S, 'favicon SVG'));
   r.push(/<link[^>]*sizes=["']32x32["'][^>]*>/i.test(hd) ? PASS('sp-f32', S, 'favicon 32px') : FAIL('sp-f32', S, 'favicon 32px'));
   r.push(/<link[^>]*apple-touch-icon/i.test(hd) ? PASS('sp-fat', S, 'apple-touch-icon') : FAIL('sp-fat', S, 'apple-touch-icon'));
 
-  // body class
+  // body class (SPEC 10.6.1 Body Theme Variants 準拠)
   const bc = bodyClass(html);
-  const need = ['font-sans', 'text-dark-700', 'antialiased'];
-  const miss = need.filter(c => !bc.includes(c));
-  r.push(miss.length === 0 ? PASS('sp-body', S, 'body class') : FAIL('sp-body', S, 'body class', `不足: ${miss.join(',')} 現在: "${bc}"`));
+  const miss = vspec.required.filter(c => !bc.includes(c));
+  const forbidHits = vspec.forbidden.filter(c => bc.includes(c));
+  if (miss.length === 0 && forbidHits.length === 0) {
+    r.push(PASS('sp-body', S, `body class (Variant: ${variant})`));
+  } else {
+    const msg = [];
+    if (miss.length) msg.push(`不足: ${miss.join(',')}`);
+    if (forbidHits.length) msg.push(`Variant違反: ${forbidHits.join(',')}`);
+    r.push(FAIL('sp-body', S, `body class (Variant: ${variant} 違反)`, `${msg.join(' / ')} 現在: "${bc}"`));
+  }
 
   // semantic landmarks
   r.push(/<header[\s>]/i.test(bd) ? PASS('sp-hdr', S, '<header>') : FAIL('sp-hdr', S, '<header>'));
@@ -903,9 +1022,10 @@ function cGlobal() {
 function verify(filePath) {
   const rel = path.relative(ROOT, filePath).replace(/\\/g, '/');
   const pt = PAGE_TYPE[rel] || 'minimal';
+  const variant = getVariant(rel);
   const html = fs.readFileSync(filePath, 'utf-8');
   return {
-    file: rel, pt,
+    file: rel, pt, variant,
     results: [
       ...c11_1(html, pt),
       ...c11_2(html, pt),
@@ -915,7 +1035,7 @@ function verify(filePath) {
       ...c11_7_mobile(html, pt),
       ...c11_8_google(html, pt),
       ...cGeo(html, pt),
-      ...cSpec(html, pt),
+      ...cSpec(html, pt, variant),
     ],
   };
 }
@@ -930,7 +1050,7 @@ function report(all) {
   }));
 
   console.log('\n' + '='.repeat(72));
-  console.log('  SPEC.md v2.3 完全自動検証レポート');
+  console.log('  SPEC.md v2.4 完全自動検証レポート');
   console.log('  検証日時: ' + new Date().toISOString());
   console.log('  チェックリスト: 11.1(6)+11.2(12)+11.3(3)+11.4(7)+11.5(7)+11.6(4)+11.7モバイル+11.8Google+11.9(2)');
   console.log('                 + GEO/LLMO(G-1〜G-6) + SPEC本文 + グローバル + コントラスト比');

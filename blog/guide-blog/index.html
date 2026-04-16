@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -160,7 +161,7 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>ブログ機能でできること</h2><p>Site Builderのブログ機能を使えば、アプリ上で<strong>記事の作成・編集・削除</strong>がすべて完結します。記事データは<code>blog/articles.json</code>に保存され、HTMLページは<code>blog/{slug}/index.html</code>に自動生成されます。プログラミングの知識がなくても、質の高いブログ運営が可能です。</p><h2>記事のコンテンツタイプ</h2><p>Site Builderでは、記事の種類に応じて4つのコンテンツタイプから選べます。</p><ul><li><strong>blog</strong> — 通常のブログ記事。JSON-LDは<code>Article</code>スキーマで出力されます</li><li><strong>guide</strong> — ハウツー・ガイド記事。<code>HowTo</code>スキーマで検索結果にステップ表示される可能性があります</li><li><strong>news</strong> — ニュース・お知らせ。<code>NewsArticle</code>スキーマでニュース検索に最適化されます</li><li><strong>product</strong> — 製品・サービス紹介。<code>Product</code>スキーマで商品情報として認識されます</li></ul><h2>記事の作成手順</h2><ol><li>「ブログ」セクションを開きます</li><li>「新規記事」ボタンをクリックします</li><li>コンテンツタイプを選択します（blog / guide / news / product）</li><li>タイトル・スラッグ（URL用識別子）・説明文を入力します</li><li>本文をエディタで作成します</li><li>カテゴリとタグを設定します</li><li>「保存」をクリックして完了です</li></ol><p>スラッグはURL用の識別子で、例えば<code>ai-prediction-guide</code>のように英数字とハイフンで構成します。</p><h2>自動生成されるSEO要素</h2><p>記事を作成すると、以下のSEO要素が自動的に設定されます。手動でのコード編集は一切不要です。</p><ul><li><strong>JSON-LD構造化データ</strong> — コンテンツタイプに応じたスキーマが自動出力</li><li><strong>OGPタグ</strong> — SNSシェア時のタイトル・説明・画像が自動設定</li><li><strong>パンくずリスト</strong> — 「ホーム &gt; ブログ &gt; 記事タイトル」の形式で自動生成</li><li><strong>ブログ一覧ページ</strong> — <code>blog/index.html</code>が記事の追加・削除に連動して自動更新</li></ul><h2>記事の編集と削除</h2><p>記事一覧から対象の記事をクリックすれば、いつでも内容を修正できます。削除したい場合は「削除」ボタンをクリックし、確認ダイアログで「削除」を選択してください。</p><h2>よくある質問（FAQ）</h2><h3>記事に画像を追加するには？</h3><p>本文エディタで画像URLを指定して挿入できます。画像ファイルはサイトフォルダ内の任意の場所（例: <code>blog/images/</code>）に配置してください。</p><h3>記事数に上限はありますか？</h3><p>アプリ上の制限はありません。ただし記事が多いほどビルド時間が長くなる場合があります。</p><h3>ブログ記事はSEOに効果がありますか？</h3><p>はい。各記事にJSON-LD構造化データ・OGPタグ・パンくずリストが自動付与されるため、検索エンジンに最適化された記事が作成されます。定期的な記事更新はSEO評価の向上にも効果的です。</p><h2>まとめ</h2><p>Site Builderのブログ機能なら、記事の作成から公開まで数クリックで完了します。JSON-LDやOGPタグの自動生成でSEO対策も万全。ブログ運営を通じてサイトのコンテンツを充実させ、検索流入を増やしていきましょう。Site Builderで、今すぐブログ運営を始めてみてください。</p>
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://developers.google.com/search/docs/appearance/structured-data/article"><p class="text-dark-200">「Article 構造化データを追加することで、検索結果に記事のカルーセル、ヘッドライン、画像を豊かに表示できる。」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://developers.google.com/search/docs/appearance/structured-data/article" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Google Search Central「Article 構造化データ」</a></cite>（Article JSON-LD で検索結果リッチリザルト対応）</figcaption></figure><h2>ブログ機能でできること</h2><p>Site Builderのブログ機能を使えば、アプリ上で<strong>記事の作成・編集・削除</strong>がすべて完結します。記事データは<code>blog/articles.json</code>に保存され、HTMLページは<code>blog/{slug}/index.html</code>に自動生成されます。プログラミングの知識がなくても、質の高いブログ運営が可能です。</p><h2>記事のコンテンツタイプ</h2><p>Site Builderでは、記事の種類に応じて4つのコンテンツタイプから選べます。</p><ul><li><strong>blog</strong> — 通常のブログ記事。JSON-LDは<code>Article</code>スキーマで出力されます</li><li><strong>guide</strong> — ハウツー・ガイド記事。<code>HowTo</code>スキーマで検索結果にステップ表示される可能性があります</li><li><strong>news</strong> — ニュース・お知らせ。<code>NewsArticle</code>スキーマでニュース検索に最適化されます</li><li><strong>product</strong> — 製品・サービス紹介。<code>Product</code>スキーマで商品情報として認識されます</li></ul><h2>記事の作成手順</h2><ol><li>「ブログ」セクションを開きます</li><li>「新規記事」ボタンをクリックします</li><li>コンテンツタイプを選択します（blog / guide / news / product）</li><li>タイトル・スラッグ（URL用識別子）・説明文を入力します</li><li>本文をエディタで作成します</li><li>カテゴリとタグを設定します</li><li>「保存」をクリックして完了です</li></ol><p>スラッグはURL用の識別子で、例えば<code>ai-prediction-guide</code>のように英数字とハイフンで構成します。</p><h2>自動生成されるSEO要素</h2><p>記事を作成すると、以下のSEO要素が自動的に設定されます。手動でのコード編集は一切不要です。</p><ul><li><strong>JSON-LD構造化データ</strong> — コンテンツタイプに応じたスキーマが自動出力</li><li><strong>OGPタグ</strong> — SNSシェア時のタイトル・説明・画像が自動設定</li><li><strong>パンくずリスト</strong> — 「ホーム &gt; ブログ &gt; 記事タイトル」の形式で自動生成</li><li><strong>ブログ一覧ページ</strong> — <code>blog/index.html</code>が記事の追加・削除に連動して自動更新</li></ul><h2>記事の編集と削除</h2><p>記事一覧から対象の記事をクリックすれば、いつでも内容を修正できます。削除したい場合は「削除」ボタンをクリックし、確認ダイアログで「削除」を選択してください。</p><h2>よくある質問（FAQ）</h2><h3>記事に画像を追加するには？</h3><p>本文エディタで画像URLを指定して挿入できます。画像ファイルはサイトフォルダ内の任意の場所（例: <code>blog/images/</code>）に配置してください。</p><h3>記事数に上限はありますか？</h3><p>アプリ上の制限はありません。ただし記事が多いほどビルド時間が長くなる場合があります。</p><h3>ブログ記事はSEOに効果がありますか？</h3><p>はい。各記事にJSON-LD構造化データ・OGPタグ・パンくずリストが自動付与されるため、検索エンジンに最適化された記事が作成されます。定期的な記事更新はSEO評価の向上にも効果的です。</p><h2>まとめ</h2><p>Site Builderのブログ機能なら、記事の作成から公開まで数クリックで完了します。JSON-LDやOGPタグの自動生成でSEO対策も万全。ブログ運営を通じてサイトのコンテンツを充実させ、検索流入を増やしていきましょう。Site Builderで、今すぐブログ運営を始めてみてください。</p>
       </div>
 
       <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">

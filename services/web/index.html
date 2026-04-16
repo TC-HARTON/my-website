@@ -214,18 +214,18 @@
         </svg>
       </button>
     </div>
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="hidden md:hidden fixed top-16 left-0 right-0 h-[calc(100vh-4rem)] bg-white z-50 overflow-y-auto" role="dialog" aria-label="モバイルナビゲーション">
-      <nav aria-label="モバイルナビゲーション" class="flex flex-col p-6 gap-1">
-        <a href="/#services" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">サービス</a>
-        <a href="/#works" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">業種別サンプル</a>
-        <a href="/site-builder/" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">Site Builder</a>
-        <a href="/blog/" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">ブログ</a>
-        <a href="/#about" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">会社概要</a>
-        <a href="/#simulator" class="block px-4 py-3 bg-sky-500 text-white rounded-lg text-center font-bold focus:ring-2 focus:ring-sky-500">無料相談する</a>
-      </nav>
-    </div>
   </header>
+  <!-- Mobile menu: containing block 汚染回避のため header の外に配置（SPEC 10.5.1.1 準拠） -->
+  <div id="mobileMenu" class="hidden md:hidden fixed top-16 left-0 right-0 h-[calc(100vh-4rem)] bg-white z-50 overflow-y-auto" role="dialog" aria-label="モバイルナビゲーション">
+    <nav aria-label="モバイルナビゲーション" class="flex flex-col p-6 gap-1">
+      <a href="/#services" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">サービス</a>
+      <a href="/#works" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">業種別サンプル</a>
+      <a href="/site-builder/" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">Site Builder</a>
+      <a href="/blog/" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">ブログ</a>
+      <a href="/#about" class="block px-4 py-3 rounded-lg hover:bg-dark-50 transition font-medium text-dark-800">会社概要</a>
+      <a href="/#simulator" class="block px-4 py-3 bg-sky-500 text-white rounded-lg text-center font-bold focus:ring-2 focus:ring-sky-500">無料相談する</a>
+    </nav>
+  </div>
 
   <!-- ========== メインコンテンツ ========== -->
   <main id="main">

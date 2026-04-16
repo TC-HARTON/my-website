@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -160,7 +161,7 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>AIチャットボットとは？</h2><p>Site Builderに搭載されているAIチャットボットは、サイト訪問者の質問に<strong>24時間365日自動で回答</strong>する機能です。あなたが登録した事業情報・サービス内容・FAQをもとに、AIが的確な回答を生成します。営業時間外でも顧客対応ができるため、機会損失を防げます。</p><h2>チャットボットでできること</h2><ul><li><strong>営業時間外の自動対応</strong> — 深夜や休日でも訪問者の質問に即座に返答します</li><li><strong>よくある質問への即時回答</strong> — 登録したFAQ情報をもとに、正確な回答を自動生成します</li><li><strong>サービス内容の案内</strong> — 登録したサービス情報をもとに、適切なサービスを訪問者に紹介します</li><li><strong>問い合わせフォームへの誘導</strong> — 詳細な相談が必要な場合は、お問い合わせフォームへスムーズに案内します</li></ul><h2>設定方法</h2><ol><li>Site Builderの設定画面でチャットボットの<strong>ON/OFF</strong>トグルを切り替えます</li><li>挨拶メッセージ（グリーティング）をカスタマイズします。例：「こんにちは！何かお手伝いできることはありますか？」</li><li>必要に応じてプロキシURL（上級者向け）を設定します。通常はデフォルトのままでOKです</li><li>サイト生成を実行すると、チャットウィジェットが自動的にサイトに組み込まれます</li></ol><h2>回答の精度を高めるコツ</h2><p>チャットボットの回答品質は、<strong>登録情報の充実度</strong>に比例します。以下のポイントを意識して情報を充実させましょう。</p><ul><li>事業情報をできるだけ詳しく入力する（サービス内容、対応エリア、強みなど）</li><li>FAQを最低5件以上登録し、実際によく聞かれる質問をカバーする</li><li>サービス説明を具体的に書き、料金や納期などの数字も含める</li></ul><h2>費用について</h2><p>チャットボット機能自体は<strong>追加料金なしの無料機能</strong>です。ただし、AI の応答には Anthropic Claude API の従量課金が発生します（月数百円〜、訪問者数に比例）。チャットボット応答も設定済みの <code>routingMode</code> に従い、Haiku にフォールバックする <code>routingMode=economy</code> 設定なら月 100 円程度に抑えられます。</p><h2>よくある質問（FAQ）</h2><h3>チャットボットの設置は必須ですか？</h3><p>いいえ、完全なオプション機能です。不要な場合はOFFにしておけば、サイトにチャットウィジェットは表示されません。</p><h3>回答内容を自分でカスタマイズできますか？</h3><p>FAQや事業情報を充実させることで、間接的に回答内容をコントロールできます。AIが登録された情報をもとに、最適な回答を動的に生成します。</p><h3>チャットボットの見た目は変更できますか？</h3><p>挨拶メッセージのカスタマイズが可能です。ウィジェット自体のデザインはサイト全体のテーマカラーに合わせて自動調整されるため、統一感のある見た目になります。</p><h2>まとめ</h2><p>AIチャットボットを設置すれば、24時間365日の顧客対応が実現します。設定はON/OFFの切り替えとメッセージの入力だけで完了。Site Builderなら、登録済みの事業情報やFAQを最大限に活用して、賢いチャットボットが訪問者をサポートします。</p>
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://docs.anthropic.com/en/docs/about-claude/overview"><p class="text-dark-200">「Claude は Anthropic が開発した AI アシスタント。応答の正確性・安全性・文脈理解に優れる。」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://docs.anthropic.com/en/docs/about-claude/overview" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Anthropic 公式ドキュメント</a></cite>（日本語E-E-A-T評価で首位の Claude Opus 4.6 をチャットエンジンに採用）</figcaption></figure><h2>AIチャットボットとは？</h2><p>Site Builderに搭載されているAIチャットボットは、サイト訪問者の質問に<strong>24時間365日自動で回答</strong>する機能です。あなたが登録した事業情報・サービス内容・FAQをもとに、AIが的確な回答を生成します。営業時間外でも顧客対応ができるため、機会損失を防げます。</p><h2>チャットボットでできること</h2><ul><li><strong>営業時間外の自動対応</strong> — 深夜や休日でも訪問者の質問に即座に返答します</li><li><strong>よくある質問への即時回答</strong> — 登録したFAQ情報をもとに、正確な回答を自動生成します</li><li><strong>サービス内容の案内</strong> — 登録したサービス情報をもとに、適切なサービスを訪問者に紹介します</li><li><strong>問い合わせフォームへの誘導</strong> — 詳細な相談が必要な場合は、お問い合わせフォームへスムーズに案内します</li></ul><h2>設定方法</h2><ol><li>Site Builderの設定画面でチャットボットの<strong>ON/OFF</strong>トグルを切り替えます</li><li>挨拶メッセージ（グリーティング）をカスタマイズします。例：「こんにちは！何かお手伝いできることはありますか？」</li><li>必要に応じてプロキシURL（上級者向け）を設定します。通常はデフォルトのままでOKです</li><li>サイト生成を実行すると、チャットウィジェットが自動的にサイトに組み込まれます</li></ol><h2>回答の精度を高めるコツ</h2><p>チャットボットの回答品質は、<strong>登録情報の充実度</strong>に比例します。以下のポイントを意識して情報を充実させましょう。</p><ul><li>事業情報をできるだけ詳しく入力する（サービス内容、対応エリア、強みなど）</li><li>FAQを最低5件以上登録し、実際によく聞かれる質問をカバーする</li><li>サービス説明を具体的に書き、料金や納期などの数字も含める</li></ul><h2>費用について</h2><p>チャットボット機能自体は<strong>追加料金なしの無料機能</strong>です。ただし、AI の応答には Anthropic Claude API の従量課金が発生します（月数百円〜、訪問者数に比例）。チャットボット応答も設定済みの <code>routingMode</code> に従い、Haiku にフォールバックする <code>routingMode=economy</code> 設定なら月 100 円程度に抑えられます。</p><h2>よくある質問（FAQ）</h2><h3>チャットボットの設置は必須ですか？</h3><p>いいえ、完全なオプション機能です。不要な場合はOFFにしておけば、サイトにチャットウィジェットは表示されません。</p><h3>回答内容を自分でカスタマイズできますか？</h3><p>FAQや事業情報を充実させることで、間接的に回答内容をコントロールできます。AIが登録された情報をもとに、最適な回答を動的に生成します。</p><h3>チャットボットの見た目は変更できますか？</h3><p>挨拶メッセージのカスタマイズが可能です。ウィジェット自体のデザインはサイト全体のテーマカラーに合わせて自動調整されるため、統一感のある見た目になります。</p><h2>まとめ</h2><p>AIチャットボットを設置すれば、24時間365日の顧客対応が実現します。設定はON/OFFの切り替えとメッセージの入力だけで完了。Site Builderなら、登録済みの事業情報やFAQを最大限に活用して、賢いチャットボットが訪問者をサポートします。</p>
       </div>
 
       <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">

@@ -33,8 +33,9 @@ function escAttr(s) {
 const HEAD_COMMON = `  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="${THEME_COLOR}">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="${AUTHOR}">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -84,21 +85,21 @@ function buildHeader() {
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">${SITE_NAME_SHORT}</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
+  </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">${SITE_NAME_SHORT}</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
     </div>
-  </header>`;
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>`;
 }
 
 function buildFooter() {
@@ -199,7 +200,7 @@ ${HEAD_COMMON}
   </script>
 ${INLINE_STYLES}
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
 ${buildHeader()}
 
   <main id="main">
@@ -285,11 +286,11 @@ ${art.category ? `              <span class="bg-sky-500/20 text-sky-300 px-2 py-
 <head>
 ${HEAD_COMMON}
   <title>ブログ | ${SITE_NAME}</title>
-  <meta name="description" content="${SITE_NAME}の技術ブログ。Site Builderの使い方ガイド、WEB制作・業務自動化・AI活用の実践情報を発信。">
+  <meta name="description" content="${SITE_NAME}の技術ブログ。Site Builderの使い方ガイドから、WEB制作・業務自動化・AI活用・Claude Opus 4.6のコスト最適化まで、実務で使える知見を公開しています。">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <link rel="canonical" href="${DOMAIN}/blog/">
   <meta property="og:title" content="ブログ | ${SITE_NAME}">
-  <meta property="og:description" content="${SITE_NAME}の技術ブログ。Site Builderの使い方ガイド。">
+  <meta property="og:description" content="${SITE_NAME}の技術ブログ。Site Builderの使い方ガイドから、WEB制作・AI活用・Claudeコスト最適化まで実務知見を公開中。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="${DOMAIN}/blog/">
   <meta property="og:image" content="${DOMAIN}/ogp.png">
@@ -306,7 +307,7 @@ ${HEAD_COMMON}
   </script>
 ${INLINE_STYLES}
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
 ${buildHeader()}
 
   <main id="main">
@@ -324,7 +325,13 @@ ${buildHeader()}
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="fade-in">
           <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-4">ブログ</h1>
-          <p class="text-dark-400 mb-10">Site Builderの使い方ガイドや、WEB制作・AI活用の実践情報を発信しています。</p>
+          <p class="text-dark-400 mb-6">Site Builderの使い方ガイドや、WEB制作・AI活用の実践情報を発信しています。</p>
+          <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg">
+            <blockquote cite="https://arxiv.org/abs/2311.09735">
+              <p class="text-dark-200">「Quotation（引用句）・Statistics（数値）・Citation（出典）の3要素を記事に配置することで、生成AIにおける引用率は平均 +40.6% 向上する。」</p>
+            </blockquote>
+            <figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Aggarwal et al. "Generative Engine Optimization" KDD 2024</a></cite>（当ブログ全24記事は GEO/LLMO 基準 G-1〜G-6 に準拠）</figcaption>
+          </figure>
           <div class="grid gap-6">
 ${cards}\
           </div>

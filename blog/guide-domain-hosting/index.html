@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -160,7 +161,7 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>ドメインとは？</h2><p>ドメインとは、サイトの<strong>URL（インターネット上の住所）</strong>のことです。例えば <code>example.com</code> や <code>myshop.pages.dev</code> がドメインにあたります。訪問者がブラウザに入力してあなたのサイトにたどり着くための名前です。Site Builderでは無料のサブドメインと独自ドメインの両方に対応しています。</p><h2>選択肢A：無料サブドメインで始める</h2><p>費用をかけずにすぐサイトを公開したい方におすすめです。以下のサービスが対応しています。</p><ul><li><strong>Cloudflare Pages（推奨）</strong> — <code>yoursite.pages.dev</code> の形式。グローバルCDNで高速配信、SSL自動適用、帯域制限なし。最もおすすめです</li><li><strong>GitHub Pages</strong> — <code>username.github.io</code> の形式。GitHubユーザーには馴染みやすく、設定もシンプルです</li><li><strong>Netlify</strong> — <code>yoursite.netlify.app</code> の形式。直感的な管理画面で初心者にも扱いやすいサービスです</li><li><strong>Vercel</strong> — <code>yoursite.vercel.app</code> の形式。高性能なインフラで表示速度に優れています</li></ul><h2>選択肢B：独自ドメインを取得する</h2><p>ビジネスの信頼性とブランド力を高めたい場合は独自ドメインがおすすめです。年間1,000〜3,000円程度で取得できます。</p><ul><li><strong>お名前.com</strong> — 国内最大手のドメイン登録サービス。日本語サポートが充実しています</li><li><strong>ムームードメイン</strong> — シンプルな管理画面で、ドメイン管理が初めての方にも使いやすい設計です</li><li><strong>Cloudflare Registrar</strong> — 原価に近い価格で業界最安水準。すでにCloudflareをお使いならまとめて管理できます</li></ul><h2>おすすめの進め方</h2><p>まずは<strong>無料サブドメインでサイトを公開</strong>し、内容や集客が軌道に乗ったら独自ドメインにアップグレードするのが賢い方法です。後からドメインを変更してもSite Builderが各ページのURL設定やメタ情報を自動更新します。</p><h2>よくある質問（FAQ）</h2><h3>無料サブドメインでもSEO効果はありますか？</h3><p>はい、基本的なSEO効果は得られます。ただし独自ドメインの方がブランディングや信頼性の面で有利であり、長期運用するなら独自ドメインをおすすめします。</p><h3>ドメインの設定は難しいですか？</h3><p>Site Builderの設定画面にドメイン名を入力するだけです。DNSの設定はホスティングサービス側のガイドに沿って行えば、初心者でも問題なく完了できます。</p><h3>途中でドメインを変更することはできますか？</h3><p>はい、設定画面でドメインを変更してサイトを再生成すれば切り替わります。旧ドメインからのリダイレクト設定も忘れずに行いましょう。</p><h2>まとめ</h2><p>ドメインは無料サブドメインから始められるので、初期費用ゼロでサイト公開が可能です。独自ドメインも年間数千円と手頃な価格です。Site Builderなら、どちらの方法でもスムーズにサイトを構築・公開できます。まずは無料で始めてみましょう。</p>
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://developers.cloudflare.com/pages/framework-guides/"><p class="text-dark-200">「Cloudflare Pages provides unlimited requests, unlimited bandwidth, and unlimited sites on the free tier, with a global edge network in 300+ cities.」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://developers.cloudflare.com/pages/framework-guides/" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Cloudflare Pages 公式ドキュメント</a></cite>（無料枠で帯域無制限・グローバルCDN 300都市以上）</figcaption></figure><h2>ドメインとは？</h2><p>ドメインとは、サイトの<strong>URL（インターネット上の住所）</strong>のことです。例えば <code>example.com</code> や <code>myshop.pages.dev</code> がドメインにあたります。訪問者がブラウザに入力してあなたのサイトにたどり着くための名前です。Site Builderでは無料のサブドメインと独自ドメインの両方に対応しています。</p><h2>選択肢A：無料サブドメインで始める</h2><p>費用をかけずにすぐサイトを公開したい方におすすめです。以下のサービスが対応しています。</p><ul><li><strong>Cloudflare Pages（推奨）</strong> — <code>yoursite.pages.dev</code> の形式。グローバルCDNで高速配信、SSL自動適用、帯域制限なし。最もおすすめです</li><li><strong>GitHub Pages</strong> — <code>username.github.io</code> の形式。GitHubユーザーには馴染みやすく、設定もシンプルです</li><li><strong>Netlify</strong> — <code>yoursite.netlify.app</code> の形式。直感的な管理画面で初心者にも扱いやすいサービスです</li><li><strong>Vercel</strong> — <code>yoursite.vercel.app</code> の形式。高性能なインフラで表示速度に優れています</li></ul><h2>選択肢B：独自ドメインを取得する</h2><p>ビジネスの信頼性とブランド力を高めたい場合は独自ドメインがおすすめです。年間1,000〜3,000円程度で取得できます。</p><ul><li><strong>お名前.com</strong> — 国内最大手のドメイン登録サービス。日本語サポートが充実しています</li><li><strong>ムームードメイン</strong> — シンプルな管理画面で、ドメイン管理が初めての方にも使いやすい設計です</li><li><strong>Cloudflare Registrar</strong> — 原価に近い価格で業界最安水準。すでにCloudflareをお使いならまとめて管理できます</li></ul><h2>おすすめの進め方</h2><p>まずは<strong>無料サブドメインでサイトを公開</strong>し、内容や集客が軌道に乗ったら独自ドメインにアップグレードするのが賢い方法です。後からドメインを変更してもSite Builderが各ページのURL設定やメタ情報を自動更新します。</p><h2>よくある質問（FAQ）</h2><h3>無料サブドメインでもSEO効果はありますか？</h3><p>はい、基本的なSEO効果は得られます。ただし独自ドメインの方がブランディングや信頼性の面で有利であり、長期運用するなら独自ドメインをおすすめします。</p><h3>ドメインの設定は難しいですか？</h3><p>Site Builderの設定画面にドメイン名を入力するだけです。DNSの設定はホスティングサービス側のガイドに沿って行えば、初心者でも問題なく完了できます。</p><h3>途中でドメインを変更することはできますか？</h3><p>はい、設定画面でドメインを変更してサイトを再生成すれば切り替わります。旧ドメインからのリダイレクト設定も忘れずに行いましょう。</p><h2>まとめ</h2><p>ドメインは無料サブドメインから始められるので、初期費用ゼロでサイト公開が可能です。独自ドメインも年間数千円と手頃な価格です。Site Builderなら、どちらの方法でもスムーズにサイトを構築・公開できます。まずは無料で始めてみましょう。</p>
       </div>
 
       <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">

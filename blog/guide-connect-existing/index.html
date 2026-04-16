@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -160,7 +161,7 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>既存サイトの接続とは？</h2><p>すでにお持ちのWEBサイトをSite Builderに取り込み、アプリ上で一元管理できるようにする機能です。HTMLファイルから<strong>事業者名・サービス内容・連絡先・SEO設定</strong>などを自動で読み取るので、手動で一から入力する必要がありません。「サイトはあるけど管理が大変」という方にぴったりの機能です。</p><h2>自動抽出される情報</h2><p>Site Builderの「既存サイトを取り込む」機能では、HTMLを解析して以下の情報を自動で検出します。</p><ul><li><strong>metaタグ</strong> — ページタイトル、description、OGPタグ</li><li><strong>JSON-LD構造化データ</strong> — 事業者情報、サービス、FAQなど</li><li><strong>コンテンツ</strong> — 見出し構造、サービス一覧、問い合わせフォーム</li><li><strong>SEO設定</strong> — Google Analytics ID、Search Console認証コード</li></ul><p>これらの情報がSite Builderの管理画面に自動で取り込まれるため、すぐに編集・管理を始められます。</p><h2>必要なもの</h2><ul><li>サイトのHTMLファイルが入った<strong>フォルダ</strong>（<code>index.html</code> が必須）</li><li>フォルダはパソコン上にある必要があります（サーバー上のみの場合は事前にダウンロード）</li></ul><h2>接続の操作手順</h2><ol><li>ダッシュボードで「既存サイトを取り込む」を選択します</li><li>「参照」ボタンをクリックし、HTMLファイルがあるフォルダを選択します</li><li>「次へ」をクリックすると、Site Builderが自動でHTMLを解析します</li><li>抽出結果の確認画面が表示されるので、内容をチェックします</li><li>必要に応じて修正し、「取り込み完了」をクリックします</li></ol><p>サブフォルダ内のHTMLファイル（例: <code>services/ai/index.html</code>）も自動で検出されます。画像・CSS・JavaScriptファイルはそのまま保持されるので安心してください。</p><h2>接続時の注意点</h2><ul><li>フォルダ内に <code>index.html</code> がない場合、取り込みできません</li><li>PHP・ASPなどのサーバーサイドファイルは解析対象外です</li><li>WordPressサイトの場合は、Simply Staticなどのプラグインで<strong>静的HTMLにエクスポート</strong>してからご利用ください</li></ul><h2>よくある質問（FAQ）</h2><h3>CMSで作ったサイトでも取り込めますか？</h3><p>静的HTMLとしてエクスポートされたファイルであれば取り込めます。WordPressの場合はSimply Staticなどの静的HTMLエクスポートプラグインをお使いください。</p><h3>抽出で情報が足りない場合は？</h3><p>次のステップ「抽出結果の確認と修正」で手動での追加・修正が可能です。HTML構造によって検出精度が変わるため、不足があっても問題ありません。</p><h3>WordPressのXMLエクスポートデータは使えますか？</h3><p>WordPress標準のXMLエクスポートには対応していません。HTML化されたファイルのみが対象です。</p><h2>まとめ</h2><p>既存サイトの接続は、HTMLフォルダを選ぶだけで完了するシンプルな操作です。meta情報やJSON-LD、SEO設定まで自動抽出されるので、面倒な手入力は不要。すでにサイトをお持ちの方も、Site Builderで効率的なサイト管理を始めましょう。</p>
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository"><p class="text-dark-200">「When you create a repository on GitHub, it exists as a remote repository. You can clone your repository to create a local copy on your computer.」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">GitHub Docs「Cloning a repository」</a></cite>（git clone で既存リポジトリを完全履歴付きでローカル複製）</figcaption></figure><h2>既存サイトの接続とは？</h2><p>すでにお持ちのWEBサイトをSite Builderに取り込み、アプリ上で一元管理できるようにする機能です。HTMLファイルから<strong>事業者名・サービス内容・連絡先・SEO設定</strong>などを自動で読み取るので、手動で一から入力する必要がありません。「サイトはあるけど管理が大変」という方にぴったりの機能です。</p><h2>自動抽出される情報</h2><p>Site Builderの「既存サイトを取り込む」機能では、HTMLを解析して以下の情報を自動で検出します。</p><ul><li><strong>metaタグ</strong> — ページタイトル、description、OGPタグ</li><li><strong>JSON-LD構造化データ</strong> — 事業者情報、サービス、FAQなど</li><li><strong>コンテンツ</strong> — 見出し構造、サービス一覧、問い合わせフォーム</li><li><strong>SEO設定</strong> — Google Analytics ID、Search Console認証コード</li></ul><p>これらの情報がSite Builderの管理画面に自動で取り込まれるため、すぐに編集・管理を始められます。</p><h2>必要なもの</h2><ul><li>サイトのHTMLファイルが入った<strong>フォルダ</strong>（<code>index.html</code> が必須）</li><li>フォルダはパソコン上にある必要があります（サーバー上のみの場合は事前にダウンロード）</li></ul><h2>接続の操作手順</h2><ol><li>ダッシュボードで「既存サイトを取り込む」を選択します</li><li>「参照」ボタンをクリックし、HTMLファイルがあるフォルダを選択します</li><li>「次へ」をクリックすると、Site Builderが自動でHTMLを解析します</li><li>抽出結果の確認画面が表示されるので、内容をチェックします</li><li>必要に応じて修正し、「取り込み完了」をクリックします</li></ol><p>サブフォルダ内のHTMLファイル（例: <code>services/ai/index.html</code>）も自動で検出されます。画像・CSS・JavaScriptファイルはそのまま保持されるので安心してください。</p><h2>接続時の注意点</h2><ul><li>フォルダ内に <code>index.html</code> がない場合、取り込みできません</li><li>PHP・ASPなどのサーバーサイドファイルは解析対象外です</li><li>WordPressサイトの場合は、Simply Staticなどのプラグインで<strong>静的HTMLにエクスポート</strong>してからご利用ください</li></ul><h2>よくある質問（FAQ）</h2><h3>CMSで作ったサイトでも取り込めますか？</h3><p>静的HTMLとしてエクスポートされたファイルであれば取り込めます。WordPressの場合はSimply Staticなどの静的HTMLエクスポートプラグインをお使いください。</p><h3>抽出で情報が足りない場合は？</h3><p>次のステップ「抽出結果の確認と修正」で手動での追加・修正が可能です。HTML構造によって検出精度が変わるため、不足があっても問題ありません。</p><h3>WordPressのXMLエクスポートデータは使えますか？</h3><p>WordPress標準のXMLエクスポートには対応していません。HTML化されたファイルのみが対象です。</p><h2>まとめ</h2><p>既存サイトの接続は、HTMLフォルダを選ぶだけで完了するシンプルな操作です。meta情報やJSON-LD、SEO設定まで自動抽出されるので、面倒な手入力は不要。すでにサイトをお持ちの方も、Site Builderで効率的なサイト管理を始めましょう。</p>
       </div>
 
       <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">

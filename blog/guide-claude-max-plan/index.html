@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -161,13 +162,13 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>結論 — 「使いすぎて破産」は物理的に不可能</h2>
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://docs.anthropic.com/en/api/rate-limits"><p class="text-dark-200">「You can set a monthly spend limit in the Anthropic Console. Once reached, API requests will be automatically rejected to prevent overage.」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://docs.anthropic.com/en/api/rate-limits" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Anthropic 公式「Rate limits & usage」</a></cite>（Console で月額上限 $5〜 設定可能 → 上限到達で API 自動停止）</figcaption></figure><h2>結論 — 「使いすぎて破産」は物理的に不可能</h2>
 <p><strong>本記事で判明する事実</strong>: Anthropic コンソールで<strong>月額上限（Usage Limit）</strong>を設定すれば、上限到達時にAPIは<strong>自動停止</strong>します。$5（約¥750）に設定すれば LP 約12枚分で止まり、それ以上の請求は発生しません。さらに Site Builder の routingMode 切替で<strong>1クリックでコスト半減</strong>も可能です。</p>
 <blockquote cite="https://docs.anthropic.com/en/docs/initial-setup"><p>「Usage Limits を設定すると、月間利用額が上限に達した時点でAPIリクエストは自動的に拒否される。意図しない超過課金を防ぐための安全装置として機能する」</p><footer>— <cite><a href="https://docs.anthropic.com/en/docs/initial-setup" target="_blank" rel="noopener noreferrer">Anthropic 公式ドキュメント — Initial Setup</a></cite></footer></blockquote>
 
 <h2>Claude MAX プランと API は別物です</h2>
 <p>まず重要な前提を整理します。<strong>Claude MAX プラン（$100/月）</strong>と<strong>Anthropic API（従量課金）</strong>は<strong>完全に別のサービス</strong>です。</p>
-<table><thead><tr><th></th><th>Claude MAX プラン</th><th>Anthropic API</th></tr></thead>
+<table><caption class="sr-only">Claude MAX プラン vs Anthropic API 機能比較</caption><th scope="col"ead><tr><th scope="col"></th><th scope="col">Claude MAX プラン</th><th scope="col">Anthropic API</th></tr></thead>
 <tbody>
 <tr><td>提供先</td><td>claude.ai（チャットUI）</td><td>console.anthropic.com</td></tr>
 <tr><td>課金方式</td><td>月額固定（$100 or $200）</td><td><strong>従量課金</strong>（使った分だけ）</td></tr>
@@ -186,7 +187,7 @@
 <li>上限到達でAPIが<strong>自動停止</strong>（追加請求なし）</li>
 </ol>
 <h3>$5 上限で何ができる？</h3>
-<table><thead><tr><th>作業内容</th><th>1回あたり費用</th><th>$5で可能な回数</th></tr></thead>
+<table><caption class="sr-only">作業内容別 API 費用と $5 予算での実行可能回数</caption><th scope="col"ead><tr><th scope="col">作業内容</th><th scope="col">1回あたり費用</th><th scope="col">$5で可能な回数</th></tr></thead>
 <tbody>
 <tr><td>LP 1枚生成（balanced）</td><td>¥60（$0.40）</td><td><strong>約12枚</strong></td></tr>
 <tr><td>コーポレート5P生成</td><td>¥310（$2.05）</td><td><strong>約2.4サイト</strong></td></tr>
@@ -197,7 +198,7 @@
 
 <h2>安全装置② — routingMode でコスト制御</h2>
 <p>Site Builder の設定画面から routingMode を切り替えるだけで、<strong>同じ作業でも費用が大幅に変わります</strong>。</p>
-<table><thead><tr><th>モード</th><th>5P サイト費用</th><th>削減率</th><th>品質</th></tr></thead>
+<table><caption class="sr-only">ルーティングモード別 5ページサイト制作コスト</caption><th scope="col"ead><tr><th scope="col">モード</th><th scope="col">5P サイト費用</th><th scope="col">削減率</th><th scope="col">品質</th></tr></thead>
 <tbody>
 <tr><td>quality</td><td>$2.05（¥310）</td><td>—</td><td>Sクラス保証</td></tr>
 <tr><td><strong>balanced（推奨）</strong></td><td><strong>$0.72（¥108）</strong></td><td><strong>-65%</strong></td><td>Sクラス保証</td></tr>
@@ -209,7 +210,7 @@
 <p>Site Builder は3法規（SPEC v2.3 + GOOGLE-STANDARDS + GEO-STANDARDS / 計40KB）をシステムプロンプトに埋込みますが、Anthropic の<strong>プロンプトキャッシュ</strong>により2回目以降は<strong>入力コスト 90% OFF</strong>が自動適用されます。ユーザー側の操作は不要で、使うほど安くなる仕組みです（<a href="/blog/guide-prompt-cache/">詳細解説</a>）。</p>
 
 <h2>実際の月額費用シミュレーション</h2>
-<table><thead><tr><th>ユーザー像</th><th>月間作業量</th><th>月額費用（balanced）</th></tr></thead>
+<table><caption class="sr-only">利用者像別 月間運用コスト目安（balanced モード）</caption><th scope="col"ead><tr><th scope="col">ユーザー像</th><th scope="col">月間作業量</th><th scope="col">月額費用（balanced）</th></tr></thead>
 <tbody>
 <tr><td>副業ブロガー</td><td>ブログ5本</td><td><strong>¥150〜250</strong></td></tr>
 <tr><td>個人事業主</td><td>LP 1枚 + ブログ3本</td><td><strong>¥260〜400</strong></td></tr>

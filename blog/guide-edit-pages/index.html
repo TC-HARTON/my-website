@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -160,7 +161,7 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>ページタブとは？</h2><p>Site Builderの「ページ」タブは、接続したサイトの<strong>すべてのHTMLファイルを一覧表示</strong>し、各ページのメタ情報をまとめて管理できる機能です。ページごとにタイトルやdescriptionを確認・編集できるので、SEO対策の抜け漏れを防ぐのに役立ちます。</p><h2>ページ一覧に表示される情報</h2><ul><li><strong>ページパス</strong> — ファイルの場所（例: <code>/services/ai-prediction/index.html</code>）</li><li><strong>タイトル</strong> — <code>title</code>タグの内容</li><li><strong>最終更新日</strong> — ファイルの更新日時</li></ul><p>一覧画面で全ページの状態をひと目で把握できるため、タイトルやdescriptionが未設定のページもすぐに見つかります。</p><h2>メタ情報の編集手順</h2><ol><li>「ページ」タブを開きます</li><li>編集したいページの行をクリックします</li><li>編集パネルが開き、以下の項目を編集できます</li></ol><ul><li><strong>ページタイトル</strong> — <code>title</code>タグに反映されます</li><li><strong>meta description</strong> — 検索結果に表示される説明文です</li><li><strong>OGP設定</strong> — SNSでシェアされた際のタイトル・説明・画像を設定できます</li></ul><p>編集後は「保存」をクリックしてください。</p><h2>便利な機能</h2><h3>プレビュー機能</h3><p>ページ一覧で「プレビュー」ボタンをクリックすると、ブラウザでそのページの表示を確認できます。編集前後の見た目を素早くチェックするのに便利です。</p><h3>外部エディタ連携</h3><p>「エディタで開く」をクリックすると、VS Codeなどの設定済みエディタでHTMLファイルを直接開けます。メタ情報以外のカスタマイズが必要な場合に活用してください。</p><h2>メタ情報の反映について</h2><p>ページタブで編集した内容は、<strong>「設定反映（Inject）」を実行するまでHTMLには書き込まれません</strong>。編集と保存はSite Builder内部のデータ更新のみで、実際のHTMLファイルへの反映は「検証・デプロイ」タブから行います。</p><ol><li>ページタブでメタ情報を編集・保存</li><li>「検証・デプロイ」タブで「設定反映（Inject）」を実行</li><li>HTMLファイルのmetaタグが更新される</li></ol><h2>よくある質問（FAQ）</h2><h3>新しいページを追加できますか？</h3><p>現在のバージョンでは、ページタブからの新規ページ作成には対応していません。HTMLファイルを直接フォルダに追加すると、次回読み込み時にページ一覧に表示されます。</p><h3>HTMLを直接編集してもいいですか？</h3><p>はい、外部エディタで直接編集できます。ただしSite Builderが管理するmetaタグ領域はInject実行時に上書きされる場合があります。</p><h3>カスタムコードは消えませんか？</h3><p>Site Builderは「最小差分」方式でメタタグを更新します。独自に追加したHTMLやJavaScriptはそのまま保持されます。ただし<code>title</code>や<code>meta description</code>など管理対象タグは上書きされます。</p><h2>まとめ</h2><p>ページタブを使えば、サイト内のすべてのページのメタ情報を一画面で管理できます。編集はクリックして入力するだけで、HTMLへの反映もInjectボタンひとつ。Site Builderで、SEOに強いページ管理を効率的に進めましょう。</p>
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://web.dev/articles/learn-html"><p class="text-dark-200">「HTML provides the structure of a page, the foundation upon which styling and interactivity are applied. Semantic HTML conveys meaning.」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://web.dev/articles/learn-html" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Google web.dev「Learn HTML」</a></cite>（セマンティックHTML（header/main/footer/article）が SEO・a11y の基盤）</figcaption></figure><h2>ページタブとは？</h2><p>Site Builderの「ページ」タブは、接続したサイトの<strong>すべてのHTMLファイルを一覧表示</strong>し、各ページのメタ情報をまとめて管理できる機能です。ページごとにタイトルやdescriptionを確認・編集できるので、SEO対策の抜け漏れを防ぐのに役立ちます。</p><h2>ページ一覧に表示される情報</h2><ul><li><strong>ページパス</strong> — ファイルの場所（例: <code>/services/ai-prediction/index.html</code>）</li><li><strong>タイトル</strong> — <code>title</code>タグの内容</li><li><strong>最終更新日</strong> — ファイルの更新日時</li></ul><p>一覧画面で全ページの状態をひと目で把握できるため、タイトルやdescriptionが未設定のページもすぐに見つかります。</p><h2>メタ情報の編集手順</h2><ol><li>「ページ」タブを開きます</li><li>編集したいページの行をクリックします</li><li>編集パネルが開き、以下の項目を編集できます</li></ol><ul><li><strong>ページタイトル</strong> — <code>title</code>タグに反映されます</li><li><strong>meta description</strong> — 検索結果に表示される説明文です</li><li><strong>OGP設定</strong> — SNSでシェアされた際のタイトル・説明・画像を設定できます</li></ul><p>編集後は「保存」をクリックしてください。</p><h2>便利な機能</h2><h3>プレビュー機能</h3><p>ページ一覧で「プレビュー」ボタンをクリックすると、ブラウザでそのページの表示を確認できます。編集前後の見た目を素早くチェックするのに便利です。</p><h3>外部エディタ連携</h3><p>「エディタで開く」をクリックすると、VS Codeなどの設定済みエディタでHTMLファイルを直接開けます。メタ情報以外のカスタマイズが必要な場合に活用してください。</p><h2>メタ情報の反映について</h2><p>ページタブで編集した内容は、<strong>「設定反映（Inject）」を実行するまでHTMLには書き込まれません</strong>。編集と保存はSite Builder内部のデータ更新のみで、実際のHTMLファイルへの反映は「検証・デプロイ」タブから行います。</p><ol><li>ページタブでメタ情報を編集・保存</li><li>「検証・デプロイ」タブで「設定反映（Inject）」を実行</li><li>HTMLファイルのmetaタグが更新される</li></ol><h2>よくある質問（FAQ）</h2><h3>新しいページを追加できますか？</h3><p>現在のバージョンでは、ページタブからの新規ページ作成には対応していません。HTMLファイルを直接フォルダに追加すると、次回読み込み時にページ一覧に表示されます。</p><h3>HTMLを直接編集してもいいですか？</h3><p>はい、外部エディタで直接編集できます。ただしSite Builderが管理するmetaタグ領域はInject実行時に上書きされる場合があります。</p><h3>カスタムコードは消えませんか？</h3><p>Site Builderは「最小差分」方式でメタタグを更新します。独自に追加したHTMLやJavaScriptはそのまま保持されます。ただし<code>title</code>や<code>meta description</code>など管理対象タグは上書きされます。</p><h2>まとめ</h2><p>ページタブを使えば、サイト内のすべてのページのメタ情報を一画面で管理できます。編集はクリックして入力するだけで、HTMLへの反映もInjectボタンひとつ。Site Builderで、SEOに強いページ管理を効率的に進めましょう。</p>
       </div>
 
       <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">

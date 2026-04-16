@@ -165,19 +165,20 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed top-16 left-0 right-0 h-[calc(100vh-4rem)] bg-white lg:hidden z-50 overflow-y-auto" role="dialog" aria-label="モバイルナビゲーション">
-      <nav class="flex flex-col p-6 gap-1" aria-label="モバイルナビゲーション">
-        <a href="/site-builder/" class="mobile-link py-3 px-4 rounded-lg bg-sky-50 text-sky-600 font-medium text-dark-800" aria-current="page">Site Builder</a>
-        <a href="#cost" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">料金</a>
-        <a href="/#services" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">サービス</a>
-        <a href="/blog/" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">ブログ</a>
-        <a href="/#about" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">会社概要</a>
-        <a href="/#contact" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">お問い合わせ</a>
-        <hr class="my-3">
-        <a href="/#contact" class="py-3 px-4 bg-sky-500 text-white rounded-lg font-bold text-center">無料相談する</a>
-      </nav>
-    </div>
   </header>
+  <!-- モバイルメニュー: containing block 汚染回避のため header の外に配置（SPEC 10.5.1 準拠） -->
+  <div id="mobile-menu" class="mobile-menu fixed top-16 left-0 right-0 h-[calc(100vh-4rem)] bg-white lg:hidden z-50 overflow-y-auto" role="dialog" aria-label="モバイルナビゲーション">
+    <nav class="flex flex-col p-6 gap-1" aria-label="モバイルナビゲーション">
+      <a href="/site-builder/" class="mobile-link py-3 px-4 rounded-lg bg-sky-50 text-sky-600 font-medium text-dark-800" aria-current="page">Site Builder</a>
+      <a href="#cost" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">料金</a>
+      <a href="/#services" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">サービス</a>
+      <a href="/blog/" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">ブログ</a>
+      <a href="/#about" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">会社概要</a>
+      <a href="/#contact" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">お問い合わせ</a>
+      <hr class="my-3">
+      <a href="/#contact" class="py-3 px-4 bg-sky-500 text-white rounded-lg font-bold text-center">無料相談する</a>
+    </nav>
+  </div>
 
   <!-- ========== メイン ========== -->
   <main id="main">

@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -160,7 +161,7 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>更新からデプロイまでの全体像</h2><p>Site Builderで既存サイトを更新する流れは、<strong>5つのステップ</strong>で構成されています。設定変更からHTMLへの反映、品質チェック、そして公開まで、すべてアプリ内で完結します。コマンド操作やFTP転送は一切不要です。</p><h2>ステップ1：設定を変更する</h2><p>ダッシュボードやページタブで、事業者情報・サービス・FAQ・SEOなどの設定を編集します。この段階では<strong>まだHTMLファイルには反映されません</strong>。Site Builder内部のデータが更新されるだけなので、安心して自由に編集できます。</p><h2>ステップ2：設定反映（Inject）</h2><p>「検証・デプロイ」タブを開き、「設定反映（Inject）」ボタンをクリックします。Site Builderが各HTMLファイルの<strong>metaタグ・JSON-LD・OGP</strong>などを自動で更新します。</p><p>Injectシステムの大きな特徴は<strong>「最小差分」方式</strong>です。あなたが独自に追加したカスタムコード（JavaScript���スタイル、HTML構造など）はそのまま保持され、管理対象のタグだけが安全に更新されます。</p><h2>ステップ3：CSSビルド</h2><p>「CSSビルド」ボタンをクリックすると、Tailwind CSSが再コンパイルされます。HTMLに新しいTailwindクラスを追加した場合はCSSビルドが必要です。設定変更のみの場合は省略できることもあります。</p><h2>ステップ4：SPECチェック</h2><p>「SPECチェック」ボタンをクリックすると、<strong>SPEC v2.3 全 313 項目 + GEO/LLMO 6項目（G-1〜G-6）</strong> の自動検証が実行されます。結果は3段階で表示されます。</p><ul><li><strong>PASS</strong> — 問題なし。そのまま公開できます</li><li><strong>WARN</strong> — 注意事項あり。デプロイは可能です</li><li><strong>FAIL</strong> — 修正が必要。デプロイ前に対処してください</li></ul><p><strong>FAILが0件</strong>になるまで修正を繰り返しましょう。よくある原因は、必須項目の未入力やmeta descriptionの文字数不足です。</p><h2>GEO 検証（G-1〜G-6）の読み方</h2><blockquote cite="https://arxiv.org/abs/2311.09735"><p>「Quotation（引用句）を含むページは生成エンジンの引用率が <strong>+27.8%</strong>、Statistics（統計数値3件以上）は <strong>+25.9%</strong>、Cite Sources（公的被リンク）は <strong>+24.9%</strong> 向上する」</p><footer>— <cite>Aggarwal et al. <a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener noreferrer">Generative Engine Optimization, KDD 2024</a></cite></footer></blockquote><p>SPECチェックの GEO セクションは、Cornell大学 論文 arXiv:2311.09735 の 9手法に基づいています。</p><ul><li><strong>G-1 Quotation</strong> — <code>&lt;blockquote cite&gt;</code> による第三者引用句の有無</li><li><strong>G-2 公的ソース被リンク</strong> — <code>.go.jp</code> / <code>.gov</code> / <code>.edu</code> / <code>.ac.jp</code> へのリンク</li><li><strong>G-3 Statistics</strong> — 統計数値 <strong>3件以上</strong>の含有</li><li><strong>G-4 構造化データ</strong> — Quotation / Claim JSON-LD の設定</li><li><strong>G-5 Hedge Words</strong> — 「おそらく」「〜かも」等の曖昧語を2個以下に抑制</li><li><strong>G-6 位置最適化</strong> — ページ上位 <strong>30%</strong> にエビデンスを配置</li></ul><p>効果: Quotation 追加だけで生成エンジン引用率 +27.8%（Perplexity・Google SGE・Bing Chat 等）。</p><h2>ステップ5：デプロイ</h2><p>SPECチェックがすべてPASS/WARNであることを確認したら、「デプロイ」ボタンをクリックします。Site Builderが自動で<code>git add</code>・<code>git commit</code>・<code>git push</code>を実行し、変更が公開されます。</p><h2>よくある質問（FAQ）</h2><h3>カスタムHTMLは上書きされませんか？</h3><p>Injectシステムは<code>title</code>・<code>meta</code>・JSON-LDスクリプトなど管理対象タグのみを更新します。独自に追加したHTML・JavaScript・CSSはそのまま保持されます。</p><h3>SPECチェックでFAILが出たらどうすればいい？</h3><p>FAIL項目の詳細を確認し、該当する設定を修正してください。修正後にもう一度SPECチェックを実行すればOKです。</p><h3>変更を元に戻せますか？</h3><p>Gitで管理されているため、デプロイ前であれば変更を破棄できます。デプロイ後もGitの履歴から以前の状態に戻すことが可能です。</p><h2>まとめ</h2><p>サイトの更新は「設定変更 → Inject → CSSビルド → SPECチェック → デプロイ」の5ステップ。すべてボタンクリックだけで完結し、カスタムコードも安全に保持されます。Site Builderで、変更を安心して素早く公開しましょう。</p>
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://developers.cloudflare.com/pages/configuration/git-integration/"><p class="text-dark-200">「With Git integration, each push to your configured branch will automatically trigger a new build and deployment to Cloudflare Pages.」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://developers.cloudflare.com/pages/configuration/git-integration/" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Cloudflare Pages「Git Integration」</a></cite>（git push → 自動ビルド → 本番反映までおよそ 1-2 分）</figcaption></figure><h2>更新からデプロイまでの全体像</h2><p>Site Builderで既存サイトを更新する流れは、<strong>5つのステップ</strong>で構成されています。設定変更からHTMLへの反映、品質チェック、そして公開まで、すべてアプリ内で完結します。コマンド操作やFTP転送は一切不要です。</p><h2>ステップ1：設定を変更する</h2><p>ダッシュボードやページタブで、事業者情報・サービス・FAQ・SEOなどの設定を編集します。この段階では<strong>まだHTMLファイルには反映されません</strong>。Site Builder内部のデータが更新されるだけなので、安心して自由に編集できます。</p><h2>ステップ2：設定反映（Inject）</h2><p>「検証・デプロイ」タブを開き、「設定反映（Inject）」ボタンをクリックします。Site Builderが各HTMLファイルの<strong>metaタグ・JSON-LD・OGP</strong>などを自動で更新します。</p><p>Injectシステムの大きな特徴は<strong>「最小差分」方式</strong>です。あなたが独自に追加したカスタムコード（JavaScript���スタイル、HTML構造など）はそのまま保持され、管理対象のタグだけが安全に更新されます。</p><h2>ステップ3：CSSビルド</h2><p>「CSSビルド」ボタンをクリックすると、Tailwind CSSが再コンパイルされます。HTMLに新しいTailwindクラスを追加した場合はCSSビルドが必要です。設定変更のみの場合は省略できることもあります。</p><h2>ステップ4：SPECチェック</h2><p>「SPECチェック」ボタンをクリックすると、<strong>SPEC v2.3 全 313 項目 + GEO/LLMO 6項目（G-1〜G-6）</strong> の自動検証が実行されます。結果は3段階で表示されます。</p><ul><li><strong>PASS</strong> — 問題なし。そのまま公開できます</li><li><strong>WARN</strong> — 注意事項あり。デプロイは可能です</li><li><strong>FAIL</strong> — 修正が必要。デプロイ前に対処してください</li></ul><p><strong>FAILが0件</strong>になるまで修正を繰り返しましょう。よくある原因は、必須項目の未入力やmeta descriptionの文字数不足です。</p><h2>GEO 検証（G-1〜G-6）の読み方</h2><blockquote cite="https://arxiv.org/abs/2311.09735"><p>「Quotation（引用句）を含むページは生成エンジンの引用率が <strong>+27.8%</strong>、Statistics（統計数値3件以上）は <strong>+25.9%</strong>、Cite Sources（公的被リンク）は <strong>+24.9%</strong> 向上する」</p><footer>— <cite>Aggarwal et al. <a href="https://arxiv.org/abs/2311.09735" target="_blank" rel="noopener noreferrer">Generative Engine Optimization, KDD 2024</a></cite></footer></blockquote><p>SPECチェックの GEO セクションは、Cornell大学 論文 arXiv:2311.09735 の 9手法に基づいています。</p><ul><li><strong>G-1 Quotation</strong> — <code>&lt;blockquote cite&gt;</code> による第三者引用句の有無</li><li><strong>G-2 公的ソース被リンク</strong> — <code>.go.jp</code> / <code>.gov</code> / <code>.edu</code> / <code>.ac.jp</code> へのリンク</li><li><strong>G-3 Statistics</strong> — 統計数値 <strong>3件以上</strong>の含有</li><li><strong>G-4 構造化データ</strong> — Quotation / Claim JSON-LD の設定</li><li><strong>G-5 Hedge Words</strong> — 「おそらく」「〜かも」等の曖昧語を2個以下に抑制</li><li><strong>G-6 位置最適化</strong> — ページ上位 <strong>30%</strong> にエビデンスを配置</li></ul><p>効果: Quotation 追加だけで生成エンジン引用率 +27.8%（Perplexity・Google SGE・Bing Chat 等）。</p><h2>ステップ5：デプロイ</h2><p>SPECチェックがすべてPASS/WARNであることを確認したら、「デプロイ」ボタンをクリックします。Site Builderが自動で<code>git add</code>・<code>git commit</code>・<code>git push</code>を実行し、変更が公開されます。</p><h2>よくある質問（FAQ）</h2><h3>カスタムHTMLは上書きされませんか？</h3><p>Injectシステムは<code>title</code>・<code>meta</code>・JSON-LDスクリプトなど管理対象タグのみを更新します。独自に追加したHTML・JavaScript・CSSはそのまま保持されます。</p><h3>SPECチェックでFAILが出たらどうすればいい？</h3><p>FAIL項目の詳細を確認し、該当する設定を修正してください。修正後にもう一度SPECチェックを実行すればOKです。</p><h3>変更を元に戻せますか？</h3><p>Gitで管理されているため、デプロイ前であれば変更を破棄できます。デプロイ後もGitの履歴から以前の状態に戻すことが可能です。</p><h2>まとめ</h2><p>サイトの更新は「設定変更 → Inject → CSSビルド → SPECチェック → デプロイ」の5ステップ。すべてボタンクリックだけで完結し、カスタムコードも安全に保持されます。Site Builderで、変更を安心して素早く公開しましょう。</p>
       </div>
 
       <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">

@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -160,7 +161,7 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>デプロイとは？</h2><p>デプロイとは、作成したサイトを<strong>インターネット上に公開する</strong>ことです。ローカルのパソコンにあるファイルをサーバーにアップロードし、世界中からアクセスできる状態にします。Site Builderでは、GitHubを経由して各種ホスティングサービスに自動デプロイする仕組みを採用しています。</p><h2>対応ホスティングサービス</h2><h3>Cloudflare Pages（最もおすすめ）</h3><p>高速なグローバルCDN配信と無料SSL証明書が標準装備。無料プランでも商用利用可能で、帯域制限やリクエスト数の制限もありません。Site Builderのイチオシサービスです。</p><h3>GitHub Pages</h3><p>GitHubリポジトリから直接サイトを公開できるシンプルな方法です。個人サイトやポートフォリオに最適で、追加のサービス登録が不要です。</p><h3>Netlify</h3><p>直感的な管理画面と豊富な機能が特徴のホスティングサービスです。フォーム機能やリダイレクト設定、環境変数の管理も簡単に行えます。</p><h3>Vercel</h3><p>高パフォーマンスなホスティングサービスで、表示速度に優れています。プレビューデプロイ機能で本番公開前の確認も簡単です。</p><h2>設定の流れ</h2><ol><li>GitHubアカウントを作成します（無料）</li><li>GitHub上に新しいリポジトリを作成します</li><li>選んだホスティングサービスのアカウントを作成します</li><li>ホスティングサービスとGitHubリポジトリを連携設定します</li><li>Site Builderにリポジトリの情報を入力します</li><li>デプロイ設定が完了します</li></ol><h2>ローカルだけで始めるのもOK</h2><p>デプロイ設定は<strong>後から追加可能</strong>です。まずはローカル環境でサイトを作成・プレビューし、内容に満足できたらデプロイ設定を追加して公開するという段階的な進め方もおすすめです。</p><h2>ワンクリックデプロイ</h2><p>設定が完了すると、Site Builderの操作画面から<strong>ボタンひとつでデプロイ</strong>できるようになります。ファイルのアップロードやコマンド操作は一切不要で、変更するたびにクリックするだけで最新版が公開されます。</p><h2>よくある質問（FAQ）</h2><h3>どのホスティングサービスがおすすめですか？</h3><p>Cloudflare Pagesが最もおすすめです。速度・安定性・無料枠の充実度で他のサービスを上回り、商用利用にも制限がありません。</p><h3>Gitの知識がなくても使えますか？</h3><p>はい、Site Builderがコミットやプッシュの操作を自動で行うため、Gitコマンドの知識は不要です。ボタンをクリックするだけで完結します。</p><h3>独自ドメインと併用できますか？</h3><p>はい、すべてのホスティングサービスで独自ドメインの設定に対応しています。DNS設定をすれば独自ドメインでサイトを表示できます。</p><h2>まとめ</h2><p>デプロイ設定は、GitHubアカウントとホスティングサービスの連携を済ませるだけ。すべて無料プランで始められます。Site Builderのワンクリックデプロイで、コマンド操作なしでサイトを世界に公開しましょう。</p>
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://docs.github.com/en/get-started/using-git/about-git"><p class="text-dark-200">「Git is the most commonly used version control system. Git tracks the changes you make to files, providing a record of what has been done.」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://docs.github.com/en/get-started/using-git/about-git" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">GitHub Docs「About Git」</a></cite>（Git は世界最大の分散型バージョン管理システム）</figcaption></figure><h2>デプロイとは？</h2><p>デプロイとは、作成したサイトを<strong>インターネット上に公開する</strong>ことです。ローカルのパソコンにあるファイルをサーバーにアップロードし、世界中からアクセスできる状態にします。Site Builderでは、GitHubを経由して各種ホスティングサービスに自動デプロイする仕組みを採用しています。</p><h2>対応ホスティングサービス</h2><h3>Cloudflare Pages（最もおすすめ）</h3><p>高速なグローバルCDN配信と無料SSL証明書が標準装備。無料プランでも商用利用可能で、帯域制限やリクエスト数の制限もありません。Site Builderのイチオシサービスです。</p><h3>GitHub Pages</h3><p>GitHubリポジトリから直接サイトを公開できるシンプルな方法です。個人サイトやポートフォリオに最適で、追加のサービス登録が不要です。</p><h3>Netlify</h3><p>直感的な管理画面と豊富な機能が特徴のホスティングサービスです。フォーム機能やリダイレクト設定、環境変数の管理も簡単に行えます。</p><h3>Vercel</h3><p>高パフォーマンスなホスティングサービスで、表示速度に優れています。プレビューデプロイ機能で本番公開前の確認も簡単です。</p><h2>設定の流れ</h2><ol><li>GitHubアカウントを作成します（無料）</li><li>GitHub上に新しいリポジトリを作成します</li><li>選んだホスティングサービスのアカウントを作成します</li><li>ホスティングサービスとGitHubリポジトリを連携設定します</li><li>Site Builderにリポジトリの情報を入力します</li><li>デプロイ設定が完了します</li></ol><h2>ローカルだけで始めるのもOK</h2><p>デプロイ設定は<strong>後から追加可能</strong>です。まずはローカル環境でサイトを作成・プレビューし、内容に満足できたらデプロイ設定を追加して公開するという段階的な進め方もおすすめです。</p><h2>ワンクリックデプロイ</h2><p>設定が完了すると、Site Builderの操作画面から<strong>ボタンひとつでデプロイ</strong>できるようになります。ファイルのアップロードやコマンド操作は一切不要で、変更するたびにクリックするだけで最新版が公開されます。</p><h2>よくある質問（FAQ）</h2><h3>どのホスティングサービスがおすすめですか？</h3><p>Cloudflare Pagesが最もおすすめです。速度・安定性・無料枠の充実度で他のサービスを上回り、商用利用にも制限がありません。</p><h3>Gitの知識がなくても使えますか？</h3><p>はい、Site Builderがコミットやプッシュの操作を自動で行うため、Gitコマンドの知識は不要です。ボタンをクリックするだけで完結します。</p><h3>独自ドメインと併用できますか？</h3><p>はい、すべてのホスティングサービスで独自ドメインの設定に対応しています。DNS設定をすれば独自ドメインでサイトを表示できます。</p><h2>まとめ</h2><p>デプロイ設定は、GitHubアカウントとホスティングサービスの連携を済ませるだけ。すべて無料プランで始められます。Site Builderのワンクリックデプロイで、コマンド操作なしでサイトを世界に公開しましょう。</p>
       </div>
 
       <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">

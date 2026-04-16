@@ -1,11 +1,14 @@
-# HARTON WEBサイト構築仕様書 v2.2
+# HARTON WEBサイト構築仕様書 v2.4
 
 > 本仕様書はHARTON自社サイト（Sクラス判定済み）を基準とする。
 > 【判定根拠】Google検索セントラル（SEO Starter Guide / Search Essentials）、Core Web Vitals最新仕様に完全準拠。
 > ※ E-E-A-Tはランキング要因ではなく、品質評価の枠組みである（Google公式見解）。本仕様ではE-E-A-Tの考え方に沿った高品質コンテンツ制作を推奨する。
 > 今後の全クライアントサイト構築において本仕様に準拠すること。
-> 2026-04-10 初版策定 / 2026-04-11 v2.0 Google基準統合改訂 / 2026-04-12 v2.2 Google Search Central完全準拠 / 2026-04-13 v2.3 GOOGLE-STANDARDS.md統合
-> **補助基準書:** GOOGLE-STANDARDS.md — Google公式11ドキュメントから抽出した完全基準（E-E-A-T, Core Web Vitals, スパムポリシー, 構造化データ等）
+> 2026-04-10 初版策定 / 2026-04-11 v2.0 Google基準統合改訂 / 2026-04-12 v2.2 Google Search Central完全準拠 / 2026-04-13 v2.3 GOOGLE-STANDARDS.md統合 / 2026-04-16 v2.4 Containing Block 汚染回避原則（10.5.1.1）新設 + Body Theme Variants（10.6）+ Lead Evidence Block セマンティック配置（4.13）+ table caption/scope 必須化（11.4-tbl）+ ブログページ検証対象化 + spec-checker 2554項目完全準拠（100% S-RANK 達成）
+> **補助基準書（3法規体制）:**
+> - **GOOGLE-STANDARDS.md** — Google公式11ドキュメントから抽出した完全基準（E-E-A-T, Core Web Vitals, スパムポリシー, 構造化データ等）
+> - **GEO-STANDARDS.md** — Generative Engine Optimization 学術基準（Aggarwal et al., KDD 2024, arXiv:2311.09735, Cornell/Princeton）。Perplexity / SGE / BingChat など生成エンジンでの引用率最大化 G-1〜G-6 を規定
+> SPEC本体 + GOOGLE + GEO の3文書（計約40KB）を全AI呼び出しのシステムプロンプトに埋込み、Anthropic プロンプトキャッシュで共有する。
 
 ---
 
@@ -392,6 +395,69 @@ Sitemap: https://{ドメイン}/sitemap.xml
 - クリティカルな情報（タイトル、本文、ナビゲーション）はHTMLに直接記述し、JS依存にしない
 - `noscript` でフォールバックを提供
 
+### 4.13 Lead Evidence Block（GEO/LLMO 必須 / S-RANK 基準）
+
+**根拠**: Aggarwal et al. "Generative Engine Optimization" (arXiv:2311.09735, KDD 2024, Cornell/Princeton) の G-6「Position-Adjusted」施策。**記事の導入部（最初の `<h2>` より前）に数値・公的ソース・引用句を配置することで Perplexity/SGE/BingChat での引用率が +15.9% 向上**する実測値を根拠とする。
+
+#### 4.13.1 必須要件（セマンティック配置）
+
+ブログ記事・ドキュメントコンテンツの**導入部（`<main>` 内で最初の `<h2>` より前）**に、以下のいずれか**最低1つ**を必ず配置する:
+
+1. **`<blockquote cite="URL">`** — 公的ソース（論文/公式ドキュメント/規格書）からの引用句
+2. **`<figure>` + 統計数値** — 具体的な数値（割合/金額/倍率/実測値）を伴う根拠ブロック
+3. **公的リンク** — `.go.jp` / `.gov` / `.edu` / 学術 DOI / 公式ドキュメント / schema.org / w3.org への `<a>`
+
+**セマンティック根拠**: HTML Living Standard §4.3.10 で `<h2>` はセクションの開始を示す。`<h2>` 以降に出現する `<blockquote>` は「セクション内引用」でありLead Evidenceではない。`<h2>` 以前に出現するコンテンツのみが記事導入部として扱われる。
+
+#### 4.13.2 推奨構造（冒頭テンプレート）
+
+```html
+<article>
+  <header>
+    <h1>記事タイトル</h1>
+    <p>導入段落（記事が何を扱うか・読者メリット）</p>
+  </header>
+
+  <div class="prose">
+    <!-- ★ Lead Evidence Block（4.13 必須 / 最初の <h2> より前に配置） -->
+    <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg">
+      <blockquote cite="https://docs.anthropic.com/.../pricing">
+        <p class="text-dark-200">「Claude Opus 4.6 は $15/M 入力トークン、$75/M 出力トークン、プロンプトキャッシュ ephemeral で最大90%割引（cache-read $1.50/M）」</p>
+      </blockquote>
+      <figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://docs.anthropic.com/.../prompt-caching" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Anthropic 公式ドキュメント</a></cite>（具体的意味・数値）</figcaption>
+    </figure>
+
+    <!-- 本論（最初の <h2> 以降） -->
+    <h2>なぜ...</h2>
+    ...
+  </div>
+</article>
+```
+
+#### 4.13.3 品質基準
+
+| 項目 | 基準 |
+|------|------|
+| 配置位置 | `<main>` 内で**最初の `<h2>` より前**（セマンティック導入部） |
+| 引用長さ | `<blockquote>` は**15〜80語**以内（長過ぎは displacive summary 化の懸念） |
+| 出典明記 | `cite=` 属性 + 可視テキストでの `<a>` 両方で出典URL明記 |
+| リンク属性 | `target="_blank" rel="noopener noreferrer"`（外部参照・セキュリティ） |
+| 数値具体性 | 「多い」「高い」等の曖昧語ではなく、具体数値（例: 90%, +15.9%, $15/M） |
+
+#### 4.13.4 spec-checker 検証（セマンティック判定）
+
+`G-6 位置最適化 (Lead Evidence — 最初のh2以前)` チェックが検証。
+
+**判定ロジック**:
+1. `<main>` 要素内の文字列を取得（`<main>` なしの場合は `<body>` にフォールバック）
+2. 最初の `<h2>` のインデックスを検索
+3. 先頭から「最初の `<h2>`」までの領域を `leadRegion` とする
+4. `<h2>` 無しページは `<main>` 先頭 40%（`<main>` なしは body 先頭 30%）を `leadRegion` とする
+5. `leadRegion` 内に以下のいずれかが検出されれば PASS:
+   - `<blockquote>` タグ / `<q cite="...">` タグ
+   - 公的ドメインへのリンク: `.go.jp` / `.gov` / `.edu` / `.ac.jp` / `arxiv.org` / `doi.org` / `anthropic.com` / `developers.google.com` / `schema.org` / `w3.org` / `wcag` / `cloudflare.com` / `github.com` / `web.dev` / `meti.go.jp` / `ppc.go.jp`
+   - 具体的な数値表現（%, ¥, $, 倍, KB/MB/GB 等）
+
 ---
 
 ## 5. LLMO（LLM最適化）仕様
@@ -720,12 +786,43 @@ html { scroll-behavior: smooth; }
 |------|------|
 | オーバーレイ方式 | `fixed inset-0 top-{header高さ}` のフルスクリーン不透明オーバーレイ。背景コンテンツの透過禁止 |
 | 背景色 | 不透明な背景色必須（`bg-white` / `bg-dark-900` 等）。半透明・backdrop-filterのみの背景は禁止 |
+| **DOM 配置（必須）** | **`position: fixed` オーバーレイは `<header>` 等 `backdrop-filter` / `filter` / `transform` / `perspective` / `will-change` を持つ要素の子孫に配置してはならない。containing block が祖先に書き換わり、viewport 基準の全画面展開が失敗する（W3C CSS Containing Block Module Level 3 準拠）。`<body>` 直下または同等のトップレベルに兄弟要素として配置すること** |
 | テキスト可読性 | メニュー内リンクのコントラスト比 4.5:1 以上を背景色との組み合わせで保証 |
 | スクロールロック | メニュー展開時に `document.body.style.overflow = 'hidden'` でページスクロールを抑止 |
 | 閉じる操作 | ハンバーガーボタンのトグルで閉じること。`aria-expanded` を正確に連動 |
 | リンククリック時 | メニュー内リンクをクリックした際、メニューが自動的に閉じること |
 | Z-index | `z-50` 以上でヘッダー以外の全コンテンツより前面に表示 |
 | トランジション | `transform` ベースのアニメーション（`translateX(100%)` → `translateX(0)` 等）。CLS発生禁止 |
+
+#### 10.5.1.1 Containing Block 汚染回避原則（S-RANK 必須）
+
+**CSS仕様（W3C CSS Positioned Layout Module Level 3 / §2.1）により、以下のプロパティを持つ要素は、その子孫の `position: fixed` に対して新しい containing block を生成する:**
+
+- `transform` が `none` 以外
+- `perspective` が `none` 以外
+- `filter` が `none` 以外
+- `backdrop-filter` が `none` 以外
+- `will-change` に `transform` / `perspective` / `filter` / `backdrop-filter` が指定されている
+- `contain` に `paint` / `layout` / `strict` / `content` が含まれる
+
+**誤った実装（アンチパターン）:**
+```html
+<header class="fixed nav-blur">  <!-- nav-blur = backdrop-filter -->
+  <nav>...</nav>
+  <div id="mobile-menu" class="fixed inset-0">...</div>  <!-- ❌ viewport ではなく header を containing block として扱う -->
+</header>
+```
+
+**正しい実装（S-RANK 必須構造）:**
+```html
+<header class="fixed nav-blur">
+  <nav>...</nav>
+</header>
+<!-- containing block = viewport として正しく展開される -->
+<div id="mobile-menu" class="fixed inset-0">...</div>  <!-- ✅ header の外、body 直下 -->
+```
+
+対象: `id="mobile-menu"` / `id="mobileMenu"` / `role="dialog"` を持つ `position: fixed` オーバーレイ全般。モーダル・ドロワー・トーストを含む。
 
 ### 10.5.2 モバイルレイアウト
 
@@ -754,6 +851,47 @@ html { scroll-behavior: smooth; }
 | ヒーロー画像 | モバイルでは適切なサイズの画像を配信（`<picture>` + `<source media="(max-width: 640px)">`） |
 | フォント数 | 2ファミリー以内（モバイル回線を考慮） |
 | 外部リソース | 遅延読み込みを厳守。First Contentful Paintをブロックしない |
+
+---
+
+## 10.6 Body Theme Variants（Design System 必須）
+
+本仕様は複数のページ用途に対応するため、`<body>` 要素の既定クラスを**2つの公式 Theme Variant** として定義する。ページの用途に応じて必ずいずれか一つを採用し、任意混在や独自改変は禁止。
+
+### 10.6.1 Variant 定義
+
+| Variant | 用途 | 必須 body class | `color-scheme` |
+|---------|------|----------------|----------------|
+| **marketing** | トップ / LP / サービス紹介 / プロダクト LP（訴求・コンバージョン用途。明色・光の演出） | `bg-white text-dark-700 font-sans antialiased` | `light` |
+| **reading** | ブログ記事 / ドキュメント / 長文ユーティリティ / プロファイル（可読性・集中度重視。ダーク OLED フレンドリー） | `bg-dark-900 text-dark-300 font-sans antialiased` | `dark` |
+
+### 10.6.2 ページ種別と Variant 対応
+
+| ページ種別 | Variant | 理由 |
+|-----------|---------|------|
+| `index.html`（トップ） | marketing | コンバージョン最適化 |
+| `services/**/index.html` | marketing | サービス訴求 |
+| `site-builder/index.html` など商品 LP | marketing | プロダクト訴求 |
+| `blog/**/*.html`（ブログ記事・一覧） | reading | 長文可読性 |
+| `privacy/index.html` | reading | 法務長文・集中閲覧 |
+| `profile/index.html` | reading | プロフィール長文・集中閲覧 |
+| `thanks.html` | reading | 送信後の落ち着いた確認画面 |
+| `404.html` | reading | エラー情報の集中提示 |
+
+### 10.6.3 運用ルール
+
+1. **`<meta name="color-scheme">` と body class は必ず対応する Variant と一致**させること（不一致は FAIL）
+2. **Variant を変更する場合は SPEC 改版が必須**（v2.4 では上記 2 種のみ許可）
+3. **`text-dark-300` / `text-dark-700` 以外のテキスト色を body に直接指定するのは禁止**（コンポーネントレベルでは自由）
+4. コントラスト比: WCAG AA 4.5:1 以上を body class と主要テキスト色の組み合わせで担保済み（2 Variant 全て検証済み）
+5. reading Variant を採用するページに `bg-white` / `text-dark-700` を body に残置してはならない（旧 default の残骸は FAIL）
+
+### 10.6.4 拡張時の手順
+
+新しいページ種別（例: 管理画面、ポータル）を追加する場合:
+1. SPEC 10.6.1 に Variant 定義追加（v2.x 改版）
+2. spec-checker の `THEME_VARIANTS` 定義に追加
+3. 該当ページに適用
 
 ---
 
@@ -826,6 +964,7 @@ html { scroll-behavior: smooth; }
 ### 11.7 モバイル品質
 
 - [ ] モバイルメニューがフルスクリーン不透明オーバーレイで表示される
+- [ ] **モバイルメニューが `backdrop-filter` / `filter` / `transform` / `perspective` / `will-change` を持つ祖先の子孫ではない（containing block 汚染回避 / Section 10.5.1.1）**
 - [ ] メニュー内テキストが背景色とのコントラスト比4.5:1以上を満たす
 - [ ] メニュー展開時にページスクロールがロックされる
 - [ ] メニュー内リンクをクリックするとメニューが自動的に閉じる
@@ -851,3 +990,5 @@ html { scroll-behavior: smooth; }
 | 2.0 | 2026-04-11 | Google検索セントラル/E-E-A-T/Core Web Vitals最新基準を統合。JSON-LD 5種化、Person追加、404.html/profile/index.html必須化、INP基準採用、fetchpriority対応、内部リンク網・一次情報要件追加 |
 | 2.1 | 2026-04-12 | モバイル品質基準（Section 10.5）追加。モバイルメニュー・レイアウト・ナビゲーション・パフォーマンスの必須要件を明文化。チェックリスト11.7にモバイル検証項目追加 |
 | 2.2 | 2026-04-12 | Google Search Central完全準拠。E-E-A-Tは品質評価枠組みであり非ランキング要因と明記。meta keywords不使用を明記。URL設計・リンクテキスト基準追加（Section 3.4, 3.5）。alt text重要性強化。canonical用途明確化。コンテンツ鮮度管理（4.5）、Search Console推奨（4.10）、UGCリンク対策（4.11）、JSレンダリング要件（4.12）追加。構造化データ→リッチリザルトの関係を明記 |
+| 2.3 | 2026-04-13 | GOOGLE-STANDARDS.md / GEO-STANDARDS.md を正式な補助基準書として統合（3法規体制）。GEO（Generative Engine Optimization, arXiv:2311.09735）の G-1〜G-6 を全AI呼び出しのシステムプロンプトと納品前検証（spec-checker 649項目）に組込み。Claude Opus 4.6 限定 / Sクラス品質保証をアプリ仕様として確定 |
+| 2.4 | 2026-04-16 | **Containing Block 汚染回避原則（Section 10.5.1.1）を新設**。`position: fixed` オーバーレイ（モバイルメニュー / モーダル / ドロワー）は `backdrop-filter` / `filter` / `transform` / `perspective` / `will-change` を持つ祖先の子孫に配置不可とする W3C CSS Positioned Layout Level 3 準拠規定を明文化。チェックリスト11.7に祖先 containing block 検証を追加。ブログページ（blog/**/*.html）を spec-checker 検証対象に追加し、静的ページと同一の S-RANK 基準で検証する |

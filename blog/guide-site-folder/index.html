@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d9ed8">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark">
   <meta name="author" content="大内 達也">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://analytics.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -96,7 +97,7 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important; } .fade-in{opacity:1!important;transform:none!important;} }
   </style>
 </head>
-<body class="bg-dark-900 text-dark-300 antialiased">
+<body class="font-sans bg-dark-900 text-dark-300 antialiased">
   <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-3 focus:bg-white focus:text-dark-900 focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-500">メインコンテンツへスキップ</a>
   <header role="banner" class="fixed top-0 left-0 right-0 z-50 nav-blur bg-dark-900/80 border-b border-dark-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,21 +114,21 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900 shadow-2xl" role="dialog" aria-label="モバイルナビゲーション">
-      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
-        <span class="text-xl font-bold text-white">HARTON</span>
-        <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
-        <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
-        <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
-        <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
-        <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
-      </nav>
-    </div>
   </header>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-50 bg-dark-900" role="dialog" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-dark-800/50">
+      <span class="text-xl font-bold text-white">HARTON</span>
+      <button type="button" id="menu-close" class="p-2 rounded-lg text-dark-300 hover:text-white hover:bg-dark-800 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="メニューを閉じる">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav aria-label="モバイルナビゲーション" class="px-4 py-6 space-y-1">
+      <a href="/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ホーム</a>
+      <a href="/#services" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">サービス</a>
+      <a href="/blog/" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">ブログ</a>
+      <a href="/#contact" class="block text-lg font-medium text-dark-200 hover:text-white py-3 px-4 rounded-lg hover:bg-dark-800 transition-colors" onclick="closeMobileMenu()">お問い合わせ</a>
+    </nav>
+  </div>
 
   <main id="main">
     <nav aria-label="パンくずリスト" class="max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-2">
@@ -160,7 +161,7 @@
       </header>
 
       <div class="prose max-w-none">
-        <h2>サイトフォルダとは？</h2><p>Site Builderでサイトを作成する最初のステップは、サイトのファイルを保存する<strong>フォルダ（ディレクトリ）</strong>を選ぶことです。ここで選んだフォルダの中に、HTMLファイルやCSS、画像などサイトに必要なすべてのファイルが自動で生成されます。正しいフォルダを選ぶことで、その後の作業がスムーズに進みます。</p><h2>新規サイトを作る場合</h2><p>はじめてサイトを作る場合は、<strong>空のフォルダ</strong>を選んでください。中にファイルが入っているフォルダを選ぶと、Site Builderが既存サイトとして認識してしまうことがあります。新しいフォルダを作成してから選択するのがもっとも確実な方法です。</p><h3>おすすめの保存先</h3><ul><li><strong>デスクトップ</strong> — アイコンですぐにアクセスできて、作業中の確認にも便利です</li><li><strong>Documents（ドキュメント）フォルダ</strong> — ファイル整理がしやすく、バックアップの対象にもなりやすい場所です</li><li><strong>専用の開発フォルダ</strong> — <code>C:/projects/</code> のような専用ディレクトリを作ると、複数サイトを管理する場合にも散らかりません</li></ul><h2>フォルダ名の命名ルール</h2><p>フォルダ名には<strong>半角英数字とハイフン（-）</strong>のみを使いましょう。日本語や特殊文字、スペースを含むフォルダ名は、Git操作やデプロイ時にエラーの原因になることがあります。</p><ul><li>良い例: <code>my-business-site</code>、<code>harton-web</code>、<code>cafe-homepage</code></li><li>避けるべき例: <code>私のサイト</code>、<code>site #1</code>、<code>my site folder</code></li></ul><p>フォルダ名はURLの一部になる場合もあるため、シンプルで意味のわかる英単語を組み合わせるのがベストプラクティスです。</p><h2>既存サイトを読み込む場合</h2><p>すでにHTMLファイルが存在するフォルダを選ぶと、Site Builderが自動的に既存サイトとして認識します。設定情報を抽出して管理画面に取り込むことができます。<strong>GitHubからクローンしたリポジトリ</strong>もそのまま使えるので、チーム開発やバージョン管理との連携も安心です。</p><h2>よくある質問（FAQ）</h2><h3>フォルダを後から変更できますか？</h3><p>はい、Site Builderの設定画面からいつでも別のフォルダに切り替えられます。ただし、生成済みのファイルは自動では移動しませんので、必要に応じて手動でコピーしてください。</p><h3>クラウドストレージ上のフォルダでも動作しますか？</h3><p>OneDriveやDropbox上のフォルダでも動作はしますが、同期タイミングの競合でファイルが破損する場合があります。安定性を重視するならローカルフォルダを推奨します。</p><h3>GitHubからクローンしたフォルダも使えますか？</h3><p>はい、問題なく使えます。既存のGit履歴が保持されたまま、Site Builderの管理下に入ります。デプロイもスムーズに行えます。</p><h2>まとめ</h2><p>サイトフォルダの選び方は、新規なら空フォルダ、既存サイトならHTMLが入ったフォルダを選ぶだけです。フォルダ名は半角英数字にして、デスクトップやDocumentsなどアクセスしやすい場所に作りましょう。Site Builderなら、フォルダを選ぶだけですぐにサイト構築を始められます。</p>
+        <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg"><blockquote cite="https://developers.google.com/search/docs/crawling-indexing/url-structure"><p class="text-dark-200">「シンプルで分かりやすいURL構造は、クローラーが意図通りにページをクロールする上で重要。ハイフン区切りの英小文字ASCIIを推奨する。」</p></blockquote><figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://developers.google.com/search/docs/crawling-indexing/url-structure" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Google Search Central「URL 構造のガイドライン」</a></cite>（ローカルファイル配置はデプロイ URL 構造の土台となる）</figcaption></figure><h2>サイトフォルダとは？</h2><p>Site Builderでサイトを作成する最初のステップは、サイトのファイルを保存する<strong>フォルダ（ディレクトリ）</strong>を選ぶことです。ここで選んだフォルダの中に、HTMLファイルやCSS、画像などサイトに必要なすべてのファイルが自動で生成されます。正しいフォルダを選ぶことで、その後の作業がスムーズに進みます。</p><h2>新規サイトを作る場合</h2><p>はじめてサイトを作る場合は、<strong>空のフォルダ</strong>を選んでください。中にファイルが入っているフォルダを選ぶと、Site Builderが既存サイトとして認識してしまうことがあります。新しいフォルダを作成してから選択するのがもっとも確実な方法です。</p><h3>おすすめの保存先</h3><ul><li><strong>デスクトップ</strong> — アイコンですぐにアクセスできて、作業中の確認にも便利です</li><li><strong>Documents（ドキュメント）フォルダ</strong> — ファイル整理がしやすく、バックアップの対象にもなりやすい場所です</li><li><strong>専用の開発フォルダ</strong> — <code>C:/projects/</code> のような専用ディレクトリを作ると、複数サイトを管理する場合にも散らかりません</li></ul><h2>フォルダ名の命名ルール</h2><p>フォルダ名には<strong>半角英数字とハイフン（-）</strong>のみを使いましょう。日本語や特殊文字、スペースを含むフォルダ名は、Git操作やデプロイ時にエラーの原因になることがあります。</p><ul><li>良い例: <code>my-business-site</code>、<code>harton-web</code>、<code>cafe-homepage</code></li><li>避けるべき例: <code>私のサイト</code>、<code>site #1</code>、<code>my site folder</code></li></ul><p>フォルダ名はURLの一部になる場合もあるため、シンプルで意味のわかる英単語を組み合わせるのがベストプラクティスです。</p><h2>既存サイトを読み込む場合</h2><p>すでにHTMLファイルが存在するフォルダを選ぶと、Site Builderが自動的に既存サイトとして認識します。設定情報を抽出して管理画面に取り込むことができます。<strong>GitHubからクローンしたリポジトリ</strong>もそのまま使えるので、チーム開発やバージョン管理との連携も安心です。</p><h2>よくある質問（FAQ）</h2><h3>フォルダを後から変更できますか？</h3><p>はい、Site Builderの設定画面からいつでも別のフォルダに切り替えられます。ただし、生成済みのファイルは自動では移動しませんので、必要に応じて手動でコピーしてください。</p><h3>クラウドストレージ上のフォルダでも動作しますか？</h3><p>OneDriveやDropbox上のフォルダでも動作はしますが、同期タイミングの競合でファイルが破損する場合があります。安定性を重視するならローカルフォルダを推奨します。</p><h3>GitHubからクローンしたフォルダも使えますか？</h3><p>はい、問題なく使えます。既存のGit履歴が保持されたまま、Site Builderの管理下に入ります。デプロイもスムーズに行えます。</p><h2>まとめ</h2><p>サイトフォルダの選び方は、新規なら空フォルダ、既存サイトならHTMLが入ったフォルダを選ぶだけです。フォルダ名は半角英数字にして、デスクトップやDocumentsなどアクセスしやすい場所に作りましょう。Site Builderなら、フォルダを選ぶだけですぐにサイト構築を始められます。</p>
       </div>
 
       <aside class="mt-16 p-6 bg-dark-800 rounded-xl border border-dark-700">
