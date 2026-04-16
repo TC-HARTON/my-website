@@ -1,7 +1,7 @@
 # HARTON コーポレートサイト 仕様書
 **バージョン:** 1.0  
 **最終更新:** 2026-04-11  
-**ステータス:** S-RANK準拠（SPEC v2.0 全項目PASS）
+**ステータス:** S-RANK準拠（SPEC v2.3 + GEO/LLMO 全649項目中 合格率99.8%）
 
 ---
 
@@ -178,7 +178,7 @@ form-action 'self' https://api.web3forms.com;
 - 画像: `picture` + `source srcset` WebP対応
 - タイポグラフィ: `text-4xl`（モバイル）→ `text-6xl`（デスクトップ）
 
-### モバイルメニュー品質基準（SPEC v2.1追加）
+### モバイルメニュー品質基準（SPEC v2.3準拠）
 
 - フルスクリーン不透明オーバーレイ（`fixed inset-0 top-{header高さ} bg-white`）
 - 半透明・背景透過禁止（コンテンツとの混在でテキスト不可読になるため）
@@ -254,11 +254,12 @@ npm run watch:css
 
 ---
 
-## 11. SPEC v2.0 検証結果
+## 11. SPEC v2.3 + GEO/LLMO 検証結果
 
 ```
-PASS: 314 / FAIL: 0 / WARN: 29 / SKIP: 34
-Grade: S-RANK（合格率100%）
+PASS: 546 / FAIL: 0 / WARN: 43 / SKIP: 60（計 649項目）
+Grade: S-RANK（合格率100.0%）
+GEO/LLMO: FAIL:0 WARN:0（完全準拠）
 ```
 
 ### WARNの内訳（全て非クリティカル）

@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "UI設定項目 ↔ ガイド記事の対応表",
+    "blogBase": "/blog/"
+  },
+  "guides": {
+    "setup.sitePath": {
+      "doc": "new-user/01-site-folder.md",
+      "blogSlug": "guide-site-folder",
+      "title": "サイトフォルダの選び方",
+      "uiLocation": ["dashboard-setup-step1", "setup-sitePath"]
+    },
+    "setup.ai": {
+      "doc": "new-user/02-ai-provider.md",
+      "blogSlug": "guide-ai-setup",
+      "title": "AIプロバイダーの設定方法",
+      "uiLocation": ["dashboard-setup-step2", "setup-ai"]
+    },
+    "setup.business": {
+      "doc": "new-user/03-business-info.md",
+      "blogSlug": "guide-business-info",
+      "title": "事業情報の入力ガイド",
+      "uiLocation": ["setup-business"]
+    },
+    "setup.services": {
+      "doc": "new-user/04-services.md",
+      "blogSlug": "guide-services",
+      "title": "サービス登録のコツ",
+      "uiLocation": ["services-tab"]
+    },
+    "setup.faq": {
+      "doc": "new-user/04-faq.md",
+      "blogSlug": "guide-faq",
+      "title": "FAQ登録ガイド",
+      "uiLocation": ["faq-tab"]
+    },
+    "setup.eeat": {
+      "doc": "new-user/04-eeat.md",
+      "blogSlug": "guide-eeat",
+      "title": "E-E-A-T著者情報の設定",
+      "uiLocation": ["eeat-tab"]
+    },
+    "setup.domain": {
+      "doc": "new-user/03-domain-hosting.md",
+      "blogSlug": "guide-domain-hosting",
+      "title": "ドメインとホスティングの設定",
+      "uiLocation": ["setup-site-domain"]
+    },
+    "setup.seo": {
+      "doc": "new-user/03-seo-analytics.md",
+      "blogSlug": "guide-seo-analytics",
+      "title": "SEO・アクセス解析の設定",
+      "uiLocation": ["setup-seo"]
+    },
+    "setup.form": {
+      "doc": "new-user/03-contact-form.md",
+      "blogSlug": "guide-contact-form",
+      "title": "お問い合わせフォームの設定",
+      "uiLocation": ["setup-form"]
+    },
+    "setup.gitDeploy": {
+      "doc": "new-user/03-git-deploy.md",
+      "blogSlug": "guide-git-deploy",
+      "title": "Git・デプロイの設定",
+      "uiLocation": ["setup-deploy"]
+    },
+    "generate": {
+      "doc": "new-user/05-generate.md",
+      "blogSlug": "guide-generate",
+      "title": "サイト生成の手順",
+      "uiLocation": ["generate-tab"]
+    },
+    "deploy": {
+      "doc": "new-user/06-deploy.md",
+      "blogSlug": "guide-deploy",
+      "title": "サイト公開・デプロイ方法",
+      "uiLocation": ["actions-tab", "setup-deploy"]
+    },
+    "setup.chatbot": {
+      "doc": "new-user/03-chatbot.md",
+      "blogSlug": "guide-chatbot",
+      "title": "訪問者チャットボットの設定",
+      "uiLocation": ["setup-chatbot"]
+    },
+    "existing.connect": {
+      "doc": "existing-user/01-connect.md",
+      "blogSlug": "guide-connect-existing",
+      "title": "既存サイトの接続方法",
+      "uiLocation": ["dashboard-setup-step1"]
+    },
+    "existing.review": {
+      "doc": "existing-user/02-review-config.md",
+      "blogSlug": "guide-review-config",
+      "title": "抽出結果の確認と修正",
+      "uiLocation": ["dashboard-connected"]
+    },
+    "existing.editPages": {
+      "doc": "existing-user/03-edit-pages.md",
+      "blogSlug": "guide-edit-pages",
+      "title": "ページ編集の使い方",
+      "uiLocation": ["pages-tab"]
+    },
+    "existing.blog": {
+      "doc": "existing-user/04-blog.md",
+      "blogSlug": "guide-blog",
+      "title": "ブログ記事の管理",
+      "uiLocation": ["blog-section"]
+    },
+    "existing.updateDeploy": {
+      "doc": "existing-user/05-update-deploy.md",
+      "blogSlug": "guide-update-deploy",
+      "title": "サイト更新と再デプロイ",
+      "uiLocation": ["actions-tab"]
+    }
+  }
+}
