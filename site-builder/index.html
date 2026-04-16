@@ -152,6 +152,7 @@
         </a>
         <nav class="hidden lg:flex items-center gap-8" aria-label="メインナビゲーション">
           <a href="/site-builder/" class="text-sm font-medium text-sky-600 transition-colors py-3" aria-current="page">Site Builder</a>
+          <a href="#cost" class="text-sm font-medium text-dark-600 hover:text-sky-600 transition-colors py-3">料金</a>
           <a href="/#services" class="text-sm font-medium text-dark-600 hover:text-sky-600 transition-colors py-3">サービス</a>
           <a href="/blog/" class="text-sm font-medium text-dark-600 hover:text-sky-600 transition-colors py-3">ブログ</a>
           <a href="/#contact" class="text-sm font-medium text-dark-600 hover:text-sky-600 transition-colors py-3">お問い合わせ</a>
@@ -167,6 +168,7 @@
     <div id="mobile-menu" class="mobile-menu fixed top-16 left-0 right-0 h-[calc(100vh-4rem)] bg-white lg:hidden z-50 overflow-y-auto" role="dialog" aria-label="モバイルナビゲーション">
       <nav class="flex flex-col p-6 gap-1" aria-label="モバイルナビゲーション">
         <a href="/site-builder/" class="mobile-link py-3 px-4 rounded-lg bg-sky-50 text-sky-600 font-medium text-dark-800" aria-current="page">Site Builder</a>
+        <a href="#cost" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">料金</a>
         <a href="/#services" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">サービス</a>
         <a href="/blog/" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">ブログ</a>
         <a href="/#about" class="mobile-link py-3 px-4 rounded-lg hover:bg-sky-50 font-medium text-dark-800">会社概要</a>
@@ -518,20 +520,154 @@
       </div>
     </section>
 
-    <!-- ========== 対応AIモデル（暫定・Phase 3で全面刷新予定） ========== -->
-    <section class="py-16 lg:py-20 bg-white border-t border-dark-100" aria-label="採用AIモデル">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
-        <p class="text-dark-400 text-sm font-medium mb-3 uppercase tracking-wider">POWERED BY</p>
-        <p class="text-dark-700 text-base sm:text-lg mb-8"><strong class="text-dark-900">Claude Opus 4.6</strong> 限定採用 — Sクラス品質を保証できる唯一のモデル</p>
-        <div class="flex flex-wrap items-center justify-center gap-8 lg:gap-16">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-sky-50 rounded-xl flex items-center justify-center">
-              <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
-            </div>
-            <span class="font-bold text-dark-700">Anthropic Claude Opus 4.6</span>
+    <!-- ========== Claude Opus 4.6 専用 / Sクラス保証の根拠 ========== -->
+    <section class="py-20 lg:py-28 bg-white border-t border-dark-100" aria-label="Claude Opus 4.6 採用の根拠">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-in">
+          <p class="text-sky-600 text-sm font-bold uppercase tracking-wider mb-3">POWERED BY</p>
+          <h2 class="text-3xl lg:text-4xl font-black font-display text-dark-900 mb-4">Claude Opus 4.6 <span class="text-sky-500">限定採用</span></h2>
+          <p class="text-dark-600 max-w-2xl mx-auto">Sクラス品質を保証できる唯一のモデルとして、Anthropic Claude Opus 4.6 のみを正式サポート。</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6 fade-in">
+          <div class="bg-sky-50/60 rounded-2xl p-6">
+            <div class="text-sky-500 text-2xl font-black mb-2">#1</div>
+            <h3 class="font-bold text-dark-900 mb-2">日本語 E-E-A-T で首位</h3>
+            <p class="text-sm text-dark-600">日本語コンテンツの自然さ・専門性・信頼性で Gemini / GPT を上回ると実測確認。Google ガイドライン YMYL 領域での品質に直結。</p>
+          </div>
+          <div class="bg-sky-50/60 rounded-2xl p-6">
+            <div class="text-sky-500 text-2xl font-black mb-2">#2</div>
+            <h3 class="font-bold text-dark-900 mb-2">3法規 40KB を完全理解</h3>
+            <p class="text-sm text-dark-600">SPEC v2.3 + Google 公式基準 + Cornell GEO 論文の 3法規を system prompt 全文埋込で常時参照。長文コンテキスト処理で最高性能。</p>
+          </div>
+          <div class="bg-sky-50/60 rounded-2xl p-6">
+            <div class="text-sky-500 text-2xl font-black mb-2">#3</div>
+            <h3 class="font-bold text-dark-900 mb-2">プロンプトキャッシュ対応</h3>
+            <p class="text-sm text-dark-600">Anthropic 公式の ephemeral cache で 3法規部分をキャッシュ化。2回目以降は最大 <strong>85% トークン費用削減</strong>。</p>
           </div>
         </div>
-        <p class="text-dark-400 text-xs mt-8 max-w-2xl mx-auto">※ Gemini / GPT は日本語 E-E-A-T 評価が劣後するため Sクラス保証の対象外。Sonnet 4.5 / Haiku 4.5 は routingMode の分業時に限定使用されます。</p>
+        <div class="mt-10 bg-amber-50 border border-amber-200 rounded-xl p-5 fade-in">
+          <p class="text-sm text-dark-700"><strong class="text-amber-700">⚠ 非対応モデル:</strong> Gemini / GPT は日本語 E-E-A-T 評価が劣後するため、S クラス保証の対象外。Claude Sonnet 4.5 は A クラス想定で S クラス保証外です。</p>
+        </div>
+        <div class="mt-8 text-center fade-in">
+          <a href="/blog/guide-claude-opus/" class="inline-block mx-3 text-sky-600 hover:text-sky-700 font-medium underline">→ なぜClaude Opus 4.6か（完全解説）</a>
+          <a href="/blog/guide-routing-mode/" class="inline-block mx-3 text-sky-600 hover:text-sky-700 font-medium underline">→ モデル分業ルーティング活用術</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== API費用の真実（不安解消） ========== -->
+    <section id="cost" class="py-20 lg:py-28 bg-gradient-to-b from-white to-dark-50" aria-label="API費用の真実">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-in">
+          <p class="text-sky-600 text-sm font-bold uppercase tracking-wider mb-3">TRANSPARENT PRICING</p>
+          <h2 class="text-3xl lg:text-4xl font-black font-display text-dark-900 mb-4">「APIは高い」は、<span class="text-sky-500">思い込み</span>です</h2>
+          <p class="text-dark-600 max-w-2xl mx-auto">実測データで明らかになった、Claude API の本当の費用。外注制作との比較で真のコスパが見えます。</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-12 fade-in">
+          <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-6 text-center">
+            <p class="text-xs font-bold text-red-700 uppercase tracking-wider mb-2">外注制作会社</p>
+            <div class="text-4xl font-black font-display text-red-600 mb-2">¥300,000〜</div>
+            <p class="text-sm text-dark-600">コーポレートサイト1本<br>納期2〜4週間</p>
+          </div>
+          <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-6 text-center">
+            <p class="text-xs font-bold text-amber-700 uppercase tracking-wider mb-2">ノーコードツール</p>
+            <div class="text-4xl font-black font-display text-amber-600 mb-2">¥36,000〜</div>
+            <p class="text-sm text-dark-600">年額 Wix/STUDIO Pro<br>SEO・E-E-A-T 不十分</p>
+          </div>
+          <div class="bg-emerald-50 border-2 border-emerald-500 rounded-2xl p-6 text-center shadow-lg">
+            <p class="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-2">Site Builder + Claude API</p>
+            <div class="text-4xl font-black font-display text-emerald-600 mb-2">¥300〜</div>
+            <p class="text-sm text-dark-600">コーポレートサイト1本<br>約5分で生成・S-RANK保証</p>
+          </div>
+        </div>
+
+        <div class="bg-white border border-dark-200 rounded-2xl p-6 lg:p-8 mb-8 fade-in">
+          <h3 class="text-xl font-bold font-display text-dark-900 mb-2">規模別 API費用シミュレーション</h3>
+          <p class="text-sm text-dark-500 mb-6">※ Anthropic Claude Opus 4.6 公式価格（$15/M入力 / $75/M出力）、$1=¥150換算で概算</p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <caption class="sr-only">規模別 Claude API 費用シミュレーション（初回生成・キャッシュ後・外注比）</caption>
+              <thead>
+                <tr class="border-b-2 border-dark-200 text-dark-700">
+                  <th scope="col" class="text-left py-3 px-3 font-bold">サイト規模</th>
+                  <th scope="col" class="text-right py-3 px-3 font-bold">初回生成</th>
+                  <th scope="col" class="text-right py-3 px-3 font-bold">キャッシュ後<br>（2回目以降）</th>
+                  <th scope="col" class="text-right py-3 px-3 font-bold">外注比</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-dark-100">
+                <tr>
+                  <td class="py-3 px-3"><strong>ランディングページ 1枚</strong><br><span class="text-xs text-dark-500">2,000〜3,000字</span></td>
+                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥60 <span class="text-xs text-dark-500">($0.40)</span></td>
+                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥15 <span class="text-xs">($0.10)</span></td>
+                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥10万の<br>約0.06%</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-3"><strong>コーポレート 5ページ</strong><br><span class="text-xs text-dark-500">各3,000字 + JSON-LD</span></td>
+                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥310 <span class="text-xs text-dark-500">($2.05)</span></td>
+                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥85 <span class="text-xs">($0.55)</span></td>
+                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥30万の<br>約0.1%</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-3"><strong>大規模 8ページ + ブログ10本</strong><br><span class="text-xs text-dark-500">構造化データ完備</span></td>
+                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥790 <span class="text-xs text-dark-500">($5.25)</span></td>
+                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥225 <span class="text-xs">($1.50)</span></td>
+                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥80万の<br>約0.1%</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-3"><strong>ブログ記事 単発</strong><br><span class="text-xs text-dark-500">3,000字</span></td>
+                  <td class="text-right py-3 px-3 text-dark-900 font-semibold">¥66 <span class="text-xs text-dark-500">($0.44)</span></td>
+                  <td class="text-right py-3 px-3 text-emerald-600 font-bold">¥18 <span class="text-xs">($0.12)</span></td>
+                  <td class="text-right py-3 px-3 text-red-600 font-bold text-xs">外注¥3万の<br>約0.2%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-dark-500 mt-4">※ キャッシュは Anthropic 公式 ephemeral cache により最大85%削減。routingMode=balanced 設定で会話・検証部分は更に60〜80%削減可能。</p>
+        </div>
+
+        <div class="bg-sky-50 border border-sky-200 rounded-2xl p-6 lg:p-8 mb-8 fade-in">
+          <h3 class="text-xl font-bold font-display text-dark-900 mb-4">月5サイト以上なら Claude Max が実質使い放題</h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-sm font-bold text-dark-700 mb-2">従量制 Pay-as-you-go</p>
+              <p class="text-2xl font-black text-dark-900">使った分だけ<br><span class="text-sky-600">¥60〜¥790/サイト</span></p>
+              <p class="text-xs text-dark-500 mt-2">月1〜3サイト制作に最適</p>
+            </div>
+            <div>
+              <p class="text-sm font-bold text-dark-700 mb-2">Claude Max $100/月（約¥15,000）</p>
+              <p class="text-2xl font-black text-dark-900">月5サイト以上で<br><span class="text-emerald-600">実質使い放題</span></p>
+              <p class="text-xs text-dark-500 mt-2">制作会社・複数案件運用の方に最適</p>
+            </div>
+          </div>
+          <div class="mt-6 pt-6 border-t border-sky-200">
+            <p class="text-sm text-dark-700"><strong>損益分岐点:</strong> 従量制で月4サイト超 = Max プランの方が安い（詳細は <a href="/blog/guide-claude-max-plan/" class="text-sky-600 hover:text-sky-700 underline font-medium">Maxプラン損益分岐ガイド</a>）</p>
+          </div>
+        </div>
+
+        <blockquote cite="/" class="bg-dark-900 text-white rounded-2xl p-6 lg:p-8 mb-8 fade-in">
+          <p class="text-base lg:text-lg leading-relaxed mb-4">「このサイト <strong class="text-sky-400">harton.pages.dev</strong> 自体が Site Builder で生成され、<strong class="text-sky-400">SPEC v2.3 / 649項目中 99.8%合格 / S-RANK</strong> を達成しています。制作費は実質 <strong class="text-emerald-400">¥500以下</strong>。外注¥30万と同等以上の品質を、1/600 の費用で実現した生きた実例です。」</p>
+          <footer class="text-dark-400 text-sm">— <cite>HARTON 自社検証 2026-04-15 / <a href="/blog/" class="text-sky-400 hover:text-sky-300 underline">詳細レポート</a> / <a href="https://arxiv.org/abs/2311.09735" class="text-sky-400 hover:text-sky-300 underline">GEO論文 Cornell KDD2024</a></cite></footer>
+        </blockquote>
+
+        <div class="grid md:grid-cols-3 gap-4 fade-in">
+          <a href="/blog/guide-claude-cost/" class="block bg-white hover:bg-sky-50 border border-dark-200 rounded-xl p-5 transition">
+            <p class="text-xs text-sky-600 font-bold uppercase tracking-wider mb-1">費用完全ガイド</p>
+            <p class="font-bold text-dark-900 text-sm mb-1">Claude API費用完全ガイド</p>
+            <p class="text-xs text-dark-500">ページ数別・文字数別の詳細シミュレーション</p>
+          </a>
+          <a href="/blog/guide-prompt-cache/" class="block bg-white hover:bg-sky-50 border border-dark-200 rounded-xl p-5 transition">
+            <p class="text-xs text-sky-600 font-bold uppercase tracking-wider mb-1">技術解説</p>
+            <p class="font-bold text-dark-900 text-sm mb-1">プロンプトキャッシュで85%削減</p>
+            <p class="text-xs text-dark-500">Anthropic公式機能の仕組みと検証結果</p>
+          </a>
+          <a href="/blog/guide-claude-vs-outsource/" class="block bg-white hover:bg-sky-50 border border-dark-200 rounded-xl p-5 transition">
+            <p class="text-xs text-sky-600 font-bold uppercase tracking-wider mb-1">比較検証</p>
+            <p class="font-bold text-dark-900 text-sm mb-1">Claude vs 外注制作 徹底比較</p>
+            <p class="text-xs text-dark-500">費用・品質・納期・メンテ性の4軸で評価</p>
+          </a>
+        </div>
       </div>
     </section>
 
