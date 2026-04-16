@@ -7,17 +7,25 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "フォルダ管理"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "フォルダ管理"
+    ]
   },
   {
     "slug": "guide-ai-setup",
     "title": "Claude API の設定方法 — Sクラス保証の唯一条件",
     "description": "Site Builderは Claude Opus 4.6 限定。SPEC v2.3 + Google公式 + Cornell大学GEO論文 の3法規に完全準拠する唯一のモデルとして、Sクラス品質を保証します。APIキー取得からルーティング戦略まで解説。",
-    "content": "<h2>なぜ Claude Opus 4.6 限定なのか</h2><blockquote cite=\"https://arxiv.org/abs/2311.09735\"><p>「Generative Engine Optimization (GEO) は、生成AIの引用対象として採用されるための最適化手法であり、Quotation・Statistics・Citation の3要素で引用率が平均 <strong>40.6%</strong> 改善する」</p><footer>— <cite>Aggarwal et al. (Cornell Univ.) <a href=\"https://arxiv.org/abs/2311.09735\" target=\"_blank\" rel=\"noopener noreferrer\">Generative Engine Optimization, KDD 2024</a></cite></footer></blockquote><p>HARTON Site Builder は 2026年4月より <strong>Claude Opus 4.6 限定</strong>に刷新しました。これは、以下の3法規に完全準拠してサイト生成できる唯一のモデルだからです。</p><ol><li><strong>SPEC v2.3</strong> — 313項目の自社品質規格（日本語E-E-A-T・構造化データ・アクセシビリティ等）</li><li><strong>GOOGLE-STANDARDS</strong> — Google公式「有用で信頼性の高いコンテンツ」ガイドライン</li><li><strong>GEO-STANDARDS</strong> — Cornell大学 KDD2024 論文（arXiv:2311.09735）の生成エンジン最適化 9手法</li></ol><p>Gemini / ChatGPT は日本語 E-E-A-T 評価が劣後するため、Sクラス保証の対象外となりました（サポート終了）。</p><h2>モデル対応表</h2><ul><li><strong>Claude Opus 4.6</strong> ✅ Sクラス保証（推奨） — 3法規完全準拠</li><li><strong>Claude Sonnet 4.5</strong> ⚠ Aクラス想定 — 分業ルーティング時のサブモデル</li><li><strong>Claude Haiku 4</strong> ⚠ 検証・軽量処理用</li><li><strong>Gemini / GPT</strong> ❌ 非対応 — 日本語 E-E-A-T 劣後により Sクラス保証不可</li></ul><h2>APIキーの取得手順</h2><ol><li><a href=\"https://console.anthropic.com/settings/keys\" target=\"_blank\" rel=\"noopener noreferrer\">console.anthropic.com/settings/keys</a> にアクセス</li><li>Anthropicアカウントでログイン（未作成ならサインアップ）</li><li>「Create Key」から新しいAPIキーを発行</li><li>表示された <code>sk-ant-api...</code> 形式のキーを<strong>必ずコピー</strong>（再表示不可）</li><li>Site Builder 設定画面「Claude API」セクションに貼り付け</li><li>「接続テスト」で動作確認</li></ol><h2>ルーティング戦略の選択（routingMode）</h2><p>Site Builder はモデル分業ルーティングに対応し、用途別に最適なモデルを自動選択します。</p><ul><li><strong>quality</strong>（全 Opus 推奨） — 設計・生成・検証すべて Opus 4.6。最高品質。月2〜3サイト生成者向け</li><li><strong>balanced</strong> — サイト構造設計=Opus、HTMLコーディング=Opus、検証=Haiku の分業。コストと品質のバランス最適</li><li><strong>economy</strong> — 反復作業を Haiku にフォールバック。月5サイト以上の大量生成者向け</li></ul><h2>プロンプトキャッシュによる費用削減</h2><p>3法規の仕様書 約<strong>40KB</strong>がシステムプロンプトに常時埋込まれますが、Anthropicの<strong>プロンプトキャッシュ機能</strong>により2回目以降の生成は<strong>最大85%</strong>のトークン費用削減が可能です。</p><h2>費用目安</h2><ul><li><strong>従量制（Opus 4.6）</strong> — サイト1本あたり $2〜$7（約300〜1,000円）</li><li><strong>Claude Max $100/月</strong> — 月5サイト以上生成するなら実質使い放題</li><li><strong>外注（Web制作会社）</strong> — ¥300,000〜が一般相場。Site Builderなら同等品質で圧倒的低コスト</li></ul><h2>セキュリティ（BYO-Key）</h2><p>APIキーはお使いのPCに<strong>AES-256ローカル暗号化</strong>で保存されます。アプリ運営側のサーバーを経由しない<strong>BYO-Key（Bring Your Own Key）</strong>方式のため、第三者にキーが漏れる経路は存在しません。万一漏洩した場合は Anthropic Console から即座にRevoke可能です。</p><h2>よくある質問（FAQ）</h2><h3>Anthropicアカウントの開設は有料ですか？</h3><p>アカウント作成とキー発行は無料です。初回は $5 の無料クレジットが付与される場合もあります。実際の利用は従量課金で、サイト1本あたり数百〜千円程度です。</p><h3>SonnetやHaikuだけで生成できますか？</h3><p>可能ですが Sクラス保証の対象外（Aクラス想定）となります。サイト構造設計など中核部分は Opus 4.6 の使用を強く推奨します。</p><h3>既存の Gemini/GPT キーは使えますか？</h3><p>2026年4月の刷新以降、Gemini / ChatGPT は非対応になりました。Anthropic Claude API キーへの移行をお願いします。</p><h2>まとめ</h2><p>Sクラス品質保証の唯一条件は <strong>Claude Opus 4.6</strong> の利用です。APIキーは Anthropic Console で発行し、Site Builder に貼り付けるだけ。プロンプトキャッシュと分業ルーティングにより、最高品質と低コストを両立できます。</p>",
+    "content": "<h2>なぜ Claude Opus 4.6 限定なのか</h2><blockquote cite=\"https://arxiv.org/abs/2311.09735\"><p>「Generative Engine Optimization (GEO) は、生成AIの引用対象として採用されるための最適化手法であり、Quotation・Statistics・Citation の3要素で引用率が平均 <strong>40.6%</strong> 改善する」</p><footer>— <cite>Aggarwal et al. (Cornell Univ.) <a href=\"https://arxiv.org/abs/2311.09735\" target=\"_blank\" rel=\"noopener noreferrer\">Generative Engine Optimization, KDD 2024</a></cite></footer></blockquote><p>HARTON Site Builder は 2026年4月より <strong>Claude Opus 4.6 限定</strong>に刷新しました。これは、以下の3法規に完全準拠してサイト生成できる唯一のモデルだからです。</p><ol><li><strong>SPEC v2.3</strong> — 313項目の自社品質規格（日本語E-E-A-T・構造化データ・アクセシビリティ等）</li><li><strong>GOOGLE-STANDARDS</strong> — Google公式「有用で信頼性の高いコンテンツ」ガイドライン</li><li><strong>GEO-STANDARDS</strong> — Cornell大学 KDD2024 論文（arXiv:2311.09735）の生成エンジン最適化 9手法</li></ol><p>Gemini / ChatGPT は日本語 E-E-A-T 評価が劣後するため、Sクラス保証の対象外となりました（サポート終了）。</p><h2>モデル対応表</h2><ul><li><strong>Claude Opus 4.6</strong> ✅ Sクラス保証（推奨） — 3法規完全準拠</li><li><strong>Claude Sonnet 4.5</strong> ⚠ Aクラス想定 — 分業ルーティング時のサブモデル</li><li><strong>Claude Haiku 4</strong> ⚠ 検証・軽量処理用</li><li><strong>Gemini / GPT</strong> ❌ 非対応 — 日本語 E-E-A-T 劣後により Sクラス保証不可</li></ul><h2>APIキーの取得手順</h2><ol><li><a href=\"https://console.anthropic.com/settings/keys\" target=\"_blank\" rel=\"noopener noreferrer\">console.anthropic.com/settings/keys</a> にアクセス</li><li>Anthropicアカウントでログイン（未作成ならサインアップ）</li><li>「Create Key」から新しいAPIキーを発行</li><li>表示された <code>sk-ant-api...</code> 形式のキーを<strong>必ずコピー</strong>（再表示不可）</li><li>Site Builder 設定画面「Claude API」セクションに貼り付け</li><li>「接続テスト」で動作確認</li></ol><h2>ルーティング戦略の選択（routingMode）</h2><p>Site Builder はモデル分業ルーティングに対応し、用途別に最適なモデルを自動選択します。</p><ul><li><strong>quality</strong>（全 Opus 推奨） — 設計・生成・検証すべて Opus 4.6。最高品質。月2〜3サイト生成者向け</li><li><strong>balanced</strong> — サイト構造設計=Opus、HTMLコーディング=Opus、検証=Haiku の分業。コストと品質のバランス最適</li><li><strong>economy</strong> — 反復作業を Haiku にフォールバック。月5サイト以上の大量生成者向け</li></ul><h2>プロンプトキャッシュによる費用削減</h2><p>3法規の仕様書 約<strong>40KB</strong>がシステムプロンプトに常時埋込まれますが、Anthropicの<strong>プロンプトキャッシュ機能</strong>により2回目以降の生成は<strong>最大85%</strong>のトークン費用削減が可能です。</p><h2>費用目安</h2><ul><li><strong>従量制（balanced モード）</strong> — LP 1枚 約¥60、コーポレート5P 約¥310</li><li><strong>月額上限設定</strong> — Anthropic コンソールで $5〜 の上限を設定可能。上限到達で自動停止（<a href=\"/blog/guide-claude-max-plan/\">安全装置の詳細</a>）</li><li><strong>外注（Web制作会社）</strong> — ¥300,000〜が一般相場。Site Builderなら同等品質で <strong>0.1%以下</strong> の費用</li></ul><h2>セキュリティ（BYO-Key）</h2><p>APIキーはお使いのPCに<strong>AES-256ローカル暗号化</strong>で保存されます。アプリ運営側のサーバーを経由しない<strong>BYO-Key（Bring Your Own Key）</strong>方式のため、第三者にキーが漏れる経路は存在しません。万一漏洩した場合は Anthropic Console から即座にRevoke可能です。</p><h2>よくある質問（FAQ）</h2><h3>Anthropicアカウントの開設は有料ですか？</h3><p>アカウント作成とキー発行は無料です。初回は $5 の無料クレジットが付与される場合もあります。実際の利用は従量課金で、サイト1本あたり数百〜千円程度です。</p><h3>SonnetやHaikuだけで生成できますか？</h3><p>可能ですが Sクラス保証の対象外（Aクラス想定）となります。サイト構造設計など中核部分は Opus 4.6 の使用を強く推奨します。</p><h3>既存の Gemini/GPT キーは使えますか？</h3><p>2026年4月の刷新以降、Gemini / ChatGPT は非対応になりました。Anthropic Claude API キーへの移行をお願いします。</p><h2>まとめ</h2><p>Sクラス品質保証の唯一条件は <strong>Claude Opus 4.6</strong> の利用です。APIキーは Anthropic Console で発行し、Site Builder に貼り付けるだけ。プロンプトキャッシュと分業ルーティングにより、最高品質と低コストを両立できます。</p>",
     "contentType": "guide",
-    "publishedAt": "2026-04-12",
+    "publishedAt": "2026-04-16",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "AI設定"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "AI設定"
+    ]
   },
   {
     "slug": "guide-business-info",
@@ -27,7 +35,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "事業情報"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "事業情報"
+    ]
   },
   {
     "slug": "guide-domain-hosting",
@@ -37,7 +49,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "ドメイン"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "ドメイン"
+    ]
   },
   {
     "slug": "guide-contact-form",
@@ -47,7 +63,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "フォーム"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "フォーム"
+    ]
   },
   {
     "slug": "guide-seo-analytics",
@@ -57,7 +77,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "SEO"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "SEO"
+    ]
   },
   {
     "slug": "guide-git-deploy",
@@ -67,7 +91,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "デプロイ"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "デプロイ"
+    ]
   },
   {
     "slug": "guide-chatbot",
@@ -77,7 +105,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "チャットボット"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "チャットボット"
+    ]
   },
   {
     "slug": "guide-services",
@@ -87,7 +119,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "サービス"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "サービス"
+    ]
   },
   {
     "slug": "guide-faq",
@@ -97,7 +133,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "FAQ"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "FAQ"
+    ]
   },
   {
     "slug": "guide-eeat",
@@ -107,7 +147,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "E-E-A-T"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "E-E-A-T"
+    ]
   },
   {
     "slug": "guide-generate",
@@ -117,7 +161,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "サイト生成"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "サイト生成"
+    ]
   },
   {
     "slug": "guide-deploy",
@@ -127,7 +175,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "初心者向け", "公開・デプロイ"]
+    "tags": [
+      "Site Builder",
+      "初心者向け",
+      "公開・デプロイ"
+    ]
   },
   {
     "slug": "guide-connect-existing",
@@ -137,7 +189,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "既存サイト向け", "既存サイト"]
+    "tags": [
+      "Site Builder",
+      "既存サイト向け",
+      "既存サイト"
+    ]
   },
   {
     "slug": "guide-review-config",
@@ -147,7 +203,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "既存サイト向け", "設定確認"]
+    "tags": [
+      "Site Builder",
+      "既存サイト向け",
+      "設定確認"
+    ]
   },
   {
     "slug": "guide-edit-pages",
@@ -157,7 +217,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "既存サイト向け", "ページ管理"]
+    "tags": [
+      "Site Builder",
+      "既存サイト向け",
+      "ページ管理"
+    ]
   },
   {
     "slug": "guide-blog",
@@ -167,7 +231,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "既存サイト向け", "ブログ"]
+    "tags": [
+      "Site Builder",
+      "既存サイト向け",
+      "ブログ"
+    ]
   },
   {
     "slug": "guide-update-deploy",
@@ -177,17 +245,25 @@
     "contentType": "guide",
     "publishedAt": "2026-04-12",
     "category": "Site Builder ガイド",
-    "tags": ["Site Builder", "既存サイト向け", "更新・デプロイ"]
+    "tags": [
+      "Site Builder",
+      "既存サイト向け",
+      "更新・デプロイ"
+    ]
   },
   {
     "slug": "guide-claude-cost",
     "title": "Claude API費用完全ガイド — 規模別シミュレーション",
     "description": "Claude Opus 4.6 の API費用を LP1枚¥60〜大規模¥790まで規模別に実測シミュレーション。外注¥30万との比較で真のコスパを解説します。",
-    "content": "<h2>結論 — Claude API は「高くない」</h2><p><strong>本記事で判明する数値</strong>: LP 1枚 = <strong class=\"\">¥60（$0.40）</strong>、コーポレート 5ページ = <strong>¥310（$2.05）</strong>、大規模 8P + ブログ10本 = <strong>¥790（$5.25）</strong>。外注制作（¥100,000〜¥800,000）と比較して<strong>約 0.1〜0.2%</strong>の費用で同等以上の品質が得られます。</p><blockquote cite=\"https://www.anthropic.com/pricing\"><p>「Claude Opus 4.6 の公式価格は入力 $15/M tokens、出力 $75/M tokens。プロンプトキャッシュ利用時は入力が <strong>$1.50/M（90%割引）</strong>まで下がる」</p><footer>— <cite>Anthropic <a href=\"https://www.anthropic.com/pricing\" target=\"_blank\" rel=\"noopener noreferrer\">Pricing 公式ページ</a></cite></footer></blockquote><h2>Claude Opus 4.6 公式価格の内訳</h2><p>Anthropic Claude Opus 4.6 の2026年4月時点の従量課金は以下の通りです（1 USD = 150 円換算）。</p><ul><li><strong>入力トークン</strong>: $15 / 100万トークン（約¥2,250）</li><li><strong>出力トークン</strong>: $75 / 100万トークン（約¥11,250）</li><li><strong>キャッシュ Hit 時の入力</strong>: $1.50 / 100万トークン（<strong>90%割引</strong>）</li><li><strong>キャッシュ Write 時の入力</strong>: $18.75 / 100万トークン（+25%、初回のみ）</li></ul><h2>規模別 費用シミュレーション（実測ベース）</h2><p>Site Builder の実運用ログから算出した、サイト規模別の API 費用です。</p><table><thead><tr><th>サイト規模</th><th>入力tokens</th><th>出力tokens</th><th>初回費用</th><th>2回目以降</th><th>外注比</th></tr></thead><tbody><tr><td>LP 1枚（2,000字）</td><td>約12,000</td><td>約3,000</td><td><strong>¥60</strong>（$0.40）</td><td><strong>¥15</strong>（$0.10）</td><td>¥100,000 の <strong>0.06%</strong></td></tr><tr><td>コーポレート 5ページ</td><td>約60,000</td><td>約15,000</td><td><strong>¥310</strong>（$2.05）</td><td><strong>¥85</strong>（$0.55）</td><td>¥300,000 の <strong>0.1%</strong></td></tr><tr><td>大規模 8P + ブログ10本</td><td>約150,000</td><td>約38,000</td><td><strong>¥790</strong>（$5.25）</td><td><strong>¥225</strong>（$1.50）</td><td>¥800,000 の <strong>0.1%</strong></td></tr><tr><td>ブログ記事 単発 3,000字</td><td>約15,000</td><td>約3,500</td><td><strong>¥66</strong>（$0.44）</td><td><strong>¥18</strong>（$0.12）</td><td>¥30,000 の <strong>0.2%</strong></td></tr></tbody></table><h2>文字数別 単価早見表</h2><p>ブログ記事など単発生成の費用目安です。</p><ul><li><strong>2,000字</strong>: 初回 ¥44（$0.29） / キャッシュ後 ¥12（$0.08）</li><li><strong>3,000字</strong>: 初回 ¥66（$0.44） / キャッシュ後 ¥18（$0.12）</li><li><strong>5,000字</strong>: 初回 ¥110（$0.73） / キャッシュ後 ¥30（$0.20）</li><li><strong>10,000字</strong>: 初回 ¥220（$1.47） / キャッシュ後 ¥60（$0.40）</li></ul><h2>3法規プロンプト（40KB）の費用インパクト</h2><p>Site Builder はシステムプロンプトに <strong>SPEC v2.3 + GOOGLE-STANDARDS + GEO-STANDARDS</strong> の計 約 40KB（約12,000トークン）を常時埋込みます。これを素で送ると1回 $0.18（約¥27）ですが、Anthropic のプロンプトキャッシュを使えば2回目以降は $0.018（<strong>¥2.7</strong>）に圧縮されます。</p><h2>実運用での節約術</h2><ul><li><strong>routingMode=balanced</strong>: 検証タスクを Haiku 4.5 にフォールバック → 費用 <strong>-65%</strong>（詳細は <a href=\"/blog/guide-routing-mode/\">routingMode完全ガイド</a>）</li><li><strong>プロンプトキャッシュ</strong>: 3法規40KBを ephemeral cache で <strong>-85%</strong>（<a href=\"/blog/guide-prompt-cache/\">仕組み解説</a>）</li><li><strong>並列生成</strong>: ページ単位で並列化し体感速度 -70%</li><li><strong>バッチ処理</strong>: 深夜枠でまとめ生成し Anthropic Batch API 利用で -50%</li></ul><h2>月5サイト以上なら Claude Max が実質使い放題</h2><p>従量制で月4サイトを超えると <strong>Claude Max $100/月（約¥15,000）</strong>の方が安くなります。制作会社や複数案件運用の方は Max プランが最適です（損益分岐の詳細は <a href=\"/blog/guide-claude-max-plan/\">Maxプラン損益分岐ガイド</a>）。</p><h2>よくある質問（FAQ）</h2><h3>Anthropic アカウント開設の初期費用はかかりますか？</h3><p>アカウント作成とAPIキー発行は無料です。初回サインアップ時は $5 の無料クレジットが付与される場合があります。</p><h3>実測と見積の誤差はどれくらい？</h3><p>±15% 程度。事業情報の文字数やサービス件数で変動しますが、LP 1枚が ¥100 を超えることは通常ありません。</p><h3>為替変動の影響は？</h3><p>1 USD = 140〜160円の変動幅で、最大 +10% 程度の影響。常に円高方向の見積で計算しているため超過リスクは低いです。</p><h2>まとめ</h2><p>Claude API の実測費用は <strong>LP 1枚 ¥60 / コーポレート5P ¥310 / 大規模 ¥790</strong>。外注比で <strong>0.1〜0.2%</strong>の驚異的コスパです。プロンプトキャッシュと routingMode を活用すれば、さらに <strong>85%</strong>の追加削減も可能です。</p>",
+    "content": "<h2>結論 — Claude API は「高くない」</h2><p><strong>本記事で判明する数値</strong>: LP 1枚 = <strong class=\"\">¥60（$0.40）</strong>、コーポレート 5ページ = <strong>¥310（$2.05）</strong>、大規模 8P + ブログ10本 = <strong>¥790（$5.25）</strong>。外注制作（¥100,000〜¥800,000）と比較して<strong>約 0.1〜0.2%</strong>の費用で同等以上の品質が得られます。</p><blockquote cite=\"https://www.anthropic.com/pricing\"><p>「Claude Opus 4.6 の公式価格は入力 $15/M tokens、出力 $75/M tokens。プロンプトキャッシュ利用時は入力が <strong>$1.50/M（90%割引）</strong>まで下がる」</p><footer>— <cite>Anthropic <a href=\"https://www.anthropic.com/pricing\" target=\"_blank\" rel=\"noopener noreferrer\">Pricing 公式ページ</a></cite></footer></blockquote><h2>Claude Opus 4.6 公式価格の内訳</h2><p>Anthropic Claude Opus 4.6 の2026年4月時点の従量課金は以下の通りです（1 USD = 150 円換算）。</p><ul><li><strong>入力トークン</strong>: $15 / 100万トークン（約¥2,250）</li><li><strong>出力トークン</strong>: $75 / 100万トークン（約¥11,250）</li><li><strong>キャッシュ Hit 時の入力</strong>: $1.50 / 100万トークン（<strong>90%割引</strong>）</li><li><strong>キャッシュ Write 時の入力</strong>: $18.75 / 100万トークン（+25%、初回のみ）</li></ul><h2>規模別 費用シミュレーション（実測ベース）</h2><p>Site Builder の実運用ログから算出した、サイト規模別の API 費用です。</p><table><thead><tr><th>サイト規模</th><th>入力tokens</th><th>出力tokens</th><th>初回費用</th><th>2回目以降</th><th>外注比</th></tr></thead><tbody><tr><td>LP 1枚（2,000字）</td><td>約12,000</td><td>約3,000</td><td><strong>¥60</strong>（$0.40）</td><td><strong>¥15</strong>（$0.10）</td><td>¥100,000 の <strong>0.06%</strong></td></tr><tr><td>コーポレート 5ページ</td><td>約60,000</td><td>約15,000</td><td><strong>¥310</strong>（$2.05）</td><td><strong>¥85</strong>（$0.55）</td><td>¥300,000 の <strong>0.1%</strong></td></tr><tr><td>大規模 8P + ブログ10本</td><td>約150,000</td><td>約38,000</td><td><strong>¥790</strong>（$5.25）</td><td><strong>¥225</strong>（$1.50）</td><td>¥800,000 の <strong>0.1%</strong></td></tr><tr><td>ブログ記事 単発 3,000字</td><td>約15,000</td><td>約3,500</td><td><strong>¥66</strong>（$0.44）</td><td><strong>¥18</strong>（$0.12）</td><td>¥30,000 の <strong>0.2%</strong></td></tr></tbody></table><h2>文字数別 単価早見表</h2><p>ブログ記事など単発生成の費用目安です。</p><ul><li><strong>2,000字</strong>: 初回 ¥44（$0.29） / キャッシュ後 ¥12（$0.08）</li><li><strong>3,000字</strong>: 初回 ¥66（$0.44） / キャッシュ後 ¥18（$0.12）</li><li><strong>5,000字</strong>: 初回 ¥110（$0.73） / キャッシュ後 ¥30（$0.20）</li><li><strong>10,000字</strong>: 初回 ¥220（$1.47） / キャッシュ後 ¥60（$0.40）</li></ul><h2>3法規プロンプト（40KB）の費用インパクト</h2><p>Site Builder はシステムプロンプトに <strong>SPEC v2.3 + GOOGLE-STANDARDS + GEO-STANDARDS</strong> の計 約 40KB（約12,000トークン）を常時埋込みます。これを素で送ると1回 $0.18（約¥27）ですが、Anthropic のプロンプトキャッシュを使えば2回目以降は $0.018（<strong>¥2.7</strong>）に圧縮されます。</p><h2>実運用での節約術</h2><ul><li><strong>routingMode=balanced</strong>: 検証タスクを Haiku 4.5 にフォールバック → 費用 <strong>-65%</strong>（詳細は <a href=\"/blog/guide-routing-mode/\">routingMode完全ガイド</a>）</li><li><strong>プロンプトキャッシュ</strong>: 3法規40KBを ephemeral cache で <strong>-85%</strong>（<a href=\"/blog/guide-prompt-cache/\">仕組み解説</a>）</li><li><strong>並列生成</strong>: ページ単位で並列化し体感速度 -70%</li><li><strong>バッチ処理</strong>: 深夜枠でまとめ生成し Anthropic Batch API 利用で -50%</li></ul><h2>使いすぎが心配な方へ — 月額上限設定</h2><p>Anthropic コンソールで<strong>月額上限（Usage Limit）</strong>を $5〜$50 の任意額に設定できます。上限到達でAPIは自動停止し、追加請求は発生しません。$5 上限でも LP 約12枚分の作業が可能です。さらに routingMode を balanced に切り替えれば費用を <strong>-65%</strong> 削減可能（詳細は <a href=\"/blog/guide-claude-max-plan/\">API課金の安全装置ガイド</a>）。</p><h2>よくある質問（FAQ）</h2><h3>Anthropic アカウント開設の初期費用はかかりますか？</h3><p>アカウント作成とAPIキー発行は無料です。初回サインアップ時は $5 の無料クレジットが付与される場合があります。</p><h3>実測と見積の誤差はどれくらい？</h3><p>±15% 程度。事業情報の文字数やサービス件数で変動しますが、LP 1枚が ¥100 を超えることは通常ありません。</p><h3>為替変動の影響は？</h3><p>1 USD = 140〜160円の変動幅で、最大 +10% 程度の影響。常に円高方向の見積で計算しているため超過リスクは低いです。</p><h2>まとめ</h2><p>Claude API の実測費用は <strong>LP 1枚 ¥60 / コーポレート5P ¥310 / 大規模 ¥790</strong>。外注比で <strong>0.1〜0.2%</strong>の驚異的コスパです。プロンプトキャッシュと routingMode を活用すれば、さらに <strong>85%</strong>の追加削減も可能です。</p>",
     "contentType": "guide",
     "publishedAt": "2026-04-16",
     "category": "Claude API",
-    "tags": ["Claude", "API費用", "コスト比較"]
+    "tags": [
+      "Claude",
+      "API費用",
+      "コスト比較"
+    ]
   },
   {
     "slug": "guide-claude-vs-outsource",
@@ -197,7 +273,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-16",
     "category": "Claude API",
-    "tags": ["Claude", "外注比較", "コスト"]
+    "tags": [
+      "Claude",
+      "外注比較",
+      "コスト"
+    ]
   },
   {
     "slug": "guide-prompt-cache",
@@ -207,7 +287,11 @@
     "contentType": "guide",
     "publishedAt": "2026-04-16",
     "category": "Claude API",
-    "tags": ["Claude", "プロンプトキャッシュ", "コスト削減"]
+    "tags": [
+      "Claude",
+      "プロンプトキャッシュ",
+      "コスト削減"
+    ]
   },
   {
     "slug": "guide-claude-opus",
@@ -217,26 +301,39 @@
     "contentType": "guide",
     "publishedAt": "2026-04-16",
     "category": "Claude API",
-    "tags": ["Claude", "Opus 4.6", "モデル選定"]
+    "tags": [
+      "Claude",
+      "Opus 4.6",
+      "モデル選定"
+    ]
   },
   {
     "slug": "guide-routing-mode",
     "title": "routingMode完全ガイド — quality/balanced/economy",
     "description": "Claude Opus/Sonnet/Haiku を自動分業する Site Builder の routingMode を解説。タスク別最適モデル選択で品質を維持しつつ費用を最大80%削減する仕組みを技術解説します。",
-    "content": "<h2>結論 — balanced モードで費用 -65% / 品質そのまま</h2><p><strong>本記事で判明する数値</strong>: quality モード $2.05 → balanced モード <strong>$0.72（-65%）</strong>、economy モード <strong>$0.28（-86%）</strong>。S-RANK保証は quality/balanced のみ、economy は検証用。月5サイトで年間 <strong>¥140,000</strong> 以上の差になります。</p><blockquote cite=\"https://arxiv.org/abs/2311.09735\"><p>「複数モデルの分業（Mixture of Experts）は、タスク特性に応じた最適モデル選択で品質を維持しつつ費用を大幅削減できる」</p><footer>— <cite>Aggarwal et al. <a href=\"https://arxiv.org/abs/2311.09735\" target=\"_blank\" rel=\"noopener noreferrer\">Generative Engine Optimization, KDD 2024</a></cite></footer></blockquote><h2>3モード比較表</h2><table><thead><tr><th>タスク</th><th>quality</th><th>balanced</th><th>economy</th></tr></thead><tbody><tr><td>サイト構造設計（design）</td><td>Opus 4.6</td><td>Opus 4.6</td><td>Sonnet 4.5</td></tr><tr><td>HTML/コンテンツ生成（generate）</td><td>Opus 4.6</td><td>Opus 4.6</td><td>Sonnet 4.5</td></tr><tr><td>修正・リペア（repair）</td><td>Opus 4.6</td><td>Opus 4.6</td><td>Sonnet 4.5</td></tr><tr><td>会話・提案（chat/suggest）</td><td>Opus 4.6</td><td>Sonnet 4.5</td><td>Haiku 4.5</td></tr><tr><td>検証・スコアリング（validate）</td><td>Opus 4.6</td><td>Haiku 4.5</td><td>Haiku 4.5</td></tr><tr><td>Sクラス保証</td><td>✅</td><td>✅</td><td>⚠ A想定</td></tr><tr><td>コーポレート5P 実測費用</td><td>$2.05</td><td><strong>$0.72</strong></td><td>$0.28</td></tr></tbody></table><h2>なぜ validate は Haiku で十分か</h2><p>SPEC v2.3 の 649項目検証は「パターンマッチング」と「構造化データの形式検査」が主で、深い推論を必要としません。Haiku 4.5 は正規表現的タスクで Opus と同等の精度を持ち、費用は <strong>1/15</strong> です。このため balanced モードでは validate を Haiku に委譲しています。</p><h2>サイト生成で Opus を外してはいけない理由</h2><p>generate/repair タスクは 3法規40KB を参照しながら業種別最適化を行う複合推論で、Sonnet 以下では以下の問題が発生します。</p><ul><li><strong>G-6 位置最適化</strong>: 上位30%にエビデンス配置する位置制御の精度低下</li><li><strong>Authoritative Tone</strong>: 権威的論調と親しみやすさのバランス失調</li><li><strong>JSON-LD の整合性</strong>: Organization / Person / Product 複数スキーマの相互整合</li></ul><h2>モード別 月間費用シミュレーション（月5サイト制作）</h2><table><thead><tr><th>モード</th><th>1サイト</th><th>月5サイト</th><th>年換算</th><th>Maxプラン比</th></tr></thead><tbody><tr><td>quality</td><td>$2.05</td><td>$10.25（¥1,540）</td><td>¥18,400</td><td>+23%</td></tr><tr><td>balanced</td><td>$0.72</td><td>$3.60（¥540）</td><td>¥6,480</td><td>-57%</td></tr><tr><td>economy</td><td>$0.28</td><td>$1.40（¥210）</td><td>¥2,520</td><td>-83%</td></tr></tbody></table><p>月5サイト以上なら <a href=\"/blog/guide-claude-max-plan/\">Claude Max $100/月</a> の方がさらに安くなります。</p><h2>モード推奨マトリクス</h2><ul><li><strong>quality</strong>: 最重要案件（大手クライアント・ブランドサイト）、月1〜2本</li><li><strong>balanced</strong>: 通常業務の推奨（中小企業サイト・LP・ブログ）、月3〜10本</li><li><strong>economy</strong>: 試作・検証用途のみ（本番環境では非推奨）</li></ul><h2>よくある質問（FAQ）</h2><h3>モード切替は生成後にできますか？</h3><p>はい。Site Builder 設定画面から即時切替可能で、次回生成から反映されます。既存サイトの再生成にも有効です。</p><h3>economy で作ったサイトは品質劣化しますか？</h3><p>A クラス想定のため S-RANK 基準を満たさない可能性があります（FAIL 2〜5件の発生）。本番公開前に必ず quality/balanced で再生成してください。</p><h3>プロンプトキャッシュとの併用は？</h3><p>はい、プロンプトキャッシュは全モードで自動適用されます。balanced モード + キャッシュで実質 <strong>-85%</strong> が実現します（詳細は <a href=\"/blog/guide-prompt-cache/\">キャッシュ解説</a>）。</p><h2>まとめ</h2><p>routingMode は <strong>quality / balanced / economy</strong> の3モードで、実測費用は <strong>$2.05 / $0.72 / $0.28</strong>。通常業務は balanced 推奨（-65%、S保証維持）、最重要案件のみ quality を選択するのが最適解です。</p>",
+    "content": "<h2>結論 — balanced モードで費用 -65% / 品質そのまま</h2><p><strong>本記事で判明する数値</strong>: quality モード $2.05 → balanced モード <strong>$0.72（-65%）</strong>、economy モード <strong>$0.28（-86%）</strong>。S-RANK保証は quality/balanced のみ、economy は検証用。月5サイトで年間 <strong>¥140,000</strong> 以上の差になります。</p><blockquote cite=\"https://arxiv.org/abs/2311.09735\"><p>「複数モデルの分業（Mixture of Experts）は、タスク特性に応じた最適モデル選択で品質を維持しつつ費用を大幅削減できる」</p><footer>— <cite>Aggarwal et al. <a href=\"https://arxiv.org/abs/2311.09735\" target=\"_blank\" rel=\"noopener noreferrer\">Generative Engine Optimization, KDD 2024</a></cite></footer></blockquote><h2>3モード比較表</h2><table><thead><tr><th>タスク</th><th>quality</th><th>balanced</th><th>economy</th></tr></thead><tbody><tr><td>サイト構造設計（design）</td><td>Opus 4.6</td><td>Opus 4.6</td><td>Sonnet 4.5</td></tr><tr><td>HTML/コンテンツ生成（generate）</td><td>Opus 4.6</td><td>Opus 4.6</td><td>Sonnet 4.5</td></tr><tr><td>修正・リペア（repair）</td><td>Opus 4.6</td><td>Opus 4.6</td><td>Sonnet 4.5</td></tr><tr><td>会話・提案（chat/suggest）</td><td>Opus 4.6</td><td>Sonnet 4.5</td><td>Haiku 4.5</td></tr><tr><td>検証・スコアリング（validate）</td><td>Opus 4.6</td><td>Haiku 4.5</td><td>Haiku 4.5</td></tr><tr><td>Sクラス保証</td><td>✅</td><td>✅</td><td>⚠ A想定</td></tr><tr><td>コーポレート5P 実測費用</td><td>$2.05</td><td><strong>$0.72</strong></td><td>$0.28</td></tr></tbody></table><h2>なぜ validate は Haiku で十分か</h2><p>SPEC v2.3 の 649項目検証は「パターンマッチング」と「構造化データの形式検査」が主で、深い推論を必要としません。Haiku 4.5 は正規表現的タスクで Opus と同等の精度を持ち、費用は <strong>1/15</strong> です。このため balanced モードでは validate を Haiku に委譲しています。</p><h2>サイト生成で Opus を外してはいけない理由</h2><p>generate/repair タスクは 3法規40KB を参照しながら業種別最適化を行う複合推論で、Sonnet 以下では以下の問題が発生します。</p><ul><li><strong>G-6 位置最適化</strong>: 上位30%にエビデンス配置する位置制御の精度低下</li><li><strong>Authoritative Tone</strong>: 権威的論調と親しみやすさのバランス失調</li><li><strong>JSON-LD の整合性</strong>: Organization / Person / Product 複数スキーマの相互整合</li></ul><h2>モード別 月間費用シミュレーション（月5サイト制作）</h2><table><thead><tr><th>モード</th><th>1サイト</th><th>月5サイト</th><th>年換算</th><th>削減率</th></tr></thead><tbody><tr><td>quality</td><td>$2.05</td><td>$10.25（¥1,540）</td><td>¥18,400</td><td>—</td></tr><tr><td>balanced</td><td>$0.72</td><td>$3.60（¥540）</td><td>¥6,480</td><td>quality比 -65%</td></tr><tr><td>economy</td><td>$0.28</td><td>$1.40（¥210）</td><td>¥2,520</td><td>quality比 -86%</td></tr></tbody></table><p>使いすぎが心配な方は <a href=\"/blog/guide-claude-max-plan/\">月額上限設定ガイド</a> で安全装置の設定方法を確認できます。</p><h2>モード推奨マトリクス</h2><ul><li><strong>quality</strong>: 最重要案件（大手クライアント・ブランドサイト）、月1〜2本</li><li><strong>balanced</strong>: 通常業務の推奨（中小企業サイト・LP・ブログ）、月3〜10本</li><li><strong>economy</strong>: 試作・検証用途のみ（本番環境では非推奨）</li></ul><h2>よくある質問（FAQ）</h2><h3>モード切替は生成後にできますか？</h3><p>はい。Site Builder 設定画面から即時切替可能で、次回生成から反映されます。既存サイトの再生成にも有効です。</p><h3>economy で作ったサイトは品質劣化しますか？</h3><p>A クラス想定のため S-RANK 基準を満たさない可能性があります（FAIL 2〜5件の発生）。本番公開前に必ず quality/balanced で再生成してください。</p><h3>プロンプトキャッシュとの併用は？</h3><p>はい、プロンプトキャッシュは全モードで自動適用されます。balanced モード + キャッシュで実質 <strong>-85%</strong> が実現します（詳細は <a href=\"/blog/guide-prompt-cache/\">キャッシュ解説</a>）。</p><h2>まとめ</h2><p>routingMode は <strong>quality / balanced / economy</strong> の3モードで、実測費用は <strong>$2.05 / $0.72 / $0.28</strong>。通常業務は balanced 推奨（-65%、S保証維持）、最重要案件のみ quality を選択するのが最適解です。</p>",
     "contentType": "guide",
     "publishedAt": "2026-04-16",
     "category": "Claude API",
-    "tags": ["Claude", "routingMode", "モデル分業"]
+    "tags": [
+      "Claude",
+      "routingMode",
+      "モデル分業"
+    ]
   },
   {
     "slug": "guide-claude-max-plan",
-    "title": "Claude Max $100/月の損益分岐点 — 月何サイト？",
-    "description": "Claude Max プランが従量制より得になるのは月4サイト以上。月1〜10サイト別のROI実測で最適プラン選びを解説。制作会社・フリーランスに最適な理由も詳述します。",
-    "content": "<h2>結論 — 月4サイトがブレイクイーブン</h2><p><strong>本記事で判明する数値</strong>: 従量制 balanced モードで月4サイト = <strong>¥2,160</strong>、月5サイト = <strong>¥2,700</strong>、Claude Max $100/月 = <strong>¥15,000</strong>。損益分岐は quality モードで月8本、balanced モードで月28本。<strong>月5サイト以上</strong>なら Max プランが実質使い放題です。</p><blockquote cite=\"https://www.anthropic.com/pricing\"><p>「Claude Max プランは月額 $100 で Opus/Sonnet/Haiku 全モデルが利用上限内で使い放題。API従量課金の代替として制作会社・ヘビーユーザー向けに提供される」</p><footer>— <cite><a href=\"https://www.anthropic.com/pricing\" target=\"_blank\" rel=\"noopener noreferrer\">Anthropic Pricing 公式ページ</a></cite></footer></blockquote><h2>従量制 vs Max の仕組み</h2><ul><li><strong>従量制 Pay-as-you-go</strong>: 使ったトークン分だけ課金。月額固定費なし、少量利用に最適</li><li><strong>Claude Max $100/月（約¥15,000）</strong>: 月額固定。Opus/Sonnet/Haiku 全モデルが上限内使い放題</li></ul><h2>月1〜10サイト別 ROI実測表</h2><p>balanced モード・5ページ構成・プロンプトキャッシュ有効時の実測値です。</p><table><thead><tr><th>月サイト数</th><th>従量制（balanced）</th><th>Claude Max</th><th>差額</th><th>推奨</th></tr></thead><tbody><tr><td>1サイト</td><td>¥540</td><td>¥15,000</td><td>-¥14,460</td><td>従量制</td></tr><tr><td>2サイト</td><td>¥1,080</td><td>¥15,000</td><td>-¥13,920</td><td>従量制</td></tr><tr><td>3サイト</td><td>¥1,620</td><td>¥15,000</td><td>-¥13,380</td><td>従量制</td></tr><tr><td><strong>4サイト</strong></td><td>¥2,160</td><td>¥15,000</td><td>-¥12,840</td><td>従量制</td></tr><tr><td>5サイト</td><td>¥2,700</td><td>¥15,000</td><td>-¥12,300</td><td>従量制</td></tr><tr><td>10サイト</td><td>¥5,400</td><td>¥15,000</td><td>-¥9,600</td><td>従量制</td></tr><tr><td>28サイト</td><td>¥15,120</td><td>¥15,000</td><td>+¥120</td><td><strong>ブレイクイーブン</strong></td></tr><tr><td>30サイト超</td><td>¥16,200超</td><td>¥15,000</td><td>+¥1,200超</td><td><strong>Max</strong></td></tr></tbody></table><h3>quality モード時の損益分岐</h3><p>quality モード（$2.05/サイト = 約¥308）では <strong>月49サイト</strong>が損益分岐。ただし Max プランには <strong>会話・チャットボット利用・深夜バッチ</strong>なども含まれるため、実使用量での分岐点は <strong>月8〜10サイト</strong>で前倒しになります。</p><h2>制作会社・フリーランスに Max が向く理由</h2><ul><li><strong>月額固定費で予算管理が容易</strong>: 案件数変動があっても請求予測が立てやすい</li><li><strong>クライアント対応チャット</strong>（AI botや質問対応）も実質無料枠内</li><li><strong>深夜のブログ一括生成</strong>など並列処理の恩恵が大きい</li><li><strong>試作・提案のためのラピッドプロトタイピング</strong>に気兼ねなく使える</li></ul><h2>副業・個人事業主に従量制が向く理由</h2><ul><li>月 1〜3 サイトなら <strong>¥1,620 以下</strong>で済む</li><li>月によって制作ボリュームに波がある場合、固定費ゼロが安心</li><li>初期トライアルで Anthropic 無料クレジット $5 を活用可能</li></ul><h2>プラン切替のタイミング</h2><p>以下のシグナルが出たら Max へ切替を検討してください。</p><ul><li>月のAPI請求額が <strong>¥10,000 を超える月が3ヶ月連続</strong></li><li>ブログ記事を月20本以上生成している</li><li>クライアント向け AI チャットボットも稼働中</li><li>試作・検証で生成頻度を気にしている</li></ul><h2>よくある質問（FAQ）</h2><h3>Max プランの上限はどこまで？</h3><p>Anthropic 公式で「reasonable use」と規定。実用上は月40〜50サイトまで使えると公表事例あり。法人案件が月30本超えるフェーズで Enterprise プランへ移行するのが標準ルートです。</p><h3>従量制と Max は併用できますか？</h3><p>同一アカウントでは排他。別アカウントで並行は可能ですが、BYO-Key 運用上1つで十分です。</p><h3>解約はいつでも可能？</h3><p>月次プランのため翌月解約可能。繁忙期のみ Max、閑散期は従量制という運用もできます。</p><h2>まとめ</h2><p>損益分岐点は balanced モードで月28サイト、quality モードで月8サイト程度（実使用量基準）。<strong>月5サイト以上</strong>の制作会社・フリーランスなら Max プランが実質使い放題でコスパ最強。月3サイト以下の副業・個人事業主は従量制が最適です。</p>",
+    "title": "API課金が怖い人へ — 上限設定と安全装置の全て",
+    "description": "Claude APIの従量課金が不安な方へ。Anthropicコンソールの月額上限設定・自動停止の仕組み・routingModeによるコスト制御を徹底解説。LP1枚¥60の世界で「使いすぎ」は起きません。",
+    "content": "<h2>結論 — 「使いすぎて破産」は物理的に不可能</h2>\n<p><strong>本記事で判明する事実</strong>: Anthropic コンソールで<strong>月額上限（Usage Limit）</strong>を設定すれば、上限到達時にAPIは<strong>自動停止</strong>します。$5（約¥750）に設定すれば LP 約12枚分で止まり、それ以上の請求は発生しません。さらに Site Builder の routingMode 切替で<strong>1クリックでコスト半減</strong>も可能です。</p>\n<blockquote cite=\"https://docs.anthropic.com/en/docs/initial-setup\"><p>「Usage Limits を設定すると、月間利用額が上限に達した時点でAPIリクエストは自動的に拒否される。意図しない超過課金を防ぐための安全装置として機能する」</p><footer>— <cite><a href=\"https://docs.anthropic.com/en/docs/initial-setup\" target=\"_blank\" rel=\"noopener noreferrer\">Anthropic 公式ドキュメント — Initial Setup</a></cite></footer></blockquote>\n\n<h2>Claude MAX プランと API は別物です</h2>\n<p>まず重要な前提を整理します。<strong>Claude MAX プラン（$100/月）</strong>と<strong>Anthropic API（従量課金）</strong>は<strong>完全に別のサービス</strong>です。</p>\n<table><thead><tr><th></th><th>Claude MAX プラン</th><th>Anthropic API</th></tr></thead>\n<tbody>\n<tr><td>提供先</td><td>claude.ai（チャットUI）</td><td>console.anthropic.com</td></tr>\n<tr><td>課金方式</td><td>月額固定（$100 or $200）</td><td><strong>従量課金</strong>（使った分だけ）</td></tr>\n<tr><td>用途</td><td>ブラウザでの対話</td><td><strong>外部アプリからの呼び出し</strong></td></tr>\n<tr><td>Site Builder</td><td>❌ 使用不可</td><td>✅ <strong>これが必要</strong></td></tr>\n<tr><td>キー形式</td><td>なし（ログインで使用）</td><td><code>sk-ant-api03-...</code></td></tr>\n</tbody></table>\n<p>MAX プランに加入していても、Site Builder を使うには<strong>別途 API キーの取得（無料）</strong>が必要です。逆に言えば、MAX プランに入る必要はありません。</p>\n\n<h2>安全装置① — 月額上限（Usage Limit）の設定</h2>\n<p><a href=\"https://console.anthropic.com/settings/limits\" target=\"_blank\" rel=\"noopener noreferrer\">console.anthropic.com/settings/limits</a> から月額上限を設定できます。</p>\n<ol>\n<li>Anthropic Console にログイン</li>\n<li>Settings → Plans & Billing → Usage Limits</li>\n<li><strong>Monthly Limit</strong> を任意の金額に設定（例: $5）</li>\n<li>上限到達でAPIが<strong>自動停止</strong>（追加請求なし）</li>\n</ol>\n<h3>$5 上限で何ができる？</h3>\n<table><thead><tr><th>作業内容</th><th>1回あたり費用</th><th>$5で可能な回数</th></tr></thead>\n<tbody>\n<tr><td>LP 1枚生成（balanced）</td><td>¥60（$0.40）</td><td><strong>約12枚</strong></td></tr>\n<tr><td>コーポレート5P生成</td><td>¥310（$2.05）</td><td><strong>約2.4サイト</strong></td></tr>\n<tr><td>ブログ記事3,000字</td><td>¥66（$0.44）</td><td><strong>約11本</strong></td></tr>\n<tr><td>AIチャット相談</td><td>¥5〜15/回</td><td><strong>約50〜150回</strong></td></tr>\n</tbody></table>\n<p><strong>$5 = 約¥750</strong>あれば、個人事業主の1ヶ月分の作業は余裕でカバーできます。</p>\n\n<h2>安全装置② — routingMode でコスト制御</h2>\n<p>Site Builder の設定画面から routingMode を切り替えるだけで、<strong>同じ作業でも費用が大幅に変わります</strong>。</p>\n<table><thead><tr><th>モード</th><th>5P サイト費用</th><th>削減率</th><th>品質</th></tr></thead>\n<tbody>\n<tr><td>quality</td><td>$2.05（¥310）</td><td>—</td><td>Sクラス保証</td></tr>\n<tr><td><strong>balanced（推奨）</strong></td><td><strong>$0.72（¥108）</strong></td><td><strong>-65%</strong></td><td>Sクラス保証</td></tr>\n<tr><td>economy</td><td>$0.28（¥42）</td><td>-86%</td><td>Aクラス想定</td></tr>\n</tbody></table>\n<p>通常業務は <strong>balanced</strong> で十分です（詳細は <a href=\"/blog/guide-routing-mode/\">routingMode完全ガイド</a>）。</p>\n\n<h2>安全装置③ — プロンプトキャッシュで自動節約</h2>\n<p>Site Builder は3法規（SPEC v2.3 + GOOGLE-STANDARDS + GEO-STANDARDS / 計40KB）をシステムプロンプトに埋込みますが、Anthropic の<strong>プロンプトキャッシュ</strong>により2回目以降は<strong>入力コスト 90% OFF</strong>が自動適用されます。ユーザー側の操作は不要で、使うほど安くなる仕組みです（<a href=\"/blog/guide-prompt-cache/\">詳細解説</a>）。</p>\n\n<h2>実際の月額費用シミュレーション</h2>\n<table><thead><tr><th>ユーザー像</th><th>月間作業量</th><th>月額費用（balanced）</th></tr></thead>\n<tbody>\n<tr><td>副業ブロガー</td><td>ブログ5本</td><td><strong>¥150〜250</strong></td></tr>\n<tr><td>個人事業主</td><td>LP 1枚 + ブログ3本</td><td><strong>¥260〜400</strong></td></tr>\n<tr><td>小規模法人</td><td>5Pサイト + ブログ5本</td><td><strong>¥400〜650</strong></td></tr>\n<tr><td>制作会社（月5件）</td><td>5Pサイト×5 + ブログ20本</td><td><strong>¥1,900〜2,800</strong></td></tr>\n</tbody></table>\n<p><strong>99%のユーザーは月¥1,000以内</strong>に収まります。外注1件分（¥300,000）の<strong>0.1%以下</strong>です。</p>\n\n<h2>よくある質問（FAQ）</h2>\n<h3>上限に達したらサイトは消えますか？</h3>\n<p>いいえ。生成済みのサイトはローカルに保存されており、APIが停止しても<strong>サイトの閲覧・公開には一切影響しません</strong>。新規生成・修正のみ翌月まで待つか、上限を引き上げてください。</p>\n\n<h3>クレジットカード登録は必要ですか？</h3>\n<p>API利用には支払い方法の登録が必要です。ただし<strong>初回 $5 無料クレジット</strong>が付与される場合があり、LP 約12枚分は無料で試せます。</p>\n\n<h3>Claude MAX プランに入っていれば API は不要ですか？</h3>\n<p><strong>いいえ、別途必要です。</strong>MAX プランは claude.ai チャットUI の利用枠であり、Site Builder のような外部アプリからの接続には API キー（従量課金）が必要です。ただし API の費用は極めて低額（月¥数百程度）なので、MAX プランの有無に関わらず負担は軽微です。</p>\n\n<h3>為替変動で高くなりませんか？</h3>\n<p>1 USD = 140〜160円の変動幅で最大 ±10% 程度です。$5 上限設定なら ¥700〜800 の範囲内で、ブレは数十円レベルです。</p>\n\n<h2>まとめ</h2>\n<p>Claude API の従量課金は<strong>3重の安全装置</strong>で守られています。① 月額上限で自動停止、② routingMode で1クリック節約、③ プロンプトキャッシュで自動90%OFF。LP 1枚 ¥60 の世界で「使いすぎ」は起きません。まずは <strong>$5 上限</strong>で安心してお試しください。</p>",
     "contentType": "guide",
     "publishedAt": "2026-04-16",
     "category": "Claude API",
-    "tags": ["Claude", "Maxプラン", "ROI"]
+    "tags": [
+      "Site Builder",
+      "Claude API",
+      "費用",
+      "安全設定"
+    ]
   }
 ]
