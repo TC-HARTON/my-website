@@ -245,7 +245,7 @@
                   <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
                   <span class="text-xs text-green-400 font-medium">SPEC品質チェック完了</span>
                 </div>
-                <div class="text-[0.6875rem] text-dark-400 font-mono">314 PASS / 0 FAIL / Grade: S</div>
+                <div class="text-[0.6875rem] text-dark-400 font-mono">550 PASS / 0 FAIL / Grade: S</div>
               </div>
             </div>
             <!-- Stats row -->
@@ -549,8 +549,8 @@
             <p class="text-sm text-dark-600">Anthropic 公式の ephemeral cache で 3法規部分をキャッシュ化。2回目以降は最大 <strong>85% トークン費用削減</strong>。</p>
           </div>
         </div>
-        <div class="mt-10 bg-amber-50 border border-amber-200 rounded-xl p-5 fade-in">
-          <p class="text-sm text-dark-700"><strong class="text-amber-700">⚠ 非対応モデル:</strong> Gemini / GPT は日本語 E-E-A-T 評価が劣後するため、S クラス保証の対象外。Claude Sonnet 4.5 は A クラス想定で S クラス保証外です。</p>
+        <div class="mt-10 bg-sky-50 border border-sky-200 rounded-xl p-5 fade-in">
+          <p class="text-sm text-dark-700"><strong class="text-sky-700">設計思想:</strong> 本アプリは設計当初から <strong>Claude Opus 4.6 専用</strong>として構築されています。S-RANK 品質保証を数値的に成立させる3条件（日本語E-E-A-T実測値 / ephemeral cache 90%割引 / 3法規40KB追従）が Opus 4.6 に最適化されているためです。Gemini / GPT は強力な汎用AIですが、本アプリの設計前提には未組込です。Claude Sonnet 4.5 は routingMode=balanced 時のサブモデルとして利用します。</p>
         </div>
         <div class="mt-8 text-center fade-in">
           <a href="/blog/guide-claude-opus/" class="inline-block mx-3 text-sky-600 hover:text-sky-700 font-medium underline">→ なぜClaude Opus 4.6か（完全解説）</a>
