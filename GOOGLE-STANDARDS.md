@@ -1,7 +1,8 @@
-# Google公式基準書 — HARTON Site Builder 準拠リファレンス
-**バージョン:** 1.0
-**作成日:** 2026-04-13
-**目的:** AIサイト生成時にSPEC.mdと合わせてプロンプトに埋め込み、Google公式基準完全準拠を保証する
+# Google公式基準書 — HARTON Site Builder / アプリ準拠リファレンス
+**バージョン:** 2.0（2026-04-16 / SPEC.md v3.0 整合・AI Overviews 章・最新セキュリティヘッダー追加）
+**作成日:** 2026-04-13（v1.0） → 改訂 2026-04-16（v2.0）
+**目的:** AI サイト生成・アプリ開発時に SPEC.md + GEO-STANDARDS.md と合わせてプロンプトに埋め込み、Google 公式基準完全準拠を保証する
+**事実性ルール:** 本書の引用は SPEC.md §0.2（Factuality First）に従う。本書中で「公式」と示す URL は全て実在する Google 一次ソースへ接続する
 
 ---
 
@@ -350,14 +351,112 @@ Sitemap: https://example.com/sitemap.xml
 ## 11. セキュリティヘッダー
 
 ### 11.1 必須（Google推奨 + セキュリティベストプラクティス）
-| ヘッダー | 値 | 目的 |
+| ヘッダー | 値（例） | 目的 |
 |---------|-----|------|
-| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains` | HTTPS強制 |
-| `X-Content-Type-Options` | `nosniff` | MIMEスニッフィング防止 |
-| `X-Frame-Options` | `DENY` or `SAMEORIGIN` | クリックジャッキング防止 |
-| `Referrer-Policy` | `strict-origin-when-cross-origin` | リファラー制御 |
-| `Permissions-Policy` | `camera=(), microphone=(), geolocation=()` | 権限制御 |
-| `Content-Security-Policy` | サイトに応じて設定 | XSS・インジェクション防止 |
+| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains; preload` | HTTPS 強制（HSTS） |
+| `X-Content-Type-Options` | `nosniff` | MIME スニッフィング防止 |
+| `X-Frame-Options` | `DENY` または `SAMEORIGIN` | クリックジャッキング防止（`frame-ancestors` CSP と併記で後方互換） |
+| `Referrer-Policy` | `strict-origin-when-cross-origin` | リファラ制御 |
+| `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), interest-cohort=()` | ブラウザ機能の権限制御（Privacy Sandbox 対応） |
+| `Content-Security-Policy` | SPEC.md §3.1 / §8.1 に準拠。サイトに応じて調整 | XSS・インジェクション防止 |
+
+### 11.2 2025 強化ヘッダー（推奨）
+
+Cross-Origin Isolation（`crossOriginIsolated: true` を得ると `SharedArrayBuffer` / `performance.now()` 高精度モード等が解禁され、将来の WebAssembly / WebGPU ヘビー処理にも備えられる）:
+
+| ヘッダー | 値（例） | 目的 |
+|---|---|---|
+| `Cross-Origin-Opener-Policy` | `same-origin` | 別オリジンからのウィンドウ参照を遮断（Spectre 等のサイドチャネル対策） |
+| `Cross-Origin-Embedder-Policy` | `require-corp` | 埋込リソースに CORP を要求 |
+| `Cross-Origin-Resource-Policy` | `same-origin` | 自サイトリソースへの別オリジン埋込みを制限 |
+
+### 11.3 CSP 拡張ディレクティブ（XSS の体系的排除）
+
+`Content-Security-Policy` に以下を追加して強化する:
+
+```
+require-trusted-types-for 'script';
+trusted-types default;
+frame-ancestors 'self';
+upgrade-insecure-requests;
+```
+
+- `require-trusted-types-for 'script'` — DOM XSS の根絶に有効（W3C Trusted Types）
+- `frame-ancestors` — `X-Frame-Options` 後継。CSP 側で統一管理可能
+- `upgrade-insecure-requests` — 残存する HTTP リクエストを HTTPS に昇格
+
+### 11.4 CSP Reporting（本番運用向け推奨）
+
+```
+Content-Security-Policy-Report-Only: default-src 'self'; report-to csp-endpoint
+Report-To: { "group": "csp-endpoint", "max_age": 10886400, "endpoints": [ { "url": "https://{domain}/csp-report" } ] }
+```
+
+段階的に Enforce 化する際は Report-Only → Enforce の順で導入し、誤検知を減らす。
+
+---
+
+## 11A. AI Overviews / Generative Search 対応（v2.0 新設）
+
+Google の生成 AI 検索機能（AI Overviews、旧称 SGE）に対応した最適化規準。既存 SEO との重複部分は再掲しない。
+
+### 11A.1 コンテンツの Span-level 抽出前提
+
+- **段落の自己完結性:** AI Overviews は段落単位ではなく文単位で抜粋する場合があるため、各文が前後の文脈なしに意味が通ること（相対参照「上記」「前述」を避ける）
+- **Direct Answer 型導入:** 記事本文の最初の段落で「このページで分かること・結論」を**完結文**で提示する（SPEC.md §4.13 Lead Evidence Block と連動）
+- **最終的な一次回答:** タイトルで問うた疑問に対する答えを、記事冒頭 20% 以内に明示
+
+### 11A.2 構造化データの厚み
+
+AI Overviews は構造化データを優先採用する傾向があるため:
+
+- `Article` / `BlogPosting` に `datePublished` / `dateModified` / `author` / `mainEntityOfPage` を完備
+- `FAQPage` の質問は**ユーザーが実際に尋ねる自然文**（検索クエリ想定）
+- `HowTo` はステップごとに `name` + `text` + 可能なら `image` を付与
+- `Person` / `Organization` の `sameAs` で外部オーソリティ（LinkedIn、GitHub、学会、公的機関）にリンク
+
+### 11A.3 明示的なソースシグナル
+
+- すべての数値・統計には一次ソースへの `<a>` を併記
+- 公式 HTTP 応答ヘッダーに `Last-Modified` を正しく設定し、`dateModified` と整合
+
+### 11A.4 AI Overviews で不利になるパターン
+
+- 曖昧な断定（「一般的には」「多くの場合」）のみで構成されるセクション
+- 同一情報の繰り返し（AI Overviews は冗長度を減点）
+- 広告と本文の境界が不明瞭なレイアウト（UX Signals 劣化）
+
+---
+
+## 11B. AI クローラと `robots.txt`（v2.0 新設）
+
+SPEC.md §5.5 と同内容を `robots.txt` 側からもセキュアに明示:
+
+```
+User-agent: Googlebot
+Allow: /
+
+# Google 拡張クローラ（Bard / AI Overviews 学習許可）
+User-agent: Google-Extended
+Allow: /
+
+# 主要 AI 検索エンジン
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+Sitemap: https://{domain}/sitemap.xml
+```
+
+**注意:** `robots.txt` はクロール制御であり、インデックス除外ではない（§10.3）。AI 学習への利用可否は、サイト運営ポリシーに照らして個別判断すること。
 
 ---
 

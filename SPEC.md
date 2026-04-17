@@ -1,14 +1,62 @@
-# HARTON WEBサイト構築仕様書 v2.4
+# HARTON WEBサイト構築・アプリ開発仕様書 v3.0
 
-> 本仕様書はHARTON自社サイト（Sクラス判定済み）を基準とする。
-> 【判定根拠】Google検索セントラル（SEO Starter Guide / Search Essentials）、Core Web Vitals最新仕様に完全準拠。
-> ※ E-E-A-Tはランキング要因ではなく、品質評価の枠組みである（Google公式見解）。本仕様ではE-E-A-Tの考え方に沿った高品質コンテンツ制作を推奨する。
-> 今後の全クライアントサイト構築において本仕様に準拠すること。
-> 2026-04-10 初版策定 / 2026-04-11 v2.0 Google基準統合改訂 / 2026-04-12 v2.2 Google Search Central完全準拠 / 2026-04-13 v2.3 GOOGLE-STANDARDS.md統合 / 2026-04-16 v2.4 Containing Block 汚染回避原則（10.5.1.1）新設 + Body Theme Variants（10.6）+ Lead Evidence Block セマンティック配置（4.13）+ table caption/scope 必須化（11.4-tbl）+ ブログページ検証対象化 + spec-checker 2554項目完全準拠（100% S-RANK 達成）
-> **補助基準書（3法規体制）:**
-> - **GOOGLE-STANDARDS.md** — Google公式11ドキュメントから抽出した完全基準（E-E-A-T, Core Web Vitals, スパムポリシー, 構造化データ等）
-> - **GEO-STANDARDS.md** — Generative Engine Optimization 学術基準（Aggarwal et al., KDD 2024, arXiv:2311.09735, Cornell/Princeton）。Perplexity / SGE / BingChat など生成エンジンでの引用率最大化 G-1〜G-6 を規定
-> SPEC本体 + GOOGLE + GEO の3文書（計約40KB）を全AI呼び出しのシステムプロンプトに埋込み、Anthropic プロンプトキャッシュで共有する。
+> 本仕様書は HARTON 自社サイト（Sクラス判定済み）および site-builder アプリを共通基準とする。
+> 【判定根拠】Google 検索セントラル（SEO Starter Guide / Search Essentials）、Core Web Vitals 最新仕様、WCAG 2.2、Cornell KDD 2024 GEO 論文 (arXiv:2311.09735) に準拠。
+> ※ E-E-A-T はランキング要因ではなく、品質評価の枠組みである（Google 公式見解）。本仕様では E-E-A-T の考え方に沿った高品質コンテンツ制作を推奨する。
+> 今後の全クライアントサイト構築およびアプリ開発において本仕様に準拠すること。
+> 2026-04-10 v1.0 初版策定 / 2026-04-11 v2.0 Google 基準統合改訂 / 2026-04-12 v2.2 Google Search Central 完全準拠 / 2026-04-13 v2.3 GOOGLE-STANDARDS.md 統合 / 2026-04-16 v2.4 Containing Block 汚染回避原則（10.5.1.1）新設 + Body Theme Variants（10.6）+ Lead Evidence Block セマンティック配置（4.13）+ table caption/scope 必須化（11.4-tbl）+ ブログページ検証対象化 + spec-checker 2554 項目完全準拠（100% S-RANK 達成） / **2026-04-16 v3.0 メジャー改訂 — Claude 最新モデル追従原則（§0.1）新設・事実性ルール（§0.2）新設・美しいコーディング原則（§0.3）新設・アプリ開発基準（§12）をサイト基準と共有する絶対法規として統合・Lead Evidence Block テンプレの旧価格と捏造引用を排除・3 法規合計サイズを実測値（約 73KB）へ整合・Opus 特定バージョン依存記述を削除**
+>
+> **【絶対原則】事実性 (Factuality First):** 本仕様書および本仕様下で生成される全コード・全記事は、**検証可能な事実のみを記述する**。推測・未検証の「引用風」文字列・旧バージョンの残留数値は一切許容しない（詳細 §0.2）。
+>
+> **補助基準書（3 法規体制）:**
+> - **GOOGLE-STANDARDS.md** — Google 公式ドキュメントから抽出した完全基準（E-E-A-T、Core Web Vitals、スパムポリシー、構造化データ、AI Overviews 最適化、最新セキュリティヘッダー）
+> - **GEO-STANDARDS.md** — Generative Engine Optimization 学術基準（Aggarwal et al., KDD 2024, arXiv:2311.09735, Princeton/IIT Delhi）。Perplexity / Google AI Overviews / Bing Copilot / ChatGPT Search / Claude Search など生成エンジンでの引用率最大化 G-1〜G-6 を規定
+>
+> SPEC 本体 + GOOGLE + GEO の 3 文書（2026-04-16 実測 計 73KB）を全 AI 呼び出しのシステムプロンプトに埋込み、Anthropic プロンプトキャッシュで共有する。サイズは改版で変動するため「約 70KB 帯」として運用し、記事・UI への露出時は実測値で更新すること。
+
+---
+
+## 0. モデル追従原則・事実性ルール・美しいコーディング原則（v3.0 新設・絶対法規）
+
+### 0.1 Claude 最新モデル追従原則
+
+HARTON 本サイトおよび site-builder は、**Anthropic が公式に「現行最上位」として提供する Claude モデル**を常に採用対象とし、以下のポリシーに従う:
+
+1. **モデル固定記述の禁止:** 仕様書・アプリコード・UI・記事で「Opus 4.6 専用」「Opus 4.7 限定」のような**特定バージョンへの排他的固定**は避ける。Site Builder は公式ページ（<https://platform.claude.com/docs/en/about-claude/models/overview>）で当時の「most capable generally available model」と表示されているモデルを quality モードの主力として採用する。
+2. **歴史的参照は許容:** 「v1.0 時点では Opus 4.6 で S-RANK を達成」のような**過去事実の記録**は必要に応じて明記する（Opus 4.6 → 4.7 のような移行を追跡するため）。
+3. **価格は同世代一律:** Anthropic 公式 Pricing 表で Opus 4.x（4.5 以降）は同一価格（入力 $5/MTok、出力 $25/MTok）。記事・UI の価格根拠は Pricing ページの実テキストから引用し、特定モデル名に結び付けた独自加工をしない。
+4. **`model` パラメータの取り扱い:** コード例ではエイリアス（`claude-opus-4-7` / `claude-sonnet-4-6` / `claude-haiku-4-5`）または日付付き ID（例: `claude-haiku-4-5-20251001`）のうち、公式 Models 表で**実在が確認できるもの**のみを用いる。推測エイリアスの使用禁止。
+5. **モデル世代跨ぎの移行手順:** 新しい Opus / Sonnet / Haiku がリリースされた場合、`site-builder/app/lib/spec-checker-template.js` の既定モデル ID、アプリ UI、blog 記事本文、SPEC §0 / 履歴を同時に更新し、`verify-all.js` で回帰確認してからリリースする。
+
+### 0.2 事実性ルール（Factuality First）
+
+引用・コード例・数値・URL は次の基準を満たさない限り一切記載しない。違反は FAIL と同等に扱う:
+
+| ルール | 具体要件 |
+|---|---|
+| **F-1 引用の verbatim 原則** | `<blockquote>` / `<q cite>` 内の文字列は、`cite` 属性の URL に **literally 存在する文字列のみ** 使用可。翻訳・要約・改変した文を「」で囲って公式引用に見せる行為は禁止（「捏造引用」の排除） |
+| **F-2 パラフレーズの明示** | 公式文書の要約・翻訳は `<blockquote>` に入れず、通常段落内で「～によれば…」等と明示する。この場合 `cite` は不要、代わりに出典リンク `<a href>` で示す |
+| **F-3 プレースホルダ URL 禁止** | `cite="https://docs.anthropic.com/.../pricing"` のようなドットドットやテンプレ的 URL は禁止。必ず実在する完全 URL を記述 |
+| **F-4 価格・仕様の一次ソース原則** | 価格・モデル ID・トークン数などは Anthropic 公式 Pricing / Models / Rate Limits ページ等の一次ソース URL を直接参照し、二次情報からの引き写しを避ける |
+| **F-5 数値の出典明記** | パーセンテージ・円・倍率などの数値は、本文中に出典リンクまたは「自社実測 YYYY-MM-DD」と明示する |
+| **F-6 旧バージョン数値の追跡** | Opus 4.1 以前の $15/$75 などの旧価格を現行文脈に残さない。歴史的言及は「旧 Opus 4.1／4.0 は $15/$75 だったが現行は $5/$25」のように**明確に過去形**で書く |
+
+### 0.3 美しいコーディング原則（Beautiful Code）
+
+本仕様下で生成される全コード（HTML / CSS / JavaScript / TypeScript / Node.js スクリプト）は以下を満たす:
+
+1. **単一責任の原則:** 1 関数 1 目的、1 ファイル 1 機能群。
+2. **命名:** 英小文字ハイフン区切り（ファイル）、camelCase（JS 変数）、PascalCase（クラス / コンポーネント）、SCREAMING_SNAKE_CASE（定数）を一貫使用。
+3. **インデント:** 2 スペース固定（HTML / CSS / JS / JSON）。タブ・4 スペース混在禁止。
+4. **セミコロン・クォート:** JS は semicolon あり、文字列はシングルクォート（JSX は JS 側で shingle、JSON のみダブル）。
+5. **関数長:** 原則 40 行以内。40 行を超える場合は分割リファクタリングを検討（例外は正規表現処理・AST 処理等の構造的必要性があるもの）。
+6. **ネスト深度:** 最大 3〜4 段まで。早期 return で flat に保つ。
+7. **コメント:** なぜ（why）を書く。何（what）は命名で伝える。
+8. **外部依存:** 最小化。Tailwind CSS など構築済みツールは許可、ランタイム CDN は禁止（§2.5）。
+9. **エラーハンドリング:** 握りつぶし禁止。例外は catch して **ログ + 再 throw** または明確なフォールバック。
+10. **テスト:** `verify-all.js` を通過すること。新機能には spec-checker 項目または app test を追加する（§12.4）。
+
+---
 
 ---
 
@@ -420,11 +468,15 @@ Sitemap: https://{ドメイン}/sitemap.xml
 
   <div class="prose">
     <!-- ★ Lead Evidence Block（4.13 必須 / 最初の <h2> より前に配置） -->
+    <!--
+      ※ 下記は構造例。blockquote 内の文字列は cite URL に literally 存在するテキストに限る（§0.2 F-1）。
+         プレースホルダ URL（ドットドット）禁止。サイト構築時は必ず実在する一次ソースへ差し替えること。
+    -->
     <figure class="evidence-block bg-sky-500/10 border-l-4 border-sky-400 pl-4 pr-4 py-4 my-6 rounded-r-lg">
-      <blockquote cite="https://docs.anthropic.com/.../pricing">
-        <p class="text-dark-200">「Claude Opus 4.6 は $15/M 入力トークン、$75/M 出力トークン、プロンプトキャッシュ ephemeral で最大90%割引（cache-read $1.50/M）」</p>
+      <blockquote cite="https://platform.claude.com/docs/en/about-claude/pricing">
+        <p class="text-dark-200">「A cache hit costs 10% of the standard input price, which means caching pays off after just one cache read for the 5-minute duration (1.25x write), or after two cache reads for the 1-hour duration (2x write).」</p>
       </blockquote>
-      <figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://docs.anthropic.com/.../prompt-caching" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Anthropic 公式ドキュメント</a></cite>（具体的意味・数値）</figcaption>
+      <figcaption class="mt-2 text-sm text-dark-400">— <cite><a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300 underline">Anthropic 公式 Pricing「Prompt caching」（取得日を明記）</a></cite>（キャッシュヒットは標準入力価格の 10%、5 分キャッシュなら 1 回、1 時間キャッシュなら 2 回の読取で元が取れる）</figcaption>
     </figure>
 
     <!-- 本論（最初の <h2> 以降） -->
@@ -982,7 +1034,128 @@ html { scroll-behavior: smooth; }
 
 ---
 
-## 12. 改版履歴
+## 12. アプリ開発基準（site-builder / 付随ツール共通・絶対法規）
+
+本章はサイト構築と**同格の絶対法規**として、HARTON が開発・運用する全アプリ（site-builder、spec-checker、sync-spec、verify-all、将来の関連ツール）に適用される。§0（モデル追従・事実性・美しいコーディング）と不可分。
+
+### 12.1 プロジェクト構成基準
+
+```
+<repo-root>/
+├── app/                          # アプリ本体（Node.js / TypeScript）
+│   ├── main.js|ts                # エントリポイント
+│   ├── lib/                      # ドメインロジック（純関数優先）
+│   ├── ui/                       # UI レイヤ（DOM 操作・イベント）
+│   ├── integrations/             # 外部 API クライアント（Anthropic 等）
+│   ├── test/                     # 自動テスト（run.js / *.test.js）
+│   └── fixtures/                 # テスト入力データ
+├── SPEC.md, GOOGLE-STANDARDS.md, GEO-STANDARDS.md   # 3 法規（sync で配布・編集禁止）
+├── package.json
+├── README.md                     # 概要・起動手順・ライセンス
+└── .git/hooks/pre-push           # verify-all.js 呼び出し（S-RANK ゲート）
+```
+
+### 12.2 言語・ランタイム
+
+| 項目 | 基準 |
+|---|---|
+| 言語 | Node.js（LTS 系最新）標準。型付が必要なら TypeScript を導入 |
+| モジュール方式 | ES Modules（`type: "module"`）を原則とする。CommonJS は既存互換のためのみ許容 |
+| 最小外部依存 | 標準ライブラリ優先。追加する npm パッケージは目的・代替検討・ライセンスを PR 説明に記す |
+| ロックファイル | `package-lock.json` or `pnpm-lock.yaml` を必ずコミット |
+| Node バージョン | `engines.node` で明示。CI と開発環境で一致させる |
+
+### 12.3 コード品質（§0.3 の具体適用）
+
+1. **単一責任:** 関数は 1 つの動詞で説明できる粒度。
+2. **純関数優先:** 副作用（I/O・DOM・グローバル）は thin wrapper に閉じ込める。ドメインロジックは純関数に寄せ、テスト容易性を確保。
+3. **エラー処理:** 例外は**ログ付きで再 throw** または **Result 型的なタグ付きリターン**（`{ ok: true, value } / { ok: false, error }`）で表現。握りつぶし禁止。
+4. **ログ:** 構造化可能な形式（JSON or key=value）。本番ビルドでは `console.log` の垂れ流し禁止、レベル（debug/info/warn/error）を区別。
+5. **コメント:** **why を書き、what は命名で表す。** 正規表現など直感に反するものには「何にマッチする意図か」を一行添える。
+6. **Magic number 禁止:** 定数は命名して頂部にまとめる。
+7. **不変性優先:** オブジェクトを mutate せず、新しい値を返す。配列は `.map/.filter/.reduce` を活用。
+8. **早期 return:** ネストを減らすため。
+9. **ファイルサイズ:** 原則 400 行以内。超える場合は分割。
+
+### 12.4 テスト
+
+| 種別 | 要件 |
+|---|---|
+| 単体テスト | `app/test/*.test.js`（またはランナが拾う配置）。新規ロジック追加時は原則セットで追加 |
+| 統合テスト | `app/test/run.js` で E2E に近いシナリオ（設定読込〜生成〜spec-checker 通過）を少なくとも 1 本 |
+| 回帰ベースライン | `verify-all.js` が参照する失敗数 baseline を Git で追跡。超過で push ブロック |
+| 決定論 | テストは時刻・乱数・ネットワークに依存しない（fixtures を用意しスタブする） |
+| フレーム外検証 | Node 標準の `node:assert` / `node:test` を第一選択。追加ランナは必要性を明記のうえ採用 |
+
+### 12.5 外部 API（Anthropic Claude）利用規律
+
+1. **モデル ID 管理:** 既定モデルはアプリ中央の定数（例: `lib/models.js` の `DEFAULT_MODELS` オブジェクト）で一元管理し、§0.1 に従い Anthropic 公式 Models 表で実在が確認できる ID のみを登録する。
+2. **BYO-Key:** ユーザー提供の API キーはローカル暗号化（AES-256 相当）で保管し、アプリ運営側サーバーを経由させない。
+3. **月額上限案内:** 初回セットアップ UI で Anthropic Console の Spend Limit ($5 など) 設定手順を必ず提示する。
+4. **プロンプトキャッシュ:** 3 法規（SPEC + GOOGLE + GEO）は ephemeral cache でシステムプロンプトに埋込み。キャッシュブロックと動的入力ブロックを明確に分離する。
+5. **エラー再現性:** API エラー（429 / 500 等）は retry-after を尊重し、リトライ戦略（指数バックオフ等）をコードで明示。
+6. **captive 文字列禁止:** Anthropic 公式からの引用をアプリ UI や生成プロンプトに埋める場合、§0.2 F-1（verbatim 原則）を満たすもののみ使用。要約はパラフレーズと明示。
+
+### 12.6 セキュリティ
+
+| 項目 | 基準 |
+|---|---|
+| シークレット | `.env` / OS のセキュアストレージ。コミット絶対禁止。`.gitignore` で予防 |
+| 依存脆弱性 | `npm audit` を CI または pre-push で実行し、critical / high はリリース前に解消 |
+| 入力検証 | 外部入力（ファイル・API レスポンス・ユーザー設定）は schema 検証してから使用 |
+| 出力エスケープ | HTML 生成時は **必ずエスケープ**（既存テンプレで担保）。ユーザー入力をテンプレに直埋めしない |
+| CSP / ヘッダー | アプリが生成するサイトに対して GOOGLE-STANDARDS §11 に準拠した CSP / COOP / COEP / CORP / Trusted Types を付与できる API を備える |
+
+### 12.7 パフォーマンス予算
+
+| 項目 | 予算 |
+|---|---|
+| spec-checker 実行時間 | 2,500 項目検査で 1 秒未満（S-RANK 運用想定） |
+| サイト生成 API 呼び出し | 並列化可能な部分は `Promise.all` で並列。直列で合計 60 秒未満を目安 |
+| CLI 起動時間 | 冷間起動で 300 ms 未満 |
+| メモリ | 一般的な Node.js ランタイムで 512 MB 未満 |
+
+### 12.8 Git / 開発フロー
+
+1. **ブランチ:** 既定ブランチ `main` 保護。機能追加は feature ブランチから PR。
+2. **コミットメッセージ:** Conventional Commits 風（`feat:` / `fix:` / `docs:` / `refactor:` / `chore:` / `test:`）。本文は「何を」ではなく「なぜ」。
+3. **PR ルール:**
+   - CI（`verify-all.js --fast` 相当）が全 PASS、S-RANK 維持
+   - 3 法規（SPEC / GOOGLE / GEO）の差分がある PR は `sync-spec.js --check` がクリアであること
+   - レビュアーは Opus 最新モデルに限らず、人間 or AI のレビューコメントを必ず 1 件以上取り込む
+4. **タグ:** リリースは `vMAJOR.MINOR.PATCH` で打ち、CHANGELOG に変更点を記載。
+5. **pre-push hook:** `harton/.git/hooks/pre-push` と `site-builder/.git/hooks/pre-push` は `../verify-all.js` を呼び、`FAIL > 0` または app test baseline 超過で push を拒否（絶対不変）。
+
+### 12.9 ドキュメンテーション
+
+- **README.md:** 概要・起動手順・環境変数・ライセンスの必須 4 節。
+- **CLAUDE.md（ルート）:** 本仕様書・3 法規・運用フローの参照ガイド（HARTON/CLAUDE.md を参照）。
+- **JSDoc / TSDoc:** 公開 API 関数にはパラメータ・戻り値・throw 条件を記述。
+- **ADR:** 重要な設計判断（モデル固定からモデル追従への移行など）は `docs/adr/` に ADR-YYYYMMDD.md として残す。
+
+### 12.10 アクセシビリティ（アプリ UI）
+
+サイト基準（§7, WCAG 2.2）と同水準を適用:
+- キーボードのみで全操作可能
+- フォーカスリング不透明、コントラスト 4.5:1 以上
+- aria-label / aria-live を適切に付与
+- 動的更新は `aria-live="polite"` などでスクリーンリーダに通知
+- 設定画面など重要フローは reduced-motion 対応
+
+### 12.11 リリース基準
+
+リリース（npm publish / 本番デプロイ / GitHub Release）前のチェック:
+
+- [ ] `node verify-all.js` フル PASS（3 法規同期 OK / spec-checker FAIL=0 / app test baseline 以内）
+- [ ] 3 法規の version とアプリ UI / 記事の version が一致
+- [ ] CHANGELOG.md 追記
+- [ ] package.json の version 更新
+- [ ] `npm audit` 重大脆弱性なし
+- [ ] pre-push hook 健全性確認
+
+---
+
+## 13. 改版履歴
 
 | 版 | 日付 | 内容 |
 |----|------|------|
@@ -992,3 +1165,4 @@ html { scroll-behavior: smooth; }
 | 2.2 | 2026-04-12 | Google Search Central完全準拠。E-E-A-Tは品質評価枠組みであり非ランキング要因と明記。meta keywords不使用を明記。URL設計・リンクテキスト基準追加（Section 3.4, 3.5）。alt text重要性強化。canonical用途明確化。コンテンツ鮮度管理（4.5）、Search Console推奨（4.10）、UGCリンク対策（4.11）、JSレンダリング要件（4.12）追加。構造化データ→リッチリザルトの関係を明記 |
 | 2.3 | 2026-04-13 | GOOGLE-STANDARDS.md / GEO-STANDARDS.md を正式な補助基準書として統合（3法規体制）。GEO（Generative Engine Optimization, arXiv:2311.09735）の G-1〜G-6 を全AI呼び出しのシステムプロンプトと納品前検証（spec-checker 649項目）に組込み。Claude Opus 4.6 限定 / Sクラス品質保証をアプリ仕様として確定 |
 | 2.4 | 2026-04-16 | **Containing Block 汚染回避原則（Section 10.5.1.1）を新設**。`position: fixed` オーバーレイ（モバイルメニュー / モーダル / ドロワー）は `backdrop-filter` / `filter` / `transform` / `perspective` / `will-change` を持つ祖先の子孫に配置不可とする W3C CSS Positioned Layout Level 3 準拠規定を明文化。チェックリスト11.7に祖先 containing block 検証を追加。ブログページ（blog/**/*.html）を spec-checker 検証対象に追加し、静的ページと同一の S-RANK 基準で検証する |
+| **3.0** | **2026-04-16** | **メジャー改訂。§0（モデル追従原則・事実性ルール F-1〜F-6・美しいコーディング原則）を絶対法規として新設。§12（アプリ開発基準）を絶対法規としてサイト基準と共有化。§4.13 Lead Evidence Block テンプレ内に残存していた旧 Opus 4.1 価格（$15/$75）および捏造 `cite` URL（ドットドット プレースホルダ）を実 URL・verbatim 引用へ置換。3 法規合計サイズの記述を「計約 40KB」から実測値「約 73KB」へ整合。Opus 4.6 固定の記述（「Claude Opus 4.6 限定」等）を削除し、Anthropic 公式 Models overview で「most capable generally available model」と表示される現行モデルを主力とする追従方針に切替。<br>**移行時の互換性:** 既存 v2.x の納品済みサイトは再生成不要。次回更新時に §0 / §12 基準を適用。<br>**監査トレース:** 2026-04-16 の記事群修正で下流のブログ記事を Opus 4.7 / 検証済み引用へ更新済み。v3.0 は上流法規側の整合を取ったもの。 |
